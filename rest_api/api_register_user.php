@@ -93,7 +93,7 @@
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);
         } 
-
+        $output['user_name']=$user_name;
         $output['form_msg']='Record successfully inserted.';
         mysqli_close($conn);
         echo json_encode($output,JSON_PRETTY_PRINT);          

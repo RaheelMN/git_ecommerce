@@ -21,14 +21,14 @@
                             </div>
                         </li>
                         <li class="items">
-                            <button id ="home_btn"class="nav_btn">Home</button>
-                        </li>
-                        <li class="items">
-                            <button id= "products_btn" class="nav_btn">Products</button>
+                            <button id= "home_btn" class="nav_btn">Home</button>
                         </li>
                         <li class="items">
                             <button id= "register_btn" class="nav_btn">Register</button>
                         </li>
+                        <li class="items">
+                            <button id ="contact_btn"class="nav_btn">Contact</button>
+                        </li>                        
                         <li class="items cart">
                             <a id="nav_cart_btn" href="#"><i class="fa-solid fa-cart-shopping" ></i><sup id="total_cart_items"></sup></a>
                         </li>
@@ -67,7 +67,7 @@
     <!-- End of header  -->
 
     <!-- Start of Cards and Side navigation bar -->
-        <div id="container_cards_sidebar">
+        <div id="cards_modelbox">
 
             <!-- Section Header -->
             <div id="main_heading">
@@ -359,7 +359,8 @@
 
         //parameters used in determining user's current state
         const user_info={
-            user_state:"products",
+            user_state:"cards_modelbox",
+            user_last_state:"",
             user_logged:false,
             user_checkout:false,
             user_name:""
@@ -478,6 +479,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
+                        debugger;
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
@@ -485,17 +487,14 @@
                 });
         }
 
-        //Function loads cards and side navigation bar
+        //Function loads cards and side navigation bar at startup
         function load_contents(){
             load_sidenav();
             load_cards();
         }
 
-        //Function loads cards and side navigation bar 
-        function load_container_cards_sidebar(){
-            //Set user state
-            user_info.user_state = 'cards';
-            change_user_state();
+        //Function loads cards and side navigation bar when user state changes to cards_modelbox
+        function load_cards_modelbox(){
 
             //Set card_info parameter to load all cards
             cards_info.search_type='all';
@@ -589,91 +588,37 @@
         //Function to update user state
         function change_user_state(){
             switch (user_info.user_state){
-                case 'cards':
-                    //Hide Cart Table Page
-                    $('#cart_modelbox').hide();
+                
+                case 'cards_modelbox':
 
-                    //Hide Registration form
-                    $('#registration_modelbox').hide();
-
-                    //Hide Login Form
-                    $('#login_modelbox').hide();                       
-                   
-                    //Hide Payment Form
-                    $('#payment_modelbox').hide();     
-
-                    //Check if user is not logged in
-                    if(!user_info.user_logged ){
-                        //Enable Register Button in navigation bar
-                        $("#register_btn").removeClass('no_hover').prop("disabled", false);
-                         
-                        //Enable login Button in navigation bar
-                        $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
-                    }
+                    //Hide last modelbox
+                    $('#'+user_info.user_last_state).hide();    
                     
-                    //Enable Search button and input field
-                    $("#search_btn").removeClass('no_hover').prop("disabled", false);
-                    $("#input_search").removeClass('no_hover').prop("disabled", false);
-                    
-                    //Enable Cart icon in navigation bar
-                    $("#nav_cart_btn").removeClass('no_hover').prop("disabled", false);
+                    //Change navigation bar tags based on current state
+                    update_navbar_tags();                                   
 
-                    //display cards and side navigation bar
-                    $('#container_cards_sidebar').show();
+                    //display cards and side navigation bar modelbox
+                    $('#cards_modelbox').show();
                     break;
 
-                case 'cart':                   
-                    //Hide cards and side navigation bar
-                    $('#container_cards_sidebar').hide();
-
-                    //Hide Registration form
-                    $('#registration_modelbox').hide(); 
+                case "cart_modelbox":     
+                    //Hide last modelbox
+                    $('#'+user_info.user_last_state).hide();   
                     
-                    //Hide Login Form
-                    $('#login_modelbox').hide(); 
+                    //Change navigation bar tags based on current state
+                    update_navbar_tags();                                                         
 
-                    //Hide Payment Form
-                    $('#payment_modelbox').hide(); 
-
-                    //Disable Search button and input field
-                    $("#search_btn").addClass('no_hover').prop("disabled", true);
-                    $("#input_search").addClass('no_hover').prop("disabled", true);
-                    
-                    //Disable Cart icon in navigation bar
-                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true); 
-                    
-                    //Check if user is already logged in
-                    if(!user_info.user_logged ){
-                        //Enable Register Button in navigation bar
-                        $("#register_btn").removeClass('no_hover').prop("disabled", false);  
-                    }                  
-
-                    //Enable login Button in navigation bar
-                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
-
-                    //Show Cart Table Page
+                    //Show Cart modelbox
                     $('#cart_modelbox').show();
                     break;
 
-                case 'register':                  
-                    //Hide cards and side navigation bar
-                    $('#container_cards_sidebar').hide();
+                case "registration_modelbox": 
 
-                     //Hide Cart Table Page
-                     $('#cart_modelbox').hide();   
-                     
-                    //Hide Login Form
-                    $('#login_modelbox').hide();  
+                    //Hide last modelbox
+                    $('#'+user_info.user_last_state).hide();   
 
-                    //Hide Payment Form
-                    $('#payment_modelbox').hide(); 
-
-                    //Disable Search button and input field
-                    $("#search_btn").addClass('no_hover').prop("disabled", true);
-                    $("#input_search").addClass('no_hover').prop("disabled", true);
-                    
-                    //Disable Cart icon in navigation bar
-                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
+                    //Change navigation bar tags based on current state
+                    update_navbar_tags();                     
                     
                     //Disable Register Button in navigation bar
                     $("#register_btn").addClass('no_hover').prop("disabled", true);  
@@ -681,30 +626,17 @@
                     //Enable login Button in navigation bar
                     $("#login_btn").removeClass('no_hover').prop("disabled", false);                      
 
-                    //Show Registration Form
+                    //Show Registration modelbox
                     $('#registration_modelbox').show();
                     break; 
 
-                case 'login':     
-                    debugger;             
-                    //Hide cards and side navigation bar
-                    $('#container_cards_sidebar').hide();
+                case "login_modelbox":     
 
-                    //Hide Cart Table Page
-                    $('#cart_modelbox').hide();  
+                    //Hide last modelbox
+                    $('#'+user_info.user_last_state).hide();   
                     
-                    //Hide Registration Form
-                    $('#registration_modelbox').hide();     
-                    
-                    //Hide Payment Form
-                    $('#payment_modelbox').hide();                     
-                    
-                    //Disable Search button and input field
-                    $("#search_btn").addClass('no_hover').prop("disabled", true);
-                    $("#input_search").addClass('no_hover').prop("disabled", true);
-                    
-                    //Disable Cart icon in navigation bar
-                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
+                    //Change navigation bar tags based on current state
+                    update_navbar_tags();                                    
                     
                     //Disable login Button in navigation bar
                     $("#login_btn").addClass('no_hover').prop("disabled", true); 
@@ -712,74 +644,63 @@
                     //Enable Register Button in navigation bar
                     $("#register_btn").removeClass('no_hover').prop("disabled", false);  
 
-                    //Show Login Form
+                    //Show Login modelbox
                     $('#login_modelbox').show();
                     break; 
                     
-                    case 'payment':     
-                    debugger;             
-                    //Hide cards and side navigation bar
-                    $('#container_cards_sidebar').hide();
+                case "payment_modelbox": 
 
-                    //Hide Cart Table Page
-                    $('#cart_modelbox').hide();  
+                    //Hide last modelbox
+                    $('#'+user_info.user_last_state).hide(); 
+
+                    //Change navigation bar tags based on current state
+                    update_navbar_tags();                                                                           
+
+                    //Show Payment modelbox
+                    $('#payment_modelbox').show();
+                    break;                                                            
+            }
+        }
+
+        //Function to update navigation bar tags when change_user_state function is call
+        function update_navbar_tags(){
+            debugger;
+            //Check if user has currently pressed Home button in navigation bar
+            if(user_info.user_state == 'cards_modelbox'){
+
+                //Check if user has previously pressed button other than home button
+                if(user_info.user_last_state != 'cards_modelbox'){
+
+                    //Enable Search button and input field
+                    $("#search_btn").removeClass('no_hover').prop("disabled", false);
+                    $("#input_search").removeClass('no_hover').prop("disabled", false);
                     
-                    //Hide Registration Form
-                    $('#registration_modelbox').hide();     
-                                        
-                    
+                    //Enable Cart icon in navigation bar
+                    $("#nav_cart_btn").removeClass('no_hover').prop("disabled", false);
+
+                    //Check if user is not logged in
+                    if(!user_info.user_logged ){
+                        //Enable Register Button in navigation bar
+                        $("#register_btn").removeClass('no_hover').prop("disabled", false);  
+
+                        //Enable login Button in navigation bar
+                        $("#login_btn").removeClass('no_hover').prop("disabled", false);                       
+                    }   
+                }
+            //If user has currently pressed button other than home button in navigation bar
+            }else{
+
+                //Check if user has previously pressed home button
+                if(user_info.user_last_state == 'cards_modelbox'){
                     //Disable Search button and input field
                     $("#search_btn").addClass('no_hover').prop("disabled", true);
                     $("#input_search").addClass('no_hover').prop("disabled", true);
                     
                     //Disable Cart icon in navigation bar
-                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
-                    
-                    //Disable login Button in navigation bar
-                    $("#login_btn").addClass('no_hover').prop("disabled", true); 
-
-                    //Enable Register Button in navigation bar
-                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
-
-                    //Show Login Form
-                    $('#payment_modelbox').show();
-                    break;                    
-                    
-                case 'logged_in':
-                    //set user login state
-                    user_info.user_logged = true;
-                    //change navbar login logout buttons
-                    $('#login_btn').hide();
-                    $('#logout_btn').show();
-                    $('#user_name_div').text('Welcome '+user_info.user_name);
-
-                    //check if user has pressed checkout button in Cart Table
-                    if(user_info.user_checkout){
-                        alert('You have to pay for this');
-                        user_info.user_checkout=false;                                
-                    }
-
-                    //set  user state
-                    user_info.user_state = "cards";
-                    change_user_state(); 
-                    break;
-                
-                case 'logged_out':
-                    //Set user status
-                    user_info.user_logged = false;
-                    user_info.user_name="";
-                    user_info.user_checkout=false;
-                    //change navbar login logout buttons
-                    $('#login_btn').show();
-                    $('#logout_btn').hide();
-                    $('#user_name_div').text('Welcome Guest!');
-
-                    //set  user state
-                    user_info.user_state = "cards";
-                    change_user_state();  
-                    
+                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);                         
+                    }                
             }
-        }
+        } 
 
         //Function to update cart table state
         function cart_state(){
@@ -839,14 +760,26 @@
         } 
         
     //----------End of Functions Declaration Section------------     
-        
-        //load cards and side navigation bar    
+    
+    
+    //-------Start of Functions called at startup-----------
+        debugger;
+        //load cards and side navigation bar at startup   
         load_contents();
 
-        //if user has pressed products button in navigation bar
-        $('#products_btn').on('click',function(){
+        //load user's cart information in navigation bar
+        load_cart_info();
 
-            load_container_cards_sidebar();          
+    //-------End of Functions called at startup-----------    
+
+        //if user has pressed Home button in navigation bar
+        $('#home_btn').on('click',function(e){
+            e.preventDefault();
+            //Set user state
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = 'cards_modelbox';
+            change_user_state();
+            load_cards_modelbox();          
         });
 
         //if user has pressed search button in navigation bar
@@ -874,7 +807,8 @@
         //if user has pressed Registration button in navigation bar
         $('#register_btn').on('click',function(){
             //set  user state
-            user_info.user_state = "register";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "registration_modelbox";
             change_user_state();          
         });   
 
@@ -888,7 +822,8 @@
             $('#registration_form').trigger('reset'); 
 
             //set  user state
-            user_info.user_state = "cards";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "cards_modelbox";
             change_user_state();          
         });   
 
@@ -896,7 +831,8 @@
         $('#reg_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_state = "login";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "login_modelbox";
             change_user_state();              
         });  
         
@@ -1034,9 +970,33 @@
                             clear_registration_form_msgs();
 
                             //Set user status
-                            user_info.user_state="logged_in";
-                            user_info.user_name=obj.name;
-                            change_user_state();                                
+                            user_info.user_last_state=user_info.user_state;
+                            user_info.user_logged = true;
+                            user_info.user_name = data.user_name;
+                            //change navbar login logout buttons
+                            $('#login_btn').hide();
+                            $('#logout_btn').show();
+                            $('#user_name_div').text('Welcome '+user_info.user_name);
+
+                            //Disable Register Button in navigation bar
+                            $("#register_btn").addClass('no_hover').prop("disabled", true);
+                                
+                            //Disable login Button in navigation bar
+                            $("#login_btn").addClass('no_hover').prop("disabled", true);                                       
+
+                            //check if user has pressed checkout button in Cart Table
+                            if(user_info.user_checkout){
+                                //set user state
+                                user_info.user_state="payment_modelbox";
+                                change_user_state();        
+                            }else{
+                                //set  user state
+                                user_info.user_state = "cards_modelbox";
+                                change_user_state(); 
+                            }                            
+                            // user_info.user_state="logged_in";
+                            // user_info.user_name=obj.name;
+                            // change_user_state();                                
 
 
                         }
@@ -1055,7 +1015,8 @@
         $('#login_btn').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_state = "login";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "login_modelbox";
             change_user_state();          
         });   
 
@@ -1068,7 +1029,8 @@
                 user_info.user_checkout=false;
             }
             //set  user state
-            user_info.user_state = "cards";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "cards_modelbox";
             change_user_state();          
         }); 
         
@@ -1076,17 +1038,14 @@
         $('#login_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_state = "register";
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "registration_modelbox";
             change_user_state();              
         });
 
         //if user has pressed Submit button Login Form
         $('#login_submit').on('click',function(e){
-            e.preventDefault();
-
-            //set  user state
-            // user_info.user_state = "cards";
-            // change_user_state();   
+            e.preventDefault();  
 
             //clear form's field messages
             clear_login_form_msgs();
@@ -1157,10 +1116,31 @@
                             //clear form's field messages
                             clear_login_form_msgs();
 
-                            //Set user status
-                            user_info.user_state="logged_in";
-                            user_info.user_name=data.user_name;
-                            change_user_state();                             
+                            //set user login state
+                            user_info.user_logged = true;
+                            user_info.user_name = data.user_name;
+                            user_info.user_last_state=user_info.user_state;
+                            //change navbar login logout buttons
+                            $('#login_btn').hide();
+                            $('#logout_btn').show();
+                            $('#user_name_div').text('Welcome '+user_info.user_name);
+
+                            //Disable Register Button in navigation bar
+                            $("#register_btn").addClass('no_hover').prop("disabled", true);
+                                
+                            //Disable login Button in navigation bar
+                            $("#login_btn").addClass('no_hover').prop("disabled", true);                                       
+
+                            //check if user has pressed checkout button in Cart Table
+                            if(user_info.user_checkout){
+                                //set user state
+                                user_info.user_state="payment_modelbox";
+                                change_user_state();        
+                            }else{
+                                //set  user state
+                                user_info.user_state = "cards_modelbox";
+                                change_user_state(); 
+                            }                          
                         }
                     }
                 });
@@ -1182,9 +1162,19 @@
                     }
                 });   
     
+                //Set user status
+                user_info.user_logged = false;
+                user_info.user_name="";
+                user_info.user_checkout=false;
+                //change navbar login logout buttons
+                $('#login_btn').show();
+                $('#logout_btn').hide();
+                $('#user_name_div').text('Welcome Guest!');
+
                 //set  user state
-                user_info.user_state = "logged_out";
-                change_user_state();              
+                user_info.user_last_state=user_info.user_state;
+                user_info.user_state = "cards_modelbox";
+                change_user_state();          
             }
 
         });
@@ -1193,15 +1183,13 @@
 
     //--------------Cart Section-------------
 
-        //load user's cart information in navigation bar
-        load_cart_info();
-
         //if user has pressed cart button in navigation bar
         $('#nav_cart_btn').on('click',function(e){
             e.preventDefault();
 
             //Set user state
-            user_info.user_state = 'cart';
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "cart_modelbox";
             change_user_state();            
 
             //load cart table page
@@ -1211,7 +1199,10 @@
         //If user has pressed close button in cart table form
         $('#cart_close_btn').on('click',function(e){
             e.preventDefault();
-            load_container_cards_sidebar();           
+            //Set user state
+            user_info.user_state = 'cards_modelbox';
+            change_user_state();            
+            load_cards_modelbox();           
         });
 
         //If user clicks delete all checkbox in cart table form
@@ -1313,7 +1304,8 @@
         });
 
         //If user has pressed checkout button in cart table form
-        $('#cart_checkout_btn').on('click',function(){
+        $('#cart_checkout_btn').on('click',function(e){
+            e.preventDefault();
             user_info.user_checkout=true;
             //check if user is logged in
             $.ajax({
@@ -1322,14 +1314,15 @@
                 dataType:"json",
                 success: function(data){
                     debugger;
+                    user_info.user_last_state=user_info.user_state;
                     if(data.session_active){
                         user_info.user_name=data.name;
                         //set user state
-                        user_info.user_state = "payment";
+                        user_info.user_state = "payment_modelbox";
                         change_user_state();
                     }else{
                         //set user state
-                        user_info.user_state = "login";
+                        user_info.user_state = "login_modelbox";
                         change_user_state();
                     }
                 }
@@ -1340,7 +1333,175 @@
         
     //---------------End of Cart Section-------
               
+    //-------Start of Payment Form----------------------   
+
+        //if user has pressed Close button Pyament Form
+        $('#payment_close').on('click',function(e){
+
+            e.preventDefault();
+            debugger;
+            var loginstatus = user_info.user_logged;
+            //Reset user info
+            user_info.user_checkout=false;
+            // //Reset form input fields
+            // $('#registration_form').trigger('reset'); 
+
+            //set  user state
+            user_info.user_last_state=user_info.user_state;
+            user_info.user_state = "cards_modelbox";
+            change_user_state();          
+        });   
         
+        //If user has pressed Submit button in Registration form
+        // $('#reg_submit').on('click',function(e){
+
+        //     //prevent default setting 
+        //     e.preventDefault(); 
+
+        //     //clear form's field messages
+        //     clear_registration_form_msgs();
+
+        //     var form_error=false;
+
+        //     //retrive product name from input field
+        //     var user_name = $('#reg_name').val();
+
+        //     //check if User has entered name
+        //     if(user_name == ""){
+        //         $('#reg_name_msg').fadeIn('slow');
+        //         $('#reg_name_msg').text('Enter Name');
+        //         form_error = true;
+        //     }
+
+        //     //retrive user email from input field
+        //     var user_email = $('#reg_email').val();
+
+        //     //check if User has entered email
+        //     if(user_email == ""){
+        //         $('#reg_email_msg').fadeIn('slow');
+        //         $('#reg_email_msg').text('Enter Email');
+        //         form_error = true;
+        //     }
+
+        //     //retrive Password from input field
+        //     var user_password = $('#reg_password').val();
+
+        //     //check if User has entered password 
+        //     if(user_password == ""){
+        //         $('#reg_password_msg').fadeIn('slow');
+        //         $('#reg_password_msg').text('Enter Password');
+        //         form_error = true;
+        //     }
+            
+        //     //retrive Confirm Password from input field
+        //     var user_cpassword = $('#reg_cpassword').val();
+
+        //     //check if User has entered Confirm password 
+        //     if(user_cpassword == ""){
+        //         $('#reg_cpassword_msg').fadeIn('slow');
+        //         $('#reg_cpassword_msg').text('Enter Password');
+        //         form_error = true;
+        //     }else if(user_password != user_cpassword){
+        //         $('#reg_cpassword_msg').fadeIn('slow');
+        //         $('#reg_cpassword_msg').text('Password does not match');
+        //         form_error = true;                            
+        //     } 
+            
+        //     //retrive Address from input field
+        //     var user_address = $('#reg_address').val();
+
+        //     //check if User has entered address
+        //     if(user_address == ""){
+        //         $('#reg_address_msg').fadeIn('slow');
+        //         $('#reg_address_msg').text('Enter Address');
+        //         form_error = true;
+        //     } 
+
+        //     //retrive Contact from input field
+        //     var user_contact = $('#reg_contact').val();
+
+        //     //check if User has entered contact
+        //     if(user_contact == ""){
+        //         $('#reg_contact_msg').fadeIn('slow');
+        //         $('#reg_contact_msg').text('Enter Contact Number');
+        //         form_error = true;
+        //     } 
+
+        //     //check if there is no form error
+        //     if(!form_error){
+                
+        //         //convert variable to object
+        //         var obj = {name:user_name,
+        //                     email:user_email,
+        //                     password:user_password,
+        //                     address:user_address,
+        //                     contact:user_contact
+        //         };
+
+        //         //convert object to json object
+        //         var json_obj = JSON.stringify(obj);
+                    
+        //         $.ajax({
+        //             url: "http://localhost/ecommerce/rest_api/api_register_user.php",
+        //             type:"POST",
+        //             data: json_obj,
+        //             contentType: "application/json; charset=utf-8",
+        //             dataType:"json",
+        //             success: function(data){
+        //                 debugger;
+        //                 // if form field has error
+        //                 if(data.field_error){
+        //                     if(data.name.error){
+        //                         $('#reg_name_msg').text(data.name.message);
+        //                     }
+        //                     if(data.email.error){
+        //                         $('#reg_email_msg').text(data.email.message);
+        //                     } 
+        //                     if(data.password.error){
+        //                         $('#reg_password_msg').text(data.password.message);
+        //                     } 
+        //                     if(data.address.error){
+        //                         $('#reg_address_msg').text(data.address.message);
+        //                     }      
+        //                     if(data.contact.error){
+        //                         $('#reg_contact_msg').text(data.contact.message);
+        //                     }                                                                                                                                                                           
+        //                 }else if(data.form_error){
+        //                     $('#reg_form_msg').fadeIn('slow');
+        //                     $('#reg_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+        //                     setTimeout(function(){
+        //                         $('#reg_form_msg').fadeOut('slow');
+        //                     },3000);                                     
+        //                 }else{
+        //                     $('#reg_form_msg').fadeIn('slow');
+        //                     $('#reg_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+        //                     setTimeout(function(){
+        //                         $('#reg_form_msg').fadeOut('slow');
+        //                     },3000);     
+                            
+        //                     //Reset form fields
+        //                     $('#registration_form').trigger('reset');
+
+        //                     //clear form's field messages
+        //                     clear_registration_form_msgs();
+
+        //                     //Set user status
+        //                     user_info.user_state="logged_in";
+        //                     user_info.user_name=obj.name;
+        //                     change_user_state();                                
+
+
+        //                 }
+        //             }
+        //         });
+        //     }
+            
+        // });        
+                        
+        
+    //-------End of Payment Form----------------------    
+    
+
     //--------------Side Navigation Bar Section---------
 
         //if User press one of the side navigation bar brand button
