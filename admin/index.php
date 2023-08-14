@@ -247,7 +247,7 @@
                         $('#add_pimg3_msg').html('');
                         $('#add_pprice_msg').html('');
 
-                        var form_error="false";
+                        var form_error=false;
 
                         //retrive product name from input field
                         var product_name = $('#add_pname').val();
@@ -256,7 +256,7 @@
                         if(product_name == ""){
                             $('#add_pname_msg').fadeIn('slow');
                             $('#add_pname_msg').text('Enter product name');
-                            form_error = 'true';
+                            form_error = true;
                         }
 
                         //retrive product description from input field
@@ -266,7 +266,7 @@
                         if(product_desc == ""){
                             $('#add_pdesc_msg').fadeIn('slow');
                             $('#add_pdesc_msg').text('Enter product description');
-                            form_error = 'true';
+                            form_error = true;
                         }
 
                         //retrive product keyword from input field
@@ -276,7 +276,7 @@
                         if(product_keyw == ""){
                             $('#add_pkeyw_msg').fadeIn('slow');
                             $('#add_pkeyw_msg').text('Enter product keywords');
-                            form_error = 'true';
+                            form_error = true;
                         }
                         
                         //retrive brand from selectbox
@@ -286,7 +286,7 @@
                         if(product_brand == "0"){
                             $('#add_pbrand_msg').fadeIn('slow');
                             $('#add_pbrand_msg').text('Select brand for product');
-                            form_error = 'true';
+                            form_error = true;
                         }   
                         
                         //retrive category from selectbox
@@ -296,7 +296,7 @@
                         if(product_category == "0"){
                             $('#add_pcatg_msg').fadeIn('slow');
                             $('#add_pcatg_msg').text('Select category for product');
-                            form_error = 'true';
+                            form_error = true;
                         }   
                         
                         var form_data = new FormData(this);
@@ -307,7 +307,7 @@
                         if(product_img1 == ""){
                             $('#add_pimg1_msg').fadeIn('slow');
                             $('#add_pimg1_msg').text('Upload image for product');
-                            form_error = 'true';
+                            form_error = true;
                         }    
                         
                         //retrive image 2 value 
@@ -317,7 +317,7 @@
                         if(product_img2 == ""){
                             $('#add_pimg2_msg').fadeIn('slow');
                             $('#add_pimg2_msg').text('Upload image for product');
-                            form_error = 'true';
+                            form_error = true;
                         }                         
 
                         //retrive image 3 value 
@@ -327,7 +327,7 @@
                         if(product_img3 == ""){
                             $('#add_pimg3_msg').fadeIn('slow');
                             $('#add_pimg3_msg').text('Upload image for product');
-                            form_error = 'true';
+                            form_error = true;
                         }                         
                         //retrive product price from input field
                         var product_price = $('#add_pprice').val();
@@ -336,34 +336,60 @@
                         if(product_price == ""){
                             $('#add_pprice_msg').fadeIn('slow');
                             $('#add_pprice_msg').text('Enter product price');
-                            form_error = 'true';
+                            form_error = true;
                         }
 
+                        //check if there is no form error
+                        if(!form_error){
 
-                        $.ajax({
-                            url: "http://localhost/ecommerce/add_product.php",
-                            type:"POST",
-                            data: form_data,
-                            dataType:"json",
-                            contentType:false,
-                            processData:false,
-                            success: function(data){
-                                debugger;
-                                if(data.pname.status=='false'){
-                                    $('#add_pname_msg').text(data.pname.message);
-                                }
-                            //     if(data.status == "false"){
-                            //         $('#add_pform_msg').fadeIn('slow');
-                            //         $('#add_pform_msg').text(data.message);                                
-                            //     }else{
-                            //         $('#add_pform_msg').fadeIn('slow');
-                            //         $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);
-                            //         setTimeout(function(){
-                            //             $('#add_pform_msg').fadeOut('slow');
-                            //         },3000);                                   
-                            //     }
-                             }
-                        });
+                            $.ajax({
+                                url: "http://localhost/ecommerce/add_product.php",
+                                type:"POST",
+                                data: form_data,
+                                dataType:"json",
+                                contentType:false,
+                                processData:false,
+                                success: function(data){
+                                    debugger;
+                                    // if form field has error
+                                    if(data.field_error){
+                                        if(data.pname.error){
+                                            $('#add_pname_msg').text(data.pname.message);
+                                        }
+                                        if(data.pdesc.error){
+                                            $('#add_pdesc_msg').text(data.pdesc.message);
+                                        } 
+                                        if(data.pkeyw.error){
+                                            $('#add_pkeyw_msg').text(data.pkeyw.message);
+                                        } 
+                                        if(data.pimg1.error){
+                                            $('#add_pimg1_msg').text(data.pimg1.message);
+                                        }      
+                                        if(data.pimg2.error){
+                                            $('#add_pimg2_msg').text(data.pimg2.message);
+                                        } 
+                                        if(data.pimg3.error){
+                                            $('#add_pimg3_msg').text(data.pimg3.message);
+                                        } 
+                                        if(data.pprice.error){
+                                            $('#add_pprice_msg').text(data.pprice.message);
+                                        }                                                                                                                                                                              
+                                    }else if(data.form_error){
+                                        $('#add_pform_msg').fadeIn('slow');
+                                        $('#add_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                                        setTimeout(function(){
+                                            $('#add_pform_msg').fadeOut('slow');
+                                        },3000);                                     
+                                    }else{
+                                        $('#add_pform_msg').fadeIn('slow');
+                                        $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                                        setTimeout(function(){
+                                            $('#add_pform_msg').fadeOut('slow');
+                                        },3000);                                                                      
+                                    }
+                                 }
+                            });
+                        }
                         
                     });
 
@@ -439,15 +465,26 @@
                                 type:"POST",
                                 data: json_obj,
                                 success: function(data){
-                                    if(data.status == "false"){
+                                    debugger;
+                                    //if there is error in input field
+                                    if(data.field_err){
                                         $('#add_bname_msg').fadeIn('slow');
-                                        $('#add_bname_msg').text(data.message);                                
+                                        $('#add_bname_msg').text(data.bname);                                
                                     }else{
-                                        $('#add_bform_msg').fadeIn('slow');
-                                        $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);
-                                        setTimeout(function(){
-                                            $('#add_bform_msg').fadeOut('slow');
-                                        },3000);                                   
+                                        //if there is error in db 
+                                        if(data.form_err){
+                                            $('#add_bform_msg').fadeIn('slow');
+                                            $('#add_bform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
+                                            setTimeout(function(){
+                                                $('#add_bform_msg').fadeOut('slow');
+                                            },3000);                                              
+                                        }else{
+                                            $('#add_bform_msg').fadeIn('slow');
+                                            $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                                            setTimeout(function(){
+                                                $('#add_bform_msg').fadeOut('slow');
+                                            },3000);                                   
+                                        }
                                     }
                                 }
                             });
@@ -514,16 +551,25 @@
                                 type:"POST",
                                 data: json_obj,
                                 success: function(data){
-                                    if(data.status == "false"){
+                                    //if there is error in form field
+                                    if(data.field_err){
                                         $('#add_cname_msg').fadeIn('slow');
-                                        $('#add_cname_msg').text(data.message);                              
+                                        $('#add_cname_msg').text(data.cname);                              
+                                    }else if(data.form_err){
+                                        //if there is error in db
+                                        $('#add_cform_msg').fadeIn('slow');
+                                        $('#add_cform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
+                                        setTimeout(function(){
+                                            $('#add_cform_msg').fadeOut('slow');
+                                        },3000); 
                                     }else{
                                         $('#add_cform_msg').fadeIn('slow');
-                                        $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);
+                                        $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
                                         setTimeout(function(){
                                             $('#add_cform_msg').fadeOut('slow');
                                         },3000);                                   
                                     }
+                                    
                                 }
                             });
                         }

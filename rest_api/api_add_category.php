@@ -15,11 +15,15 @@
     $data = json_decode(file_get_contents("php://input"),true);
     $category_name = $data['cname'];
 
+    $output =[];
+
     //verify name
     $verify=verify($category_name,"name",20);
 
-    if($verify['status']=='false'){
-        echo json_encode($verify,JSON_PRETTY_PRINT);
+    if($verify['error']){
+        $output['field_err']=true; //is there error in input feild
+        $output['cname'] = $verify['message'];
+        echo json_encode($output,JSON_PRETTY_PRINT);
     }else{
         //sql query to check if record already exits
         $sql = "SELECT * FROM categories WHERE cname='$category_name'";
@@ -27,17 +31,25 @@
     
         //if record already exits
         if(mysqli_num_rows($result)>0){
-            echo json_encode(array('message'=>"Record already exist", "status"=>"false"),JSON_PRETTY_PRINT);
+            $output['field_err']=true; //is there error in input feild
+            $output['cname'] = "Record already exist";
+            echo json_encode($output,JSON_PRETTY_PRINT); 
         }else{
             //query to insert record in database
             $sql = "INSERT INTO categories (cname) VALUES ('$category_name')";
     
             //if query is successfully executed
             if(mysqli_query($conn,$sql)){
-                echo json_encode(array('message'=>"Record successfully inserted.", "status"=>"true"),JSON_PRETTY_PRINT);
+                $output['field_err']=false; //is there error in input feild
+                $output['form_err'] = false;//is there error in executing query
+                $output['form_msg']="Record successfully inserted.";
+                echo json_encode($output,JSON_PRETTY_PRINT);                
             }
             else {
-                echo json_encode(array('message'=>"Record not inserted", "status"=>"false"),JSON_PRETTY_PRINT);
+                $output['field_err']=false; //is there error in input feild
+                $output['form_err'] = true;//is there error in executing query
+                $output['form_msg']="Record not inserted";
+                echo json_encode($output,JSON_PRETTY_PRINT);                
             }  
         } 
     }
