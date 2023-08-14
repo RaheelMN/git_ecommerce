@@ -164,11 +164,19 @@
                                 <tbody id="cart_table_body">
                                 </tbody>
                             </table>
-                        <div class="product_row">
-                            <div class="product_close_btn_div">
-                                <button id="cart_close_btn">Close</button>
-                            </div>
-                        </div>                               
+                            <div class="product_row ">
+                                <div id = "cart_total_quantity"class="product_row_text cart_row_text">
+                                </div>
+                            </div> 
+                            <div class="product_row ">
+                                <div id = "cart_total_price"class="product_row_text cart_row_text">
+                                </div>
+                            </div>                                                        
+                            <div class="product_row">
+                                <div class="product_close_btn_div">
+                                    <button id="cart_close_btn">Close</button>
+                                </div>
+                            </div>                               
                         </div>
                     </div>
             </div>                      
@@ -195,7 +203,7 @@
                                 page_no: 1
         }
 
-        const record={
+        const product_view={
             image1: '',
             image2: '',
             image3: '',
@@ -205,6 +213,8 @@
                         op_type: "",
                         product_id:0,
                         quantity: 0,
+                        cart_changed:false,
+                        cart_empty:false,
                         records: []
         }
 
@@ -338,18 +348,44 @@
                         dataType:"json",
                         data:json_obj,
                         success:function(data){
+                            debugger;
+                            //initializing form
+                            //clearing cart table body
                             $('#cart_table_body').html('');
+                            //clearing cart message and its css
+                            $('#cart_message').removeClass('products_msg_style').text('');
+                            //clearing check box All
+                            $('#delete_all_checkbox').prop('checked',false);
+                            $('#update_all_checkbox').prop('checked',false);
+
+                            //check if there is no record in database
                             if(data.error){
                                 $('#cart_message').fadeIn('slow');
                                 $('#cart_message').addClass('products_msg_style').text(data.message);
-                                setTimeout(function(){
-                                    $('#cart_message').fadeOut('slow');
-                                },2000); 
-                                setTimeout(function(){
-                                    $('#cart_message').removeClass('products_msg_style');
-                                },2600); 
+
+                                //disable cart table buttons and checkboxes
+                                $("#update_all_checkbox").prop("disabled", true);
+                                $("#delete_all_checkbox").prop("disabled", true);
+                                $("#update_cart_btn").addClass('cart_btn_no_hover').prop("disabled", true);
+                                $("#delete_cart_btn").addClass('cart_btn_no_hover').prop("disabled", true);
+                                
+                                cart_info.cart_empty = true;
+
                             }else{
-                                $('#cart_table_body').html('');
+
+                                //Check if cart items are changed
+                                if(cart_info.cart_changed){
+                                    //reset cart changed 
+                                    cart_info.cart_changed=false;
+                                    $('#cart_message').fadeIn('slow');                                                       
+                                    $('#cart_message').addClass('products_msg_style').text('Cart updated');
+                                    setTimeout(function(){
+                                        $('#cart_message').fadeOut('slow');
+                                    },2000); 
+                                    setTimeout(function(){
+                                        $('#cart_message').removeClass('products_msg_style');
+                                    },2600);                                     
+                                }
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr class="cart_row">'+
                                                                 '<td class="cart_table_col1">'+value.p_title+'</td>'+
@@ -357,7 +393,7 @@
                                                                 '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
                                                                 '<td class="cart_cell">'+value.quantity+'</td>'+
                                                                 '<td class="cart_cell">'+value.p_price+'</td>'+
-                                                                '<td class="cart_cell">'+value.quantity*value.p_price+'</td>'+
+                                                                '<td class="cart_cell">'+value.total_cost+'</td>'+
                                                                 '<td class="cart_cell">'+
                                                                     '<input type="checkbox" class="update_checkbox" value="'+value.cart_id+'">'+ 
                                                                 '</td>'+
@@ -366,9 +402,16 @@
                                                                 '</td>'+
                                                                 +'</tr>');
                                 });
-
                             }
+                            //update cart table rows
+                            $('#cart_total_quantity').text('Total Items: '+data.num_of_items);
+                            $('#cart_total_price').text('Total Price: Rs '+data.total_price+'/-');
                             
+                            //update navigation bar cart information
+                            $('#total_cart_items').text(data.num_of_items);
+                            $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
+
+                        
                         }
                     });            
             }        
@@ -391,15 +434,35 @@
         //If user has pressed close button in cart table form
         $('#cart_close_btn').on('click',function(e){
             e.preventDefault();
+            debugger;
+            //check if cart is empty
+            if(cart_info.cart_empty){
+                //restore cart table
+                $("#update_all_checkbox").prop("disabled", false);
+                $("#delete_all_checkbox").prop("disabled", false);
+                $("#update_cart_btn").removeClass('cart_btn_no_hover').prop("disabled", false);
+                $("#delete_cart_btn").removeClass('cart_btn_no_hover').prop("disabled", false);
+                //reset cart_empty
+                cart_info.cart_empty=false;
+            }
             $('#cart_modelbox').hide();
+            
         });
 
           //If user clicks delete all checkbox in cart table form
           $('#delete_all_checkbox').on('click',function(){
             if($('#delete_all_checkbox').prop('checked')){
                 $('.delete_checkbox').prop('checked',true);
-            }else
-            $('.delete_checkbox').prop('checked',false);
+            }else{
+                $('.delete_checkbox').prop('checked',false);
+            }
+          });
+       
+        //if user clicks single delete checkbox in cart table form
+        $(document).on('click','.delete_checkbox',function(){
+            if(!$(this).prop('checked')){
+                $('#delete_all_checkbox').prop('checked',false);
+            }
           });
 
 
@@ -414,7 +477,14 @@
             });
             if(cart_info.records.length==0){
                 alert('Select atleast one checkbox to remove items.');
+
             }else if(confirm('Do you really want to remove items?')){
+
+                //check if user has any unchecked delete checkbox
+                if($('.delete_checkbox:not(:checked)').length==0){
+                    cart_info.cart_empty=true;
+                }
+
                 cart_info.op_type="delete";
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
@@ -423,12 +493,16 @@
                     dataType:"json",
                     data:json_obj,
                     success:function(data){
-                        debugger;
                         if(data.error){
-                            $('#cart_message').fadeIn(slow).text(data.message);
-                        }else{
+                            $('#cart_message').fadeIn('slow').text(data.message);
+                        }else{ 
 
-                            load_cart_table();                            
+                            //if cart is empty then cart update message is not displayed
+                            if(!cart_info.cart_empty){
+                                cart_info.cart_changed=true;  
+                            }                         
+                            load_cart_table(); 
+                            
                         }
                     }
                 });                  
@@ -445,6 +519,15 @@
           });
 
 
+        //if user clicks single update checkbox in cart table form
+        $(document).on('click','.update_checkbox',function(){
+            debugger;
+            if(!$(this).prop('checked')){
+                $('#update_all_checkbox').prop('checked',false);
+            }
+          });
+
+
           //if user has pressed update button in cart table form
           $('#update_cart_btn').on('click',function(){
 
@@ -458,7 +541,6 @@
                 var input_id = 'cart_'+id[key];
                  quantity[key]=($('#'+input_id).val());
                  cart_info.records[key]=[id[key],quantity[key]];
-                // cart_info.records[key]=[$(this).val(),($('#'+input_id).val())];
             });
             if(cart_info.records.length==0){
                 alert('Select atleast one checkbox to update items.');
@@ -472,7 +554,8 @@
                     data:json_obj,
                     success:function(data){
                         debugger;
-                        load_cart_table();                            
+                            cart_info.cart_changed=true;  
+                            load_cart_table();                        
                     }
                 });                  
             }
@@ -567,9 +650,9 @@
                         debugger;
                         if(!data.error){
                             $('#product_modelbox').show();
-                            record.image1 = data.data.p_image1;
-                            record.image2 = data.data.p_image2;
-                            record.image3 = data.data.p_image3;
+                            product_view.image1 = data.data.p_image1;
+                            product_view.image2 = data.data.p_image2;
+                            product_view.image3 = data.data.p_image3;
                             $('#product_title').html(data.data.p_title);
                             $('.image_btn').removeClass('active_image_btn');
                             $('#image1').addClass('active_image_btn');
@@ -595,11 +678,11 @@
             $(this).addClass('active_image_btn');
             var image_no = $(this).attr('id');
             if(image_no == 'image1'){
-                $('#product_image').attr('src',record.image1);
+                $('#product_image').attr('src',product_view.image1);
             }else if(image_no == 'image2'){
-                $('#product_image').attr('src',record.image2);
+                $('#product_image').attr('src',product_view.image2);
             }else{
-                $('#product_image').attr('src',record.image3);
+                $('#product_image').attr('src',product_view.image3);
             }
         });
         
@@ -621,7 +704,6 @@
                     dataType:"json",
                     data:json_obj,
                     success:function(data){
-                        debugger;
                         if(data.error){
                             $('#products_msg').fadeIn('slow');
                             $('#products_msg').addClass('products_msg_style').text(data.message);
