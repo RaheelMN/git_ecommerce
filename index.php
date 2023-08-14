@@ -30,10 +30,9 @@
                             <button id= "register_btn" class="nav_btn">Register</button>
                         </li>
                         <li class="items cart">
-                            <a><i class="fa-solid fa-cart-shopping"></i><sup>1</sup></a>
+                            <a><i class="fa-solid fa-cart-shopping"></i><sup id="total_cart_items"></sup></a>
                         </li>
-                        <li class="items cart">
-                            <a>Total Price Rs 1000/-</a>
+                        <li class="items cart" id="total_items_price">
                         </li>
 
                     </ul>
@@ -69,6 +68,7 @@
             <p id="sub_heading">Check our inventory</p>
         </div>
 
+        <!-- Product cards and side navigation bar -->
         <div id="contents">
             <div id="products">
                 <div id="products_msg">
@@ -86,6 +86,7 @@
             </div>
         </div>
 
+        <!-- Product detail page -->
         <div id="product_modelbox" class="form_modelbox">
             <div id="product_container">
                  <div id="product_contents">
@@ -231,10 +232,7 @@
                     //check if no record found
                     if(data.error){
                         $('#products_msg').fadeIn('slow');
-                        $('#products_msg').addClass('products_msg_style').text(data.message);
-                        // setTimeout(function(){
-                        //     $('#products_msg').fadeOut('slow');
-                        // },2000);                           
+                        $('#products_msg').addClass('products_msg_style').text(data.message);                         
                     }
                     else{
                         $.each(data.data,function(key, value){
@@ -258,13 +256,35 @@
                 }
 
             });
-        }        
+        }  
+        
+        //Function to initialize cart items and total price in navigation bar
+        function load_cart_info(){
+
+            var obj = {p_id:0};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    type: "POST",
+                    dataType:"json",
+                    data:json_obj,
+                    success:function(data){
+                        debugger;
+                        $('#total_cart_items').text(data.num_of_items);
+                        $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
+
+                    }
+                });
+        }
 
         //load side navigation bar with brands and categories records
         load_sidenav();
 
         //load all cards
         load_cards();
+
+        //load user's cart information in navigation bar
+        load_cart_info();
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
@@ -396,6 +416,45 @@
             e.preventDefault();
             $('#product_modelbox').hide();
         });
+
+        //if user has pressed add to cart button in product card
+        $(document).on('click','.add_product_btn',function(){
+                var product_id =$(this).data('id');
+                var obj = {p_id:product_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    type: "POST",
+                    dataType:"json",
+                    data:json_obj,
+                    success:function(data){
+                        debugger;
+                        if(data.error){
+                            $('#products_msg').fadeIn('slow');
+                            $('#products_msg').addClass('products_msg_style').text(data.message);
+                            setTimeout(function(){
+                                $('#products_msg').fadeOut('slow');
+                            },2000); 
+                            setTimeout(function(){
+                                $('#products_msg').removeClass('products_msg_style');
+                            },2600); 
+                        }
+                        else{
+                            $('#products_msg').fadeIn('slow');
+                            $('#products_msg').addClass('products_msg_style').text(data.message);
+                            setTimeout(function(){
+                                $('#products_msg').fadeOut('slow');
+                            },2000); 
+                            setTimeout(function(){
+                                $('#products_msg').removeClass('products_msg_style');
+                            },2500); 
+                            $('#total_cart_items').text(data.num_of_items);
+                            $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
+
+                        }
+                    }
+                });
+        });         
     });
 </script>
 </html>
