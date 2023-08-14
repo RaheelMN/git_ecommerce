@@ -30,7 +30,7 @@
                             <button id= "register_btn" class="nav_btn">Register</button>
                         </li>
                         <li class="items cart">
-                            <a><i class="fa-solid fa-cart-shopping"></i><sup id="total_cart_items"></sup></a>
+                            <a id="nav_cart_btn" href="#"><i class="fa-solid fa-cart-shopping" ></i><sup id="total_cart_items"></sup></a>
                         </li>
                         <li class="items cart" id="total_items_price">
                         </li>
@@ -90,7 +90,7 @@
         <div id="product_modelbox" class="form_modelbox">
             <div id="product_container">
                  <div id="product_contents">
-                    <div id="product_heading">Product's Detail</div>
+                    <div class="product_heading">Product's Detail</div>
                     <div id="product_image_container">
                         <div id="product_image_div">
                             <img src="" alt ="product image" id = "product_image">
@@ -128,13 +128,51 @@
                             <div id="product_stock" class="product_row_text"></div>
                         </div>                         
                         <div class="product_row">
-                            <div id="product_close_btn_div">
+                            <div class="product_close_btn_div">
                                 <button id="product_close_btn">Close</button>
                             </div>
                         </div>                                                                     
                     </div> 
                 </div>
             </div>
+        </div>
+
+        <!-- Cart Table -->
+        <div id ="cart_modelbox" class="form_modelbox">
+            <div id="cart_container">
+                    <div id="cart_contents">
+                        <div class="product_heading">Cart item's Detail</div>
+                        <div id="cart_message"></div>
+                        <div id="cart_body">
+                            <table id="cart_table" >
+                            <thead  style="border:1px solid black;">
+                                    <tr>
+                                        <th rowspan="2">Product Title</th>
+                                        <th rowspan="2">Product Image</th>
+                                        <th rowspan="2">Change Quantity</th>
+                                        <th rowspan="2">Quantity</th>
+                                        <th rowspan="2">Unit Cost</th>
+                                        <th rowspan="2">Total Cost</th>
+                                        <th ><input type="button" class="card_btn" value="Update" id="update_cart_btn"></th>
+                                        <th ><input type="button" class="card_btn" value="Delete" id="delete_cart_btn"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Update All <input type="checkbox" value="11" id="update_all_checkbox"></th>
+                                        <th>Delete All <input type="checkbox" value="12" id="delete_all_checkbox"></th>
+                                    </tr>                                    
+                                    </thead>
+                                <tbody id="cart_table_body">
+                                </tbody>
+                            </table>
+                        <div class="product_row">
+                            <div class="product_close_btn_div">
+                                <button id="cart_close_btn">Close</button>
+                            </div>
+                        </div>                               
+                        </div>
+                    </div>
+            </div>                      
+
         </div>
 
 
@@ -161,6 +199,13 @@
             image1: '',
             image2: '',
             image3: '',
+        }
+        
+        const cart_info = {
+                        op_type: "",
+                        product_id:0,
+                        quantity: 0,
+                        records: []
         }
 
         //Function to populate side navigation bar with brands and categories records
@@ -260,22 +305,73 @@
         
         //Function to initialize cart items and total price in navigation bar
         function load_cart_info(){
+            cart_info.op_type="refresh";
 
-            var obj = {p_id:0};
-                var json_obj = JSON.stringify(obj);
+                var json_obj = JSON.stringify(cart_info);
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                     type: "POST",
                     dataType:"json",
                     data:json_obj,
                     success:function(data){
-                        debugger;
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
                     }
                 });
         }
+
+        //Function loads cards and side navigation bar
+        function load_contents(){
+            load_sidenav();
+            load_cards();
+        }
+
+        //Function to load cart table 
+        function load_cart_table(){                
+                $('#cart_modelbox').show();
+                cart_info.op_type="table";
+                var json_obj = JSON.stringify(cart_info);
+                $.ajax({
+                        url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                        type: "POST",
+                        dataType:"json",
+                        data:json_obj,
+                        success:function(data){
+                            $('#cart_table_body').html('');
+                            if(data.error){
+                                $('#cart_message').fadeIn('slow');
+                                $('#cart_message').addClass('products_msg_style').text(data.message);
+                                setTimeout(function(){
+                                    $('#cart_message').fadeOut('slow');
+                                },2000); 
+                                setTimeout(function(){
+                                    $('#cart_message').removeClass('products_msg_style');
+                                },2600); 
+                            }else{
+                                $('#cart_table_body').html('');
+                                $.each(data.data,function(key, value){
+                                    $('#cart_table_body').append('<tr class="cart_row">'+
+                                                                '<td>'+value.p_title+'</td>'+
+                                                                '<td class="cart_cell"><img src="'+value.p_image1+'" alt="mangoes" class="cart_image"></td>'+
+                                                                '<td class="cart_cell"><input type="number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
+                                                                '<td class="cart_cell">'+value.quantity+'</td>'+
+                                                                '<td class="cart_cell">'+value.p_price+'</td>'+
+                                                                '<td class="cart_cell">'+value.quantity*value.p_price+'</td>'+
+                                                                '<td class="cart_cell">'+
+                                                                    '<input type="checkbox" class="update_checkbox" value="'+value.cart_id+'">'+ 
+                                                                '</td>'+
+                                                                '<td class="cart_cell">'+
+                                                                    '<input type="checkbox" class="delete_checkbox" value="'+value.cart_id+'">'+                                
+                                                                '</td>'+
+                                                                +'</tr>');
+                                });
+
+                            }
+                            
+                        }
+                    });            
+            }        
 
         //load side navigation bar with brands and categories records
         load_sidenav();
@@ -285,6 +381,102 @@
 
         //load user's cart information in navigation bar
         load_cart_info();
+
+        //if user has pressed cart button in navigation bar
+        $('#nav_cart_btn').on('click',function(e){
+            e.preventDefault();
+            load_cart_table();
+        });
+
+        //If user has pressed close button in cart table form
+        $('#cart_close_btn').on('click',function(e){
+            e.preventDefault();
+            $('#cart_modelbox').hide();
+        });
+
+          //If user clicks delete all checkbox in cart table form
+          $('#delete_all_checkbox').on('click',function(){
+            if($('#delete_all_checkbox').prop('checked')){
+                $('.delete_checkbox').prop('checked',true);
+            }else
+            $('.delete_checkbox').prop('checked',false);
+          });
+
+
+          //if user has pressed delete button in cart table form
+          $('#delete_cart_btn').on('click',function(){
+
+            //reset cart_info record key
+            cart_info.records=[];
+            //check if user has checked any delete checkbox
+            $('.delete_checkbox:checked').each(function(key){
+                cart_info.records[key]=$(this).val();
+            });
+            if(cart_info.records.length==0){
+                alert('Select atleast one checkbox to remove items.');
+            }else if(confirm('Do you really want to remove items?')){
+                cart_info.op_type="delete";
+                var json_obj = JSON.stringify(cart_info);
+                $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    type: "POST",
+                    dataType:"json",
+                    data:json_obj,
+                    success:function(data){
+                        debugger;
+                        if(data.error){
+                            $('#cart_message').fadeIn(slow).text(data.message);
+                        }else{
+
+                            load_cart_table();                            
+                        }
+                    }
+                });                  
+            }
+          });        
+
+
+          //If user clicks update all checkbox in cart table form
+          $('#update_all_checkbox').on('click',function(){
+            if($('#update_all_checkbox').prop('checked')){
+                $('.update_checkbox').prop('checked',true);
+            }else
+            $('.update_checkbox').prop('checked',false);
+          });
+
+
+          //if user has pressed update button in cart table form
+          $('#update_cart_btn').on('click',function(){
+
+            //clear cart_info records array
+            cart_info.records = [];
+            id=[];
+            quantity=[];
+            //check if user has checked any update checkbox
+            $('.update_checkbox:checked').each(function(key){
+                id[key]=$(this).val();
+                var input_id = 'cart_'+id[key];
+                 quantity[key]=($('#'+input_id).val());
+                 cart_info.records[key]=[id[key],quantity[key]];
+                // cart_info.records[key]=[$(this).val(),($('#'+input_id).val())];
+            });
+            if(cart_info.records.length==0){
+                alert('Select atleast one checkbox to update items.');
+            }else{
+                cart_info.op_type="update";
+                var json_obj = JSON.stringify(cart_info);
+                $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    type: "POST",
+                    dataType:"json",
+                    data:json_obj,
+                    success:function(data){
+                        debugger;
+                        load_cart_table();                            
+                    }
+                });                  
+            }
+          });
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
@@ -419,9 +611,10 @@
 
         //if user has pressed add to cart button in product card
         $(document).on('click','.add_product_btn',function(){
-                var product_id =$(this).data('id');
-                var obj = {p_id:product_id};
-                var json_obj = JSON.stringify(obj);
+                cart_info.product_id =$(this).data('id');
+                cart_info.op_type = "add";
+                cart_info.quantity = 1;
+                var json_obj = JSON.stringify(cart_info);
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                     type: "POST",
@@ -447,7 +640,7 @@
                             },2000); 
                             setTimeout(function(){
                                 $('#products_msg').removeClass('products_msg_style');
-                            },2500); 
+                            },2600); 
                             $('#total_cart_items').text(data.num_of_items);
                             $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 

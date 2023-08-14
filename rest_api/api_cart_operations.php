@@ -23,7 +23,7 @@
         return $ip;
     }
 
-    function calculate_cart(){
+    function calculate_navbar_cart_info(){
             global $conn;
             global $client_ip;
             global $output;
@@ -42,44 +42,89 @@
     }
 
     $data = json_decode(file_get_contents("php://input"),true);
-    $product_id = $data['p_id'];
-
+    $product_id = $data['product_id'];
+    $op_type = $data['op_type'];
+    $quantity= $data['quantity'];
+    $records = $data['records'];
     $output =[];
     $output['error']=false;
     $output['num_of_items']=0;
     $output['total_price']=0;
-    $client_ip = ""; get_ip_address();
-    $quantity = 0;
-
-    //retrieve ip address
     $client_ip = get_ip_address();
 
-    //check if user has opened website
-    if($product_id == 0){
-        calculate_cart();
-        echo json_encode($output,JSON_PRETTY_PRINT);
-
-    }else{
-        //check if user has already put product in cart
-        $sql = "SELECT * FROM cart_detail where ip_address = '$client_ip' and product_id = $product_id";
-        $result = mysqli_query($conn,$sql);
-        if(mysqli_num_rows($result)>0){
-            $output['error'] = true;//is there error in executing query
-            $output['message']="Product is already in cart";
-            echo json_encode($output,JSON_PRETTY_PRINT);        
-        }else{
-            $sql = "INSERT INTO cart_detail (product_id,ip_address,quantity) VALUES ($product_id,'$client_ip',$quantity)";
-            if(mysqli_query($conn,$sql)){
-                calculate_cart();
-                $output['message']="Product added to cart.";
-                echo json_encode($output,JSON_PRETTY_PRINT);
-            }
-            else {
+    switch($op_type){
+        //check if user has opened website or refreshed page
+        case 'refresh':
+            calculate_navbar_cart_info();
+            echo json_encode($output,JSON_PRETTY_PRINT);
+            break;
+        
+        case 'add':
+            //check if user has already put product in cart
+            $sql = "SELECT * FROM cart_detail where ip_address = '$client_ip' and product_id = $product_id";
+            $result = mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result)>0){
                 $output['error'] = true;//is there error in executing query
-                $output['message']="Cannot add product to cart. DB error";
+                $output['message']="Product is already in cart";
+                echo json_encode($output,JSON_PRETTY_PRINT);        
+            }else{
+                $sql = "INSERT INTO cart_detail (product_id,ip_address,quantity) VALUES ($product_id,'$client_ip',$quantity)";
+                if(mysqli_query($conn,$sql)){
+                    calculate_navbar_cart_info();
+                    $output['message']="Product added to cart.";
+                    echo json_encode($output,JSON_PRETTY_PRINT);
+                }
+                else {
+                    $output['error'] = true;//is there error in executing query
+                    $output['message']="Cannot add product to cart. DB error";
+                    echo json_encode($output,JSON_PRETTY_PRINT);
+                } 
+            }
+            break;
+
+        case 'update':
+
+                foreach($records as $value){
+                    // echo "<br>id: {$value[0]}. quantity: {$value[1]}<br>";
+                    $sql = "UPDATE cart_detail SET quantity={$value[1]} where cart_id={$value[0]}";
+                    if(!mysqli_query($conn,$sql)){
+                        $output['error'] = true;//is there error in executing query
+                        $output['message']="Cannot update record";
+                        echo json_encode($output,JSON_PRETTY_PRINT);
+                    }
+                }
+                $output['message']="Record updated.";
                 echo json_encode($output,JSON_PRETTY_PRINT);
-            } 
-        }
+            break;
+
+            case 'delete':
+                           
+                $str = implode(",",$records);
+                $sql = "DELETE FROM cart_detail WHERE cart_id IN ({$str})";
+                if(mysqli_query($conn,$sql)){
+                    $output['message']="Record deleted.";
+                    echo json_encode($output,JSON_PRETTY_PRINT);
+                }else{
+                    $output['error'] = true;//is there error in executing query
+                    $output['message']="Cannot delete record";
+                    echo json_encode($output,JSON_PRETTY_PRINT);   
+                }   
+                break;
+                
+            case 'table':
+
+                $sql = "select c.cart_id,p.p_title,p.p_image1,c.quantity,p.p_price from products p inner join cart_detail c on p.p_id = c.product_id where c.ip_address = '$client_ip'";
+                $result = mysqli_query($conn,$sql);
+                if(mysqli_num_rows($result)>0){
+                    $output['data'] = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    echo json_encode($output,JSON_PRETTY_PRINT);
+                }else {
+                    $output['error'] = true;//is there error in executing query
+                    $output['message']="No items in cart";
+                    echo json_encode($output,JSON_PRETTY_PRINT);
+                }                
+                              
+
     }
 
 ?>
