@@ -1,9 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
 
     session_start();
 
@@ -11,13 +8,14 @@
 
         //connecting with DB server
        require_once "../../include/config.php";
-        //get current user ip address
-       require_once "../../include/get_ip_address.php";
 
         //include verfication and validation functions
        require_once "../../include/validate.php";        
 
-        $user_id = $_SESSION['user_id'];       
+       //retreive user session id
+        $user_id = $_SESSION['user_id']; 
+        
+        //retreive requested data
         $data = json_decode(file_get_contents("php://input"),true);
         $user_password = $data['password'];
         $user_opassword = $data['old_password'];
@@ -49,7 +47,11 @@
         } 
 
         if($output['field_error']){
-            mysqli_close($conn); 
+
+            //close db connection
+            mysqli_close($conn);
+            
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
 
@@ -61,7 +63,11 @@
             $result=mysqli_query($conn,$sql)or die('Failed to perform db query');
 
             $output['form_msg']='Record successfully inserted.';
+
+            //close db connection
             mysqli_close($conn);
+
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);          
        
         }

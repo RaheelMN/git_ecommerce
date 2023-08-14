@@ -1,8 +1,4 @@
 <?php 
-
-    header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-
     
     session_start();
     
@@ -10,10 +6,8 @@
 
         //connecting with DB server
        require_once "../../include/config.php";        
-
-        $output =[];
-        $output['error']=false;
-        
+    
+        //retreive user id from session
         $user_id = $_SESSION['user_id'];
 
         //delete account from db

@@ -1,38 +1,39 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
-   
+ 
     session_start();
     
     if(isset($_SESSION['user_id'])){
         
         //connecting with DB server
-       require_once "../../include/config.php";
+        require_once "../../include/config.php";
     
         //include verfication and validation functions
-       require_once "../../include/validate.php";
+        require_once "../../include/validate.php";
 
-        $user_id = $_SESSION['user_id'];       
+        //retrieve user id from session
+        $user_id = $_SESSION['user_id']; 
+        
+        //retreive requested data
         $data = json_decode(file_get_contents("php://input"),true);
         $user_name = $data['name'];
         $user_email = $data['email'];
         $user_address = $data['address'];
         $user_contact = $data['contact'];
     
+        //initialize output
         $output =[];
         $output['field_error']=false;
         $output['form_error']=false;
     
-        // //verify user name
+        //verify user name
         $output['name']=verify($user_name,"name",50);
         if($output['name']['error']){
             $output['field_error'] = true;
         }
         
-        // //verify email
+        //verify email
         $output['email'] = verify($user_email,'email',255);
         if($output['email']['error']){
             $output['field_error']=true;    
@@ -66,8 +67,13 @@
             $output['field_error'] = true;
         }  
         
+        //if form has field error
         if($output['field_error']){
+
+            //close db connection
             mysqli_close($conn); 
+
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
     
@@ -76,7 +82,11 @@
             $result=mysqli_query($conn,$sql)or die('Failed to pefrom db query');
     
             $output['form_msg']='Record successfully inserted.';
+
+            //close db connection
             mysqli_close($conn);
+
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);          
     
         }

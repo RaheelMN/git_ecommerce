@@ -19,8 +19,8 @@
     $output=[];
     $output['error']=false;
 
-    //sql query to fetch order details
-    $sql = "SELECT * FROM view_order_details";
+    $sql = "SELECT p_id, p_title, p_image1, p_price,purchased,`stock`,`status`
+      FROM products INNER JOIN inventory ON p_id=product_id ";
     $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
     if(mysqli_num_rows($result)>0){

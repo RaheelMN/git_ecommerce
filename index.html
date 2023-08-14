@@ -30,6 +30,7 @@
                                 <button id ="contact_btn"class="nav_btn">Contact</button>
                             </li>                        
                             <li class="items cart">
+                                <!-- <a id="nav_cart_btn" href="#"><i id ="nav_cart_img"></i><sup id="total_cart_items"></sup></a> -->
                                 <a id="nav_cart_btn" href="#"><i class="fa-solid fa-cart-shopping" ></i><sup id="total_cart_items"></sup></a>
                             </li>
                             <li class="items cart_font" id="total_items_price">
@@ -305,7 +306,6 @@
                                         <li id="user_change_password" class="user_sidenav_btn">Change Password</li>
                                         <li id="user_delete_account" class="user_sidenav_btn">Delete Account</li>
                                         <li id="user_my_orders" class=" user_sidenav_btn">My Orders</li>
-                                        <li id="user_pending_orders" class="user_sidenav_btn">Pending Orders</li>
                                     </ul>
                                 </div>
                         </div>
@@ -314,14 +314,14 @@
                         <div id="user_contents_div">
                             <div id="user_content_container">
 
-                                <!-- Start of Pending orders modelbox -->
-                                    <div id = "user_pending_modelbox">
+                                <!-- Start of Profile default modelbox -->
+                                    <div id = "profile_default_modelbox">
                                         <div id="user_msg"></div>
                                     </div>
-                                <!-- End of Pending orders modelbox -->
+                                <!-- End of Profile default modelbox -->
 
                                 <!-- Start of User's Edit Profile modelbox -->
-                                    <div id="user_edit_profile_modelbox">
+                                    <div id="edit_profile_modelbox">
                                         <div class="form_linebreak"></div>           
                                         <div class="form_div">
                                             <form action="" id="user_edit_profile_form">
@@ -530,6 +530,31 @@
 
         <!-- End of User profile section -->
 
+
+        <!-- Start of Success Message box -->
+            <div id="success_msg_modelbox">
+                <div id="success_msg_form">
+                    <form action="" class="form">
+                        <div class="form_header">
+                            <h3 id="success_header"></h3>                   
+                        </div>
+                        <div class="form_body">
+                            <div class="form_linebreak"></div>
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <div class="field_name" id = "success_msg"></div>
+                            </div>    
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <button class="form_btn" id="success_close">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+                    
+        <!-- ----End of Success Message Modelbox--- -->         
+
         <!--Start of Section Footer -->
             <Footer>
                 <p>&copy;2023. E-Commerce. All rights reserved</p>
@@ -576,9 +601,9 @@
             last_modelbox:"",
             active_button:"home_btn",
             last_button:"",
-            active_profile_modelbox:"order_pending_modelbox",
+            active_profile_modelbox:"profile_default_modelbox",
             last_profile_modelbox:"",
-            active_profile_button:"order_pending_btn",
+            active_profile_button:"",
             last_profile_button:"",
             user_checkout:false,
             user_name:""
@@ -704,7 +729,7 @@
         }        
         
         //Function to initialize cart items and total price in navigation bar
-        function load_cart_info(){
+        function load_navbar_cart_info(){
             cart_info.op_type="refresh";
 
                 var json_obj = JSON.stringify(cart_info);
@@ -715,6 +740,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
+
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
@@ -729,7 +755,23 @@
         }
 
         //Function loads cards and side navigation bar when user state changes to cards_modelbox
-        function load_cards_modelbox(){
+        function load_default_index_page(){
+
+            //------Start of Set User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = 'cards_modelbox';
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
+            user_info.active_button = "home_btn";
+            change_navbar_button();
+
+            //---------End of Set User State---------- 
+
+            //---------Start of Set Default contents-------
 
             //Set card_info parameter to load all cards
             cards_info.search_type='all';
@@ -740,9 +782,15 @@
             //Update sub heading 
             $("#sub_heading").text('Check our inventory');
 
+            //reset active button of index page side navigation bar
+            reset_index_sidebar();
+        }
+
+        //this function reset side navigation bar of index page
+        function reset_index_sidebar(){
             //clear previously active sidebar item
             $('#side_nav input').removeClass('active_side_bar');                
-        }
+        }        
 
         //Function to load cart table 
         function load_cart_table(){                
@@ -759,7 +807,7 @@
 
                             //set cart state
                             cart_info.status = 'startup';
-                            cart_state();  
+                            change_cart_state();  
 
                             //check if there is no record in database
                             if(data.error){
@@ -768,18 +816,21 @@
 
                                 //set cart state
                                 cart_info.status = 'noitem';
-                                cart_state();
+                                change_cart_state();
 
                             }else{   
                                 
                                 //set cart state
                                 cart_info.status = 'items';
-                                cart_state();                                
+                                change_cart_state();                                
 
                                 //Check if cart items are changed
                                 if(cart_info.cart_changed){
+
                                     //reset cart changed flag
                                     cart_info.cart_changed=false;
+
+                                    //display message
                                     $('#cart_message').fadeIn('slow');                                                       
                                     $('#cart_message').addClass('table_msg_style').text('Cart updated');
                                     setTimeout(function(){
@@ -790,6 +841,7 @@
                                     },2600);                                     
                                 }
 
+                                //populate cart table
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr>'+
                                                                 '<td class="left_align">'+(key+1)+'</td>'+
@@ -808,6 +860,7 @@
                                                                 +'</tr>');
                                 });
                             }
+
                             //update cart table rows
                             $('#cart_total_quantity').text('Total Items: '+data.num_of_items);
                             $('#cart_total_price').text('Total Price: Rs '+data.total_price+'/-');
@@ -838,6 +891,7 @@
 
         }
 
+        // This function changes modelbox based on navigation bar buttons 
         function change_navbar_modelbox(){
 
             //Hide last modelbox
@@ -847,6 +901,7 @@
             $('#'+user_info.active_modelbox).show();            
         } 
         
+        // This function changes navigation bar buttons css 
         function change_navbar_button(){         
                                     
             //Deactivate previous navbar button
@@ -854,24 +909,7 @@
 
             //Activate Current navbar button
             $('#'+user_info.active_button).addClass("nav_active_btn");           
-        }        
-
-        //Function to update user state
-        function change_user_profile_state(){
-
-            //Hide last profile modelbox
-            $('#'+user_info.last_profile_modelbox).hide();                                          
-
-            //Deactivate previous navbar button
-            $('#'+user_info.last_profile_button).removeClass("user_active_btn");
-
-            //Activate Current navbar button
-            $('#'+user_info.active_profile_button).addClass("user_active_btn");
-
-            //display current modelbox
-            $('#'+user_info.active_profile_modelbox).show();            
-
-        }   
+        }         
 
         //Function to update navigation bar tags when user login or logout
         function update_navbar_tags(optype){
@@ -905,7 +943,7 @@
         } 
 
         //Function to update cart table state
-        function cart_state(){
+        function change_cart_state(){
             switch (cart_info.status){
                 case 'startup':
 
@@ -998,9 +1036,80 @@
 
             });
         }
-        
 
-     //This function work on user's pending orders 
+        
+        //This function set sets user profile state to default setting
+        function default_user_profile_state(){
+
+            // change user profile modelbox 
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "profile_default_modelbox";
+            change_profile_modelbox();
+
+            // reset profile button
+            reset_profile_active_btn();
+
+            //load pending order information in default modelbox           
+            user_pending_status(); 
+        }
+
+        // This function reset profile active button 
+        function reset_profile_active_btn(){
+
+            //Deactivate Current profile button
+            if(user_info.active_profile_button != ""){
+
+                $('#'+user_info.active_profile_button).removeClass("user_active_btn"); 
+            }
+        }
+
+        // This function changes profile modelbox 
+        function change_profile_modelbox(){
+
+            //if last profile modelbox is not empty
+            if(user_info.last_profile_modelbox != ""){
+
+                //Hide last profile modelbox
+                $('#'+user_info.last_profile_modelbox).hide();                                          
+            }
+
+            //display current modelbox
+            $('#'+user_info.active_profile_modelbox).show();            
+        }
+
+        // This function changes profile active button
+        function change_profile_active_btn(){
+
+            //check if user has previously pressed profile buttons
+            if(user_info.last_profile_button != ""){
+                
+                //Deactivate previous navbar button
+                $('#'+user_info.last_profile_button).removeClass("user_active_btn");
+            }
+
+            //Activate Current navbar button
+            $('#'+user_info.active_profile_button).addClass("user_active_btn");        
+        }        
+
+        //Function to update user state
+        function change_user_profile_state(){
+
+            //Hide last profile modelbox
+            $('#'+user_info.last_profile_modelbox).hide();                                          
+
+            //Deactivate previous navbar button
+            $('#'+user_info.last_profile_button).removeClass("user_active_btn");
+
+            //Activate Current navbar button
+            $('#'+user_info.active_profile_button).addClass("user_active_btn");
+
+            //display current modelbox
+            $('#'+user_info.active_profile_modelbox).show();            
+
+        }  
+
+
+        //This function work on user's pending orders 
         function user_pending_status(){
             $.ajax({
                 url:"./rest_api/user/api_pending_orders_status.php",
@@ -1013,31 +1122,59 @@
             });
         }
 
+
+        // This function reset profile edit form 
+        function reset_edit_profile_form(){
+            //Reset form fields
+            $('#user_edit_profile_form').trigger('reset');
+
+            //clear form's field messages
+            clear_edit_profile_form_msgs();
+        }
+
         // This function clear all error messages of Edit user profile modelbox
         function clear_edit_profile_form_msgs(){
             $('#edit_user_name_msg').text('');
             $('#edit_user_email_msg').text('');
             $('#edit_user_address_msg').text('');
             $('#edit_user_contact_msg').text('');
-        }     
+        } 
+        
+        // This function reset profile password form 
+        function reset_profile_password_form(){
+
+            //Reset form fields
+            $('#user_change_password_form').trigger('reset');            
+
+            //clear form's field messages
+            clear_password_form_msgs();
+        }
+        
+        //this function reset profile's confirm order form
+        function reset_confirm_order_form(){
+
+        // reset confirm_order_form fields
+        $('#confirm_order_form').trigger('reset');
+
+        //clear form messages
+        clear_confirm_order_form_msgs();
+
+        }
+
+        //clear profile's confirm order form messages
+        function clear_confirm_order_form_msgs(){
+            //clear select payment mode error message from confirm order form
+            $('#sel_pay_or_form_msg').text('');
+
+        }
+
 
         // This function clear all error messages of Change user password modelbox
-        function clear_user_change_password_form_msgs(){
+        function clear_password_form_msgs(){
             $('#edit_user_opassword_msg').text('');
             $('#edit_user_password_msg').text('');
             $('#edit_user_cpassword_msg').text('');
-        }  
-
-        //This function set sets user profile state to default setting
-        function default_user_profile_state(){
-            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-            user_info.active_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_pending_orders";              
-            change_user_profile_state();                        
-            user_pending_status(); 
-        }
-        
+        }          
 
         //This function loads user orders into user order modelbox
         function load_user_order_table(){
@@ -1109,9 +1246,15 @@
                 type:"GET",
                 success:function(){
                     //Reset cart information in navigation bar
-                    load_cart_info();
+                    load_navbar_cart_info();
                 }
             });
+        }
+
+        // This function remove CSS from active navigation bar button 
+        function reset_active_navbar_btn(){
+            //Deactivate Current navbar button
+            $('#'+user_info.active_button).removeClass("nav_active_btn");
         }
 
 
@@ -1124,7 +1267,7 @@
         load_contents();
 
         //load user's cart information in navigation bar
-        load_cart_info();
+        load_navbar_cart_info();
 
         //Check if user is already logged in
         check_user_session();
@@ -1135,21 +1278,9 @@
         $('#home_btn').on('click',function(e){
             e.preventDefault();
 
-            //------Start of change User State----------
+            //Display default contents of index page
+           load_default_index_page();  
 
-            //change navigation bar modelbox
-            user_info.last_modelbox=user_info.active_modelbox;
-            user_info.active_modelbox = 'cards_modelbox';
-            change_navbar_modelbox();
-
-            //change navigation bar button
-            user_info.last_button = user_info.active_button;
-            user_info.active_button = "home_btn";
-            change_navbar_button();
-
-            //---------End of Change User State---------- 
-
-            load_cards_modelbox();          
         });
 
         //if user has pressed search button in navigation bar
@@ -1193,6 +1324,16 @@
             load_cards();
         });
 
+        // if user press close button in Success Message modelbox 
+        $('#success_close').on('click',function(e){
+            e.preventDefault();
+
+            //enable body tag scrollbar
+            $('body').removeClass('hide_scroll');
+
+            //hide success message modelbox
+            $('#success_msg_modelbox').hide();
+        });  
 
     //-------Start of Registration Section----------------------   
 
@@ -1213,23 +1354,12 @@
         });   
 
         //if user has pressed Close button Registration Form
-        $('#reg_close_btn').on('click',function(e){
+        $('#reg_close').on('click',function(e){
 
             e.preventDefault();
-
-            //------Start of change User State----------
-
-            //change navigation bar modelbox
-            user_info.last_modelbox=user_info.active_modelbox;
-            user_info.active_modelbox = 'cards_modelbox';
-            change_navbar_modelbox();
-
-            //change navigation bar button
-            user_info.last_button = user_info.active_button;
-            user_info.active_button = "home_btn";
-            change_navbar_button();
-
-            //---------End of Change User State----------  
+            
+            //Display default contents of index page
+            load_default_index_page();               
  
             //if user has pressed checkout button in cart table then cancel payement
             user_info.user_checkout=false;
@@ -1343,7 +1473,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function(data){
-                        debugger;
+
                         // if form field has error
                         if(data.field_error){
                             if(data.name.error){
@@ -1373,6 +1503,9 @@
 
                             //check if user has pressed checkout button in Cart Table
                             if(user_info.user_checkout){  
+
+                                //reset user info checkout property
+                                user_info.user_checkout=false;
 
                                 //add user order
                                 add_user_order();                                                               
@@ -1441,19 +1574,8 @@
         $('#login_close').on('click',function(e){
             e.preventDefault();
 
-            //------Start of change User State----------
-
-            //change navigation bar modelbox
-            user_info.last_modelbox=user_info.active_modelbox;
-            user_info.active_modelbox = 'cards_modelbox';
-            change_navbar_modelbox();
-
-            //change navigation bar button
-            user_info.last_button = user_info.active_button;
-            user_info.active_button = "home_btn";
-            change_navbar_button();
-
-            //---------End of Change User State----------  
+            //Display default contents of index page
+            load_default_index_page();              
  
             //if user has pressed checkout button in cart table then cancel payement
             user_info.user_checkout=false;
@@ -1548,6 +1670,9 @@
                             //check if user has pressed checkout button in Cart Table
                             if(user_info.user_checkout){  
 
+                                //reset user info checkout property
+                                user_info.user_checkout=false;
+
                                 //add user order
                                 add_user_order();                                                                
 
@@ -1599,26 +1724,12 @@
                     success: function(data){
                         if(!data.error){
 
-                            //------Start of change User State----------
-
-                            //reset user info
-                            user_info.user_name="";
-                            user_info.user_checkout=false;
-            
                             //change navbar tags
                             update_navbar_tags('logged_out');
 
-                            //change navigation bar modelbox
-                            user_info.last_modelbox=user_info.active_modelbox;
-                            user_info.active_modelbox = 'cards_modelbox';
-                            change_navbar_modelbox();
-
-                            //change navigation bar button
-                            user_info.last_button = user_info.active_button;
-                            user_info.active_button = "home_btn";
-                            change_navbar_button();
-
-                            //---------End of Change User State----------                     
+                            //Display default contents of index page
+                            load_default_index_page();                              
+                    
                         }
                     }
                 });   
@@ -1633,10 +1744,16 @@
 
         //if user has pressed add to cart button in product card
         $(document).on('click','.add_product_btn',function(){
+
+                //set cart info object
                 cart_info.product_id =$(this).data('id');
                 cart_info.op_type = "add";
                 cart_info.quantity = 1;
+
+                //Convert object to json object
                 var json_obj = JSON.stringify(cart_info);
+
+                //call ajax to add cart record
                 $.ajax({
                     url:"./rest_api/user/api_cart_operations.php",
                     type: "POST",
@@ -1644,7 +1761,9 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        if(data.error){
+
+                        //if product is already in cart
+                        if(!data.error){
                             $('#products_msg').fadeIn('slow');
                             $('#products_msg').addClass('table_msg_style').text(data.message);
                             setTimeout(function(){
@@ -1663,6 +1782,8 @@
                             setTimeout(function(){
                                 $('#products_msg').removeClass('table_msg_style');
                             },2600); 
+
+                            //update navigation bar cart info
                             $('#total_cart_items').text(data.num_of_items);
                             $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
@@ -1675,12 +1796,19 @@
         $('#nav_cart_btn').on('click',function(e){
             e.preventDefault();
 
-            //Set user state
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
             user_info.last_modelbox=user_info.active_modelbox;
             user_info.active_modelbox = "cart_modelbox";
-            user_info.last_button=user_info.active_button;
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
             user_info.active_button = "nav_cart_btn";
-            change_user_state();            
+            change_navbar_button();            
+
+            //---------End of Change User State----------    
 
             //load cart table page
             load_cart_table();
@@ -1703,37 +1831,45 @@
         });
 
         //if user has pressed delete button in cart table form
-        $('#delete_cart_btn').on('click',function(){
-        //reset cart_info record key
-        cart_info.records=[];
-        //check if user has checked any delete checkbox
-        $('.delete_checkbox:checked').each(function(key){
-            cart_info.records[key]=$(this).val();
-        });
-        if(cart_info.records.length==0){
-            alert('Select atleast one checkbox to remove items.');
+        $('#delete_cart_btn').on('click',function(e){
 
-        }else if(confirm('Do you really want to remove items?')){
+            e.preventDefault();
 
+            //reset cart_info records array
+            cart_info.records=[];
 
-            cart_info.op_type="delete";
-            var json_obj = JSON.stringify(cart_info);
-            $.ajax({
-            url:"./rest_api/user/api_cart_operations.php",
-                type: "POST",
-                data:json_obj,
-                contentType: "application/json; charset=utf-8",
-                dataType:"json",
-                success:function(data){
-                    if(data.error){
-                        $('#cart_message').fadeIn('slow').text(data.message);
-                    }else{ 
-                        cart_info.cart_changed=true;                        
-                        load_cart_table();                         
+            //check if user has checked any delete checkbox
+            $('.delete_checkbox:checked').each(function(key){
+                cart_info.records[key]=$(this).val();
+            });
+            if(cart_info.records.length==0){
+                alert('Select atleast one checkbox to remove items.');
+
+            }else if(confirm('Do you really want to remove items?')){
+
+                //set  cart info operation type 
+                cart_info.op_type="delete";
+
+                //convert cart info object to json object
+                var json_obj = JSON.stringify(cart_info);
+
+                $.ajax({
+                url:"./rest_api/user/api_cart_operations.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(!data.error){
+                            //set cart info status to changed
+                            cart_info.cart_changed=true;
+                            
+                            //load updated cart table
+                            load_cart_table();                         
+                        }
                     }
-                }
-            });                  
-        }
+                });                  
+            }
         });        
 
         //If user clicks update all checkbox in cart table form
@@ -1752,42 +1888,65 @@
         });
 
         //if user has pressed update button in cart table form
-        $('#update_cart_btn').on('click',function(){
+        $('#update_cart_btn').on('click',function(e){
 
-        //clear cart_info records array
-        cart_info.records = [];
-        var id=0;
-        var quantity=0;
-        //check if user has checked any update checkbox
-        $('.update_checkbox:checked').each(function(key){
-            id=$(this).val();
-            let input_id = 'cart_'+id;
-            quantity=($('#'+input_id).val());
-            cart_info.records[key]=[id,quantity];
-        });
-        if(cart_info.records.length==0){
-            alert('Select atleast one checkbox to update items.');
-        }else{
-            cart_info.op_type="update";
-            var json_obj = JSON.stringify(cart_info);
-            $.ajax({
-            url:"./rest_api/user/api_cart_operations.php",
-                type: "POST",
-                data:json_obj,
-                contentType: "application/json; charset=utf-8",
-                dataType:"json",
-                success:function(data){
+            e.preventDefault();
+
+            //clear cart_info records array
+            cart_info.records = [];
+
+            var id=0;
+            var quantity=0;
+            //check if user has checked any update checkbox
+            $('.update_checkbox:checked').each(function(key){
+
+                //retrieve item id
+                id=$(this).val();
+
+                //retreive item quantity
+                let input_id = 'cart_'+id;
+                quantity=($('#'+input_id).val());
+
+                //store both info in records array
+                cart_info.records[key]=[id,quantity];
+            });
+
+            //if user has not checked any update checkbox
+            if(cart_info.records.length==0){
+                alert('Select atleast one checkbox to update items.');
+            }else{
+
+                //set cart info operation type to update
+                cart_info.op_type="update";
+
+                //convert cart info object to json object
+                var json_obj = JSON.stringify(cart_info);
+
+                $.ajax({
+                url:"./rest_api/user/api_cart_operations.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+
+                        // set cart info status 
                         cart_info.cart_changed=true;  
+
+                        //load updated cart table
                         load_cart_table();                        
-                }
-            });                  
-        }
+                    }
+                });                  
+            }
         });
 
         //If user has pressed checkout button in cart table form
         $('#cart_checkout_btn').on('click',function(e){
             e.preventDefault();
+
+            //set user info checkout property
             user_info.user_checkout=true;
+
             //check if user is logged in
             $.ajax({
                 url: "./rest_api/user/api_session_status.php",
@@ -1798,9 +1957,12 @@
                     //if user is logged in then
                     if(data.session_active){
 
+                        //reset user info checkout property
+                        user_info.user_checkout=false;
+
                         //------Start of change User State---------- 
 
-                        //add user order
+                        //add user order to database and clear cart table
                         add_user_order();    
 
                         //change navigation bar modelbox
@@ -1842,13 +2004,9 @@
         //If user has pressed continue shopping button in cart table form
         $('#cart_continue_shopping').on('click',function(e){
             e.preventDefault();
-            //Set user state
-            user_info.last_modelbox=user_info.active_modelbox;
-            user_info.active_modelbox = 'cards_modelbox';
-            user_info.last_button = user_info.active_button;
-            user_info.active_button = "home_btn";            
-            change_user_state();
-            load_cards_modelbox();    
+
+            //Display default contents of index page
+           load_default_index_page();    
 
         });        
         
@@ -1858,45 +2016,51 @@
     //---------Start of Side Navigation Bar Section---------
 
         //if User press one of the side navigation bar brand button
-        $(document).on('click','.side_nav_brand_btn',function(){
+        $(document).on('click','.side_nav_brand_btn',function(e){
 
-            //Deactivate Current navbar button
-            $('#'+user_info.active_button).removeClass("nav_active_btn");
+            e.preventDefault();
 
-            cards_info.search_type='brand';
-            cards_info.search_term=$(this).data('id');
-            cards_info.page_no=1;
-            load_cards();
-
-            //Update sub heading with selected brand information
-            $("#sub_heading").text('Brand: '+$(this).val());
+            //Deactivate active navbar button
+            reset_active_navbar_btn();
 
             //clear previously active sidebar item
             $('#side_nav input').removeClass('active_side_bar'); 
 
             //Make selected brand active
             $(this).addClass('active_side_bar'); 
+
+            //Update sub heading with selected brand information
+            $("#sub_heading").text('Brand: '+$(this).val());
+
+            //set cards info object
+            cards_info.search_type='brand';
+            cards_info.search_term=$(this).data('id');
+            cards_info.page_no=1;
+
+            //load brand specific cards
+            load_cards();
         });
 
         //if User press one of the side navigation bar cateogry button
         $(document).on('click','.side_nav_category_btn',function(){
 
-            //Deactivate Current navbar button
-            $('#'+user_info.active_button).removeClass("nav_active_btn");
-
-            cards_info.search_type='category';
-            cards_info.search_term=$(this).data('id');
-            cards_info.page_no=1;
-            load_cards();
-
-            //Update sub heading with selected category information
-            $("#sub_heading").text('Category: '+$(this).val());
+            //Deactivate active navbar button
+            reset_active_navbar_btn();
 
             //clear previously active sidebar item
             $('#side_nav input').removeClass('active_side_bar');
 
             //Make selected category active
             $(this).addClass('active_side_bar'); 
+
+            //Update sub heading with selected category information
+            $("#sub_heading").text('Category: '+$(this).val());
+
+            //set cards info object
+            cards_info.search_type='category';
+            cards_info.search_term=$(this).data('id');
+            cards_info.page_no=1;
+            load_cards();
         }); 
         
 
@@ -1906,8 +2070,14 @@
 
         //if user has pressed view button in product card
         $(document).on('click','.view_product_btn',function(){
+
+                //retreive product id
                 var product_id =$(this).data('id');
+
+                //create object with product id as property
                 var obj = {product_id:product_id};
+
+                //convert object to json form
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
                     url:"./rest_api/user/api_fetch_single_product.php",
@@ -1917,22 +2087,24 @@
                     dataType:"json",
                     success:function(data){
 
-                        if(!data.error){
-                            $('#product_modelbox').show();
-                            product_view.image1 = data.p_image1;
-                            product_view.image2 = data.p_image2;
-                            product_view.image3 = data.p_image3;
-                            $('#product_title').html(data.p_title);
-                            $('.image_btn').removeClass('active_image_btn');
-                            $('#image1').addClass('active_image_btn');
-                            $('#product_image').attr('src',data.p_image1);
-                            $('#product_desc').html(data.p_description);
-                            $('#product_brand').html(data.brand);
-                            $('#product_category').html(data.category);
-                            $('#product_price').html('Rs: '+data.p_price+'/-');
-                            $('#product_stock').html(data.stock);
+                        //diplay product modelbox
+                        $('#product_modelbox').show();
 
-                        }
+                        //save images path in product_view object
+                        product_view.image1 = data.p_image1;
+                        product_view.image2 = data.p_image2;
+                        product_view.image3 = data.p_image3;
+
+                        //set page tags
+                        $('#product_title').html(data.p_title);
+                        $('.image_btn').removeClass('active_image_btn');
+                        $('#image1').addClass('active_image_btn');
+                        $('#product_image').attr('src',data.p_image1);
+                        $('#product_desc').html(data.p_description);
+                        $('#product_brand').html(data.brand);
+                        $('#product_category').html(data.category);
+                        $('#product_price').html('Rs: '+data.p_price+'/-');
+                        $('#product_stock').html(data.stock_status);
                     }
                 });
         }); 
@@ -1940,9 +2112,17 @@
         //if user has pressed image button in product detail form
         $('.image_btn').on('click',function(e){
             e.preventDefault();
+
+            //reset image buttons CSS
             $('.image_btn').removeClass('active_image_btn');
+
+            //Change active button CSS
             $(this).addClass('active_image_btn');
+
+            //Retrive image id of button pressed
             var image_no = $(this).attr('id');
+
+            //match id with product view property and set corresponding image
             if(image_no == 'image1'){
                 $('#product_image').attr('src',product_view.image1);
             }else if(image_no == 'image2'){
@@ -1963,15 +2143,25 @@
 //------Start of User Profile Section--------------------
 
         //If user press user name in navigation bar
-        $('#user_name_div').on('click',function(){
-            //set  user state
+        $('#user_name_div').on('click',function(e){
+
+            e.preventDefault();
+
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
             user_info.last_modelbox=user_info.active_modelbox;
             user_info.active_modelbox = "user_modelbox";
-            user_info.last_button = user_info.active_button;
-            user_info.active_button = "user_name_div";              
-            change_user_state();  
+            change_navbar_modelbox();
 
-            //set user profile state
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
+            user_info.active_button = "user_name_div";
+            change_navbar_button();            
+
+            //---------End of Change User State----------   
+
+            //set default profile state
             default_user_profile_state();                     
         });
 
@@ -1981,31 +2171,34 @@
         $('#user_edit_profile').on('click',function(e){
             e.preventDefault();
 
-            //set user profile state
+            //---------Start of change profile state----
+
+            // change user profile modelbox 
             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-            user_info.active_profile_modelbox = "user_edit_profile_modelbox";
+            user_info.active_profile_modelbox = "edit_profile_modelbox";
+            change_profile_modelbox();
+
+            // change profile active button
             user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_edit_profile";              
-            change_user_profile_state();   
+            user_info.active_profile_button = "user_edit_profile";  
+            change_profile_active_btn();
 
-            //Reset form fields
-            $('#user_edit_profile_form').trigger('reset');
+            //---------End of change profile state----
 
-            //clear form's field messages
-            clear_edit_profile_form_msgs();
+            //reset profile's edit form
+            reset_edit_profile_form();
             
             $.ajax({
                 url:"./rest_api/user/api_fetch_user_profile.php",
                 type:"GET",
                 dataType:"json",
                 success:function(data){
-                    if(!data.error){
 
-                        $('#edit_user_name').val(data.record.user_name); 
-                        $('#edit_user_email').val(data.record.user_email);
-                        $('#edit_user_address').val(data.record.user_address);
-                        $('#edit_user_contact').val(data.record.user_contact);      
-                    }
+                    //populate form with data
+                    $('#edit_user_name').val(data.record.user_name); 
+                    $('#edit_user_email').val(data.record.user_email);
+                    $('#edit_user_address').val(data.record.user_address);
+                    $('#edit_user_contact').val(data.record.user_contact);      
                 }
             });
             
@@ -2097,25 +2290,27 @@
                             if(data.contact.error){
                                 $('#edit_user_contact_msg').text(data.contact.message);
                             }                                                                                                                                                                           
-                        }else if(data.form_error){
-                            $('#edit_user_form_msg').fadeIn('slow');
-                            $('#edit_user_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_user_form_msg').fadeOut('slow');
-                            },3000);                                     
                         }else{
-                            $('#edit_user_form_msg').fadeIn('slow');
-                            $('#edit_user_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_user_form_msg').fadeOut('slow');
-                            },3000);     
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Edit Profile');
+                            $('#success_msg').text("User's profile successfully updated");
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+
+                            //set user profile state
+                            default_user_profile_state(); 
                             
-                            //Reset form fields
-                            $('#user_edit_profile_form').trigger('reset');
+                            //update user name in user info object
+                            user_info.user_name = user_name;
 
-                            //clear form's field messages
-                            clear_edit_profile_form_msgs();
-
+                            //update user name in navigation bar
                             $('#user_name_div').text('Welcome '+user_name);                                                         
                         }
                     }
@@ -2128,15 +2323,10 @@
         //if user has pressed Close button Edit User Profile form 
         $('#edit_user_close').on('click',function(e){
 
-            e.preventDefault();
+            e.preventDefault();                       
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-            user_info.active_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_pending_orders";              
-            change_user_profile_state();                        
-            user_pending_status();        
+            default_user_profile_state();                   
         });         
                       
         
@@ -2150,18 +2340,23 @@
 
             e.preventDefault();
 
-            //Reset form fields
-            $('#user_change_password_form').trigger('reset');
+            //---------Start of change profile state----
 
-            //clear form's field messages
-            clear_user_change_password_form_msgs();
-
-            //set user profile state
+            // change user profile modelbox 
             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
             user_info.active_profile_modelbox = "user_change_password_modelbox";
+            change_profile_modelbox();
+
+            // change profile active button
             user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_change_password";              
-            change_user_profile_state();                                               
+            user_info.active_profile_button = "user_change_password";  
+            change_profile_active_btn();
+
+            //---------End of change profile state----            
+
+            //reset profile's password form
+            reset_profile_password_form();
+                                            
         });  
         
 
@@ -2171,7 +2366,7 @@
             e.preventDefault();
 
             //clear form's field messages
-            clear_user_change_password_form_msgs();            
+            clear_password_form_msgs();            
 
             var form_error = false;
 
@@ -2238,31 +2433,27 @@
                                 $('#edit_user_opassword_msg').text(data.old_password.message);
                             }
 
-                        }else if(data.form_error){
-                            $('#edit_user_cform_msg').fadeIn('slow');
-                            $('#edit_user_cform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_user_cform_msg').fadeOut('slow');
-                            },3000);                                     
                         }else{
-                            $('#edit_user_cform_msg').fadeIn('slow');
-                            $('#edit_user_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_user_cform_msg').fadeOut('slow');
-                            },3000);     
-                            
-                            //Reset form fields
-                            $('#user_change_password_form').trigger('reset');
 
-                            //clear form's field messages
-                            clear_user_change_password_form_msgs();                                                         
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Edit Password');
+                            $('#success_msg').text("User's password successfully updated");
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            }); 
+                            
+                            //set user profile state
+                            default_user_profile_state();                             
                         }
                     }
                 });
-            }            
- 
-            
-                                              
+            }                                                                   
         });         
 
         //if user has pressed Close button in Change User Password form 
@@ -2271,12 +2462,8 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-            user_info.active_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_pending_orders";              
-            change_user_profile_state();                        
-            user_pending_status();        
+            default_user_profile_state();              
+            
         });          
         
     // -----------Endo of user profile Change password Section------------ 
@@ -2289,41 +2476,40 @@
                 $.ajax({
                     url:"./rest_api/user/api_delete_user_account.php",
                     type:"GET",
-                    dataType:"json",
-                    success: function(data){
+                    success: function(){
 
                         //Set user status
                         user_info.user_name="";
-                        user_info.user_checkout=false;
 
                         //change navbar tags
                         update_navbar_tags('logged_out');
 
-                        //Set user state
-                        user_info.last_modelbox=user_info.active_modelbox;
-                        user_info.active_modelbox = 'cards_modelbox';
-                        user_info.last_button = user_info.active_button;
-                        user_info.active_button = "home_btn";
-                        change_user_state();
-                        load_cards_modelbox();  
-
-                        //change user profile state
+                        //Display default contents of index page
+                       load_default_index_page();  
 
                     }
                 });
             }          
-
         });
         
         //If user press My Orders button in side navigation bar
         $('#user_my_orders').on('click',function(e){
             e.preventDefault();
-            //set user profile state
+            debugger;
+
+            //---------Start of change profile state----
+
+            // change user profile modelbox 
             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
             user_info.active_profile_modelbox = "user_order_modelbox";
+            change_profile_modelbox();
+
+            // change profile active button
             user_info.last_profile_button = user_info.active_profile_button;
-            user_info.active_profile_button = "user_my_orders";              
-            change_user_profile_state();   
+            user_info.active_profile_button = "user_my_orders";  
+            change_profile_active_btn();
+
+            //---------End of change profile state----
             
             //This function loads user orders into user order modelbox
             load_user_order_table();          
@@ -2335,15 +2521,21 @@
         $(document).on('click','.confirm_order',function(e){
             e.preventDefault();
 
-            //set user profile state
+            // change user profile modelbox 
             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
             user_info.active_profile_modelbox = "user_confirm_modelbox";
-            // user_info.last_profile_button = user_info.active_profile_button;
-            // user_info.active_profile_button = "user_my_orders";              
-            change_user_profile_state();             
+            change_profile_modelbox();  
+            
+            //reset confirm order form
+            reset_confirm_order_form();            
 
+            //retrieve order id
             var order_id = $(this).attr('data-id');
+
+            //convert it into object form
             var obj ={order_id:order_id};
+
+            //convert it into json form
             var json_obj=JSON.stringify(obj);
 
             $.ajax({
@@ -2354,12 +2546,7 @@
                 dataType:"json",
                 success:function(data){
 
-                    // reset confirm_order_form
-                    $('#confirm_order_form').trigger('reset');
-
-                    //clear select payment mode error message from confirm order form
-                    $('#sel_pay_or_form_msg').text('');
-
+                    //populate form
                     $('#inv_or_form').val(data.record.invoice_number);
                     $('#inv_or_form').attr('data-id',data.record.order_id);
                     $('#amt_or_form').val(data.record.amount_due);
@@ -2375,9 +2562,8 @@
          $('#confirm_submit').on('click',function(e){
             e.preventDefault();
 
-
-            //clear select payment mode error message from confirm order form
-            $('#sel_pay_or_form_msg').text('');  
+            //clear form error messages
+            clear_confirm_order_form_msgs(); 
             
             //Store form information
             var order_id = $('#inv_or_form').attr('data-id');
@@ -2401,14 +2587,17 @@
 
                         if(data.error){
 
-                            //set user profile state
+                            //---------Start of change profile state----
+
+                            // change user profile modelbox 
                             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
                             user_info.active_profile_modelbox = "user_cancel_modelbox";
-                            // user_info.last_profile_button = user_info.active_profile_button;
-                            // user_info.active_profile_button = "user_my_orders";              
-                            change_user_profile_state();                             
+                            change_profile_modelbox();
 
-                            //clear form
+
+                            //---------End of change profile state----                                                       
+
+                            //clear cancel form
                             $('#canceled_order_inv').html('');
                             $('#canceled_order_tbody').html('');
 
@@ -2425,18 +2614,17 @@
                         
                         }else{
 
-                                //load updated user orders table
-                                load_user_order_table();
+                            //---------Start of change profile state----
 
-                                //set user profile state
-                                user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-                                user_info.active_profile_modelbox = "user_order_modelbox";
-                                // user_info.last_profile_button = user_info.active_profile_button;
-                                // user_info.active_profile_button = "user_my_orders";              
-                                change_user_profile_state(); 
-                                
-                                
+                            // change user profile modelbox 
+                            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+                            user_info.active_profile_modelbox = "user_order_modelbox";
+                            change_profile_modelbox();
 
+                            //---------End of change profile state----    
+                                                     
+                            //load updated user orders table
+                            load_user_order_table();                                                          
                         }
                     }
                 });
@@ -2447,37 +2635,33 @@
          $('#confirm_close').on('click',function(e){
             e.preventDefault();
 
-            //set user profile state
+            //---------Start of change profile state----
+
+            // change user profile modelbox 
             user_info.last_profile_modelbox=user_info.active_profile_modelbox;
             user_info.active_profile_modelbox = "user_order_modelbox";
-            // user_info.last_profile_button = user_info.active_profile_button;
-            // user_info.active_profile_button = "user_my_orders";              
-            change_user_profile_state(); 
+            change_profile_modelbox();
+
+            //---------End of change profile state----    
          });  
          
          //If user press Close in Cancel Order Form
          $('#order_cancel_close').on('click',function(e){
             e.preventDefault();
 
+            //---------Start of change profile state----
+
+            // change user profile modelbox 
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_order_modelbox";
+            change_profile_modelbox();
+
+            //---------End of change profile state----                
             //load updated user orders table
             load_user_order_table();
 
-            //set user profile state
-            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
-            user_info.active_profile_modelbox = "user_order_modelbox";
-            // user_info.last_profile_button = user_info.active_profile_button;
-            // user_info.active_profile_button = "user_my_orders";              
-            change_user_profile_state(); 
          });          
         
-        //If user press Pending Orders button in side navigation bar
-        $('#user_pending_orders').on('click',function(e){
-            e.preventDefault();     
-            
-            //set user profile state
-            default_user_profile_state(); 
-        });         
-
 
 //------End of User Profile Section--------------------    
         

@@ -1,49 +1,50 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
-
 
     //connecting with DB server
    require_once "../../include/config.php";
+
+   //retrieving ip address
    require_once "../../include/get_ip_address.php";
 
     function calculate_navbar_cart_info(){
-            global $conn;
-            global $client_ip;
-            global $output;
+        global $conn;
+        global $client_ip;
+        global $output;
 
-            //calculate number of items user has in cart and their total cost
-            $sql = "SELECT sum(quantity) as total_quantity, sum(total_cost) as total_cost FROM cart_detail where ip_address = '$client_ip'";
-            $result = mysqli_query($conn,$sql) or die('Failed to perform query');
-            $record = mysqli_fetch_assoc($result);
-            
-            if(is_null($record['total_quantity'])){
-                $output['num_of_items']=0;
-            }else{
-                $output['num_of_items']= $record['total_quantity'];
-            }
+        //calculate number of items user has in cart and their total cost
+        $sql = "SELECT sum(quantity) as total_quantity, sum(total_cost) as total_cost FROM cart_detail where ip_address = '$client_ip'";
+        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+        $record = mysqli_fetch_assoc($result);
+        
+        //If user has items in cart then
+        if(!is_null($record['total_quantity'])){
+            $output['num_of_items']= $record['total_quantity'];
+        }
 
-            if(is_null($record['total_cost'])){
-                $output['total_price']=0;
-            }else{
-                $output['total_price']= $record['total_cost'];
-            }
+        if(!is_null($record['total_cost'])){
+            $output['total_price']= $record['total_cost'];
+        }
         
     }
 
+    //Retrive requested data
     $data = json_decode(file_get_contents("php://input"),true);
     $product_id = $data['product_id'];
     $op_type = $data['op_type'];
     $quantity= $data['quantity'];
     $records = $data['records'];
+
+    //initialize output variables
     $output =[];
     $output['error']=false;
     $output['num_of_items']=0;
     $output['total_price']=0;
+
+    //retrieve user ip address
     $client_ip = get_ip_address();
+
 
     switch($op_type){
 
@@ -57,7 +58,7 @@
 
             //return $output
             echo json_encode($output,JSON_PRETTY_PRINT);
-            break;
+            exit();
         
         case 'add':
             //check if user has already put product in cart
@@ -140,7 +141,11 @@
 
                 calculate_navbar_cart_info();
 
-                $sql = "select cart_id,p_title,p_image1,quantity,p_price,total_cost,purchase_limit from view_cart_table where ip_address = '$client_ip'";
+                $sql = "SELECT cart_id,p_title,p_image1,quantity,p_price,total_cost,
+                LEAST(stock,order_limit) AS purchase_limit FROM products AS p
+                INNER JOIN cart_detail c ON p.p_id = c.product_id
+                INNER JOIN inventory i ON p.p_id = i.product_id
+                 where ip_address = '$client_ip'";
                 $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
                 if(mysqli_num_rows($result)>0){

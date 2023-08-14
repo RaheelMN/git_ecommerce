@@ -1,9 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
 
     //start session
     session_start();
@@ -18,6 +15,7 @@
         $order_id = $_SESSION['order_id'];
         $payment_type = $data['payment_mode'];
 
+        //initialize output
         $output =[];
         $output['error']=false;
         $output['error_message']=[];
@@ -105,8 +103,10 @@
                 $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
                 $result =mysqli_query($conn,$sql) or die("Failed to perform query");
 
+
                 //Update inventory
-                $sql = "CAll update_inventory({$value['product_id']}, {$value['quantity']})";
+                $sql = "UPDATE inventory SET stock = (stock -  {$value['quantity']}), purchased = (purchased +  {$value['quantity']})
+                WHERE product_Id = {$value['product_id']}";
                 $result =mysqli_query($conn,$sql) or die("Failed to perform query");
             }
         }  

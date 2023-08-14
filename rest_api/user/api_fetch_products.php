@@ -1,10 +1,6 @@
 <?php 
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods:POST');
-header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
-
 
 //connecting with DB server
 require_once "../../include/config.php";
@@ -51,11 +47,15 @@ function get_records(){
     
 }
 
+//retreive requested data
 $data = json_decode(file_get_contents("php://input"),true);
 
+//initialize output
 $output = [];
 $output['pagination']='';
 $output['error']=false;
+
+//set pagination parameters
 $r=[];
 $r['limit'] = 8;
 $r['page_no'] = $data['page_no'];
@@ -84,9 +84,7 @@ switch($data['search_type']){
             //close db connection
             mysqli_close($conn);
 
-            //free results
-            mysqli_free_result($result);
-
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
             $output['error']=true;
@@ -95,6 +93,7 @@ switch($data['search_type']){
             //close db connection
             mysqli_close($conn);
 
+            //return output
             echo json_encode($output,JSON_PRETTY_PRINT);
         }
         break;
@@ -109,7 +108,8 @@ switch($data['search_type']){
 
         $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
-        $r['total_records']  = mysqli_num_rows($result);              
+        $r['total_records']  = mysqli_num_rows($result);
+
         if($r['total_records']>0){
 
             $records= mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -191,9 +191,6 @@ switch($data['search_type']){
 
             //close db connection
             mysqli_close($conn);
-
-            //free results
-            mysqli_free_result($result);
 
             echo json_encode($output,JSON_PRETTY_PRINT);              
 

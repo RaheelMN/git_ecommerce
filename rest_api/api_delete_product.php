@@ -54,9 +54,13 @@ if(isset($_SESSION['admin_role'])){
         exit();
     }else{
 
-        //delete record in db
+        //delete product from product table
         $sql = "DELETE FROM products WHERE  p_id = $product_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to preform query');  
+        $result = mysqli_query($conn,$sql) or die('Failed to preform query'); 
+
+        //delete product from inventory table
+        $sql = "DELETE FROM inventory WHERE  product_id = $product_id";
+        $result = mysqli_query($conn,$sql) or die('Failed to preform query');        
 
         //close db connection
         mysqli_close($conn);
