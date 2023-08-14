@@ -66,7 +66,7 @@
         <!-- Section Header -->
         <div id="main_heading">
             <h3>Hidden Store</h3>
-            <p>Check our inventory</p>
+            <p id="sub_heading">Check our inventory</p>
         </div>
 
         <div id="contents">
@@ -83,6 +83,56 @@
             <div id="side_nav_bar_div">
                 <ul id ="side_nav">
                 </ul>
+            </div>
+        </div>
+
+        <div id="product_modelbox" class="form_modelbox">
+            <div id="product_container">
+                 <div id="product_contents">
+                    <div id="product_heading">Product's Detail</div>
+                    <div id="product_image_container">
+                        <div id="product_image_div">
+                            <img src="" alt ="product image" id = "product_image">
+                        </div>
+                        <div id="product_image_btn">
+                            <a id="image1" class="image_btn" href="#" >1</a>
+                            <a  id="image2" class="image_btn" href="#" >2</a>
+                            <a  id="image3" class="image_btn" href="#" >3</a>
+                        </div>
+                    </div>
+                    <div id="product_body">
+                        <div class="form_linebreak"></div>
+                        <div class="product_row">
+                            <div class="product_row_heading">Product's Title</div>
+                            <div id="product_title" class="product_row_text"></div>
+                        </div>                        
+                        <div class="product_row">
+                            <div class="product_row_heading">Product's Description</div>
+                            <div id="product_desc" class="product_row_text" ></div>
+                        </div>
+                        <div class="product_row">
+                            <div class="product_row_heading">Product's Brand</div>
+                            <div id="product_brand" class="product_row_text"></div>
+                        </div>
+                        <div class="product_row">
+                            <div class="product_row_heading">Product's Category</div>
+                            <div id="product_category" class="product_row_text"></div>
+                        </div> 
+                        <div class="product_row">
+                            <div class="product_row_heading">Product's Price</div>
+                            <div id="product_price" class="product_row_text"></div>
+                        </div>  
+                        <div class="product_row">
+                            <div class="product_row_heading">Stock</div>
+                            <div id="product_stock" class="product_row_text"></div>
+                        </div>                         
+                        <div class="product_row">
+                            <div id="product_close_btn_div">
+                                <button id="product_close_btn">Close</button>
+                            </div>
+                        </div>                                                                     
+                    </div> 
+                </div>
             </div>
         </div>
 
@@ -104,6 +154,12 @@
                                 search_type: 'all',
                                 search_term: '0',
                                 page_no: 1
+        }
+
+        const record={
+            image1: '',
+            image2: '',
+            image3: '',
         }
 
         //Function to populate side navigation bar with brands and categories records
@@ -164,34 +220,33 @@
                 data:json_obj,
                 dataType:"json",
                 success:function(data){
-                    debugger;
 
                     //clear cards
                     $('#cards_container').html('');
                     //clear message class
-                    $('#products_msg').removeClass('products_msg_style');
+                    $('#products_msg').removeClass('products_msg_style').html('');
                     //clear page numbers
-                    $('#pagination_body').html('');                    
+                    $('#pagination_body').html('');                                     
 
                     //check if no record found
                     if(data.error){
                         $('#products_msg').fadeIn('slow');
                         $('#products_msg').addClass('products_msg_style').text(data.message);
-                        setTimeout(function(){
-                            $('#products_msg').fadeOut('slow');
-                        },2000);                           
+                        // setTimeout(function(){
+                        //     $('#products_msg').fadeOut('slow');
+                        // },2000);                           
                     }
                     else{
                         $.each(data.data,function(key, value){
                             $('#cards_container').append('<div class="card">'+
-                                                        '<img class="card_img" src='+value.p_image1+' alt="Card image cap">'+
+                                                        '<img class="card_img" src='+value.p_image1+' alt="Card image">'+
                                                         '<div class="card_body">'+
                                                             '<h5 class="card_title card_row">'+value.p_title+'</h5>'+
                                                             '<p class="card_text card_row">'+value.p_description+'</p>'+
                                                             '<p class="card_row card_price"> Price: '+value.p_price+'/-</p>'+
                                                             '<div class="card_row">'+                                        
-                                                                '<button class="card_btn">Add to cart</button>'+
-                                                                '<button class="card_btn">View</button>'+
+                                                                '<button class="card_btn add_product_btn"  data-id="'+value.p_id+'">Add to cart</button>'+
+                                                                '<button class="card_btn view_product_btn" data-id="'+value.p_id+'">View</button>'+
                                                             '</div>'+
                                                         '</div>'+
                                                     '</div>');
@@ -213,11 +268,19 @@
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
-            
             load_cards_info.search_type='brand';
             load_cards_info.search_term=$(this).data('id');
             load_cards_info.page_no=1;
             load_cards();
+
+            //Update sub heading with selected brand information
+            $("#sub_heading").text('Brand: '+$(this).val());
+
+            //clear previously active sidebar item
+            $('#side_nav input').removeClass('active_side_bar'); 
+
+            //Make selected brand active
+            $(this).addClass('active_side_bar'); 
         });
         
         //if User press one of the side navigation bar cateogry button
@@ -227,14 +290,29 @@
             load_cards_info.search_term=$(this).data('id');
             load_cards_info.page_no=1;
             load_cards();
+
+            //Update sub heading with selected category information
+            $("#sub_heading").text('Category: '+$(this).val());
+
+            //clear previously active sidebar item
+            $('#side_nav input').removeClass('active_side_bar');
+
+            //Make selected category active
+            $(this).addClass('active_side_bar'); 
         }); 
         
-        //if user has pressed products button
+        //if user has pressed navigation bar's products button
         $('#products_btn').on('click',function(){
             load_cards_info.search_type='all';
             load_cards_info.search_term='0';  
             load_cards_info.page_no=1;
             load_cards();
+
+            //Update sub heading 
+            $("#sub_heading").text('Check our inventory');
+
+            //clear previously active sidebar item
+            $('#side_nav input').removeClass('active_side_bar');            
         });
 
         //if user has pressed search button
@@ -246,6 +324,12 @@
                 load_cards_info.search_term=search;                
                 load_cards_info.page_no=1;
                 load_cards();
+
+                 //Update sub heading with search term
+                $("#sub_heading").text('Search term: '+$('#input_search').val());
+
+                //clear previously active sidebar item
+                $('#side_nav input').removeClass('active_side_bar');                 
             }
 
         }); 
@@ -257,16 +341,61 @@
             load_cards();
         });
 
+        //if user has pressed view button in product card
+        $(document).on('click','.view_product_btn',function(){
+                var product_id =$(this).data('id');
+                var obj = {product_id:product_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_fetch_single_product.php",
+                    type: "POST",
+                    dataType:"json",
+                    data:json_obj,
+                    success:function(data){
+                        debugger;
+                        if(!data.error){
+                            $('#product_modelbox').show();
+                            record.image1 = data.data.p_image1;
+                            record.image2 = data.data.p_image2;
+                            record.image3 = data.data.p_image3;
+                            $('#product_title').html(data.data.p_title);
+                            $('.image_btn').removeClass('active_image_btn');
+                            $('#image1').addClass('active_image_btn');
+                            $('#product_image').attr('src',data.data.p_image1);
+                            $('#product_desc').html(data.data.p_description);
+                            $('#product_brand').html(data.data.brand);
+                            $('#product_category').html(data.data.category);
+                            $('#product_price').html('Rs: '+data.data.p_price+'/-');
+                            if(data.data.stock){
+                                $('#product_stock').html('Available');
+                            }else{
+                                $('#product_stock').html('Not available');
+                            }
+                        }
+                    }
+                });
+        }); 
 
-        // $(document).on('click','#pagination a',function(e){
-        //     e.preventDefault();
-        //     var page = $(this).attr('id');
-        //     load_table(page);
-
-        // });
-
-
-                
+        //if user has pressed image button in product detail form
+        $('.image_btn').on('click',function(e){
+            e.preventDefault();
+            $('.image_btn').removeClass('active_image_btn');
+            $(this).addClass('active_image_btn');
+            var image_no = $(this).attr('id');
+            if(image_no == 'image1'){
+                $('#product_image').attr('src',record.image1);
+            }else if(image_no == 'image2'){
+                $('#product_image').attr('src',record.image2);
+            }else{
+                $('#product_image').attr('src',record.image3);
+            }
+        });
+        
+        //If user has pressed close button in product detail page
+        $('#product_close_btn').on('click',function(e){
+            e.preventDefault();
+            $('#product_modelbox').hide();
+        });
     });
 </script>
 </html>
