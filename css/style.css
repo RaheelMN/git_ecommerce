@@ -41,16 +41,16 @@ ul {
         font-size: var(--nav-font);
     }
 
-    .navbar-contents{
+    .navbar_contents{
         padding: 3px 20px;
         display: flex;
         justify-content: space-between;
     }
 
-    #left-nav{
+    #left_nav{
         display: block;
     }
-    .navbar1-ul {
+    .navbar1_ul {
         display: flex;
         align-items: center;
         height: 40px;
@@ -73,7 +73,7 @@ ul {
         border: 2px solid wheat;
     }
 
-    .nav-btn{
+    .nav_btn{
         font-size: var(--nav-font);
         border-radius: 4px;
         border: none;
@@ -83,7 +83,7 @@ ul {
         transition: linear .5s;
     }
 
-    .nav-btn:hover {
+    .nav_btn:hover {
         background: rgb(226, 231, 233);
         color: black;
     }
@@ -93,11 +93,11 @@ ul {
     }
 
 
-    #right-nav{
+    #right_nav{
         display: block;
     }
 
-    .search-btn{
+    .search_btn{
         font-size: var(--p-font);
         border-radius: 4px;
         border: 1px solid wheat;
@@ -107,12 +107,12 @@ ul {
         transition: linear .5s;
     }
 
-    .search-btn:hover {
+    .search_btn:hover {
         background: rgb(226, 231, 233);
         color: black;
     }
 
-    #input-search{
+    #input_search{
         font-size: var(--input-font);
         padding: 3px 2px;
         border-radius: 3px;
@@ -126,7 +126,7 @@ ul {
         font-size: var(--p-font);
     }
 
-    #navbar2-ul {
+    #navbar2_ul {
         display: flex;
         align-items: center;
         height: 25px;
@@ -136,7 +136,7 @@ ul {
         color: #dae3e3;
     }
 
-    .nav-select{
+    .nav_select{
         padding: 1px 2px;
         font-size: 14px;
         border: none;
@@ -147,7 +147,7 @@ ul {
 /* End of Header */
 
 /* Main heading User*/
-    #main-heading{
+    #main_heading{
         font-family: math;
         text-align: center;
         padding: 10px 0px 0px 0px;
@@ -313,71 +313,76 @@ ul {
 
     .card{
         border: 2px solid #7c540b;
-        margin: 0px 5px 5px 5px;
         border-radius: 5px;
-        padding: 10px;
+        padding: 10px 10px 12px 10px;
+        margin: 0px 0px 25px 0px;
         text-align: center;
         width: 14rem;
     }
 
-    .card-img{
+    .card_img{
         height: 100px;
         width: 100%;
         object-fit: contain;
     }
 
-    .card-title{
+    .card_row{
+        margin: 6px 0px;
+    }
+
+    .card_title{
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        padding: 2px 0px;
-        font-size: 16px;
+        font-size: 17px;
     }
-    .card-text{
+    .card_text{
         font-family: math;
-        margin: 1px 0px 10px 0px;
+        height: 115px;
+
     }
-    .card-btn{
+    .card_btn{
         background-color: rgb(83 143 143);
         color: #f7f3ef;
-        padding: 5px;
+        padding: 5px 10px;
         border: none;
         border-radius: 3px;
-        margin: 5px;
+        margin: 0px 5px;
         font-family: math;
+        font-size: 16px;
         transition: all linear .5s;
     }
 
-    .card-btn:hover{
+    .card_btn:hover{
         background-color: #057c72;
         color: #f1f0f3;
     }
 
-    #side-nav-bar-div{
+    #side_nav_bar_div{
         display: block;
         width: 19%;
 
     }
-    #side-nav{
+    #side_nav{
         background: #a27fc3;
         text-align: center;
         font-family: sans-serif;
     }
 
 
-    .side-nav-h{
+    .side_nav_h{
         padding: 5px 0px;
         background-color:rebeccapurple;
         font-size: (var(--p-font));
         color: #f7f3ef;
     }
 
-    .side-nav-hov{
+    .side_nav_hov{
         display: block;
         padding: 5px 0px;
         color: #3a3837;
         transition: all linear .5s;
     }
 
-    .side-nav-hov:hover{
+    .side_nav_hov:hover{
         color: #f3eee9;
         background-color: #8763ab;
     }

@@ -18,7 +18,7 @@
 
                 }elseif(!preg_match('/^[a-zA-Z]+[ a-zA-Z0-9]*$/i',$x)){
                     $result['error']=true;
-                    $result['message']='Name should consist of alphabets';
+                    $result['message']='Name should consist of alphabets and digits';
                     return $result;
                 }else{
                     $result['error']=false;
@@ -32,7 +32,7 @@
                     $result['message']='Description should be less than '.$length.' characters';  
                     return $result;                  
 
-                }elseif(!preg_match('/^[a-zA-Z]+[ ,.a-zA-Z0-9]*$/i',$x)){
+                }elseif(!preg_match('/^[a-zA-Z]+[ ,.\'&a-zA-Z0-9]*$/i',$x)){
                     $result['error']=true;
                     $result['message']='Description should consist of alphabets and digits.';
                     return $result;

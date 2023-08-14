@@ -12,22 +12,22 @@
 
         <!-- header -->
         <nav id="navbar1">
-            <div class="navbar-contents">
-                <div id="left-nav">
-                    <ul class="navbar1-ul"> 
+            <div class="navbar_contents">
+                <div id="left_nav">
+                    <ul class="navbar1_ul"> 
                         <li class ="items">
                             <div id="logo">
                                 <img src="http://localhost/5-1-rest_api/images/logo.jpg" alt="logo.jpg">
                             </div>
                         </li>
                         <li class="items">
-                            <button id ="home_btn"class="nav-btn">Home</button>
+                            <button id ="home_btn"class="nav_btn">Home</button>
                         </li>
                         <li class="items">
-                            <button id= "add_record_btn" class="nav-btn">Products</button>
+                            <button id= "add_record_btn" class="nav_btn">Products</button>
                         </li>
                         <li class="items">
-                            <button id= "add_record_btn" class="nav-btn">Register</button>
+                            <button id= "add_record_btn" class="nav_btn">Register</button>
                         </li>
                         <li class="items cart">
                             <a><i class="fa-solid fa-cart-shopping"></i><sup>1</sup></a>
@@ -38,21 +38,21 @@
 
                     </ul>
                 </div>
-                <div id="right-nav">
-                    <ul class="navbar1-ul">
+                <div id="right_nav">
+                    <ul class="navbar1_ul">
                         <li class="items">
-                                <button class="search-btn" id="search-btn" name = "search-btn">Search</button>
+                                <button class="search_btn" id="search_btn" name = "search_btn">Search</button>
                         </li>
                         <li class="items">
-                            <input type="text" name="input-search" id="input-search">
+                            <input type="text" name="input_search" id="input_search">
                         </li>              
                     </ul>
                 </div>
             </div>
         </nav>
         <nav id="navbar2">
-            <div class="navbar-contents">
-                <ul id="navbar2-ul">
+            <div class="navbar_contents">
+                <ul id="navbar2_ul">
                     <li class = "items">
                         <a href="#"> Welcome Guest!</a>
                     </li>
@@ -64,19 +64,19 @@
         </nav>
 
         <!-- Section Header -->
-        <div id="main-heading">
+        <div id="main_heading">
             <h3>Hidden Store</h3>
             <p>Check our inventory</p>
         </div>
 
         <div id="contents">
             <div id="products">
-            <div id="products_msg" class="form_msg"></div>
+            <div id="products_msg"></div>
                 <div id="cards_container">
                 </div>                           
             </div>
-            <div id="side-nav-bar-div">
-                <ul id ="side-nav">
+            <div id="side_nav_bar_div">
+                <ul id ="side_nav">
                 </ul>
             </div>
         </div>
@@ -96,27 +96,31 @@
         function load_sidenav(){
 
             //empty side-nav ul
-            $('#side-nav').html('');
+            $('#side_nav').html('');
 
             //retrive side-nav records
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_sidenav.php",
+                url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    if(data.brands.status != 'false' ){
-                        $('#side-nav').append('<li class="side-nav-h">Brands</li>');
-                        $.each(data.brands,function(key,value){
-                            $('#side-nav').append('<li><a class="side-nav-hov" href="brand'+value.bid+'">'+value.bname+'</a></li>');
+                    if(data.brands.error){
+                        $('#side_nav').append('<li class="side_nav_h">Brands</li>');
+                        $('#side_nav').append('<li><a class="side_nav_hov" href="">'+data.brands.message+'</a></li>');
+                    }else{
+                        $('#side_nav').append('<li class="side_nav_h">Brands</li>');
+                        $.each(data.brands.data,function(key,value){
+                            $('#side_nav').append('<li><a class="side_nav_hov" href="brand'+value.b_id+'">'+value.b_name+'</a></li>');
                         });                       
-                        
                     }
-                    if(data.categories.status != 'false' ){
-                        $('#side-nav').append('<li class="side-nav-h">Categories</li>');
-                        $.each(data.categories,function(key,value){
-                            $('#side-nav').append('<li><a class="side-nav-hov" href="category'+value.cid+'">'+value.cname+'</a></li>');
-                        });                       
-                        
+                    if(data.categories.error){
+                        $('#side_nav').append('<li class="side_nav_h">Categories</li>');
+                        $('#side_nav').append('<li><a class="side_nav_hov" href="">'+data.categories.message+'</a></li>');
+                    }else {
+                        $('#side_nav').append('<li class="side_nav_h">Categories</li>');
+                        $.each(data.categories.data,function(key,value){
+                            $('#side_nav').append('<li><a class="side_nav_hov" href="category'+value.c_id+'">'+value.c_name+'</a></li>');
+                        });                                              
                     }
                 }
 
@@ -133,17 +137,19 @@
                     debugger;
                     //check if no record found
                     if(data.error){
-                        $('#products_msg').addClass('err_msg').text(data.message);
+                        $('#products_msg').addClass('form_msg').text(data.message);
                     }
                     else{
                         $.each(data.data,function(key, value){
                             $('#cards_container').append('<div class="card">'+
-                                                        '<img class="card-img" src='+value.p_image1+' alt="Card image cap">'+
-                                                        '<div class="card-body">'+
-                                                            '<h5 class="card-title">'+value.p_title+'</h5>'+
-                                                            '<p class="card-text">'+value.p_description+'</p>'+
-                                                            '<a href="#" class="card-btn">Add to cart</a>'+
-                                                            '<a href="#" class="card-btn">View</a>'+
+                                                        '<img class="card_img" src='+value.p_image1+' alt="Card image cap">'+
+                                                        '<div class="card_body">'+
+                                                            '<h5 class="card_title card_row">'+value.p_title+'</h5>'+
+                                                            '<p class="card_text card_row">'+value.p_description+'</p>'+
+                                                            '<div class="card_row">'+                                        
+                                                                '<button class="card_btn">Add to cart</button>'+
+                                                                '<button class="card_btn">View</button>'+
+                                                            '</div>'+
                                                         '</div>'+
                                                     '</div>');
                         });

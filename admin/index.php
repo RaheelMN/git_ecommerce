@@ -10,53 +10,53 @@
     <div class="container">
          <!-- header -->
          <nav id="navbar1">
-            <div class="navbar-contents">
-                <div id="left-nav">
-                    <ul class="navbar1-ul"> 
+            <div class="navbar_contents">
+                <div id="left_nav">
+                    <ul class="navbar1_ul"> 
                         <li class ="items">
                             <div id="logo">
                                 <img src="http://localhost/5-1-rest_api/images/logo.jpg" alt="logo.jpg">
                             </div>
                         </li>
                         <li class="items">
-                            <select id ="select_product"class="nav-select">
+                            <select id ="select_product"class="nav_select">
                                 <option value="0">Products</option>
                                 <option value="1">Add Product</option>
                                 <option value="2">View Products</option>
                             </select>
                         </li>
                         <li class="items">
-                            <select id ="select_brand"class="nav-select">
+                            <select id ="select_brand"class="nav_select">
                                 <option value="0">Brands</option>
                                 <option value="1">Add Brand</option>
                                 <option value="2">View Brands</option>
                             </select>
                         </li>
                         <li class="items">
-                            <select id ="select_category"class="nav-select">
+                            <select id ="select_category"class="nav_select">
                                 <option value="0">Categories</option>
                                 <option value="1">Add Categrory</option>
                                 <option value="2">View Categories</option>
                             </select>
                         </li>
                         <li class="items">
-                            <button id= "order-btn" class="nav-btn">Orders</button>
+                            <button id= "order_btn" class="nav_btn">Orders</button>
                         </li>
                         <li class="items">
-                            <button id= "payment-btn" class="nav-btn">Payments</button>
+                            <button id= "payment_btn" class="nav_btn">Payments</button>
                         </li>
                         <li class="items">
-                            <button id= "users-btn" class="nav-btn">Users</button>
+                            <button id= "users_btn" class="nav_btn">Users</button>
                         </li>
                     </ul>
                 </div>
-                <div id="right-nav">
-                    <ul class="navbar1-ul">
+                <div id="right_nav">
+                    <ul class="navbar1_ul">
                         <li class="items">
                             Welcome Raheel!
                         </li>              
                         <li class="items">
-                                <button class="search-btn" id="search-btn" name = "search-btn">Logout</button>
+                                <button class="search_btn" id="search_btn" name = "search_btn">Logout</button>
                         </li>
                     </ul>
                 </div>
@@ -194,36 +194,36 @@
 
                     //populate brand and category select box
                     $.ajax({
-                        url:"http://localhost/ecommerce/rest_api/api_fetch_sidenav.php",
+                        url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
                         type: "GET",
                         dataType:"json",
                         success: function(data){
-
+                            debugger;
                             //clear selectboxes brand and category
                             $('#add_pform_brand').html('');
                             $('#add_pform_category').html('');
 
-                            if(data.brands.status != 'false' ){
+                            if(!data.brands.error){
                                 $('#add_pform_brand').append($('<option>',{
                                                                         value:'0',
                                                                         text: 'Select Brand'
                                 }));
-                                $.each(data.brands,function(key,value){
+                                $.each(data.brands.data,function(key,value){
                                     $('#add_pform_brand').append($('<option>',{
-                                                            value: value.bid,
-                                                            text: value.bname
+                                                            value: value.b_id,
+                                                            text: value.b_name
                                     }));
                                 }); 
                             }
-                            if(data.categories.status != 'false' ){
+                            if(!data.categories.error){
                                 $('#add_pform_category').append($('<option>',{
                                                                         value:'0',
                                                                         text: 'Select Category'
                                 }));
-                                $.each(data.categories,function(key,value){
+                                $.each(data.categories.data,function(key,value){
                                     $('#add_pform_category').append($('<option>',{
-                                                            value: value.cid,
-                                                            text: value.cname
+                                                            value: value.c_id,
+                                                            text: value.c_name
                                     }));
                                 }); 
                             }
@@ -465,12 +465,14 @@
                                 success: function(data){
                                     debugger;
                                     //if there is error in input field
-                                    if(data.field_err){
-                                        $('#add_bname_msg').fadeIn('slow');
-                                        $('#add_bname_msg').text(data.bname);                                
+                                    if(data.field_error){
+                                        if(data.bname.error){
+                                            $('#add_bname_msg').fadeIn('slow');
+                                            $('#add_bname_msg').text(data.bname.message);                                
+                                        }
                                     }else{
                                         //if there is error in db 
-                                        if(data.form_err){
+                                        if(data.form_error){
                                             $('#add_bform_msg').fadeIn('slow');
                                             $('#add_bform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
                                             setTimeout(function(){
@@ -549,11 +551,12 @@
                                 type:"POST",
                                 data: json_obj,
                                 success: function(data){
+                                    debugger;
                                     //if there is error in form field
-                                    if(data.field_err){
+                                    if(data.field_error){
                                         $('#add_cname_msg').fadeIn('slow');
-                                        $('#add_cname_msg').text(data.cname);                              
-                                    }else if(data.form_err){
+                                        $('#add_cname_msg').text(data.cname.message);                              
+                                    }else if(data.form_error){
                                         //if there is error in db
                                         $('#add_cform_msg').fadeIn('slow');
                                         $('#add_cform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
