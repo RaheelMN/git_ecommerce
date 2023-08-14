@@ -47,7 +47,7 @@
                 if(mysqli_num_rows($result)>0){
                     $record = mysqli_fetch_all($result,MYSQLI_ASSOC);
                     foreach($record as $row){
-                        $sql = "INSERT INTO orders_pending (user_id,invoice_number,product_id,quantity,order_status) 
+                        $sql = "INSERT INTO orders_details (user_id,invoice_number,product_id,quantity,order_status) 
                                 values ($user_id,$invoice_number,{$row['product_id']},{$row['quantity']},'$order_status')";
 
                         $result = mysqli_query($conn,$sql) or die('Failed to perfom DB query');   

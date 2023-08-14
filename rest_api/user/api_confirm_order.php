@@ -40,7 +40,24 @@
             //Update user orders table
             $sql = "UPDATE user_orders  SET order_status='Complete' where order_id = $order_id";        
             $result = mysqli_query($conn,$sql) or die('Failed to perform DB query'); 
-            
+
+            //Update user pending orders table
+            //Retriving rows of same invoice number in pending order table
+            $sql = "SELECT order_id FROM orders_details WHERE invoice_number = $invoice ";        
+            $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
+
+            if(mysqli_num_rows($result)>0){
+
+                $records = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+                foreach($records as $value){
+                    //Update order_status for each order id
+                    $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
+                    $result =mysqli_query($conn,$sql) or die("Failed to perform query");
+                }
+            }
+
+
             mysqli_close($conn);                 
             echo json_encode($output,JSON_PRETTY_PRINT);                 
 

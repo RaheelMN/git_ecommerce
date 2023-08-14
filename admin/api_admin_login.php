@@ -10,8 +10,8 @@
     include "../include/config.php";
 
     $data = json_decode(file_get_contents("php://input"),true);
-    $user_email = $data['email'];
-    $user_password = $data['password'];
+    $email = $data['email'];
+    $password = $data['password'];
 
     $output =[];
     $output['field_error']=false;
@@ -20,22 +20,27 @@
     $output['form_error']=false;
     
     //Check if user email exists then get its password
-    $sql = "SELECT user_id,user_name,user_password,ip_address FROM users where user_email='$user_email'";
-    $result = mysqli_query($conn,$sql);
+    $sql = "SELECT admin_id,admin_name,admin_password,admin_role FROM admins where admin_email='$email'";
+    $result = mysqli_query($conn,$sql)or die('Failed to peform db query');
+
     if(mysqli_num_rows($result)>0){
         //check user password
         $row  = mysqli_fetch_assoc($result);
-        
-        if(password_verify($user_password,$row['user_password'])){
+        $e_password = password_hash($password,PASSWORD_DEFAULT);
+        // echo "<br> password defautl: $password";
+        // echo "<br> password hast: $e_password";
+        // die();
+        if(password_verify($password,$row['admin_password'])){
 
             //start session
             session_start();
             //store user info
-            $_SESSION['user_id']=$row['user_id'];
-            $_SESSION['ip_address']=$row['ip_address'];     //used in cart_details
-            $_SESSION['user_name']=$output['user_name']=$row['user_name'];
+            $_SESSION['admin_role']=$row['admin_role'];
+            $_SESSION['admin_name']=$row['admin_name'];   
 
             $output['form_msg']='User logged in successfully';
+
+            //close db connection
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);
         }

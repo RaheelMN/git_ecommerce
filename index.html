@@ -1169,7 +1169,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function(data){
-                        debugger;
+  
                         // if form field has error
                         if(data.field_error){
                             if(data.name.error){
@@ -1233,8 +1233,7 @@
             }
             
         });        
-                        
-        
+                           
     //-------End of Registration Section----------------------    
 
     //-------Start of Login Section----------------------   
@@ -1392,23 +1391,22 @@
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/user/api_logout_user.php",
                     success: function(data){
-                        debugger;
+                        //Set user status
+                        user_info.user_name="";
+                        user_info.user_checkout=false;
+        
+                        //change navbar tags
+                        update_navbar_tags('logged_out');
+        
+                        //set  user state
+                        user_info.last_modelbox=user_info.current_modelbox;
+                        user_info.current_modelbox = "cards_modelbox";
+                        user_info.last_active_button = user_info.active_button;
+                        user_info.active_button = "home_btn";                
+                        change_user_state();          
                     }
                 });   
     
-                //Set user status
-                user_info.user_name="";
-                user_info.user_checkout=false;
-
-                //change navbar tags
-                update_navbar_tags('logged_out');
-
-                //set  user state
-                user_info.last_modelbox=user_info.current_modelbox;
-                user_info.current_modelbox = "cards_modelbox";
-                user_info.last_active_button = user_info.active_button;
-                user_info.active_button = "home_btn";                
-                change_user_state();          
             }
 
         });
@@ -1584,7 +1582,7 @@
         $('#payment_close').on('click',function(e){
 
             e.preventDefault();
-            debugger;
+
             //Reset user info
             user_info.user_checkout=false;
  
@@ -1613,7 +1611,7 @@
                 type:"GET",
                 dataType:"json",
                 success:function(data){
-                    debugger;
+
                     if(data.error){
                         $('#payment_form_msg').text(data.message);                      
                     }
@@ -1702,7 +1700,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        debugger;
+
                         if(!data.error){
                             $('#product_modelbox').show();
                             product_view.image1 = data.p_image1;
@@ -1829,7 +1827,7 @@
                 dataType:"json",
                 success:function(data){
                     if(!data.error){
-                        debugger;
+
                         $('#edit_user_name').val(data.record.user_name); 
                         $('#edit_user_email').val(data.record.user_email);
                         $('#edit_user_address').val(data.record.user_address);
@@ -1892,7 +1890,7 @@
 
             //check if there is no form error
             if(!form_error){
-                debugger;
+
                 //convert variable to object
                 var obj = { 
                             name:user_name,
@@ -1911,7 +1909,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function(data){
-                        debugger;
+
                         // if form field has error
                         if(data.field_error){
                             if(data.name.error){
@@ -1978,7 +1976,7 @@
         $('#user_change_password').on('click',function(e){
 
             e.preventDefault();
-            debugger;
+
             //Reset form fields
             $('#user_change_password_form').trigger('reset');
 
@@ -1997,7 +1995,6 @@
         //If user press Submit button in change user password form
         $('#edit_user_csubmit').on('click',function(e){
 
-            debugger;
             e.preventDefault();
 
             //clear form's field messages
@@ -2041,7 +2038,7 @@
 
             //check if there is no form error
             if(!form_error){
-                debugger;
+
                 //convert variable to object
                 var obj = { old_password:old_password,
                             password:password,
@@ -2057,7 +2054,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function(data){
-                        debugger;
+
                         // if form field has error
                         if(data.field_error){
 
@@ -2115,13 +2112,12 @@
         $('#user_delete_account').on('click',function(e){
             e.preventDefault();
             if(confirm('Are you sure to delete account?')){
-                debugger;
+
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/user/api_delete_user_account.php",
                     type:"GET",
                     dataType:"json",
                     success: function(data){
-                        debugger;
 
                         //Set user status
                         user_info.user_name="";
@@ -2174,7 +2170,6 @@
                         $('#order_table_msg').addClass('table_msg_style').text(data.message);
                     }else{
                         $.each(data.records, function(key,value){
-                                debugger;
                         if(value.order_status=="Pending"){
                             $('#order_table_body').append("<tr class='table_row_border'>"+
                                                         "<td class='left_align'>"+(key+1)+"</td>"+  
@@ -2242,7 +2237,7 @@
          //If user press Submit in Confirm Order Form
          $('#confirm_submit').on('click',function(e){
             e.preventDefault();
-            debugger;
+
 
             //clear error message from confirm order form
             $('#sel_pay_or_form_msg').text('');  
@@ -2266,7 +2261,7 @@
                     data: json_obj,
                     dataType: "json",
                     success: function(data){
-                        debugger;
+
                         if(!data.error){
 
                             //clear error message from confirm order form
@@ -2290,7 +2285,6 @@
          //If user press Close in Confirm Order Form
          $('#confirm_close').on('click',function(e){
             e.preventDefault();
-            debugger;
 
             //clear error message from confirm order form
             $('#sel_pay_or_form_msg').text('');                             
