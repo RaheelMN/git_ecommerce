@@ -10,7 +10,7 @@
 <body>
     <div class="container">
 
-        <!-- header -->
+    <!-- Start of header -->
         <nav id="navbar1">
             <div class="navbar_contents">
                 <div id="left_nav">
@@ -53,16 +53,20 @@
             <div class="navbar_contents">
                 <ul id="navbar2_ul">
                     <li class = "items">
-                        <a href="#"> Welcome Guest!</a>
+                        <div id="user_name_div"> Welcome Guest!</a>
                     </li>
                     <li class = "items">
-                        <a id="login_btn" href="#"> Login</a>
+                        <!-- <a id="login_btn" href="#"> Login</a> -->
+                        <button class="nav_btn_s" id="login_btn">Login</button>
+                        <!-- <a id="logout_btn" href="#"> Log Out</a> -->
+                        <button class="nav_btn_s" id="logout_btn">Logout</button>
                     </li>
                 </ul>
             </div>
         </nav>
+    <!-- End of header  -->
 
-        <!-- Cards and Side navigation bar -->
+    <!-- Start of Cards and Side navigation bar -->
         <div id="container_cards_sidebar">
 
             <!-- Section Header -->
@@ -90,8 +94,9 @@
                 </div>
             </div>
         </div>
+    <!-- End of Cards and Side navigation bar -->
 
-        <!-- View Product details page -->
+    <!-- Start of View Product details page -->
         <div id="product_modelbox" class="form_modelbox">
             <div id="product_container">
                  <div id="product_contents">
@@ -141,13 +146,14 @@
                 </div>
             </div>
         </div>
+    <!-- End of View Product details page -->
 
-        <!-- Cart Table -->
+    <!-- Start of Cart Table -->
         <div id ="cart_modelbox" >
             <div id="cart_container">
                     <div id="cart_contents">
                         <div class="product_heading">Cart item's Detail</div>
-                        <div id="cart_message"></div>
+                        
                         <div id="cart_body">
                             <table id="cart_table" >
                             <thead  style="border:1px solid black;">
@@ -170,16 +176,18 @@
                                 </tbody>
                             </table>
                             <div class="product_row ">
+                                <div id="cart_message"></div>
+                            </div>                                                        
+                            <div class="product_row ">
                                 <div id = "cart_total_quantity"class="product_row_text cart_row_text">
                                 </div>
-                            </div> 
-                            <div class="product_row ">
                                 <div id = "cart_total_price"class="product_row_text cart_row_text">
                                 </div>
-                            </div>                                                        
+                            </div>                                                      
                             <div class="product_row">
                                 <div class="product_close_btn_div">
-                                    <button id="cart_close_btn">Continue Shopping</button>
+                                    <button id="cart_close_btn" class="cart_btn">Continue Shopping</button>
+                                    <button id="cart_checkout_btn" class="cart_btn">Checkout</button>
                                 </div>
                             </div>                               
                         </div>
@@ -187,12 +195,13 @@
             </div>                      
 
         </div>
+    <!-- End of Cart Table -->    
 
-        <!-- Registration Form -->
+    <!-- Start of Registration Form -->
         <div id="registration_modelbox">
             <div class="form_linebreak"></div>           
             <div class="form_div">
-                <form action="" class="form">
+                <form action="" id="registration_form">
                     <div class="form_header">
                         <h3>Registration Form</h3>
                     </div>
@@ -206,11 +215,6 @@
                         <div class="form_row">
                                 <div class="field_name">Email</div>
                                 <input type="email" class="form_input" name="reg_email" id="reg_email">
-                                <div id="reg_email_msg" class="field_err_msg"></div>
-                        </div>  
-                        <div class="form_row">
-                                <div class="field_name">User Image</div>
-                                <input type="file" class="form_input" name="reg_image" id="reg_image" val="">
                                 <div id="reg_email_msg" class="field_err_msg"></div>
                         </div>  
                         <div class="form_row">
@@ -240,52 +244,85 @@
                         </div>
                         <div class="field_name form_redirect">Already registered? <a  id="reg_form_redirect" href="#">Login</a></div>
                         <div id="reg_form_msg" class="form_msg"></div>
+                        <div class="form_linebreak"></div>
                     </div>
                 </form>               
             </div>
             <div class="form_linebreak"></div>
         </div>  
+    <!-- End of Registration Form  -->
         
-        <!-- Login Form -->
+    <!-- Login Form -->
         <div id="login_modelbox">
             <div class="form_linebreak"></div>           
             <div class="form_div">
-                <form action="" class="form">
+                <form action="" id="login_form">
                     <div class="form_header">
                         <h3>Login Form</h3>
                     </div>
                     <div class="form_linebreak"></div>
                     <div class="form_body">
                         <div class="form_row">
-                                <div class="field_name">User Name</div>
-                                <input type="text" class="form_input" name="log_name" id="log_name" value="" autocomplete="off">
-                                <div id="log_name_msg" class="field_err_msg"></div>
+                                <div class="field_name">User Email</div>
+                                <input type="email" class="form_input" name="login_email" id="login_email" value="" autocomplete="off">
+                                <div id="login_email_msg" class="field_err_msg"></div>
                         </div>
                         <div class="form_row">
                                 <div class="field_name">Password</div>
-                                <input type="password" class="form_input" name="log_password" id="log_password" >
-                                <div id="log_password_msg" class="field_err_msg"></div>
+                                <input type="password" class="form_input" name="login_password" id="login_password" >
+                                <div id="login_password_msg" class="field_err_msg"></div>
                         </div>
                         <div class="form_row">
-                                <div class="field_name"><a id="log_fpassword" href="#">Forgot Password</a></div>
+                                <div class="field_name"><a id="login_fpassword" href="#">Forgot Password</a></div>
                         </div>   
                         <div class="form_linebreak"></div>                                                                                                                                            
                         <div class="form_row">
-                            <button class="form_btn" id="log_submit">Submit</button>
-                            <button class="form_btn" id="log_close">Close</button>
+                            <button class="form_btn" id="login_submit">Submit</button>
+                            <button class="form_btn" id="login_close">Close</button>
                         </div>
-                        <div class="field_name form_redirect">Don't have an account? <a  id="log_form_redirect" href="#">Register</a></div>
-                        <div id="log_form_msg" class="form_msg"></div>
+                        <div class="field_name form_redirect">Don't have an account? <a  id="login_form_redirect" href="#">Register</a></div>
+                        <div id="login_form_msg" class="form_msg"></div>
                     </div>
                 </form>               
-            </div>
+             </div>
             <div class="form_linebreak"></div>
-        </div>           
+        </div>    
+    <!-- End of login form        -->
 
-        <!-- Section Footer -->
+    <!-- Payment Form -->
+    <div id="payment_modelbox">
+            <div class="form_linebreak"></div>           
+            <div class="form_div">
+                <form action="" id="payment_form">
+                    <div class="form_header">
+                        <h3>Payment Form</h3>
+                    </div>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <!-- <div class="form_row">
+                                <div class="field_name">User Email</div>
+                                <input type="email" class="form_input" name="login_email" id="login_email" value="" autocomplete="off">
+                                <div id="login_email_msg" class="field_err_msg"></div>
+                        </div> -->
+                        <div class="form_linebreak"></div>                                                                                                                                            
+                        <div class="form_row">
+                            <button class="form_btn" id="payment_submit">Submit</button>
+                            <button class="form_btn" id="payment_close">Close</button>
+                        </div>
+                        <div id="payment_form_msg" class="form_msg"></div>
+                    </div>
+                </form>               
+             </div>
+            <div class="form_linebreak"></div>
+        </div>    
+    <!-- End of Pyament form        -->
+
+
+    <!--Start of Section Footer -->
         <Footer>
             <p>&copy;2023. E-Commerce. All rights reserved</p>
         </Footer>
+    <!-- End of Section Footer -->    
 
 
     </div>
@@ -322,7 +359,10 @@
 
         //parameters used in determining user's current state
         const user_info={
-            user_state:"products"
+            user_state:"products",
+            user_logged:false,
+            user_checkout:false,
+            user_name:""
         }
     
     //------ End of Objects Declaration---------------------    
@@ -385,8 +425,9 @@
             $.ajax({               
                 url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
                 type: "POST",
-                data:json_obj,
                 dataType:"json",
+                contentType: "application/json; charset=utf-8",
+                data:json_obj,
                 success:function(data){
 
                     //clear cards
@@ -433,8 +474,9 @@
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                     type: "POST",
-                    dataType:"json",
                     data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
                     success:function(data){
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
@@ -476,14 +518,14 @@
                 $.ajax({
                         url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                         type: "POST",
-                        dataType:"json",
                         data:json_obj,
+                        contentType: "application/json; charset=utf-8",
+                        dataType:"json",
                         success:function(data){
-                            debugger;
 
                             //set cart state
                             cart_info.status = 'startup';
-                            cart_state();
+                            cart_state();  
 
                             //check if there is no record in database
                             if(data.error){
@@ -494,7 +536,11 @@
                                 cart_info.status = 'noitem';
                                 cart_state();
 
-                            }else{                             
+                            }else{   
+                                
+                                //set cart state
+                                cart_info.status = 'items';
+                                cart_state();                                
 
                                 //Check if cart items are changed
                                 if(cart_info.cart_changed){
@@ -509,6 +555,7 @@
                                         $('#cart_message').removeClass('products_msg_style');
                                     },2600);                                     
                                 }
+
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr class="cart_row">'+
                                                                 '<td class="cart_table_col1">'+value.p_title+'</td>'+
@@ -552,11 +599,17 @@
                     //Hide Login Form
                     $('#login_modelbox').hide();                       
                    
-                    //Enable Register Button in navigation bar
-                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
-                    
-                    //Enable login Button in navigation bar
-                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
+                    //Hide Payment Form
+                    $('#payment_modelbox').hide();     
+
+                    //Check if user is not logged in
+                    if(!user_info.user_logged ){
+                        //Enable Register Button in navigation bar
+                        $("#register_btn").removeClass('no_hover').prop("disabled", false);
+                         
+                        //Enable login Button in navigation bar
+                        $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
+                    }
                     
                     //Enable Search button and input field
                     $("#search_btn").removeClass('no_hover').prop("disabled", false);
@@ -577,8 +630,11 @@
                     $('#registration_modelbox').hide(); 
                     
                     //Hide Login Form
-                    $('#login_modelbox').hide();   
-                    
+                    $('#login_modelbox').hide(); 
+
+                    //Hide Payment Form
+                    $('#payment_modelbox').hide(); 
+
                     //Disable Search button and input field
                     $("#search_btn").addClass('no_hover').prop("disabled", true);
                     $("#input_search").addClass('no_hover').prop("disabled", true);
@@ -586,8 +642,11 @@
                     //Disable Cart icon in navigation bar
                     $("#nav_cart_btn").addClass('no_hover').prop("disabled", true); 
                     
-                    //Enable Register Button in navigation bar
-                    $("#register_btn").removeClass('no_hover').prop("disabled", false);                      
+                    //Check if user is already logged in
+                    if(!user_info.user_logged ){
+                        //Enable Register Button in navigation bar
+                        $("#register_btn").removeClass('no_hover').prop("disabled", false);  
+                    }                  
 
                     //Enable login Button in navigation bar
                     $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
@@ -604,8 +663,11 @@
                      $('#cart_modelbox').hide();   
                      
                     //Hide Login Form
-                    $('#login_modelbox').hide();                     
-                    
+                    $('#login_modelbox').hide();  
+
+                    //Hide Payment Form
+                    $('#payment_modelbox').hide(); 
+
                     //Disable Search button and input field
                     $("#search_btn").addClass('no_hover').prop("disabled", true);
                     $("#input_search").addClass('no_hover').prop("disabled", true);
@@ -632,7 +694,10 @@
                     $('#cart_modelbox').hide();  
                     
                     //Hide Registration Form
-                    $('#registration_modelbox').hide();                    
+                    $('#registration_modelbox').hide();     
+                    
+                    //Hide Payment Form
+                    $('#payment_modelbox').hide();                     
                     
                     //Disable Search button and input field
                     $("#search_btn").addClass('no_hover').prop("disabled", true);
@@ -649,7 +714,69 @@
 
                     //Show Login Form
                     $('#login_modelbox').show();
+                    break; 
+                    
+                    case 'payment':     
+                    debugger;             
+                    //Hide cards and side navigation bar
+                    $('#container_cards_sidebar').hide();
+
+                    //Hide Cart Table Page
+                    $('#cart_modelbox').hide();  
+                    
+                    //Hide Registration Form
+                    $('#registration_modelbox').hide();     
+                                        
+                    
+                    //Disable Search button and input field
+                    $("#search_btn").addClass('no_hover').prop("disabled", true);
+                    $("#input_search").addClass('no_hover').prop("disabled", true);
+                    
+                    //Disable Cart icon in navigation bar
+                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
+                    
+                    //Disable login Button in navigation bar
+                    $("#login_btn").addClass('no_hover').prop("disabled", true); 
+
+                    //Enable Register Button in navigation bar
+                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
+
+                    //Show Login Form
+                    $('#payment_modelbox').show();
                     break;                    
+                    
+                case 'logged_in':
+                    //set user login state
+                    user_info.user_logged = true;
+                    //change navbar login logout buttons
+                    $('#login_btn').hide();
+                    $('#logout_btn').show();
+                    $('#user_name_div').text('Welcome '+user_info.user_name);
+
+                    //check if user has pressed checkout button in Cart Table
+                    if(user_info.user_checkout){
+                        alert('You have to pay for this');
+                        user_info.user_checkout=false;                                
+                    }
+
+                    //set  user state
+                    user_info.user_state = "cards";
+                    change_user_state(); 
+                    break;
+                
+                case 'logged_out':
+                    //Set user status
+                    user_info.user_logged = false;
+                    user_info.user_name="";
+                    user_info.user_checkout=false;
+                    //change navbar login logout buttons
+                    $('#login_btn').show();
+                    $('#logout_btn').hide();
+                    $('#user_name_div').text('Welcome Guest!');
+
+                    //set  user state
+                    user_info.user_state = "cards";
+                    change_user_state();  
                     
             }
         }
@@ -658,19 +785,18 @@
         function cart_state(){
             switch (cart_info.status){
                 case 'startup':
+
                     //initializing form
+
                     //clearing cart table body
                     $('#cart_table_body').html('');
+
                     //clearing cart message and its css
                     $('#cart_message').removeClass('products_msg_style').text('');
+
                     //clearing check box All
                     $('#delete_all_checkbox').prop('checked',false);
                     $('#update_all_checkbox').prop('checked',false);
-                    //restore cart table
-                    $("#update_all_checkbox").prop("disabled", false);
-                    $("#delete_all_checkbox").prop("disabled", false);
-                    $("#update_cart_btn").removeClass('no_hover').prop("disabled", false);
-                    $("#delete_cart_btn").removeClass('no_hover').prop("disabled", false);
                     break;
 
                 case 'noitem':
@@ -679,10 +805,39 @@
                     $("#delete_all_checkbox").prop("disabled", true);
                     $("#update_cart_btn").addClass('no_hover').prop("disabled", true);
                     $("#delete_cart_btn").addClass('no_hover').prop("disabled", true);
+                    $("#cart_checkout_btn").addClass('no_hover').prop("disabled", true);
                     break;
+                 
+                case 'items':
+                    //Enable cart table buttons and checkboxes
+                    $("#update_all_checkbox").prop("disabled", false);
+                    $("#delete_all_checkbox").prop("disabled", false);
+                    $("#update_cart_btn").removeClass('no_hover').prop("disabled", false);
+                    $("#delete_cart_btn").removeClass('no_hover').prop("disabled", false);
+                    $("#cart_checkout_btn").removeClass('no_hover').prop("disabled", false);
+                    break;                    
+                
             }
         }
 
+        //This function clear all error messages of Registration Form
+        function clear_registration_form_msgs(){
+                        // clear field messages
+                        $('#reg_name_msg').html('');
+                        $('#reg_email_msg').html('');
+                        $('#reg_password_msg').html('');
+                        $('#reg_cpassword_msg').html('');
+                        $('#reg_address_msg').html('');
+                        $('#reg_contact_msg').html('');
+        }        
+
+        //This function clear all error messages of Login Form
+        function clear_login_form_msgs(){
+                        // clear field messages
+                        $('#login_email_msg').html('');
+                        $('#login_password_msg').html('');
+        } 
+        
     //----------End of Functions Declaration Section------------     
         
         //load cards and side navigation bar    
@@ -724,46 +879,316 @@
         });   
 
         //if user has pressed Close button Registration Form
-        $('#reg_close_btn').on('click',function(){
+        $('#reg_close_btn').on('click',function(e){
+
+            //if user has pressed checkout button in cart table then cancel payement
+            user_info.user_checkout=false;
+            e.preventDefault();
+            //Reset form input fields
+            $('#registration_form').trigger('reset'); 
+
             //set  user state
             user_info.user_state = "cards";
             change_user_state();          
         });   
 
-        //if user has pressed Login link in form
+        //if user has pressed Login link in Registration form
         $('#reg_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
             user_info.user_state = "login";
             change_user_state();              
+        });  
+        
+        //If user has pressed Submit button in Registration form
+        $('#reg_submit').on('click',function(e){
+
+            //prevent default setting 
+            e.preventDefault(); 
+
+            //clear form's field messages
+            clear_registration_form_msgs();
+
+            var form_error=false;
+
+            //retrive product name from input field
+            var user_name = $('#reg_name').val();
+
+            //check if User has entered name
+            if(user_name == ""){
+                $('#reg_name_msg').fadeIn('slow');
+                $('#reg_name_msg').text('Enter Name');
+                form_error = true;
+            }
+
+            //retrive user email from input field
+            var user_email = $('#reg_email').val();
+
+            //check if User has entered email
+            if(user_email == ""){
+                $('#reg_email_msg').fadeIn('slow');
+                $('#reg_email_msg').text('Enter Email');
+                form_error = true;
+            }
+
+            //retrive Password from input field
+            var user_password = $('#reg_password').val();
+
+            //check if User has entered password 
+            if(user_password == ""){
+                $('#reg_password_msg').fadeIn('slow');
+                $('#reg_password_msg').text('Enter Password');
+                form_error = true;
+            }
+            
+            //retrive Confirm Password from input field
+            var user_cpassword = $('#reg_cpassword').val();
+
+            //check if User has entered Confirm password 
+            if(user_cpassword == ""){
+                $('#reg_cpassword_msg').fadeIn('slow');
+                $('#reg_cpassword_msg').text('Enter Password');
+                form_error = true;
+            }else if(user_password != user_cpassword){
+                $('#reg_cpassword_msg').fadeIn('slow');
+                $('#reg_cpassword_msg').text('Password does not match');
+                form_error = true;                            
+            } 
+            
+            //retrive Address from input field
+            var user_address = $('#reg_address').val();
+
+            //check if User has entered address
+            if(user_address == ""){
+                $('#reg_address_msg').fadeIn('slow');
+                $('#reg_address_msg').text('Enter Address');
+                form_error = true;
+            } 
+
+            //retrive Contact from input field
+            var user_contact = $('#reg_contact').val();
+
+            //check if User has entered contact
+            if(user_contact == ""){
+                $('#reg_contact_msg').fadeIn('slow');
+                $('#reg_contact_msg').text('Enter Contact Number');
+                form_error = true;
+            } 
+
+            //check if there is no form error
+            if(!form_error){
+                
+                //convert variable to object
+                var obj = {name:user_name,
+                            email:user_email,
+                            password:user_password,
+                            address:user_address,
+                            contact:user_contact
+                };
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+                    
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_register_user.php",
+                    type:"POST",
+                    data: json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success: function(data){
+                        debugger;
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.name.error){
+                                $('#reg_name_msg').text(data.name.message);
+                            }
+                            if(data.email.error){
+                                $('#reg_email_msg').text(data.email.message);
+                            } 
+                            if(data.password.error){
+                                $('#reg_password_msg').text(data.password.message);
+                            } 
+                            if(data.address.error){
+                                $('#reg_address_msg').text(data.address.message);
+                            }      
+                            if(data.contact.error){
+                                $('#reg_contact_msg').text(data.contact.message);
+                            }                                                                                                                                                                           
+                        }else if(data.form_error){
+                            $('#reg_form_msg').fadeIn('slow');
+                            $('#reg_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#reg_form_msg').fadeOut('slow');
+                            },3000);                                     
+                        }else{
+                            $('#reg_form_msg').fadeIn('slow');
+                            $('#reg_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#reg_form_msg').fadeOut('slow');
+                            },3000);     
+                            
+                            //Reset form fields
+                            $('#registration_form').trigger('reset');
+
+                            //clear form's field messages
+                            clear_registration_form_msgs();
+
+                            //Set user status
+                            user_info.user_state="logged_in";
+                            user_info.user_name=obj.name;
+                            change_user_state();                                
+
+
+                        }
+                    }
+                });
+            }
+            
         });        
+                        
         
     //-------End of Registration Form----------------------    
 
     //-------Start of Login Form----------------------   
 
         //if user has pressed Login button in navigation bar
-        $('#login_btn').on('click',function(){
+        $('#login_btn').on('click',function(e){
+            e.preventDefault();
             //set  user state
             user_info.user_state = "login";
             change_user_state();          
         });   
 
-        //if user has pressed Close button Registration Form
-        $('#log_close_btn').on('click',function(){
+        //if user has pressed Close button Login Form
+        $('#login_close').on('click',function(e){
+            e.preventDefault();
+
+            //check if user has previously pressed checkin button in Cart Table form
+            if(user_info.user_checkout){
+                user_info.user_checkout=false;
+            }
             //set  user state
             user_info.user_state = "cards";
             change_user_state();          
         }); 
         
         //if user has pressed Register link in form
-        $('#log_form_redirect').on('click',function(e){
+        $('#login_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
             user_info.user_state = "register";
             change_user_state();              
         });
-        
+
+        //if user has pressed Submit button Login Form
+        $('#login_submit').on('click',function(e){
+            e.preventDefault();
+
+            //set  user state
+            // user_info.user_state = "cards";
+            // change_user_state();   
+
+            //clear form's field messages
+            clear_login_form_msgs();
+
+            var form_error=false;
+
+            //retrive user email from input field
+            var user_email = $('#login_email').val();
+
+            //check if User has entered email
+            if(user_email == ""){
+                $('#login_email_msg').fadeIn('slow');
+                $('#login_email_msg').text('Enter Email');
+                form_error = true;
+            }
+
+            //retrive Password from input field
+            var user_password = $('#login_password').val();
+
+            //check if User has entered password 
+            if(user_password == ""){
+                $('#login_password_msg').fadeIn('slow');
+                $('#login_password_msg').text('Enter Password');
+                form_error = true;
+            }
+
+            //check if there is no form error
+            if(!form_error){
+                
+                //convert variable to object
+                var obj = {
+                            email:user_email,
+                            password:user_password,
+                };
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+                    
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_login_user.php",
+                    type:"POST",
+                    data: json_obj,
+                    dataType:"json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        debugger;
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.email.error){
+                                $('#login_email_msg').text(data.email.message);
+                            }
+ 
+                            if(data.password.error){
+                                $('#login_password_msg').text(data.password.message);
+                            } 
+                                                                                                                                                                         
+                        }else if(data.form_error){
+                            $('#login_form_msg').fadeIn('slow');
+                            $('#login_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#reg_form_msg').fadeOut('slow');
+                            },3000);                                     
+                        }else{ 
+                            
+                            //Reset form fields
+                            $('#login_form').trigger('reset');
+
+                            //clear form's field messages
+                            clear_login_form_msgs();
+
+                            //Set user status
+                            user_info.user_state="logged_in";
+                            user_info.user_name=data.user_name;
+                            change_user_state();                             
+                        }
+                    }
+                });
+            }
+            
+        }); 
+
+        //If user has pressed Logout button
+        $('#logout_btn').on('click',function(e){
+            e.preventDefault();
+
+            if(confirm('Are you sure to logout?')){
+
+                //End Session
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_logout_user.php",
+                    success: function(data){
+                        debugger;
+                    }
+                });   
+    
+                //set  user state
+                user_info.user_state = "logged_out";
+                change_user_state();              
+            }
+
+        });
+
     //-------End of Login Form----------------------   
 
     //--------------Cart Section-------------
@@ -807,7 +1232,6 @@
 
         //if user has pressed delete button in cart table form
         $('#delete_cart_btn').on('click',function(){
-
         //reset cart_info record key
         cart_info.records=[];
         //check if user has checked any delete checkbox
@@ -819,30 +1243,21 @@
 
         }else if(confirm('Do you really want to remove items?')){
 
-            //check if user has any unchecked delete checkbox
-            if($('.delete_checkbox:not(:checked)').length==0){
-                // cart_info.cart_empty=true;
-                cart_info.status = "noitem";
-            }
 
             cart_info.op_type="delete";
             var json_obj = JSON.stringify(cart_info);
             $.ajax({
             url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                 type: "POST",
-                dataType:"json",
                 data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
                 success:function(data){
                     if(data.error){
                         $('#cart_message').fadeIn('slow').text(data.message);
                     }else{ 
-
-                        //if cart is empty then cart update message is not displayed
-                        if(cart_info.status != "noitem"){
-                            cart_info.cart_changed=true;  
-                        }                         
-                        load_cart_table(); 
-                        
+                        cart_info.cart_changed=true;                        
+                        load_cart_table();                         
                     }
                 }
             });                  
@@ -859,7 +1274,6 @@
 
         //if user clicks single update checkbox in cart table form
         $(document).on('click','.update_checkbox',function(){
-            debugger;
             if(!$(this).prop('checked')){
                 $('#update_all_checkbox').prop('checked',false);
             }
@@ -867,17 +1281,17 @@
 
         //if user has pressed update button in cart table form
         $('#update_cart_btn').on('click',function(){
-
+        debugger;
         //clear cart_info records array
         cart_info.records = [];
-        id=[];
-        quantity=[];
+        var id=0;
+        var quantity=0;
         //check if user has checked any update checkbox
         $('.update_checkbox:checked').each(function(key){
-            id[key]=$(this).val();
-            var input_id = 'cart_'+id[key];
-                quantity[key]=($('#'+input_id).val());
-                cart_info.records[key]=[id[key],quantity[key]];
+            id=$(this).val();
+            let input_id = 'cart_'+id;
+            quantity=($('#'+input_id).val());
+            cart_info.records[key]=[id,quantity];
         });
         if(cart_info.records.length==0){
             alert('Select atleast one checkbox to update items.');
@@ -887,15 +1301,41 @@
             $.ajax({
             url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                 type: "POST",
-                dataType:"json",
                 data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
                 success:function(data){
-                    debugger;
                         cart_info.cart_changed=true;  
                         load_cart_table();                        
                 }
             });                  
         }
+        });
+
+        //If user has pressed checkout button in cart table form
+        $('#cart_checkout_btn').on('click',function(){
+            user_info.user_checkout=true;
+            //check if user is logged in
+            $.ajax({
+                url: "http://localhost/ecommerce/rest_api/api_session_status.php",
+                type: "GET",
+                dataType:"json",
+                success: function(data){
+                    debugger;
+                    if(data.session_active){
+                        user_info.user_name=data.name;
+                        //set user state
+                        user_info.user_state = "payment";
+                        change_user_state();
+                    }else{
+                        //set user state
+                        user_info.user_state = "login";
+                        change_user_state();
+                    }
+                }
+
+            });
+
         });
         
     //---------------End of Cart Section-------
@@ -941,7 +1381,7 @@
 
     //-----------End of Side Navigation Bar Section---------    
 
-        //if user has pressed page button
+    //if user has pressed page button
         $(document).on('click','#pagination_body a',function(e){
             e.preventDefault();
             cards_info.page_no = $(this).attr('id');
@@ -958,8 +1398,9 @@
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/api_fetch_single_product.php",
                     type: "POST",
-                    dataType:"json",
                     data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
                     success:function(data){
                         debugger;
                         if(!data.error){
@@ -1015,8 +1456,9 @@
                 $.ajax({
                     url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
                     type: "POST",
-                    dataType:"json",
                     data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
                     success:function(data){
                         if(data.error){
                             $('#products_msg').fadeIn('slow');

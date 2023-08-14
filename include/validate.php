@@ -82,6 +82,65 @@
                     return $result;
                 } 
                 break; 
+
+                case "email":
+                    if(strlen($x)>$length){
+                        $result['error']=true;
+                        $result['message']='Email should be less then '.$length.' characters';  
+                        return $result;                  
+    
+                    }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$x)){
+                        $result['error']=true;
+                        $result['message']='Email not valid';
+                        return $result;
+                    }else{
+                        $result['error']=false;
+                        return $result;
+                    }   
+                    break;    
+                    
+                case "password":
+                    if(strlen($x)>$length || (strlen($x) < 6)){
+                        $result['error']=true;
+                        $result['message']="Password should be between 6 to 12 characters";  
+                        return $result;                  
+    
+                    }elseif(!preg_match("/^[\D\d\W]{6,12}$/i",$x) || !preg_match("/^[^<>]+$/i",$x) ){
+                        $result['error']=true;
+                        $result['message']='Password not valid';
+                        return $result;
+                    }else{
+                        $result['error']=false;
+                        return $result;
+                    }   
+                    break;                    
+
+                    case "address":
+                        if(strlen($x)>$length){
+                            $result['error']=true;
+                            $result['message']='Address should be less then '.$length.' characters';  
+                            return $result;                  
+        
+                        }elseif(!preg_match('/^[a-zA-Z]+[ ,.\#+\-\/\'&a-zA-Z0-9]*$/i',$x)){
+                            $result['error']=true;
+                            $result['message']='Address characters not valid';
+                            return $result;
+                        }else{
+                            $result['error']=false;
+                            return $result;
+                        }  
+                        break;    
+                        
+                    case "phone":
+                        if(!preg_match('/^[0-9]{11,11}$/i',$x)){
+                            $result['error']=true;
+                            $result['message']='Phone number should be eleven digits long';
+                            return $result;
+                        }else{
+                            $result['error']=false;
+                            return $result;
+                        }  
+                        break;                          
         }
 
     }
