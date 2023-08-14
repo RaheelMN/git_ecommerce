@@ -11,7 +11,7 @@
     if(isset($_SESSION['user_id'])){
 
         //connecting with DB server
-        include "../../include/config.php";
+       require_once "../../include/config.php";
 
         //Retrive requested information
         $data = json_decode(file_get_contents('php://input'),true);

@@ -11,10 +11,10 @@
     if(isset($_SESSION['user_id'])){
 
         //connecting with DB server
-        include "../../include/config.php";
+       require_once "../../include/config.php";
 
         //include verfication and validation functions
-        include "../../include/validate.php";
+       require_once "../../include/validate.php";
 
         $output =[];
         $output['error']=false;

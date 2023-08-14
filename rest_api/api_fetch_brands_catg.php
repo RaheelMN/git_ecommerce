@@ -3,7 +3,7 @@
     header('content_type: application/json');
     header('Access-Control-Allow-Origin:*');
     //connecting with DB server
-    include "../include/config.php";
+    require_once "../include/config.php";
 
     $output=[];
     $output['brands']['error']=false;

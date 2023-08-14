@@ -43,7 +43,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce</title>
+    <title>E-Commerce Admin</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -120,201 +120,206 @@
         </div>        
     <!-- -------End of Defualt modelbox----- -->
 
-    <!-- Start of Add Product form -->
-         <div id="add_pform_modelbox">
-            <div class="form_div">
-                <form action="" id="add_pform" class="form">
-                    <div class="form_header">
-                        <h3>Add Product</h3>                   
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <div class="form_row">
-                            <div class="field_name">Product name</div>
-                            <input type="text" class="form_input" name="add_pname" id="add_pname" value="" autocomplete="off">
-                            <div id="add_pname_msg" class="field_err_msg"></div>
+    <!-- -----Start of Product selectbox-------- -->
+
+        <!-- Start of Add Product form -->
+            <div id="add_pform_modelbox" class="form_modelbox">
+                <div class="form_div">
+                    <form action="" id="add_pform" class="form">
+                        <div class="form_header">
+                            <h3>Add Product</h3>                   
                         </div>
-                        <div class="form_row">
-                            <div class="field_name">Product Description</div>
-                            <input type="text"  class="form_input" name="add_pdesc" id="add_pdesc" value="" autocomplete="off">
-                            <div id="add_pdesc_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Product Keyword</div>
-                            <input type="text"  class="form_input" name="add_pkeyw" id="add_pkeyw" value="" autocomplete="off">
-                            <div id="add_pkeyw_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <select id="add_pform_brand" class="form_selectbox" name="add_pform_brand"></select>
-                            <div id="add_pbrand_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <select id="add_pform_category" class="form_selectbox" name="add_pform_category"></select>
-                            <div id="add_pcatg_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Upload Image 1</div>
-                            <input type="file"  class="form_input" name="add_pimg1" id="add_pimg1" val="">
-                            <div id="add_pimg1_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Upload Image 2</div>
-                            <input type="file"  class="form_input" name="add_pimg2" id="add_pimg2" val="">
-                            <div id="add_pimg2_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Upload Image 3</div>
-                            <input type="file"  class="form_input" name="add_pimg3" id="add_pimg3" val="">
-                            <div id="add_pimg3_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Product Price</div>
-                            <input type="text"  class="form_input" name="add_pprice" id="add_pprice" value="" autocomplete="off">
-                            <div id="add_pprice_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Product's Stock</div>
-                            <input type="text"  class="form_input" name="add_pstock" id="add_pstock" autocomplete="off">
-                            <div id="add_pstock_msg" class="field_err_msg"></div>
-                        </div>   
-                        <div class="form_row">
-                            <div class="field_name">Product's per order upper limit </div>
-                            <input type="text"  class="form_input" name="add_plimit" id="add_plimit" value="" autocomplete="off">
-                            <div id="add_plimit_msg" class="field_err_msg"></div>
-                        </div>                                                
                         <div class="form_linebreak"></div>
-                        <div class="form_row">
-                            <input type="submit" class="form_btn" id="add_psubmit" name="add_psubmit" value="Submit">
-                            <button class="form_btn" id="add_pclose">Close</button>
+                        <div class="form_body">
+                            <div class="form_row">
+                                <div class="field_name">Product name</div>
+                                <input type="text" class="form_input" name="add_pname" id="add_pname" value="" autocomplete="off">
+                                <div id="add_pname_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Product Description</div>
+                                <input type="text"  class="form_input" name="add_pdesc" id="add_pdesc" value="" autocomplete="off">
+                                <div id="add_pdesc_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Product Keyword</div>
+                                <input type="text"  class="form_input" name="add_pkeyw" id="add_pkeyw" value="" autocomplete="off">
+                                <div id="add_pkeyw_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <select id="add_pform_brand" class="form_selectbox" name="add_pform_brand"></select>
+                                <div id="add_pbrand_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <select id="add_pform_category" class="form_selectbox" name="add_pform_category"></select>
+                                <div id="add_pcatg_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Upload Image 1</div>
+                                <input type="file"  class="form_input" name="add_pimg1" id="add_pimg1" val="">
+                                <div id="add_pimg1_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Upload Image 2</div>
+                                <input type="file"  class="form_input" name="add_pimg2" id="add_pimg2" val="">
+                                <div id="add_pimg2_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Upload Image 3</div>
+                                <input type="file"  class="form_input" name="add_pimg3" id="add_pimg3" val="">
+                                <div id="add_pimg3_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Product Price</div>
+                                <input type="text"  class="form_input" name="add_pprice" id="add_pprice" value="" autocomplete="off">
+                                <div id="add_pprice_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                <div class="field_name">Product's Stock</div>
+                                <input type="text"  class="form_input" name="add_pstock" id="add_pstock" autocomplete="off">
+                                <div id="add_pstock_msg" class="field_err_msg"></div>
+                            </div>   
+                            <div class="form_row">
+                                <div class="field_name">Product's per order upper limit </div>
+                                <input type="text"  class="form_input" name="add_plimit" id="add_plimit" value="" autocomplete="off">
+                                <div id="add_plimit_msg" class="field_err_msg"></div>
+                            </div>                                                
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <input type="submit" class="form_btn" id="add_psubmit" name="add_psubmit" value="Submit">
+                                <button class="form_btn" id="add_pclose">Close</button>
+                            </div>
+                            <div id="add_pform_msg" class="form_msg"></div>
                         </div>
-                        <div id="add_pform_msg" class="form_msg"></div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    <!-- ----End of Add Product Form--- -->
+        <!-- ----End of Add Product Form--- -->
 
-
-    <!-- Start of Edit Product form -->
-        <div id="edit_pform_modelbox">
-            <div class="form_div">
-                <form action="" id="edit_pform" class="form">
-                    <div class="form_header">
-                        <h3>Edit Product</h3>                   
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-
-                        <div class="form_row">
-                            <div class="field_name">Product name</div>
-                            <input type="text" class="form_input" name="edit_pname" id="edit_pname" value="" autocomplete="off">
-                            <div id="edit_pname_msg" class="field_err_msg"></div>
+        <!-- Start of Edit Product form -->
+            <div id="edit_pform_modelbox" class="form_modelbox" >
+                <div class="form_div">
+                    <form action="" id="edit_pform" class="form">
+                        <div class="form_header">
+                            <h3>Edit Product</h3>                   
                         </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
 
-                        <div class="form_row">
-                            <div class="field_name">Product Description</div>
-                            <input type="text"  class="form_input" name="edit_pdesc" id="edit_pdesc" value="" autocomplete="off">
-                            <div id="edit_pdesc_msg" class="field_err_msg"></div>
-                        </div>
+                            <div class="form_row">
+                                <div class="field_name">Product name</div>
+                                <input type="text" class="form_input" name="edit_pname" id="edit_pname" value="" autocomplete="off">
+                                <div id="edit_pname_msg" class="field_err_msg"></div>
+                            </div>
 
-                        <div class="form_row">
-                            <div class="field_name">Product Keyword</div>
-                            <input type="text"  class="form_input" name="edit_pkeyw" id="edit_pkeyw" value="" autocomplete="off">
-                            <div id="edit_pkeyw_msg" class="field_err_msg"></div>
-                        </div>
+                            <div class="form_row">
+                                <div class="field_name">Product Description</div>
+                                <input type="text"  class="form_input" name="edit_pdesc" id="edit_pdesc" value="" autocomplete="off">
+                                <div id="edit_pdesc_msg" class="field_err_msg"></div>
+                            </div>
 
-                        <div class="form_row">
-                            <select id="edit_pform_brand" class="form_selectbox" name="edit_pform_brand"></select>
-                            <div id="edit_pbrand_msg" class="field_err_msg"></div>
-                        </div>
+                            <div class="form_row">
+                                <div class="field_name">Product Keyword</div>
+                                <input type="text"  class="form_input" name="edit_pkeyw" id="edit_pkeyw" value="" autocomplete="off">
+                                <div id="edit_pkeyw_msg" class="field_err_msg"></div>
+                            </div>
 
-                        <div class="form_row">
-                            <select id="edit_pform_category" class="form_selectbox" name="edit_pform_category"></select>
-                            <div id="edit_pcatg_msg" class="field_err_msg"></div>
-                        </div>
+                            <div class="form_row">
+                                <select id="edit_pform_brand" class="form_selectbox" name="edit_pform_brand"></select>
+                                <div id="edit_pbrand_msg" class="field_err_msg"></div>
+                            </div>
 
-                        <div class="form_row">
-                            <div class="edit_image_div">
-                                    <div class="field_name">Edit Image 1 </div>
-                                <img src="" alt="" id="edit_image2" class="edit_image">
+                            <div class="form_row">
+                                <select id="edit_pform_category" class="form_selectbox" name="edit_pform_category"></select>
+                                <div id="edit_pcatg_msg" class="field_err_msg"></div>
+                            </div>
+
+                            <div class="form_row">
+                                <div class="edit_image_div">
+                                        <div class="field_name">Edit Image 1 </div>
+                                    <img src="" alt="" id="edit_image2" class="edit_image">
+                                    </div>
+                                    <input type="file"  class="form_input" name="edit_pimg1" id="edit_pimg1" val="">
+                                    <div id="edit_pimg1_msg" class="field_err_msg"></div>
                                 </div>
-                                <input type="file"  class="form_input" name="edit_pimg1" id="edit_pimg1" val="">
-                                <div id="edit_pimg1_msg" class="field_err_msg"></div>
+
+                            <div class="form_row">
+                                <div class="edit_image_div">
+                                    <div class="field_name">Edit Image 2 </div>
+                                <img src="" alt="" id="edit_image1" class="edit_image">
+                                </div>
+                                <input type="file"  class="form_input" name="edit_pimg2" id="edit_pimg2" val="">
+                                <div id="edit_pimg2_msg" class="field_err_msg"></div>
                             </div>
 
-                        <div class="form_row">
-                            <div class="edit_image_div">
-                                <div class="field_name">Edit Image 2 </div>
-                               <img src="" alt="" id="edit_image1" class="edit_image">
+                            <div class="form_row">
+                                <div class="edit_image_div">
+                                    <div class="field_name">Edit Image 3 </div>
+                                <img src="" alt="" id="edit_image3" class="edit_image">
+                                </div>
+                                <input type="file"  class="form_input" name="edit_pimg3" id="edit_pimg3" val="">
+                                <div id="edit_pimg3_msg" class="field_err_msg"></div>
                             </div>
-                            <input type="file"  class="form_input" name="edit_pimg2" id="edit_pimg2" val="">
-                            <div id="edit_pimg2_msg" class="field_err_msg"></div>
-                        </div>
-
-                        <div class="form_row">
-                            <div class="edit_image_div">
-                                <div class="field_name">Edit Image 3 </div>
-                               <img src="" alt="" id="edit_image3" class="edit_image">
+                            <div class="form_row">
+                                <div class="field_name">Product Price</div>
+                                <input type="text"  class="form_input" name="edit_pprice" id="edit_pprice" value="" autocomplete="off">
+                                <div id="edit_pprice_msg" class="field_err_msg"></div>
                             </div>
-                            <input type="file"  class="form_input" name="edit_pimg3" id="edit_pimg3" val="">
-                            <div id="edit_pimg3_msg" class="field_err_msg"></div>
+                            <div class="form_row">
+                                <div class="field_name">Product Stock</div>
+                                <input type="text"  class="form_input" name="edit_pstock" id="edit_pstock" value="" autocomplete="off">
+                                <div id="edit_pstock_msg" class="field_err_msg"></div>
+                            </div> 
+                            <div class="form_row">
+                                <div class="field_name">Product's per order upper limit </div>
+                                <input type="text"  class="form_input" name="edit_plimit" id="edit_plimit" value="" autocomplete="off">
+                                <div id="edit_plimit_msg" class="field_err_msg"></div>
+                            </div>                                               
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <input type="submit" class="form_btn" id="edit_psubmit" name="edit_psubmit" value="Submit">
+                                <button class="form_btn" id="edit_pclose">Close</button>
+                            </div>
+                            <div id="edit_pform_msg" class="form_msg"></div>
                         </div>
-                        <div class="form_row">
-                            <div class="field_name">Product Price</div>
-                            <input type="text"  class="form_input" name="edit_pprice" id="edit_pprice" value="" autocomplete="off">
-                            <div id="edit_pprice_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                            <div class="field_name">Product Stock</div>
-                            <input type="text"  class="form_input" name="edit_pstock" id="edit_pstock" value="" autocomplete="off">
-                            <div id="edit_pstock_msg" class="field_err_msg"></div>
-                        </div> 
-                        <div class="form_row">
-                            <div class="field_name">Product's per order upper limit </div>
-                            <input type="text"  class="form_input" name="edit_plimit" id="edit_plimit" value="" autocomplete="off">
-                            <div id="edit_plimit_msg" class="field_err_msg"></div>
-                        </div>                                               
-                        <div class="form_linebreak"></div>
-                        <div class="form_row">
-                            <input type="submit" class="form_btn" id="edit_psubmit" name="edit_psubmit" value="Submit">
-                            <button class="form_btn" id="edit_pclose">Close</button>
-                        </div>
-                        <div id="edit_pform_msg" class="form_msg"></div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    <!-- ----End of Edit Product Form--- -->    
-        
-    <!-- Start of View Products Table -->
-        <div id="products_table_modelbox">
-            <div id="products_table_div">
-                <table id="view_products_table" >
-                    <thead>
-                        <tr>
-                            <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Product Title</th>
-                            <th rowspan="2">Product Image</th>
-                            <th rowspan="2">Product Price</th>
-                            <th rowspan="2">Total Sold</th>
-                            <th rowspan="2">Stock</th>
-                            <th rowspan="2">Status</th>
-                            <th rowspan="2">Edit</th>
-                            <th rowspan="2">Delete</th>
+        <!-- ----End of Edit Product Form--- -->    
+            
+        <!-- Start of View Products Table -->
+            <div id="products_table_modelbox">
+                <div class="admin_table_div">
+                    <table id="view_products_table" >
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class='left_align'>S.No</th>
+                                <th rowspan="2" class='left_align'>Product Title</th>
+                                <th rowspan="2">Product Image</th>
+                                <th rowspan="2">Product Price</th>
+                                <th rowspan="2">Total Sold</th>
+                                <th rowspan="2">Stock</th>
+                                <th rowspan="2">Status</th>
+                                <th rowspan="2">Edit</th>
+                                <th rowspan="2">Delete</th>
 
-                        </tr>                                   
-                    </thead>
-                    <tbody id="view_product_table_body"> 
-                    </tbody>
-                </table> 
+                            </tr>                                   
+                        </thead>
+                        <tbody id="view_product_table_body"> 
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="form_linebreak"></div>
+                <div id="order_table_msg" class="form_msg"></div>  
             </div>
-            <div class="form_linebreak"></div>
-            <div id="order_table_msg" class="form_msg"></div>  
-        </div>
-    <!-- ----End of View Product Table--- -->
+        <!-- ----End of View Product Table--- -->
 
-        <!-- Add Brand Form -->
-        <div id="add_bform_modelbox" class="form_modelbox">
+    <!-- -----End of Product selectbox-------- -->    
+
+    <!-- -----Start of Brand selectbox-------- -->
+
+        <!-- Start of Add Brand Form -->
+        <div id="add_bform_modelbox"  class="form_modelbox">
             <div class="form_div">
                 <form action="" id="add_bform" class="form">
                     <div class="form_header">
@@ -337,11 +342,66 @@
                     </div>
             </div>
         </div>
+        <!-- End of Add Brand Form -->
 
-        <!-- Add Category Form -->
+        <!-- Start of Edit brand form -->
+        <div id="edit_bform_modelbox" class="form_modelbox" >
+                <div class="form_div">
+                    <form action="#" id="edit_bform" class="form">
+                        <div class="form_header">
+                            <h3>Edit brand</h3>                   
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
+
+                            <div class="form_row">
+                                <div class="field_name">Brand name</div>
+                                <input type="text" class="form_input" name="edit_bname" id="edit_bname" value="" autocomplete="off">
+                                <div id="edit_bname_msg" class="field_err_msg"></div>
+                            </div>                                              
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <input type="submit" class="form_btn" id="edit_bsubmit" name="edit_bsubmit" value="Submit">
+                                <button class="form_btn" id="edit_bclose">Close</button>
+                            </div>
+                            <div id="edit_bform_msg" class="form_msg"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- ----End of Edit brand Form--- -->   
+
+
+        <!-- Start of View Brands Table -->
+        <div id="brands_table_modelbox">
+                <div class="admin_table_div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class='left_align'>S.No</th>
+                                <th rowspan="2" class='left_align'>Brand Name</th>
+                                <th rowspan="2">Edit</th>
+                                <th rowspan="2">Delete</th>
+                            </tr>                                   
+                        </thead>
+                        <tbody id="view_brand_table_body"> 
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="form_linebreak"></div>
+                <div id="brand_table_msg" class="form_msg"></div>  
+            </div>
+        <!-- ----End of View brand Table--- -->
+
+    <!-- -----End of Brand selectbox-------- -->
+
+
+    <!-- -----Start of Category selectbox-------- -->
+
+        <!-- Start of Add Category Form -->
         <div id="add_cform_modelbox" class="form_modelbox">
             <div class="form_div">
-                <form action="" class="form">
+                <form action="#" id="add_cform" class="form">
                     <div class="form_header">
                         <h3>Add Category</h3>
                     </div>
@@ -362,7 +422,59 @@
                 </form>
             </div>
         </div>
-    </div>
+        <!-- End of Add Category Form -->
+
+        <!-- Start of Edit category form -->
+        <div id="edit_cform_modelbox" class="form_modelbox" >
+                <div class="form_div">
+                    <form action="" id="edit_cform" class="form">
+                        <div class="form_header">
+                            <h3>Edit category</h3>                   
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
+
+                            <div class="form_row">
+                                <div class="field_name">Category name</div>
+                                <input type="text" class="form_input" name="edit_cname" id="edit_cname" value="" autocomplete="off">
+                                <div id="edit_cname_msg" class="field_err_msg"></div>
+                            </div>                                              
+                            <div class="form_linebreak"></div>
+                            <div class="form_row">
+                                <input type="submit" class="form_btn" id="edit_csubmit" name="edit_csubmit" value="Submit">
+                                <button class="form_btn" id="edit_cclose">Close</button>
+                            </div>
+                            <div id="edit_cform_msg" class="form_msg"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- ----End of Edit category Form--- -->   
+        
+        <!-- Start of View category Table -->
+        <div id="category_table_modelbox">
+                <div class="admin_table_div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class='left_align'>S.No</th>
+                                <th rowspan="2" class='left_align'>Category Name</th>
+                                <th rowspan="2">Edit</th>
+                                <th rowspan="2">Delete</th>
+                            </tr>                                   
+                        </thead>
+                        <tbody id="view_category_table_body"> 
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="form_linebreak"></div>
+                <div id="category_table_msg" class="form_msg"></div>  
+            </div>
+        <!-- ----End of View category Table--- -->        
+
+    <!-- -----End of Category selectbox-------- -->
+
+    </div>  
 
 <script src="../js/jquery.js"></script>
 <script>
@@ -375,6 +487,8 @@
         const admin_info={
             current_modelbox:"default_modelbox",
             last_modelbox:"",
+            selectbox_active:'',
+            selectbox_last:""
             // active_button:"home_btn",
             // last_active_button:"",
         }
@@ -382,6 +496,9 @@
     //------ End of Objects Declaration---------------------    
         
     // ---------Start of Function definitions-------------------   
+
+
+        // ---------Start of Product Function definitions------------   
 
          //This function reset add_product form
          function reset_add_product_form(){
@@ -393,7 +510,7 @@
             $('#add_pform').trigger('reset');
 
             //clear field error messages
-            clear_product_form_msgs();
+            clear_add_product_form_msgs();
          }
 
          //This function reset edit_product form
@@ -406,11 +523,11 @@
             $('#edit_pform').trigger('reset');
 
             //clear field error messages
-            clear_product_form_msgs();
+            clear_edit_product_form_msgs();
         }         
 
         //This function clear all error messages of form add_product
-        function clear_product_form_msgs(){
+        function clear_add_product_form_msgs(){
                         // clear field messages
                         $('#add_pname_msg').html('');
                         $('#add_pdesc_msg').html('');
@@ -439,8 +556,96 @@
                         $('#edit_pprice_msg').html('');
                         $('#edit_pstock_msg').html('');
                         $('#edit_plimit_msg').html('');
+        } 
+        
+        // ---------End of Product Function definitions------------
+        
+
+        // ---------Start of Brand Function definitions------------
+              
+        //This function reset add_brand form
+        function reset_add_brand_form(){
+
+            //clear add_product form message
+            $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#add_bform').trigger('reset');
+
+            //clear field error messages
+            clear_add_brand_form_msgs();
+        } 
+
+        //This function clear all error messages of form add brand
+        function clear_add_brand_form_msgs(){
+                        // clear field messages
+                        $('#add_bname_msg').html('');
+
+        }         
+        
+         //This function reset edit_brand form
+         function reset_edit_brand_form(){
+
+            //clear edit_brand form message
+            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#edit_bform').trigger('reset');
+
+            //clear field error messages
+            clear_edit_brand_form_msgs();
+        }  
+        
+        //This function clear all error messages of form edit_brand
+        function clear_edit_brand_form_msgs(){
+                        // clear field messages
+                        $('#edit_bname_msg').html('');
+        }  
+        
+       // ---------End of Brand Function definitions------------
+
+ 
+       // ---------Start of Category Function definitions------------
+          
+        //This function reset add_category form
+        function reset_add_category_form(){
+
+            //clear add_product form message
+            $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#add_cform').trigger('reset');
+
+            //clear field error messages
+            clear_add_category_form_msgs();
+        } 
+
+        //This function clear all error messages of form add category
+        function clear_add_category_form_msgs(){
+                        // clear field messages
+                        $('#add_cname_msg').html('');
+
         }        
-     
+        
+         //This function reset edit_category form
+         function reset_edit_category_form(){
+
+            //clear edit_category form message
+            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#edit_cform').trigger('reset');
+
+            //clear field error messages
+            clear_edit_category_form_msgs();
+        }  
+
+        //This function clear all error messages of form edit_category
+        function clear_edit_category_form_msgs(){
+                    // clear field messages
+                    $('#edit_cname_msg').html('');
+        }         
+        // ---------End of Category Function definitions------------
 
         //Function to update user state
         function change_admin_state(){
@@ -458,6 +663,17 @@
             $('#'+admin_info.current_modelbox).show();            
 
         }        
+
+        //Function to check user selectbox
+        function check_selectbox(){
+            //check if last modelbox is not empty
+            if(admin_info.selectbox_last != ""){
+                //check if user is not same selectbox
+                if(admin_info.selectbox_active != admin_info.selectbox_last){
+                    $('#'+admin_info.selectbox_last).val(0);
+                }
+            }
+        }
 
         //Function to populate brand and category information from db in edit product form
         function fill_brand_category(brand, category){
@@ -546,34 +762,88 @@
                     
             });
         }
+
+        //This function load brand table in view brand modelblox
+        function load_brand_table(){
+
+            $.ajax({
+                url: "http://localhost/ecommerce/rest_api/api_fetch_brands_details.php",
+                dataType: "json",
+                success:function(data){
+
+                    if(!data.error){
+
+                        //clear table body
+                        $('#view_brand_table_body').html('');
+
+                        $.each(data.records, function(key, value){
+                            $('#view_brand_table_body').append("<tr>"+
+                                                                "<td class='left_align'>"+(key+1)+"</td>"+
+                                                                "<td class='left_align'>"+value.b_name+"</td>"+
+                                                                "<td>"+'<button class="card_btn edit_brand_btn"  data-id="'+value.b_id+'">Edit</button>'+"</td>"+
+                                                                "<td>"+'<button class="card_btn delete_brand_btn" data-id="'+value.b_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
+                                                                "<tr>");
+                        });
+
+                    }
+                }
+                    
+            });
+        }
+       
+        //This function load category table in view category modelblox
+        function load_category_table(){
+
+            $.ajax({
+                url: "http://localhost/ecommerce/rest_api/api_fetch_categories_details.php",
+                dataType: "json",
+                success:function(data){
+                    if(!data.error){
+
+                        //clear table body
+                        $('#view_category_table_body').html('');
+
+                        $.each(data.records, function(key, value){
+                            $('#view_category_table_body').append("<tr>"+
+                                                                "<td class='left_align'>"+(key+1)+"</td>"+
+                                                                "<td class='left_align'>"+value.c_name+"</td>"+
+                                                                "<td>"+'<button class="card_btn edit_category_btn"  data-id="'+value.c_id+'">Edit</button>'+"</td>"+
+                                                                "<td>"+'<button class="card_btn delete_category_btn" data-id="'+value.c_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
+                                                                "<tr>");
+                        });
+
+                    }
+                }
+                    
+            });
+        }        
                     
 
     // ---------End of Function definitions------------------- 
 
     //If user has pressed Logout button in navigation bar
-        $('#admin_logout_btn').on('click',function(e){
-            e.preventDefault();
+    $('#admin_logout_btn').on('click',function(e){
+        e.preventDefault();
 
-            if(confirm('Are you sure to logout?')){
+        if(confirm('Are you sure to logout?')){
 
-                //End Session
-                $.ajax({
-                    url:"http://localhost/ecommerce/admin/api_admin_logout.php",
-                    success: function(data){
-                        debugger;
-                        window.location.href = 'http://localhost/ecommerce/admin/admin_login.php';
-                    }
-                });   
-    
-            }
+            //End Session
+            $.ajax({
+                url:"http://localhost/ecommerce/admin/api_admin_logout.php",
+                success: function(data){
+                    debugger;
+                    window.location.href = 'http://localhost/ecommerce/admin/admin_login.php';
+                }
+            });   
 
-        });
+        }
+
+    });
 
     //---- Start of Product events -------//
         
         //if admin has selected option from product selectbox
-        $('#select_product').change(function(){
-        // $("#select_product option").mouseup(function(){    
+        $('#select_product').change(function(){  
 
             //if admin has selected add product in selectbox
             if($('#select_product').val()== 1){
@@ -582,6 +852,11 @@
                 admin_info.last_modelbox=admin_info.current_modelbox;
                 admin_info.current_modelbox = "add_pform_modelbox";
                 change_admin_state();
+
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_product";
+                check_selectbox();
 
                 //reset add product form
                 reset_add_product_form();
@@ -630,12 +905,18 @@
             //if admin has selected view products in selectbox
             if($('#select_product').val()== 2){
 
-                    //change admin state
-                    admin_info.last_modelbox=admin_info.current_modelbox;
-                    admin_info.current_modelbox = "products_table_modelbox";
-                    change_admin_state();
+                //change admin state
+                admin_info.last_modelbox=admin_info.current_modelbox;
+                admin_info.current_modelbox = "products_table_modelbox";
+                change_admin_state();
 
-                    load_product_table();                               
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_product";
+                check_selectbox();
+
+                //load product table
+                load_product_table();                               
             }                      
         });
 
@@ -645,7 +926,7 @@
             e.preventDefault();                           
 
             //clear form's field messages
-            clear_product_form_msgs();
+            clear_add_product_form_msgs();
 
             var form_error=false;
 
@@ -800,27 +1081,14 @@
                             if(data.limit.error){
                                 $('#add_plimit_msg').text(data.limit.message);
                             }                                                                                                                                                                                                                                   
-                        }else if(data.form_error){
-                            $('#add_pform_msg').fadeIn('slow');
-                            $('#add_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#add_pform_msg').fadeOut('slow');
-                            },3000);                                     
                         }else{
-                            $('#add_pform_msg').fadeIn('slow');
-                            $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#add_pform_msg').fadeOut('slow');
-                            },3000);  
-                            
+
                             //reset add product form
                             reset_add_product_form();
-                            
-                            // // clear form field messages
-                            // clear_product_form_msgs();
 
-                            // //reset form fields
-                            // $('#add_pform').trigger('reset');
+                            $('#add_pform_msg').fadeIn('slow');
+                            $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            
                         }
                     }
                 });
@@ -846,7 +1114,6 @@
 
         });  
         
-
         //if admin press Edit product In view product table
         $(document).on('click','.edit_product_btn',function(e){
             e.preventDefault();
@@ -854,7 +1121,7 @@
             //change admin state
             admin_info.last_modelbox=admin_info.current_modelbox;
             admin_info.current_modelbox = "edit_pform_modelbox";
-            change_admin_state();
+            change_admin_state();           
 
             //reset edit product form
             reset_edit_product_form();
@@ -1084,15 +1351,12 @@
             //prevent default form setting
             e.preventDefault();
 
-            //reset add product form 
+            //reset Edit product form 
             reset_edit_product_form();
-
-            //reset product selectbox in navigation bar
-            $('#select_product').val('0');
             
             //change admin state
             admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "default_modelbox";
+            admin_info.current_modelbox = "products_table_modelbox";
             change_admin_state();                    
 
         });      
@@ -1107,84 +1371,243 @@
             //if admin has selected add brand from selectbox
             if($('#select_brand').val()== 1){
 
-                //display add brand form
-                $('#add_bform_modelbox').show();
+                //change admin state
+                admin_info.last_modelbox=admin_info.current_modelbox;
+                admin_info.current_modelbox = "add_bform_modelbox";
+                change_admin_state();
 
-                //if admin press submit in add_brand form
-                $('#add_bsubmit').on('click',function(e){
-                    //prevent default setting of add brand form
-                    e.preventDefault();
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_brand";
+                check_selectbox();
 
-                    //retrive brand name from input field
-                    var brand_name = $('#add_bname').val();
+                //reset add brand form
+                reset_add_brand_form();
 
-                    //clear field messages
-                    $('#add_bname_msg').html('');
+            }
 
-                    //check if admin has entered brand name
-                    if(brand_name == ""){
-                        $('#add_bname_msg').fadeIn('slow');
-                        $('#add_bname_msg').text('Enter brand name');
-                    }else{
+            //if admin has selected view brand in selectbox
+            if($('#select_brand').val()== 2){
 
-                        //convert variable to object
-                        var obj = {bname:brand_name};
+                //change admin state
+                admin_info.last_modelbox=admin_info.current_modelbox;
+                admin_info.current_modelbox = "brands_table_modelbox";
+                change_admin_state();
 
-                        //convert object to json object
-                        var json_obj = JSON.stringify(obj);
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_brand";
+                check_selectbox();
 
-                        $.ajax({
-                            url: "http://localhost/ecommerce/rest_api/api_add_brand.php",
-                            type:"POST",
-                            data: json_obj,
-                            success: function(data){
-                                //if there is error in input field
-                                if(data.field_error){
-                                    if(data.bname.error){
-                                        $('#add_bname_msg').fadeIn('slow');
-                                        $('#add_bname_msg').text(data.bname.message);                                
-                                    }
-                                }else{
-                                    //if there is error in db 
-                                    if(data.form_error){
-                                        $('#add_bform_msg').fadeIn('slow');
-                                        $('#add_bform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
-                                        setTimeout(function(){
-                                            $('#add_bform_msg').fadeOut('slow');
-                                        },3000);                                              
-                                    }else{
-                                        $('#add_bform_msg').fadeIn('slow');
-                                        $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                                        setTimeout(function(){
-                                            $('#add_bform_msg').fadeOut('slow');
-                                        },3000);                                   
-                                    }
-                                }
+                //load product table
+                load_brand_table();                               
+            }              
+        });
+
+        //if admin press submit in add_brand form
+        $('#add_bsubmit').on('click',function(e){
+            //prevent default setting of add brand form
+            e.preventDefault();
+
+            //retrive brand name from input field
+            var brand_name = $('#add_bname').val();
+
+            //clear field error messages
+            clear_add_brand_form_msgs();
+
+            //check if admin has entered brand name
+            if(brand_name == ""){
+                $('#add_bname_msg').fadeIn('slow');
+                $('#add_bname_msg').text('Enter brand name');
+            }else{
+
+                //convert variable to object
+                var obj = {bname:brand_name};
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_add_brand.php",
+                    type:"POST",
+                    data: json_obj,
+                    success: function(data){
+                        //if there is error in input field
+                        if(data.field_error){
+                            if(data.bname.error){
+                                $('#add_bname_msg').fadeIn('slow');
+                                $('#add_bname_msg').text(data.bname.message);                                
                             }
-                        });
+                        }else{
+
+                            //reset add brand form
+                            reset_add_brand_form();
+                                                        
+                            $('#add_bform_msg').fadeIn('slow');
+                            $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);                                   
+                            
+                        }
                     }
-                });
-
-                //if admin press close button
-                $('#add_bclose').on('click',function(e){
-                    //prevent default form setting
-                    e.preventDefault();
-
-                    //clear add_brand form message
-                    $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');
-
-                    //reset form fields
-                    $('#add_bform').trigger('reset');
-
-                    //reset brand selectbox
-                    $("#select_brand").val('0');
-
-                    //hide add_brand form
-                    $('#add_bform_modelbox').hide();
-
                 });
             }
         });
+
+        //if admin press close button in add brand form
+        $('#add_bclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
+
+            //reset add brand from
+            reset_add_brand_form();
+
+            //reset brand selectbox
+            $("#select_brand").val('0');
+
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "default_modelbox";
+            change_admin_state();              
+
+        }); 
+        
+        //if admin press Edit brand In view brand table
+        $(document).on('click','.edit_brand_btn',function(e){
+            e.preventDefault();
+
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "edit_bform_modelbox";
+            change_admin_state();          
+
+            //reset edit brand form
+            reset_edit_brand_form();
+
+            var brand_id =$(this).data('id');
+            var obj = {brand_id:brand_id};
+            var json_obj = JSON.stringify(obj);
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_brand.php",
+                type: "POST",
+                data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success:function(data){
+                    if(!data.error){
+
+                        $('#edit_bname').attr('data-id',data.id);
+                        $('#edit_bname').val(data.name);
+
+                    }
+                }
+            });
+                                      
+        });
+
+        //if admin press Delete brand In view brand table
+        $(document).on('click','.delete_brand_btn',function(e){
+            e.preventDefault();
+
+            if(confirm("Are you sure?")){
+
+                var brand_id =$(this).data('id');
+                var obj = {brand_id:brand_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_delete_brand.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(!data.error){
+                            //load updated brand table
+                            load_brand_table();    
+                        }
+                    }
+                });
+            }                                   
+        });        
+
+        //if admin press submit in Edit brand form
+        $('#edit_bform').on('submit',function(e){
+
+            e.preventDefault();                           
+
+            //clear form's field messages
+            clear_edit_brand_form_msgs();
+
+            var form_error=false;
+
+            //retrive brand id 
+            var brand_id = $('#edit_bname').attr('data-id');
+
+            //retrive brand name from input field
+            var brand_name = $('#edit_bname').val();
+
+            //check if admin has entered brand name
+            if(brand_name == ""){
+                $('#edit_bname_msg').fadeIn('slow');
+                $('#edit_bname_msg').text('Enter brand name');
+                form_error = true;
+            }           
+
+            //check if there is no form error
+            if(!form_error){
+
+                var obj = {
+                            brand_id:brand_id,
+                            brand_name:brand_name
+                }
+
+                var json_obj = JSON.stringify(obj);
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_update_brand.php",
+                    type:"POST",
+                    contentType:"application/json",
+                    data: json_obj,
+                    dataType:"json",
+                    success: function(data){
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.name.error){
+                                $('#edit_bname_msg').text(data.name.message);
+                            }                                                                                                                                                                                                                                                                      
+                        }else{
+                            $('#edit_bform_msg').fadeIn('slow');
+                            $('#edit_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_bform_msg').fadeOut('slow');
+                            },3000);                              
+
+                            //change admin state
+                            admin_info.last_modelbox=admin_info.current_modelbox;
+                            admin_info.current_modelbox = "brands_table_modelbox";
+                            change_admin_state();    
+                            
+                            //load updated brand table
+                            load_brand_table();
+                            
+                        }
+                    }
+                });
+            }
+            
+        });  
+        
+        //if admin press close button in Edit brand form 
+        $('#edit_bclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
+            
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "brands_table_modelbox";
+            change_admin_state();                    
+
+        });           
+
+
 
     //----End of brands events -------//    
 
@@ -1196,82 +1619,238 @@
             //if admin has selected add category from selectbox
             if($('#select_category').val()== 1){
 
-                //display add category form
-                $('#add_cform_modelbox').show();
+                //change admin state
+                admin_info.last_modelbox=admin_info.current_modelbox;
+                admin_info.current_modelbox = "add_cform_modelbox";
+                change_admin_state();
 
-                //if admin press submit in add_category form
-                $('#add_csubmit').on('click',function(e){
-                    //prevent default setting of add category form
-                    e.preventDefault();
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_category";
+                check_selectbox();
 
-                    //clear all messages
-                    $('#add_cname_msg').html('');
+                //reset add category form
+                reset_add_category_form();
 
-                    //retrive category name from input field
-                    var category_name = $('#add_cname').val();
+            }
 
-                    //check if admin has entered category name
-                    if(category_name == ""){
-                        $('#add_cname_msg').fadeIn('slow');
-                        $('#add_cname_msg').text('Enter category name');
-                    }else{
+            //if admin has selected view category in selectbox
+            if($('#select_category').val()== 2){
 
-                        //convert variable to object
-                        var obj = {cname:category_name};
+                //change admin state
+                admin_info.last_modelbox=admin_info.current_modelbox;
+                admin_info.current_modelbox = "category_table_modelbox";
+                change_admin_state();
 
-                        //convert object to json object
-                        var json_obj = JSON.stringify(obj);
+                //change admin selectbox
+                admin_info.selectbox_last= admin_info.selectbox_active;
+                admin_info.selectbox_active = "select_category";
+                check_selectbox();
 
-                        $.ajax({
-                            url: "http://localhost/ecommerce/rest_api/api_add_category.php",
-                            type:"POST",
-                            data: json_obj,
-                            success: function(data){
-                                //if there is error in form field
-                                if(data.field_error){
-                                    $('#add_cname_msg').fadeIn('slow');
-                                    $('#add_cname_msg').text(data.cname.message);                              
-                                }else if(data.form_error){
-                                    //if there is error in db
-                                    $('#add_cform_msg').fadeIn('slow');
-                                    $('#add_cform_msg').removeClass('pro_msg suc_msg').addClass('err_msg').text(data.form_msg);
-                                    setTimeout(function(){
-                                        $('#add_cform_msg').fadeOut('slow');
-                                    },3000); 
-                                }else{
-                                    $('#add_cform_msg').fadeIn('slow');
-                                    $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                                    setTimeout(function(){
-                                        $('#add_cform_msg').fadeOut('slow');
-                                    },3000);                                   
-                                }
-                                
+                //load product table
+                load_category_table();                               
+            }              
+        });
+
+        //if admin press submit in add_category form
+        $('#add_csubmit').on('click',function(e){
+            //prevent default setting of add category form
+            e.preventDefault();
+
+            //retrive category name from input field
+            var category_name = $('#add_cname').val();
+
+            //clear field error messages
+            clear_add_category_form_msgs();
+
+            //check if admin has entered category name
+            if(category_name == ""){
+                $('#add_cname_msg').fadeIn('slow');
+                $('#add_cname_msg').text('Enter category name');
+            }else{
+
+                //convert variable to object
+                var obj = {cname:category_name};
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_add_category.php",
+                    type:"POST",
+                    data: json_obj,
+                    success: function(data){
+                        //if there is error in input field
+                        if(data.field_error){
+                            if(data.cname.error){
+                                $('#add_cname_msg').fadeIn('slow');
+                                $('#add_cname_msg').text(data.cname.message);                                
                             }
-                        });
+                        }else{
+                            //reset add category form
+                            reset_add_category_form();
+                                                        
+                            $('#add_cform_msg').fadeIn('slow');
+                            $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);                                   
+                                  
+                        }
                     }
                 });
+            }
+        });
 
-                //if admin press close button
-                $('#add_cclose').on('click',function(e){
-                    //prevent default form setting
-                    e.preventDefault();
+        //if admin press close button in add category form
+        $('#add_bclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
 
-                    //clear add_category form message
-                    $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');
+            //reset category selectbox
+            $("#select_category").val('0');
 
-                    //reset form fields
-                    $('#add_cform').trigger('reset');
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "default_modelbox";
+            change_admin_state();              
 
-                    //reset category selectbox
-                    $("#select_category").val('0');
+        }); 
 
-                    //hide add_category form
-                    $('#add_cform_modelbox').hide();
+        //if admin press Edit category In view category table
+        $(document).on('click','.edit_category_btn',function(e){
+            e.preventDefault();
 
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "edit_cform_modelbox";
+            change_admin_state();          
+
+            //reset edit category form
+            reset_edit_category_form();
+
+            var category_id =$(this).data('id');
+            var obj = {category_id:category_id};
+            var json_obj = JSON.stringify(obj);
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_category.php",
+                type: "POST",
+                data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success:function(data){
+                    if(!data.error){
+
+                        $('#edit_cname').attr('data-id',data.id);
+                        $('#edit_cname').val(data.name);
+
+                    }
+                }
+            });
+                                      
+        });        
+        
+        //if admin press Delete category In view category table
+        $(document).on('click','.delete_category_btn',function(e){
+            e.preventDefault();
+
+            if(confirm("Are you sure?")){
+
+                var category_id =$(this).data('id');
+                var obj = {category_id:category_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_delete_category.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(!data.error){
+                            //load updated category table
+                            load_category_table();    
+                        }
+                    }
+                });
+            }                                   
+        });  
+        
+        //if admin press submit in Edit category form
+        $('#edit_cform').on('submit',function(e){
+
+            e.preventDefault();                           
+
+            //clear form's field messages
+            clear_edit_category_form_msgs();
+
+            var form_error=false;
+
+            //retrive category id 
+            var category_id = $('#edit_cname').attr('data-id');
+
+            //retrive category name from input field
+            var category_name = $('#edit_cname').val();
+
+            //check if admin has entered category name
+            if(category_name == ""){
+                $('#edit_cname_msg').fadeIn('slow');
+                $('#edit_cname_msg').text('Enter category name');
+                form_error = true;
+            }           
+
+            //check if there is no form error
+            if(!form_error){
+
+                var obj = {
+                            category_id:category_id,
+                            category_name:category_name
+                }
+
+                var json_obj = JSON.stringify(obj);
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_update_category.php",
+                    type:"POST",
+                    contentType:"application/json",
+                    data: json_obj,
+                    dataType:"json",
+                    success: function(data){
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.name.error){
+                                $('#edit_cname_msg').text(data.name.message);
+                            }                                                                                                                                                                                                                                                                      
+                        }else{
+                            $('#edit_cform_msg').fadeIn('slow');
+                            $('#edit_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_cform_msg').fadeOut('slow');
+                            },3000);                              
+
+                            //change admin state
+                            admin_info.last_modelbox=admin_info.current_modelbox;
+                            admin_info.current_modelbox = "category_table_modelbox";
+                            change_admin_state();    
+                            
+                            //load updated category table
+                            load_category_table();
+                            
+                        }
+                    }
                 });
             }
-        }); 
+            
+        });   
         
+        //if admin press close button in Edit category form 
+        $('#edit_cclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
+            
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "category_table_modelbox";
+            change_admin_state();                    
+
+        });    
+
     //----End of Categories events -------//    
     });
 

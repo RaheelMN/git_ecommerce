@@ -7,12 +7,12 @@
 
 
     //connecting with DB server
-    include "../../include/config.php";
+   require_once "../../include/config.php";
     //get current user ip address
-    include "../../include/get_ip_address.php";
+   require_once "../../include/get_ip_address.php";
 
     //include verfication and validation functions
-    include "../../include/validate.php";
+   require_once "../../include/validate.php";
 
     $data = json_decode(file_get_contents("php://input"),true);
     $user_name = $data['name'];

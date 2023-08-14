@@ -5,10 +5,10 @@ session_start();
 if(isset($_SESSION['admin_role'])){  
 
     //connecting with DB server
-    include "include/config.php";
+    require_once "include/config.php";
     
     //verification function
-    include "include/validate.php";
+    require_once "include/validate.php";
     
     //retrieve variable values
     $pname = $_POST['add_pname'];

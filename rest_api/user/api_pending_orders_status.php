@@ -8,7 +8,7 @@
     if(isset($_SESSION['user_id'])){
 
         //connecting with DB server
-        include "../../include/config.php";
+        require_once "../../include/config.php";
     
         $output =[];
         $output['error']=false;

@@ -10,7 +10,7 @@ session_start();
 if(isset($_SESSION['admin_role'])){    
 
     //connecting with DB server
-    include "../include/config.php";
+    require_once "../include/config.php";
     
     $data = json_decode(file_get_contents("php://input"),true);
     $product_id = $data['product_id'];

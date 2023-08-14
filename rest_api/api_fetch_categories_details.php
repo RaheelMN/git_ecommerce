@@ -21,8 +21,8 @@
     $output=[];
     $output['error']=false;
 
-    //sql query to fetch order details
-    $sql = "SELECT * FROM view_order_details";
+    //sql query to fetch categories details
+    $sql = "SELECT * FROM categories";
     $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
     if(mysqli_num_rows($result)>0){
