@@ -443,8 +443,8 @@
                                                             <th rowspan="2">Total Products</th>
                                                             <th rowspan="2">Amount Due</th>
                                                             <th rowspan="2">Order Date</th>
-                                                            <th rowspan="2">Complete/Incomplete</th>
-                                                            <th rowspan="2">Status</th>
+                                                            <th rowspan="2">Order Status</th>
+                                                            <th rowspan="2">Payment</th>
 
                                                         </tr>                                   
                                                 </thead>
@@ -458,7 +458,7 @@
                                 
                                 <!-- Start of User's Confirm modelbox -->
                                     <div id="user_confirm_modelbox" >
-                                        <div class="form_div">
+                                        <div id="order_form_div">
                                             <form action="" id="confirm_order_form" class="form">
                                                 <div class="form_header">
                                                     <h3>Confirm Order</h3>                   
@@ -467,12 +467,12 @@
                                                 <div class="form_body">
                                                     <div class="form_row">
                                                         <div class="field_name">Invoice Number</div>
-                                                        <input type="text" class="form_input" name="inv_or_form" id="inv_or_form" value="" autocomplete="off">
+                                                        <input type="text" class="form_input" name="inv_or_form" id="inv_or_form" disabled>
                                                         <div id="inv_or_form_msg" class="field_err_msg"></div>
                                                     </div>
                                                     <div class="form_row">
                                                         <div class="field_name">Amount Due</div>
-                                                        <input type="text"  class="form_input" name="amt_or_form" id="amt_or_form" value="" autocomplete="off">
+                                                        <input type="text"  class="form_input" name="amt_or_form" id="amt_or_form" disabled >
                                                         <div id="amt_or_form_msg" class="field_err_msg"></div>
                                                     </div>
                                                     <div class="form_row">
@@ -953,6 +953,16 @@
             $('#edit_user_cpassword_msg').text('');
         }  
 
+        //This function set sets user profile state to default setting
+        function default_user_profile_state(){
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_pending_orders";              
+            change_user_profile_state();                        
+            user_pending_status(); 
+        }
+        
     //----------End of Functions Declaration Section------------     
     
     
@@ -1619,12 +1629,7 @@
                         change_user_state(); 
 
                         //set user profile state
-                        user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-                        user_info.current_profile_modelbox = "user_pending_modelbox";
-                        user_info.last_profile_button = user_info.current_profile_button;
-                        user_info.current_profile_button = "user_pending_orders";              
-                        change_user_profile_state();                        
-                        user_pending_status();              
+                        default_user_profile_state();           
                     }
                 }
             });
@@ -1796,12 +1801,7 @@
             change_user_state();  
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_pending_orders";              
-            change_user_profile_state();                        
-            user_pending_status();                          
+            default_user_profile_state();                     
         });
 
     // -----------Start of user profile Edit Section------------    
@@ -2114,7 +2114,36 @@
         //If user press Delete Account button in side navigation bar
         $('#user_delete_account').on('click',function(e){
             e.preventDefault();
-            alert('Are you sure to delete account?');                                              
+            if(confirm('Are you sure to delete account?')){
+                debugger;
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/user/api_delete_user_account.php",
+                    type:"GET",
+                    dataType:"json",
+                    success: function(data){
+                        debugger;
+
+                        //Set user status
+                        user_info.user_name="";
+                        user_info.user_checkout=false;
+
+                        //change navbar tags
+                        update_navbar_tags('logged_out');
+
+                        //Set user state
+                        user_info.last_modelbox=user_info.current_modelbox;
+                        user_info.current_modelbox = 'cards_modelbox';
+                        user_info.last_active_button = user_info.active_button;
+                        user_info.active_button = "home_btn";
+                        change_user_state();
+                        load_cards_modelbox();  
+
+                        //change user profile state
+
+                    }
+                });
+            }          
+
         });
         
         //If user press My Orders button in side navigation bar
@@ -2132,7 +2161,7 @@
                 type:'GET',
                 dataType:"json",
                 success:function(data){
-                    debugger;
+
                     //clear table
                     $('#order_table_body').html('');
                     //clear message
@@ -2145,21 +2174,28 @@
                         $('#order_table_msg').addClass('table_msg_style').text(data.message);
                     }else{
                         $.each(data.records, function(key,value){
-                            var payment='';
-                            if(value.order_status == 'Pending'){
-                                    payment = "incomplete";
-                            }else{
-                                payment = "complete";
-                            }
+                                debugger;
+                        if(value.order_status=="Pending"){
                             $('#order_table_body').append("<tr class='table_row_border'>"+
                                                         "<td class='left_align'>"+(key+1)+"</td>"+  
                                                         "<td>"+value.invoice_number+"</td>"+  
                                                         "<td>"+value.total_products+"</td>"+
                                                         "<td>"+value.amount_due+"</td>"+
                                                         "<td>"+value.order_date+"</td>"+
-                                                        "<td>"+payment+"</td>"+
+                                                        "<td>"+value.order_status+"</td>"+
                                                         "<td><a class='confirm_order' href='#' data-id ='"+value.order_id+"'>Confirm</a></td>"+
                                                             "<tr>");
+                            }else{
+                                $('#order_table_body').append("<tr class='table_row_border'>"+
+                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
+                                                        "<td>"+value.invoice_number+"</td>"+  
+                                                        "<td>"+value.total_products+"</td>"+
+                                                        "<td>"+value.amount_due+"</td>"+
+                                                        "<td>"+value.order_date+"</td>"+
+                                                        "<td>"+value.order_status+"</td>"+
+                                                        "<td>Paid</td>"+
+                                                            "<tr>");                                    
+                            }  
                         });
                     }
                     
@@ -2174,7 +2210,6 @@
         // If user press confirm in My Order table
         $(document).on('click','.confirm_order',function(e){
             e.preventDefault();
-            debugger;
             var order_id = $(this).attr('data-id');
             var obj ={order_id:order_id};
             var json_obj=JSON.stringify(obj);
@@ -2186,8 +2221,15 @@
                 contentType:"application/json",
                 dataType:"json",
                 success:function(data){
-                    debugger;
+
+                    //show confirm model box
+                    $('#user_confirm_modelbox').show();
+
+                    //clear error message from confirm order form
+                    $('#sel_pay_or_form_msg').text('');
+
                     $('#inv_or_form').val(data.record.invoice_number);
+                    $('#inv_or_form').attr('data-id',data.record.order_id);
                     $('#amt_or_form').val(data.record.amount_due);
 
                 }
@@ -2200,26 +2242,74 @@
          //If user press Submit in Confirm Order Form
          $('#confirm_submit').on('click',function(e){
             e.preventDefault();
-            alert('you have submitted');
+            debugger;
+
+            //clear error message from confirm order form
+            $('#sel_pay_or_form_msg').text('');  
+            
+            //Store form information
+            var order_id = $('#inv_or_form').attr('data-id');
+            var payment_mode = $('#sel_pay_or_form').val();
+
+            //check if user has selected payment mode
+            if(payment_mode == 0){
+                $('#sel_pay_or_form_msg').text('Select payment mode');
+            }else{
+                var obj = {order_id: order_id,
+                           payment_mode:payment_mode}
+
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/user/api_confirm_order.php",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: json_obj,
+                    dataType: "json",
+                    success: function(data){
+                        debugger;
+                        if(!data.error){
+
+                            //clear error message from confirm order form
+                            $('#sel_pay_or_form_msg').text('');                             
+
+                            // reset confirm_order_form
+                            $('#confirm_order_form').trigger('reset');
+
+                            //hide confirm order modelbox
+                            $('#user_confirm_modelbox').hide();
+
+                            //set user profile state
+                            default_user_profile_state();
+                                                
+                        }
+                    }
+                });
+            }
          });
 
          //If user press Close in Confirm Order Form
          $('#confirm_close').on('click',function(e){
             e.preventDefault();
-            alert('you have closed');
+            debugger;
+
+            //clear error message from confirm order form
+            $('#sel_pay_or_form_msg').text('');                             
+
+            // reset confirm_order_form
+            $('#confirm_order_form').trigger('reset');
+
+            //hide confirm order modelbox
+            $('#user_confirm_modelbox').hide();            
+            
+            //set user profile state
+            default_user_profile_state();
          });         
         
         //If user press Pending Orders button in side navigation bar
         $('#user_pending_orders').on('click',function(e){
-            e.preventDefault();
+            e.preventDefault();            
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_pending_orders";              
-            change_user_profile_state();
-            
-            user_pending_status();   
+            default_user_profile_state(); 
         });         
 
 

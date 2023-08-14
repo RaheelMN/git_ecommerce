@@ -23,6 +23,7 @@
 
         if(mysqli_num_rows($result)>0){
             $output['record'] = mysqli_fetch_assoc($result);
+            $_SESSION['order_id']=$output['record']['order_id'];
 
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
