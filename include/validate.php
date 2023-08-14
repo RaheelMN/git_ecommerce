@@ -61,26 +61,46 @@
                 
             case "image":
                 $allow_types = array('jpg','png','jpeg','gif','pdf');
-                $file_type = pathinfo($x,PATHINFO_EXTENSION);
+                $file_type = pathinfo($x['name'],PATHINFO_EXTENSION);
                 if(!in_array($file_type,$allow_types)){
                     $result['error']=true;
                     $result['message']='Image datatype should be jpg,png,jpeg,gif,pdf'; 
                     return $result;
-                }else{
+
+                }else if($x['size']>10000){
+                    $result['error']=true;
+                    $result['message']='Image size should be less then 100KB';  
+                    return $result; 
+
+                }else if($x['error']){
+                    $result['error']=true;
+                    $result['message']='Error in uploading file'; 
+                    return $result; 
+                                         
+                }                
+                else{
                     $result['error']=false;
                     return $result;                
                 }
                 break;
 
             case "price":
-                if($x<=0 || $x>100000){
+                // if($x<=0 || $x>100000){
+                //     $result['error']=true;
+                //     $result['message']='Price should be between 0 and 100000';  
+                //     return $result;                  
+                // }else{
+                //     $result['error']=false;
+                //     return $result;
+                // } 
+                if(filter_var($x,FILTER_VALIDATE_FLOAT,array('options'=>array('min_range'=>.1, 'max_range'=>10000)))){
+                    $result['error']=false;
+                    return $result;
+                }else{            
                     $result['error']=true;
                     $result['message']='Price should be between 0 and 100000';  
                     return $result;                  
-                }else{
-                    $result['error']=false;
-                    return $result;
-                } 
+                }              
                 break; 
 
                 case "email":
@@ -89,14 +109,22 @@
                         $result['message']='Email should be less then '.$length.' characters';  
                         return $result;                  
     
-                    }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$x)){
+                    // }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$x)){
+                    //     $result['error']=true;
+                    //     $result['message']='Email not valid';
+                    //     return $result;
+                    // }else{
+                    //     $result['error']=false;
+                    //     return $result;
+                    // }  
+                    }elseif(filter_var($x,FILTER_VALIDATE_EMAIL)){
+                        $result['error']=false;
+                        return $result;
+                    }else{
                         $result['error']=true;
                         $result['message']='Email not valid';
                         return $result;
-                    }else{
-                        $result['error']=false;
-                        return $result;
-                    }   
+                    }                     
                     break;    
                     
                 case "password":
@@ -121,7 +149,7 @@
                             $result['message']='Address should be less then '.$length.' characters';  
                             return $result;                  
         
-                        }elseif(!preg_match('/^[a-zA-Z]+[ ,.\#+\-\/\'&a-zA-Z0-9]*$/i',$x)){
+                        }elseif(!preg_match('/^[a-zA-Z]+[ ,.\#+\-\/&a-zA-Z0-9]*$/i',$x)){
                             $result['error']=true;
                             $result['message']='Address characters not valid';
                             return $result;

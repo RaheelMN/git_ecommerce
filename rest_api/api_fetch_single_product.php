@@ -12,11 +12,28 @@
     $product_id = $data['product_id'];
 
     //sql query to fetch all records
-    $sql = "SELECT p.p_id,p.p_title, p.p_description, c.c_name as category,b.b_name as brand, p.p_image1,p.p_image2, p.p_image3, p.p_price, p.status as stock FROM products p join categories c on p.category_id = c.c_id join brands b on p.brand_id=b.b_id WHERE p.p_id ='$product_id'";
-    // $sql = "SELECT e.id,e.name,e.age,e.gender,c.name as country from employees e join country c on e.country = c.id WHERE e.country=$cid";
+    $sql = "SELECT p_id,p_title, p_description, c_name as category,
+                   b_name as brand, p_image1,p_image2, p_image3, p_price,
+                   status as stock FROM products p 
+                   inner join categories c on p.category_id = c.c_id 
+                   inner join brands b on p.brand_id=b.b_id WHERE p.p_id ='$product_id'";
     $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
     if(mysqli_num_rows($result)>0){
-        $output['data'] = mysqli_fetch_assoc($result);
+
+        //To prevent XSS attack browser ouput is displayed using htmlenttites() function
+        //Although this data was added by adminstrator, it is used only for demonstration purpose
+        $row = mysqli_fetch_assoc($result);
+        $output['p_id'] = htmlentities($row['p_id']);
+        $output['p_title'] = htmlentities($row['p_title']);
+        $output['p_description'] = htmlentities($row['p_description']);
+        $output['category'] = htmlentities($row['category']);
+        $output['brand'] = htmlentities($row['brand']);
+        $output['p_image1'] = htmlentities($row['p_image1']);
+        $output['p_image2'] = htmlentities($row['p_image2']);
+        $output['p_image3'] = htmlentities($row['p_image3']);
+        $output['p_price'] = htmlentities($row['p_price']);
+        $output['stock'] = htmlentities($row['stock']);
+
         echo json_encode($output,JSON_PRETTY_PRINT);
     }else echo json_encode(array('message'=>"No record found", "status"=>"false"),JSON_PRETTY_PRINT);
 

@@ -56,20 +56,20 @@
     }     
 
     //verfiy image 1 extension
-     $output['pimg1']=verify($pimg1['name'],'image',0);
+     $output['pimg1']=verify($pimg1,'image',0);
      if($output['pimg1']['error']){
         $output['field_error']=true;
      }
 
 
     //verfiy image 2 extension
-    $output['pimg2']=verify($pimg2['name'],'image',0);
+    $output['pimg2']=verify($pimg2,'image',0);
     if($output['pimg2']['error']){
         $output['field_error']=true;
     }
 
     //verfiy image 3 extension
-    $output['pimg3']=verify($pimg3['name'],'image',0);
+    $output['pimg3']=verify($pimg3,'image',0);
     if($output['pimg3']['error']){
         $output['field_error']=true;
     }     

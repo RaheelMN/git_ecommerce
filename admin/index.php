@@ -15,7 +15,7 @@
                     <ul class="navbar1_ul"> 
                         <li class ="items">
                             <div id="logo">
-                                <img src="http://localhost/5-1-rest_api/images/logo.jpg" alt="logo.jpg">
+                                <img src="http://localhost/ecommerce/images/logo.jpg" alt="logo.jpg">
                             </div>
                         </li>
                         <li class="items">

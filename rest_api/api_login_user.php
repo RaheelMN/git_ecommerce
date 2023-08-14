@@ -20,7 +20,7 @@
     $output['form_error']=false;
     
     //Check if user email exists then get its password
-    $sql = "SELECT user_name,user_password FROM users where user_email='$user_email'";
+    $sql = "SELECT user_id,user_name,user_password,ip_address FROM users where user_email='$user_email'";
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         //check user password
@@ -30,7 +30,9 @@
 
             //start session
             session_start();
-            //store user name
+            //store user info
+            $_SESSION['user_id']=$row['user_id'];
+            $_SESSION['ip_address']=$row['ip_address'];     //used in cart_details
             $_SESSION['user_name']=$output['user_name']=$row['user_name'];
 
             $output['form_msg']='User logged in successfully';

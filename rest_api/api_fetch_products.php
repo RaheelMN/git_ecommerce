@@ -124,9 +124,11 @@ switch($data['search_type']){
     case 'search':
 
         $search = $data['search_term'];
+        //Secure db from sql injection
+        $search_encode =mysqli_real_escape_string($conn, $search);
 
         //sql query to fetch all records
-        $sql = "SELECT * FROM products WHERE keywords LIKE '%$search%'";
+        $sql = "SELECT * FROM products WHERE keywords LIKE '%$search_encode%'";
 
         $result = mysqli_query($conn,$sql) or die('Failed to fetch brand records from DB');
 

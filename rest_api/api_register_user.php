@@ -82,6 +82,9 @@
         //convert password to its hashed form
         $hash_password = password_hash($user_password,PASSWORD_DEFAULT);
 
+        //Address is stored in encoded form to prevent sql injection
+        $user_address =mysqli_real_escape_string($conn, $user_address);
+
         $sql = "INSERT INTO users (user_name,user_email,user_password,user_address,user_contact,ip_address) 
                 VALUES ('$user_name','$user_email','$hash_password','$user_address','$user_contact','$ip_address')";       
 
@@ -92,11 +95,23 @@
 
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);
-        } 
-        $output['user_name']=$user_name;
-        $output['form_msg']='Record successfully inserted.';
-        mysqli_close($conn);
-        echo json_encode($output,JSON_PRETTY_PRINT);          
+        }else{
+
+            $sql = "SELECT user_id FROM users where user_email='$user_email'";
+            $result = mysqli_query($conn,$sql);
+            $row = mysqli_fetch_assoc($result);
+            //start session
+            session_start();
+            //store user info
+            $_SESSION['user_id']=$row['user_id'];
+            $_SESSION['ip_address']=$ip_address;    //used in cart_detail
+            $_SESSION['user_name']=$user_name;            
+
+            $output['user_name']=$user_name;
+            $output['form_msg']='Record successfully inserted.';
+            mysqli_close($conn);
+            echo json_encode($output,JSON_PRETTY_PRINT);          
+        }
 
     }
     

@@ -1,3 +1,3 @@
 <?php
-    $conn = mysqli_connect('localhost','root','password','ecommerce') or die("Failed to connect to database");
+    $conn = mysqli_connect('localhost','root','','new_ecommerce') or die("Failed to connect to database");
 ?>

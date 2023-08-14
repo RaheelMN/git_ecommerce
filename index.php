@@ -10,328 +10,510 @@
 <body>
     <div class="container">
 
-    <!-- Start of header -->
-        <nav id="navbar1">
-            <div class="navbar_contents">
-                <div id="left_nav">
-                    <ul class="navbar1_ul"> 
-                        <li class ="items">
-                            <div id="logo">
-                                <img src="http://localhost/5-1-rest_api/images/logo.jpg" alt="logo.jpg">
-                            </div>
-                        </li>
-                        <li class="items">
-                            <button id= "home_btn" class="nav_btn">Home</button>
-                        </li>
-                        <li class="items">
-                            <button id= "register_btn" class="nav_btn">Register</button>
-                        </li>
-                        <li class="items">
-                            <button id ="contact_btn"class="nav_btn">Contact</button>
-                        </li>                        
-                        <li class="items cart">
-                            <a id="nav_cart_btn" href="#"><i class="fa-solid fa-cart-shopping" ></i><sup id="total_cart_items"></sup></a>
-                        </li>
-                        <li class="items cart" id="total_items_price">
-                        </li>
+        <!-- Start of header -->
+            <nav id="navbar1">
+                <div class="navbar_contents">
+                    <div id="left_nav">
+                        <ul class="navbar1_ul"> 
+                            <li class ="items">
+                                <div id="logo">
+                                    <img src="http://localhost/ecommerce/images/logo.jpg" alt="logo.jpg">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <button id= "home_btn" class="nav_btn nav_active_btn ">Home</button>
+                            </li>
+                            <li class="items">
+                                <button id= "register_btn" class="nav_btn">Register</button>
+                            </li>
+                            <li class="items">
+                                <button id ="contact_btn"class="nav_btn">Contact</button>
+                            </li>                        
+                            <li class="items cart">
+                                <a id="nav_cart_btn" href="#"><i class="fa-solid fa-cart-shopping" ></i><sup id="total_cart_items"></sup></a>
+                            </li>
+                            <li class="items cart_font" id="total_items_price">
+                            </li>
 
+                        </ul>
+                    </div>
+                    <div id="right_nav">
+                        <ul class="navbar1_ul">
+                            <li class="items">
+                                    <button class="nav_btn" id="search_btn" name = "search_btn">Search</button>
+                            </li>
+                            <li class="items">
+                                <input type="text" name="input_search" id="input_search">
+                            </li>              
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <nav id="navbar2">
+                <div class="navbar_contents">
+                    <ul id="navbar2_ul">
+                        <li class = "items">
+                            <div id="guest_div"> Welcome Guest!</div>
+                            <div id="user_name_div" class="nav_btn_s"></div>
+                        </li>
+                        <li class = "items">
+                            <button class="nav_btn_s" id="login_btn">Login</button>
+                            <button class="nav_btn_s" id="logout_btn">Logout</button>
+                        </li>
                     </ul>
                 </div>
-                <div id="right_nav">
-                    <ul class="navbar1_ul">
-                        <li class="items">
-                                <button class="search_btn" id="search_btn" name = "search_btn">Search</button>
-                        </li>
-                        <li class="items">
-                            <input type="text" name="input_search" id="input_search">
-                        </li>              
-                    </ul>
+            </nav>
+        <!-- End of header  -->
+
+        <!-- Start of Cards and Side navigation bar -->
+            <div id="cards_modelbox">
+
+                <!-- Section Header -->
+                <div class="main_heading">
+                    <h3>Hidden Store</h3>
+                    <p id="sub_heading">Check our inventory</p>
                 </div>
-            </div>
-        </nav>
-        <nav id="navbar2">
-            <div class="navbar_contents">
-                <ul id="navbar2_ul">
-                    <li class = "items">
-                        <div id="user_name_div"> Welcome Guest!</a>
-                    </li>
-                    <li class = "items">
-                        <!-- <a id="login_btn" href="#"> Login</a> -->
-                        <button class="nav_btn_s" id="login_btn">Login</button>
-                        <!-- <a id="logout_btn" href="#"> Log Out</a> -->
-                        <button class="nav_btn_s" id="logout_btn">Logout</button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    <!-- End of header  -->
-
-    <!-- Start of Cards and Side navigation bar -->
-        <div id="cards_modelbox">
-
-            <!-- Section Header -->
-            <div id="main_heading">
-                <h3>Hidden Store</h3>
-                <p id="sub_heading">Check our inventory</p>
-            </div>
-    
-            <!-- Product cards and side navigation bar -->
-            <div id="contents_cards_sidebar">
-                
-                <div id="products">
-                    <div id="products_msg">
-                    </div>
-                    <div id="cards_container">
-                    </div>                           
-                    <div id="pagination_container">
-                            <div id="pagination_body">                    
-                            </div>
-                    </div>
-                </div>
-                <div id="side_nav_bar_div">
-                    <ul id ="side_nav">
-                    </ul>
-                </div>
-            </div>
-        </div>
-    <!-- End of Cards and Side navigation bar -->
-
-    <!-- Start of View Product details page -->
-        <div id="product_modelbox" class="form_modelbox">
-            <div id="product_container">
-                 <div id="product_contents">
-                    <div class="product_heading">Product's Detail</div>
-                    <div id="product_image_container">
-                        <div id="product_image_div">
-                            <img src="" alt ="product image" id = "product_image">
-                        </div>
-                        <div id="product_image_btn">
-                            <a id="image1" class="image_btn" href="#" >1</a>
-                            <a  id="image2" class="image_btn" href="#" >2</a>
-                            <a  id="image3" class="image_btn" href="#" >3</a>
-                        </div>
-                    </div>
-                    <div id="product_body">
-                        <div class="form_linebreak"></div>
-                        <div class="product_row">
-                            <div class="product_row_heading">Product's Title</div>
-                            <div id="product_title" class="product_row_text"></div>
-                        </div>                        
-                        <div class="product_row">
-                            <div class="product_row_heading">Product's Description</div>
-                            <div id="product_desc" class="product_row_text" ></div>
-                        </div>
-                        <div class="product_row">
-                            <div class="product_row_heading">Product's Brand</div>
-                            <div id="product_brand" class="product_row_text"></div>
-                        </div>
-                        <div class="product_row">
-                            <div class="product_row_heading">Product's Category</div>
-                            <div id="product_category" class="product_row_text"></div>
-                        </div> 
-                        <div class="product_row">
-                            <div class="product_row_heading">Product's Price</div>
-                            <div id="product_price" class="product_row_text"></div>
-                        </div>  
-                        <div class="product_row">
-                            <div class="product_row_heading">Stock</div>
-                            <div id="product_stock" class="product_row_text"></div>
-                        </div>                         
-                        <div class="product_row">
-                            <div class="product_close_btn_div">
-                                <button id="product_close_btn">Close</button>
-                            </div>
-                        </div>                                                                     
-                    </div> 
-                </div>
-            </div>
-        </div>
-    <!-- End of View Product details page -->
-
-    <!-- Start of Cart Table -->
-        <div id ="cart_modelbox" >
-            <div id="cart_container">
-                    <div id="cart_contents">
-                        <div class="product_heading">Cart item's Detail</div>
-                        
-                        <div id="cart_body">
-                            <table id="cart_table" >
-                            <thead  style="border:1px solid black;">
-                                    <tr>
-                                        <th rowspan="2">Product Title</th>
-                                        <th rowspan="2">Product Image</th>
-                                        <th rowspan="2">Change Quantity</th>
-                                        <th rowspan="2">Quantity</th>
-                                        <th rowspan="2">Unit Cost</th>
-                                        <th rowspan="2">Total Cost</th>
-                                        <th ><input type="button" class="cart_btn" value="Update" id="update_cart_btn"></th>
-                                        <th ><input type="button" class="cart_btn" value="Delete" id="delete_cart_btn"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="cart_table_th_checkbox_cell">Update All <input type="checkbox" class="cart_table_th_checkbox" id="update_all_checkbox"></th>
-                                        <th class="cart_table_th_checkbox_cell">Delete All <input type="checkbox" class="cart_table_th_checkbox" id="delete_all_checkbox"></th>
-                                    </tr>                                    
-                                    </thead>
-                                <tbody id="cart_table_body">
-                                </tbody>
-                            </table>
-                            <div class="product_row ">
-                                <div id="cart_message"></div>
-                            </div>                                                        
-                            <div class="product_row ">
-                                <div id = "cart_total_quantity"class="product_row_text cart_row_text">
-                                </div>
-                                <div id = "cart_total_price"class="product_row_text cart_row_text">
-                                </div>
-                            </div>                                                      
-                            <div class="product_row">
-                                <div class="product_close_btn_div">
-                                    <button id="cart_close_btn" class="cart_btn">Continue Shopping</button>
-                                    <button id="cart_checkout_btn" class="cart_btn">Checkout</button>
-                                </div>
-                            </div>                               
-                        </div>
-                    </div>
-            </div>                      
-
-        </div>
-    <!-- End of Cart Table -->    
-
-    <!-- Start of Registration Form -->
-        <div id="registration_modelbox">
-            <div class="form_linebreak"></div>           
-            <div class="form_div">
-                <form action="" id="registration_form">
-                    <div class="form_header">
-                        <h3>Registration Form</h3>
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <div class="form_row">
-                                <div class="field_name">User Name</div>
-                                <input type="text" class="form_input" name="reg_name" id="reg_name" value="" autocomplete="off">
-                                <div id="reg_name_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                                <div class="field_name">Email</div>
-                                <input type="email" class="form_input" name="reg_email" id="reg_email">
-                                <div id="reg_email_msg" class="field_err_msg"></div>
-                        </div>  
-                        <div class="form_row">
-                                <div class="field_name">Password</div>
-                                <input type="password" class="form_input" name="reg_password" id="reg_password" >
-                                <div id="reg_password_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                                <div class="field_name">Confirm Password</div>
-                                <input type="password" class="form_input" name="reg_cpassword" id="reg_cpassword" >
-                                <div id="reg_cpassword_msg" class="field_err_msg"></div>
-                        </div>   
-                        <div class="form_row">
-                                <div class="field_name">Address</div>
-                                <input type="text" class="form_input" name="reg_address" id="reg_address" value="" autocomplete="off">
-                                <div id="reg_address_msg" class="field_err_msg"></div>
-                        </div>  
-                        <div class="form_row">
-                                <div class="field_name">Contact</div>
-                                <input type="text" class="form_input" name="reg_contact" id="reg_contact" value="" autocomplete="off">
-                                <div id="reg_contact_msg" class="field_err_msg"></div>
-                        </div> 
-                        <div class="form_linebreak"></div>                                                                                                                                            
-                        <div class="form_row">
-                            <button class="form_btn" id="reg_submit">Submit</button>
-                            <button class="form_btn" id="reg_close">Close</button>
-                        </div>
-                        <div class="field_name form_redirect">Already registered? <a  id="reg_form_redirect" href="#">Login</a></div>
-                        <div id="reg_form_msg" class="form_msg"></div>
-                        <div class="form_linebreak"></div>
-                    </div>
-                </form>               
-            </div>
-            <div class="form_linebreak"></div>
-        </div>  
-    <!-- End of Registration Form  -->
         
-    <!-- Login Form -->
-        <div id="login_modelbox">
-            <div class="form_linebreak"></div>           
-            <div class="form_div">
-                <form action="" id="login_form">
-                    <div class="form_header">
-                        <h3>Login Form</h3>
+                <!-- Product cards and side navigation bar -->
+                <div id="contents_cards_sidebar">
+                    
+                    <div id="products">
+                        <div id="products_msg">
+                        </div>
+                        <div id="cards_container">
+                        </div>                           
+                        <div id="pagination_container">
+                                <div id="pagination_body">                    
+                                </div>
+                        </div>
                     </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <div class="form_row">
-                                <div class="field_name">User Email</div>
-                                <input type="email" class="form_input" name="login_email" id="login_email" value="" autocomplete="off">
-                                <div id="login_email_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                                <div class="field_name">Password</div>
-                                <input type="password" class="form_input" name="login_password" id="login_password" >
-                                <div id="login_password_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_row">
-                                <div class="field_name"><a id="login_fpassword" href="#">Forgot Password</a></div>
-                        </div>   
-                        <div class="form_linebreak"></div>                                                                                                                                            
-                        <div class="form_row">
-                            <button class="form_btn" id="login_submit">Submit</button>
-                            <button class="form_btn" id="login_close">Close</button>
-                        </div>
-                        <div class="field_name form_redirect">Don't have an account? <a  id="login_form_redirect" href="#">Register</a></div>
-                        <div id="login_form_msg" class="form_msg"></div>
+                    <div id="side_nav_bar_div">
+                        <ul id ="side_nav">
+                        </ul>
                     </div>
-                </form>               
-             </div>
-            <div class="form_linebreak"></div>
-        </div>    
-    <!-- End of login form        -->
+                </div>
+            </div>
+        <!-- End of Cards and Side navigation bar -->
 
-    <!-- Payment Form -->
-    <div id="payment_modelbox">
-            <div class="form_linebreak"></div>           
-            <div class="form_div">
-                <form action="" id="payment_form">
-                    <div class="form_header">
-                        <h3>Payment Form</h3>
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <!-- <div class="form_row">
-                                <div class="field_name">User Email</div>
-                                <input type="email" class="form_input" name="login_email" id="login_email" value="" autocomplete="off">
-                                <div id="login_email_msg" class="field_err_msg"></div>
-                        </div> -->
-                        <div class="form_linebreak"></div>                                                                                                                                            
-                        <div class="form_row">
-                            <button class="form_btn" id="payment_submit">Submit</button>
-                            <button class="form_btn" id="payment_close">Close</button>
+        <!-- Start of View Product details page -->
+            <div id="product_modelbox" class="form_modelbox">
+                <div id="product_container">
+                    <div id="product_contents">
+                        <div class="product_heading">Product's Detail</div>
+                        <div id="product_image_container">
+                            <div id="product_image_div">
+                                <img src="" alt ="product image" id = "product_image">
+                            </div>
+                            <div id="product_image_btn">
+                                <a id="image1" class="image_btn" href="#" >1</a>
+                                <a  id="image2" class="image_btn" href="#" >2</a>
+                                <a  id="image3" class="image_btn" href="#" >3</a>
+                            </div>
                         </div>
-                        <div id="payment_form_msg" class="form_msg"></div>
+                        <div id="product_body">
+                            <div class="form_linebreak"></div>
+                            <div class="product_row">
+                                <div class="product_row_heading">Product's Title</div>
+                                <div id="product_title" class="product_row_text"></div>
+                            </div>                        
+                            <div class="product_row">
+                                <div class="product_row_heading">Product's Description</div>
+                                <div id="product_desc" class="product_row_text" ></div>
+                            </div>
+                            <div class="product_row">
+                                <div class="product_row_heading">Product's Brand</div>
+                                <div id="product_brand" class="product_row_text"></div>
+                            </div>
+                            <div class="product_row">
+                                <div class="product_row_heading">Product's Category</div>
+                                <div id="product_category" class="product_row_text"></div>
+                            </div> 
+                            <div class="product_row">
+                                <div class="product_row_heading">Product's Price</div>
+                                <div id="product_price" class="product_row_text"></div>
+                            </div>  
+                            <div class="product_row">
+                                <div class="product_row_heading">Stock</div>
+                                <div id="product_stock" class="product_row_text"></div>
+                            </div>                         
+                            <div class="product_row">
+                                <div class="text_center">
+                                    <button id="product_close_btn">Close</button>
+                                </div>
+                            </div>                                                                     
+                        </div> 
                     </div>
-                </form>               
-             </div>
-            <div class="form_linebreak"></div>
-        </div>    
-    <!-- End of Pyament form        -->
+                </div>
+            </div>
+        <!-- End of View Product details page -->
 
+        <!-- Start of Cart Table -->
+            <div id ="cart_modelbox" >
+                <div id="cart_container">
+                        <div id="cart_contents">
+                            <div class="product_heading">Cart item's Detail</div>
+                            
+                            <div id="cart_body">
+                                <table id="cart_table" >
+                                <thead  style="border:1px solid black;">
+                                        <tr>
+                                            <th rowspan="2">Product Title</th>
+                                            <th rowspan="2">Product Image</th>
+                                            <th rowspan="2">Change Quantity</th>
+                                            <th rowspan="2">Quantity</th>
+                                            <th rowspan="2">Unit Cost</th>
+                                            <th rowspan="2">Total Cost</th>
+                                            <th ><input type="button" class="cart_btn" value="Update" id="update_cart_btn"></th>
+                                            <th ><input type="button" class="cart_btn" value="Delete" id="delete_cart_btn"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="cart_table_th_checkbox_cell">Update All <input type="checkbox" class="cart_table_th_checkbox" id="update_all_checkbox"></th>
+                                            <th class="cart_table_th_checkbox_cell">Delete All <input type="checkbox" class="cart_table_th_checkbox" id="delete_all_checkbox"></th>
+                                        </tr>                                    
+                                        </thead>
+                                    <tbody id="cart_table_body">
+                                    </tbody>
+                                </table>
+                                <div class="product_row ">
+                                    <div id="cart_message"></div>
+                                </div>                                                        
+                                <div class="product_row ">
+                                    <div id = "cart_total_quantity"class="product_row_text cart_row_text">
+                                    </div>
+                                    <div id = "cart_total_price"class="product_row_text cart_row_text">
+                                    </div>
+                                </div>                                                      
+                                <div class="product_row">
+                                    <div class="text_center">
+                                        <button id="cart_continue_shopping" class="cart_btn">Continue Shopping</button>
+                                        <button id="cart_checkout_btn" class="cart_btn">Checkout</button>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                </div>                      
 
-    <!--Start of Section Footer -->
-        <Footer>
-            <p>&copy;2023. E-Commerce. All rights reserved</p>
-        </Footer>
-    <!-- End of Section Footer -->    
+            </div>
+        <!-- End of Cart Table -->    
+
+        <!-- Start of Registration Form -->
+            <div id="registration_modelbox">
+                <div class="form_linebreak"></div>           
+                <div class="form_div">
+                    <form action="" id="registration_form">
+                        <div class="form_header">
+                            <h3>Registration Form</h3>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
+                            <div class="form_row">
+                                    <div class="field_name">User Name</div>
+                                    <input type="text" class="form_input" name="reg_name" id="reg_name" value="" autocomplete="off">
+                                    <div id="reg_name_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                    <div class="field_name">Email</div>
+                                    <input type="email" class="form_input" name="reg_email" id="reg_email">
+                                    <div id="reg_email_msg" class="field_err_msg"></div>
+                            </div>  
+                            <div class="form_row">
+                                    <div class="field_name">Password</div>
+                                    <input type="password" class="form_input" name="reg_password" id="reg_password" >
+                                    <div id="reg_password_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                    <div class="field_name">Confirm Password</div>
+                                    <input type="password" class="form_input" name="reg_cpassword" id="reg_cpassword" >
+                                    <div id="reg_cpassword_msg" class="field_err_msg"></div>
+                            </div>   
+                            <div class="form_row">
+                                    <div class="field_name">Address</div>
+                                    <input type="text" class="form_input" name="reg_address" id="reg_address" value="" autocomplete="off">
+                                    <div id="reg_address_msg" class="field_err_msg"></div>
+                            </div>  
+                            <div class="form_row">
+                                    <div class="field_name">Contact</div>
+                                    <input type="text" class="form_input" name="reg_contact" id="reg_contact" value="" autocomplete="off">
+                                    <div id="reg_contact_msg" class="field_err_msg"></div>
+                            </div> 
+                            <div class="form_linebreak"></div>                                                                                                                                            
+                            <div class="form_row">
+                                <button class="form_btn" id="reg_submit">Submit</button>
+                                <button class="form_btn" id="reg_close">Close</button>
+                            </div>
+                            <div class="field_name form_redirect">Already registered? <a  id="reg_form_redirect" class="enable_underline" href="#">Login</a></div>
+                            <div id="reg_form_msg" class="form_msg"></div>
+                            <div class="form_linebreak"></div>
+                        </div>
+                    </form>               
+                </div>
+                <div class="form_linebreak"></div>
+            </div>  
+        <!-- End of Registration Form  -->
+            
+        <!-- Start of Login Form -->
+            <div id="login_modelbox">
+                <div class="form_linebreak"></div>           
+                <div class="form_div">
+                    <form action="" id="login_form">
+                        <div class="form_header">
+                            <h3>Login Form</h3>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
+                            <div class="form_row">
+                                    <div class="field_name">User Email</div>
+                                    <input type="email" class="form_input" name="login_email" id="login_email" value="" autocomplete="off">
+                                    <div id="login_email_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                    <div class="field_name">Password</div>
+                                    <input type="password" class="form_input" name="login_password" id="login_password" >
+                                    <div id="login_password_msg" class="field_err_msg"></div>
+                            </div>
+                            <div class="form_row">
+                                    <div class="field_name"><a id="login_fpassword" href="#">Forgot Password</a></div>
+                            </div>   
+                            <div class="form_linebreak"></div>                                                                                                                                            
+                            <div class="form_row">
+                                <button class="form_btn" id="login_submit">Submit</button>
+                                <button class="form_btn" id="login_close">Close</button>
+                            </div>
+                            <div class="field_name form_redirect">Don't have an account? <a  id="login_form_redirect" class="enable_underline" href="#">Register</a></div>
+                            <div id="login_form_msg" class="form_msg"></div>
+                        </div>
+                    </form>               
+                </div>
+                <div class="form_linebreak"></div>
+            </div>    
+        <!-- End of login form        -->
+
+        <!-- Start of Payment Form -->
+            <div id="payment_modelbox">
+                <div class="form_linebreak"></div>           
+                <div class="form_div">
+                    <form action="" id="payment_form">
+                        <div class="form_header">
+                            <h3>Payment Options</h3>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_body">
+                            <div class="form_linebreak"></div>                                                                                                                                            
+                            <div class="form_row text_center">
+                                <a id="payment_online" class="payment_anchor enable_underline" href="#">Pay Online</a>
+                                <a id="payment_offline" class="payment_anchor enable_underline" href="#">Pay Offline</a>
+                            </div>
+                            <div class="form_row text_center">
+                                <div class="form_linebreak"></div>                              
+                                <button class="form_btn" id="payment_close">Close</button>
+                            </div>                        
+                            <div id="payment_form_msg" class="form_msg"></div>
+                            <div class="form_linebreak"></div> 
+                        </div>
+                    </form>               
+                </div>
+                <div class="form_linebreak"></div>
+            </div>    
+        <!-- End of Pyament form        -->
+
+        <!-- Start of User profile section -->
+            <div id="user_modelbox">
+
+                <!-- Section Header -->
+                <div class="main_heading">
+                    <h3>Hidden Store</h3>
+                </div>
+                <div id="user_container">
+
+                    <!-- Start of User's Side navigation bar and content area-->
+                        <div id="user_sidebar_contents">
+                                
+                                <div id="user_sidebar_div">
+                                    <ul id ="side_nav_ul">
+                                        <li class="user_sidenav_header">Your Profile</li>
+                                        <li id="user_edit_profile" class="user_sidenav_btn">Edit Profile</li>
+                                        <li id="user_change_password" class="user_sidenav_btn">Change Password</li>
+                                        <li id="user_delete_account" class="user_sidenav_btn">Delete Account</li>
+                                        <li id="user_my_orders" class=" user_sidenav_btn">My Orders</li>
+                                        <li id="user_pending_orders" class="user_sidenav_btn">Pending Orders</li>
+                                    </ul>
+                                </div>
+                        </div>
+                    <!-- End of User's Side navigation bar and content area-->
+
+                        <div id="user_contents_div">
+                            <div id="user_content_container">
+
+                                <!-- Start of Pending orders modelbox -->
+                                    <div id = "user_pending_modelbox">
+                                        <div id="user_msg"></div>
+                                    </div>
+                                <!-- End of Pending orders modelbox -->
+
+                                <!-- Start of User's Edit Profile modelbox -->
+                                    <div id="user_edit_profile_modelbox">
+                                        <div class="form_linebreak"></div>           
+                                        <div class="form_div">
+                                            <form action="" id="user_edit_profile_form">
+                                                <div class="form_header">
+                                                    <h3>Edit User's Profile Form</h3>
+                                                </div>
+                                                <div class="form_linebreak"></div>
+                                                <div class="form_body">
+                                                    <div class="form_row">
+                                                            <div class="field_name">User Name</div>
+                                                            <input type="text" class="form_input" name="edit_user_name" id="edit_user_name" value="" data-id="0" autocomplete="off">
+                                                            <div id="edit_user_name_msg" class="field_err_msg"></div>
+                                                    </div>
+                                                    <div class="form_row">
+                                                            <div class="field_name">Email</div>
+                                                            <input type="email" class="form_input" name="edit_user_email" id="edit_user_email">
+                                                            <div id="edit_user_email_msg" class="field_err_msg"></div>
+                                                    </div>  
+                                                    <div class="form_row">
+                                                            <div class="field_name">Address</div>
+                                                            <input type="text" class="form_input" name="edit_user_address" id="edit_user_address" value="" autocomplete="off">
+                                                            <div id="edit_user_address_msg" class="field_err_msg"></div>
+                                                    </div>  
+                                                    <div class="form_row">
+                                                            <div class="field_name">Contact</div>
+                                                            <input type="text" class="form_input" name="edit_user_contact" id="edit_user_contact" value="" autocomplete="off">
+                                                            <div id="edit_user_contact_msg" class="field_err_msg"></div>
+                                                    </div> 
+                                                    <div class="form_linebreak"></div>                                                                                                                                            
+                                                    <div class="form_row">
+                                                        <button class="form_btn" id="edit_user_submit">Submit</button>
+                                                        <button class="form_btn" id="edit_user_close">Close</button>
+                                                    </div>
+                                                    <div id="edit_user_form_msg" class="form_msg"></div>
+                                                    <div class="form_linebreak"></div>
+                                                </div>
+                                            </form>               
+                                        </div>
+                                        <div class="form_linebreak"></div>
+                                    </div>
+                                <!-- End of User's Edit Profile modelbox -->  
+
+                                <!-- Start of User's change password modelbox -->
+                                    <div id="user_change_password_modelbox">
+                                        <div class="form_linebreak"></div>           
+                                        <div class="form_div">
+                                            <form action="" id="user_change_password_form">
+                                                <div class="form_header">
+                                                    <h3>Edit User's Password Form</h3>
+                                                </div>
+                                                <div class="form_linebreak"></div>
+                                                <div class="form_body">
+                                                    <div class="form_row">
+                                                            <div class="field_name">Enter Old Password</div>
+                                                            <input type="password" class="form_input" name="edit_user_opassword" id="edit_user_opassword">
+                                                            <div id="edit_user_opassword_msg" class="field_err_msg"></div>
+                                                    </div>                                    
+                                                    <div class="form_row">
+                                                            <div class="field_name">Enter Password</div>
+                                                            <input type="password" class="form_input" name="edit_user_password" id="edit_user_password">
+                                                            <div id="edit_user_password_msg" class="field_err_msg"></div>
+                                                    </div>
+                                                    <div class="form_row">
+                                                            <div class="field_name">Confirm Password</div>
+                                                            <input type="password" class="form_input" name="edit_user_cpassword" id="edit_user_cpassword">
+                                                            <div id="edit_user_cpassword_msg" class="field_err_msg"></div>
+                                                    </div>  
+                                                    <div class="form_linebreak"></div>                                                                                                                                            
+                                                    <div class="form_row">
+                                                        <button class="form_btn" id="edit_user_csubmit">Submit</button>
+                                                        <button class="form_btn" id="edit_user_cclose">Close</button>
+                                                    </div>
+                                                    <div id="edit_user_cform_msg" class="form_msg"></div>
+                                                    <div class="form_linebreak"></div>
+                                                </div>
+                                            </form>               
+                                        </div>
+                                        <div class="form_linebreak"></div>
+                                    </div>
+                                <!-- End of User's change password modelbox -->  
+                                
+                                <!-- Start of User's Order modelbox -->
+                                    <div id="user_order_modelbox">
+                                        <table id="order_table" class="user_table" >
+                                                <thead  style="border:1px solid black;">
+                                                        <tr>
+                                                            <th rowspan="2" class='left_align'>S.No</th>
+                                                            <th rowspan="2">Invoice No</th>
+                                                            <th rowspan="2">Total Products</th>
+                                                            <th rowspan="2">Amount Due</th>
+                                                            <th rowspan="2">Order Date</th>
+                                                            <th rowspan="2">Complete/Incomplete</th>
+                                                            <th rowspan="2">Status</th>
+
+                                                        </tr>                                   
+                                                </thead>
+                                                <tbody id="order_table_body">
+                                                </tbody>
+                                        </table> 
+                                    </div>  
+                                <!-- End of User's Order modelbox -->       
+                                
+                                <!-- Start of User's Confirm modelbox -->
+                                    <div id="user_confirm_modelbox" >
+                                        <div class="form_div">
+                                            <form action="" id="confirm_order_form" class="form">
+                                                <div class="form_header">
+                                                    <h3>Confirm Order</h3>                   
+                                                </div>
+                                                <div class="form_linebreak"></div>
+                                                <div class="form_body">
+                                                    <div class="form_row">
+                                                        <div class="field_name">Invoice Number</div>
+                                                        <input type="text" class="form_input" name="inv_or_form" id="inv_or_form" value="" autocomplete="off">
+                                                        <div id="inv_or_form_msg" class="field_err_msg"></div>
+                                                    </div>
+                                                    <div class="form_row">
+                                                        <div class="field_name">Amount Due</div>
+                                                        <input type="text"  class="form_input" name="amt_or_form" id="amt_or_form" value="" autocomplete="off">
+                                                        <div id="amt_or_form_msg" class="field_err_msg"></div>
+                                                    </div>
+                                                    <div class="form_row">
+                                                        <select id="sel_pay_or_form" name="sel_pay_or_form"></select>
+                                                        <div id="sel_pay_or_form_msg" class="field_err_msg"></div>
+                                                    </div>
+
+                                                    <div class="form_linebreak"></div>
+                                                    <div class="form_row">
+                                                        <input type="submit" class="form_btn" id="confirm_submit" name="confirm_submit" value="Submit">
+                                                        <button class="form_btn" id="confirm_close">Close</button>
+                                                    </div>
+                                                    <div id="confirm_order_msg" class="form_msg"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>                
+
+                                <!-- End of User's Confirm modelbox -->                    
+                            </div>                           
+                        </div>
+                </div>
+            </div>
+            
+            <div class="form_linebreak"></div> 
+
+        <!-- End of User profile section -->
+
+        <!--Start of Section Footer -->
+            <Footer>
+                <p>&copy;2023. E-Commerce. All rights reserved</p>
+            </Footer>
+        <!-- End of Section Footer -->    
 
 
     </div>
 </body>
 <script src="http://localhost/ecommerce/js/jquery.js"></script>
 <script>
-    $('document').ready(function(){
+    $(document).ready(function(){
 
-    //---------Objects Declaration------------------------
+
+    //-------Start of Objects Declaration-------------------
 
         //parameters used in load_cards function ajax call
         const cards_info ={
@@ -359,9 +541,14 @@
 
         //parameters used in determining user's current state
         const user_info={
-            user_state:"cards_modelbox",
-            user_last_state:"",
-            user_logged:false,
+            current_modelbox:"cards_modelbox",
+            last_modelbox:"",
+            active_button:"home_btn",
+            last_active_button:"",
+            current_profile_modelbox:"order_pending_modelbox",
+            last_profile_modelbox:"",
+            current_profile_button:"order_pending_btn",
+            last_profile_button:"",
             user_checkout:false,
             user_name:""
         }
@@ -369,7 +556,7 @@
     //------ End of Objects Declaration---------------------    
 
 
-    //-------------Functions Declaration Section---------------    
+    //--------Start of Functions Declaration Section------------    
 
         //Function to populate side navigation bar with brands and categories records
         function load_sidenav(){
@@ -479,7 +666,6 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        debugger;
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
@@ -556,7 +742,7 @@
                                 }
 
                                 $.each(data.data,function(key, value){
-                                    $('#cart_table_body').append('<tr class="cart_row">'+
+                                    $('#cart_table_body').append('<tr class="table_row_border">'+
                                                                 '<td class="cart_table_col1">'+value.p_title+'</td>'+
                                                                 '<td class="cart_cell"><img src="'+value.p_image1+'" alt="mangoes" class="cart_image"></td>'+
                                                                 '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
@@ -587,119 +773,67 @@
 
         //Function to update user state
         function change_user_state(){
-            switch (user_info.user_state){
-                
-                case 'cards_modelbox':
 
-                    //Hide last modelbox
-                    $('#'+user_info.user_last_state).hide();    
-                    
-                    //Change navigation bar tags based on current state
-                    update_navbar_tags();                                   
+            //Hide last modelbox
+            $('#'+user_info.last_modelbox).hide();                                          
 
-                    //display cards and side navigation bar modelbox
-                    $('#cards_modelbox').show();
-                    break;
+            //Deactivate previous navbar button
+            $('#'+user_info.last_active_button).removeClass("nav_active_btn");
 
-                case "cart_modelbox":     
-                    //Hide last modelbox
-                    $('#'+user_info.user_last_state).hide();   
-                    
-                    //Change navigation bar tags based on current state
-                    update_navbar_tags();                                                         
+            //Activate Current navbar button
+            $('#'+user_info.active_button).addClass("nav_active_btn");
 
-                    //Show Cart modelbox
-                    $('#cart_modelbox').show();
-                    break;
+            //display current modelbox
+            $('#'+user_info.current_modelbox).show();            
 
-                case "registration_modelbox": 
-
-                    //Hide last modelbox
-                    $('#'+user_info.user_last_state).hide();   
-
-                    //Change navigation bar tags based on current state
-                    update_navbar_tags();                     
-                    
-                    //Disable Register Button in navigation bar
-                    $("#register_btn").addClass('no_hover').prop("disabled", true);  
-
-                    //Enable login Button in navigation bar
-                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                      
-
-                    //Show Registration modelbox
-                    $('#registration_modelbox').show();
-                    break; 
-
-                case "login_modelbox":     
-
-                    //Hide last modelbox
-                    $('#'+user_info.user_last_state).hide();   
-                    
-                    //Change navigation bar tags based on current state
-                    update_navbar_tags();                                    
-                    
-                    //Disable login Button in navigation bar
-                    $("#login_btn").addClass('no_hover').prop("disabled", true); 
-
-                    //Enable Register Button in navigation bar
-                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
-
-                    //Show Login modelbox
-                    $('#login_modelbox').show();
-                    break; 
-                    
-                case "payment_modelbox": 
-
-                    //Hide last modelbox
-                    $('#'+user_info.user_last_state).hide(); 
-
-                    //Change navigation bar tags based on current state
-                    update_navbar_tags();                                                                           
-
-                    //Show Payment modelbox
-                    $('#payment_modelbox').show();
-                    break;                                                            
-            }
         }
 
-        //Function to update navigation bar tags when change_user_state function is call
-        function update_navbar_tags(){
-            debugger;
-            //Check if user has currently pressed Home button in navigation bar
-            if(user_info.user_state == 'cards_modelbox'){
+        //Function to update user state
+        function change_user_profile_state(){
 
-                //Check if user has previously pressed button other than home button
-                if(user_info.user_last_state != 'cards_modelbox'){
+            //Hide last profile modelbox
+            $('#'+user_info.last_profile_modelbox).hide();                                          
 
-                    //Enable Search button and input field
-                    $("#search_btn").removeClass('no_hover').prop("disabled", false);
-                    $("#input_search").removeClass('no_hover').prop("disabled", false);
+            //Deactivate previous navbar button
+            $('#'+user_info.last_profile_button).removeClass("user_active_btn");
+
+            //Activate Current navbar button
+            $('#'+user_info.current_profile_button).addClass("user_active_btn");
+
+            //display current modelbox
+            $('#'+user_info.current_profile_modelbox).show();            
+
+        }   
+
+        //Function to update navigation bar tags when user login or logout
+        function update_navbar_tags(optype){
+
+            switch(optype){
+
+                case 'logged_in':
+                    //change navbar login logout buttons
+                    $('#login_btn').hide();
+                    $('#logout_btn').show();
+                    $('#guest_div').hide();
+                    $('#user_name_div').text('Welcome '+user_info.user_name);
+                    $('#user_name_div').show();
+
+                    //Disable Register Button in navigation bar
+                    $("#register_btn").addClass('no_hover nav_disabled_btn').prop("disabled", true); 
+                    break; 
                     
-                    //Enable Cart icon in navigation bar
-                    $("#nav_cart_btn").removeClass('no_hover').prop("disabled", false);
+                case 'logged_out':
+                    //change navbar login logout buttons
+                    $('#login_btn').show();
+                    $('#logout_btn').hide();
+                    $('#guest_div').show();
+                    $('#user_name_div').text('');
+                    $('#user_name_div').hide();
 
-                    //Check if user is not logged in
-                    if(!user_info.user_logged ){
-                        //Enable Register Button in navigation bar
-                        $("#register_btn").removeClass('no_hover').prop("disabled", false);  
-
-                        //Enable login Button in navigation bar
-                        $("#login_btn").removeClass('no_hover').prop("disabled", false);                       
-                    }   
-                }
-            //If user has currently pressed button other than home button in navigation bar
-            }else{
-
-                //Check if user has previously pressed home button
-                if(user_info.user_last_state == 'cards_modelbox'){
-                    //Disable Search button and input field
-                    $("#search_btn").addClass('no_hover').prop("disabled", true);
-                    $("#input_search").addClass('no_hover').prop("disabled", true);
-                    
-                    //Disable Cart icon in navigation bar
-                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);                         
-                    }                
+                    //Enable Register Button in navigation bar
+                    $("#register_btn").removeClass('no_hover nav_disabled_btn').prop("disabled", false);
             }
+
         } 
 
         //Function to update cart table state
@@ -758,26 +892,82 @@
                         $('#login_email_msg').html('');
                         $('#login_password_msg').html('');
         } 
+
+        //Function to check user session status
+        function check_user_session(){
+            $.ajax({
+                url: "http://localhost/ecommerce/rest_api/api_session_status.php",
+                type: "GET",
+                dataType:"json",
+                success: function(data){
+                    user_info.last_modelbox=user_info.current_modelbox;
+                    if(data.session_active){
+                        user_info.user_name=data.user_name;
+                        //change navbar tags
+                        update_navbar_tags('logged_in');
+                    }
+                }
+
+            });
+        }
         
+        //This function clear all error messages of Payment modelbox
+        function clear_payment_msg(){
+            $('#payment_form_msg').text('');              
+        }
+
+     //This function work on user's pending orders 
+        function user_pending_status(){
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_pending_orders_status.php",
+                type:"GET",
+                dataType:"json",
+                success: function(data){
+                $('#user_msg').text('You have '+data.orders+' pending orders');
+                }
+            });
+        }
+
+        // This function clear all error messages of Edit user profile modelbox
+        function clear_edit_profile_form_msgs(){
+            $('#edit_user_name_msg').text('');
+            $('#edit_user_email_msg').text('');
+            $('#edit_user_address_msg').text('');
+            $('#edit_user_contact_msg').text('');
+        }     
+
+        // This function clear all error messages of Change user password modelbox
+        function clear_user_change_password_form_msgs(){
+            $('#edit_user_opassword_msg').text('');
+            $('#edit_user_password_msg').text('');
+            $('#edit_user_cpassword_msg').text('');
+        }  
+
     //----------End of Functions Declaration Section------------     
     
     
     //-------Start of Functions called at startup-----------
-        debugger;
+
         //load cards and side navigation bar at startup   
         load_contents();
 
         //load user's cart information in navigation bar
         load_cart_info();
 
+        //Check if user is already logged in
+        check_user_session();
+
     //-------End of Functions called at startup-----------    
 
         //if user has pressed Home button in navigation bar
         $('#home_btn').on('click',function(e){
             e.preventDefault();
+
             //Set user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = 'cards_modelbox';
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = 'cards_modelbox';
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "home_btn";
             change_user_state();
             load_cards_modelbox();          
         });
@@ -787,6 +977,13 @@
             
             var search = $('#input_search').val();
             if(search != ""){
+                //Set user state
+                user_info.last_modelbox=user_info.current_modelbox;
+                user_info.current_modelbox = 'cards_modelbox';
+                user_info.last_active_button = user_info.active_button;
+                user_info.active_button = "search_btn";
+                change_user_state();
+
                 cards_info.search_type='search';
                 cards_info.search_term=search;                
                 cards_info.page_no=1;
@@ -801,15 +998,31 @@
 
         }); 
 
+        //if user has pressed page button in pagination of cards
+        $(document).on('click','#pagination_body a',function(e){
+            e.preventDefault();
+            cards_info.page_no = $(this).attr('id');
+            load_cards();
+        });
 
-    //-------Start of Registration Form----------------------   
+
+
+    //-------Start of Registration Section----------------------   
 
         //if user has pressed Registration button in navigation bar
         $('#register_btn').on('click',function(){
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "registration_modelbox";
-            change_user_state();          
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "registration_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "register_btn";              
+            change_user_state();   
+            
+            //Reset form fields
+            $('#registration_form').trigger('reset');
+
+            //clear form's field messages
+            clear_registration_form_msgs();               
         });   
 
         //if user has pressed Close button Registration Form
@@ -822,8 +1035,10 @@
             $('#registration_form').trigger('reset'); 
 
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "cards_modelbox";
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "cards_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "home_btn";              
             change_user_state();          
         });   
 
@@ -831,9 +1046,11 @@
         $('#reg_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "login_modelbox";
-            change_user_state();              
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "login_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "login_btn";              
+            change_user_state();                       
         });  
         
         //If user has pressed Submit button in Registration form
@@ -970,35 +1187,26 @@
                             clear_registration_form_msgs();
 
                             //Set user status
-                            user_info.user_last_state=user_info.user_state;
-                            user_info.user_logged = true;
+                            user_info.last_modelbox=user_info.current_modelbox;
                             user_info.user_name = data.user_name;
-                            //change navbar login logout buttons
-                            $('#login_btn').hide();
-                            $('#logout_btn').show();
-                            $('#user_name_div').text('Welcome '+user_info.user_name);
 
-                            //Disable Register Button in navigation bar
-                            $("#register_btn").addClass('no_hover').prop("disabled", true);
-                                
-                            //Disable login Button in navigation bar
-                            $("#login_btn").addClass('no_hover').prop("disabled", true);                                       
+                            //change navbar tags
+                            update_navbar_tags('logged_in');                                      
 
                             //check if user has pressed checkout button in Cart Table
                             if(user_info.user_checkout){
                                 //set user state
-                                user_info.user_state="payment_modelbox";
+                                user_info.current_modelbox="payment_modelbox";
+                                user_info.last_active_button = user_info.active_button;
+                                user_info.active_button = "nav_cart_btn";                                  
                                 change_user_state();        
                             }else{
                                 //set  user state
-                                user_info.user_state = "cards_modelbox";
+                                user_info.current_modelbox = "cards_modelbox";
+                                user_info.last_active_button = user_info.active_button;
+                                user_info.active_button = "home_btn";                                  
                                 change_user_state(); 
-                            }                            
-                            // user_info.user_state="logged_in";
-                            // user_info.user_name=obj.name;
-                            // change_user_state();                                
-
-
+                            }                                                          
                         }
                     }
                 });
@@ -1007,17 +1215,25 @@
         });        
                         
         
-    //-------End of Registration Form----------------------    
+    //-------End of Registration Section----------------------    
 
-    //-------Start of Login Form----------------------   
+    //-------Start of Login Section----------------------   
 
         //if user has pressed Login button in navigation bar
         $('#login_btn').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "login_modelbox";
-            change_user_state();          
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "login_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "login_btn";            
+            change_user_state();   
+            
+            //Reset form fields
+            $('#login_form').trigger('reset');
+
+            //clear form's field messages
+            clear_login_form_msgs();            
         });   
 
         //if user has pressed Close button Login Form
@@ -1029,8 +1245,10 @@
                 user_info.user_checkout=false;
             }
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "cards_modelbox";
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "cards_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "home_btn";            
             change_user_state();          
         }); 
         
@@ -1038,8 +1256,10 @@
         $('#login_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "registration_modelbox";
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "registration_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "register_btn";            
             change_user_state();              
         });
 
@@ -1091,7 +1311,7 @@
                     dataType:"json",
                     contentType: "application/json; charset=utf-8",
                     success: function(data){
-                        debugger;
+
                         // if form field has error
                         if(data.field_error){
                             if(data.email.error){
@@ -1117,28 +1337,22 @@
                             clear_login_form_msgs();
 
                             //set user login state
-                            user_info.user_logged = true;
                             user_info.user_name = data.user_name;
-                            user_info.user_last_state=user_info.user_state;
-                            //change navbar login logout buttons
-                            $('#login_btn').hide();
-                            $('#logout_btn').show();
-                            $('#user_name_div').text('Welcome '+user_info.user_name);
+                            user_info.last_modelbox=user_info.current_modelbox;
 
-                            //Disable Register Button in navigation bar
-                            $("#register_btn").addClass('no_hover').prop("disabled", true);
-                                
-                            //Disable login Button in navigation bar
-                            $("#login_btn").addClass('no_hover').prop("disabled", true);                                       
+                            //change navbar tags
+                            update_navbar_tags('logged_in');                                     
 
                             //check if user has pressed checkout button in Cart Table
                             if(user_info.user_checkout){
                                 //set user state
-                                user_info.user_state="payment_modelbox";
+                                user_info.current_modelbox="payment_modelbox";
                                 change_user_state();        
                             }else{
                                 //set  user state
-                                user_info.user_state = "cards_modelbox";
+                                user_info.current_modelbox = "cards_modelbox";
+                                user_info.last_active_button = user_info.active_button;
+                                user_info.active_button = "home_btn";                                
                                 change_user_state(); 
                             }                          
                         }
@@ -1163,55 +1377,48 @@
                 });   
     
                 //Set user status
-                user_info.user_logged = false;
                 user_info.user_name="";
                 user_info.user_checkout=false;
-                //change navbar login logout buttons
-                $('#login_btn').show();
-                $('#logout_btn').hide();
-                $('#user_name_div').text('Welcome Guest!');
+
+                //change navbar tags
+                update_navbar_tags('logged_out');
 
                 //set  user state
-                user_info.user_last_state=user_info.user_state;
-                user_info.user_state = "cards_modelbox";
+                user_info.last_modelbox=user_info.current_modelbox;
+                user_info.current_modelbox = "cards_modelbox";
+                user_info.last_active_button = user_info.active_button;
+                user_info.active_button = "home_btn";                
                 change_user_state();          
             }
 
         });
 
-    //-------End of Login Form----------------------   
+    //-------End of Login Section----------------------   
 
-    //--------------Cart Section-------------
+    //---------Start of Cart Section-------------
 
         //if user has pressed cart button in navigation bar
         $('#nav_cart_btn').on('click',function(e){
             e.preventDefault();
 
             //Set user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "cart_modelbox";
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "cart_modelbox";
+            user_info.last_active_button=user_info.active_button;
+            user_info.active_button = "nav_cart_btn";
             change_user_state();            
 
             //load cart table page
             load_cart_table();
         });
 
-        //If user has pressed close button in cart table form
-        $('#cart_close_btn').on('click',function(e){
-            e.preventDefault();
-            //Set user state
-            user_info.user_state = 'cards_modelbox';
-            change_user_state();            
-            load_cards_modelbox();           
-        });
-
         //If user clicks delete all checkbox in cart table form
         $('#delete_all_checkbox').on('click',function(){
-        if($('#delete_all_checkbox').prop('checked')){
-            $('.delete_checkbox').prop('checked',true);
-        }else{
-            $('.delete_checkbox').prop('checked',false);
-        }
+            if($('#delete_all_checkbox').prop('checked')){
+                $('.delete_checkbox').prop('checked',true);
+            }else{
+                $('.delete_checkbox').prop('checked',false);
+            }
         });
        
         //if user clicks single delete checkbox in cart table form
@@ -1272,7 +1479,7 @@
 
         //if user has pressed update button in cart table form
         $('#update_cart_btn').on('click',function(){
-        debugger;
+
         //clear cart_info records array
         cart_info.records = [];
         var id=0;
@@ -1313,16 +1520,21 @@
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    debugger;
-                    user_info.user_last_state=user_info.user_state;
+
+                    user_info.last_modelbox=user_info.current_modelbox;
                     if(data.session_active){
-                        user_info.user_name=data.name;
+                        //Reset payment page
+                        clear_payment_msg();
                         //set user state
-                        user_info.user_state = "payment_modelbox";
+                        user_info.current_modelbox = "payment_modelbox";
+                        user_info.last_active_button = user_info.active_button;
+                        user_info.active_button = "nav_cart_btn";                            
                         change_user_state();
                     }else{
                         //set user state
-                        user_info.user_state = "login_modelbox";
+                        user_info.current_modelbox = "login_modelbox";
+                        user_info.last_active_button = user_info.active_button;
+                        user_info.active_button = "login_btn";                        
                         change_user_state();
                     }
                 }
@@ -1330,182 +1542,98 @@
             });
 
         });
+
+        //If user has pressed continue shopping button in cart table form
+        $('#cart_continue_shopping').on('click',function(e){
+            e.preventDefault();
+            //Set user state
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = 'cards_modelbox';
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "home_btn";            
+            change_user_state();
+            load_cards_modelbox();    
+
+        });        
         
     //---------------End of Cart Section-------
               
-    //-------Start of Payment Form----------------------   
+    //-------Start of Payment Section----------------------   
 
         //if user has pressed Close button Pyament Form
         $('#payment_close').on('click',function(e){
 
             e.preventDefault();
             debugger;
-            var loginstatus = user_info.user_logged;
             //Reset user info
             user_info.user_checkout=false;
-            // //Reset form input fields
-            // $('#registration_form').trigger('reset'); 
+ 
 
             //set  user state
-            user_info.user_last_state=user_info.user_state;
-            user_info.user_state = "cards_modelbox";
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "cards_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "home_btn";              
             change_user_state();          
         });   
         
-        //If user has pressed Submit button in Registration form
-        // $('#reg_submit').on('click',function(e){
+        //If user has pressed pay online 
+        $('#payment_online').on('click',function(e){
+            e.preventDefault();
+            alert('Online payment not implemented yet');
+        });
 
-        //     //prevent default setting 
-        //     e.preventDefault(); 
+        //If user has pressed pay offline 
+        $('#payment_offline').on('click',function(e){
+            e.preventDefault();
+   
+            //Insert user order
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_add_order.php",
+                type:"GET",
+                dataType:"json",
+                success:function(data){
+                    debugger;
+                    if(data.error){
+                        $('#payment_form_msg').text(data.message);                      
+                    }
+                    else{
 
-        //     //clear form's field messages
-        //     clear_registration_form_msgs();
+                        //Reset cart information in navigation bar
+                        load_cart_info();
+                        //set  user state
+                        user_info.last_modelbox=user_info.current_modelbox;
+                        user_info.current_modelbox = "user_modelbox";
+                        user_info.last_active_button = user_info.active_button;
+                        user_info.active_button = "user_name_div";              
+                        change_user_state(); 
 
-        //     var form_error=false;
-
-        //     //retrive product name from input field
-        //     var user_name = $('#reg_name').val();
-
-        //     //check if User has entered name
-        //     if(user_name == ""){
-        //         $('#reg_name_msg').fadeIn('slow');
-        //         $('#reg_name_msg').text('Enter Name');
-        //         form_error = true;
-        //     }
-
-        //     //retrive user email from input field
-        //     var user_email = $('#reg_email').val();
-
-        //     //check if User has entered email
-        //     if(user_email == ""){
-        //         $('#reg_email_msg').fadeIn('slow');
-        //         $('#reg_email_msg').text('Enter Email');
-        //         form_error = true;
-        //     }
-
-        //     //retrive Password from input field
-        //     var user_password = $('#reg_password').val();
-
-        //     //check if User has entered password 
-        //     if(user_password == ""){
-        //         $('#reg_password_msg').fadeIn('slow');
-        //         $('#reg_password_msg').text('Enter Password');
-        //         form_error = true;
-        //     }
-            
-        //     //retrive Confirm Password from input field
-        //     var user_cpassword = $('#reg_cpassword').val();
-
-        //     //check if User has entered Confirm password 
-        //     if(user_cpassword == ""){
-        //         $('#reg_cpassword_msg').fadeIn('slow');
-        //         $('#reg_cpassword_msg').text('Enter Password');
-        //         form_error = true;
-        //     }else if(user_password != user_cpassword){
-        //         $('#reg_cpassword_msg').fadeIn('slow');
-        //         $('#reg_cpassword_msg').text('Password does not match');
-        //         form_error = true;                            
-        //     } 
-            
-        //     //retrive Address from input field
-        //     var user_address = $('#reg_address').val();
-
-        //     //check if User has entered address
-        //     if(user_address == ""){
-        //         $('#reg_address_msg').fadeIn('slow');
-        //         $('#reg_address_msg').text('Enter Address');
-        //         form_error = true;
-        //     } 
-
-        //     //retrive Contact from input field
-        //     var user_contact = $('#reg_contact').val();
-
-        //     //check if User has entered contact
-        //     if(user_contact == ""){
-        //         $('#reg_contact_msg').fadeIn('slow');
-        //         $('#reg_contact_msg').text('Enter Contact Number');
-        //         form_error = true;
-        //     } 
-
-        //     //check if there is no form error
-        //     if(!form_error){
-                
-        //         //convert variable to object
-        //         var obj = {name:user_name,
-        //                     email:user_email,
-        //                     password:user_password,
-        //                     address:user_address,
-        //                     contact:user_contact
-        //         };
-
-        //         //convert object to json object
-        //         var json_obj = JSON.stringify(obj);
-                    
-        //         $.ajax({
-        //             url: "http://localhost/ecommerce/rest_api/api_register_user.php",
-        //             type:"POST",
-        //             data: json_obj,
-        //             contentType: "application/json; charset=utf-8",
-        //             dataType:"json",
-        //             success: function(data){
-        //                 debugger;
-        //                 // if form field has error
-        //                 if(data.field_error){
-        //                     if(data.name.error){
-        //                         $('#reg_name_msg').text(data.name.message);
-        //                     }
-        //                     if(data.email.error){
-        //                         $('#reg_email_msg').text(data.email.message);
-        //                     } 
-        //                     if(data.password.error){
-        //                         $('#reg_password_msg').text(data.password.message);
-        //                     } 
-        //                     if(data.address.error){
-        //                         $('#reg_address_msg').text(data.address.message);
-        //                     }      
-        //                     if(data.contact.error){
-        //                         $('#reg_contact_msg').text(data.contact.message);
-        //                     }                                                                                                                                                                           
-        //                 }else if(data.form_error){
-        //                     $('#reg_form_msg').fadeIn('slow');
-        //                     $('#reg_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-        //                     setTimeout(function(){
-        //                         $('#reg_form_msg').fadeOut('slow');
-        //                     },3000);                                     
-        //                 }else{
-        //                     $('#reg_form_msg').fadeIn('slow');
-        //                     $('#reg_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-        //                     setTimeout(function(){
-        //                         $('#reg_form_msg').fadeOut('slow');
-        //                     },3000);     
-                            
-        //                     //Reset form fields
-        //                     $('#registration_form').trigger('reset');
-
-        //                     //clear form's field messages
-        //                     clear_registration_form_msgs();
-
-        //                     //Set user status
-        //                     user_info.user_state="logged_in";
-        //                     user_info.user_name=obj.name;
-        //                     change_user_state();                                
+                        //set user profile state
+                        user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+                        user_info.current_profile_modelbox = "user_pending_modelbox";
+                        user_info.last_profile_button = user_info.current_profile_button;
+                        user_info.current_profile_button = "user_pending_orders";              
+                        change_user_profile_state();                        
+                        user_pending_status();              
+                    }
+                }
+            });
 
 
-        //                 }
-        //             }
-        //         });
-        //     }
-            
-        // });        
+        });        
                         
         
-    //-------End of Payment Form----------------------    
+    //-------End of Payment Section----------------------    
     
 
-    //--------------Side Navigation Bar Section---------
+    //---------Start of Side Navigation Bar Section---------
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
+
+            //Deactivate Current navbar button
+            $('#'+user_info.active_button).removeClass("nav_active_btn");
+
             cards_info.search_type='brand';
             cards_info.search_term=$(this).data('id');
             cards_info.page_no=1;
@@ -1523,7 +1651,10 @@
 
         //if User press one of the side navigation bar cateogry button
         $(document).on('click','.side_nav_category_btn',function(){
-            
+
+            //Deactivate Current navbar button
+            $('#'+user_info.active_button).removeClass("nav_active_btn");
+
             cards_info.search_type='category';
             cards_info.search_term=$(this).data('id');
             cards_info.page_no=1;
@@ -1542,14 +1673,7 @@
 
     //-----------End of Side Navigation Bar Section---------    
 
-    //if user has pressed page button
-        $(document).on('click','#pagination_body a',function(e){
-            e.preventDefault();
-            cards_info.page_no = $(this).attr('id');
-            load_cards();
-        });
-
-    //---------View Product Detail Section--------------------    
+    //------Start of View Product Detail Section--------------------    
 
         //if user has pressed view button in product card
         $(document).on('click','.view_product_btn',function(){
@@ -1566,18 +1690,18 @@
                         debugger;
                         if(!data.error){
                             $('#product_modelbox').show();
-                            product_view.image1 = data.data.p_image1;
-                            product_view.image2 = data.data.p_image2;
-                            product_view.image3 = data.data.p_image3;
-                            $('#product_title').html(data.data.p_title);
+                            product_view.image1 = data.p_image1;
+                            product_view.image2 = data.p_image2;
+                            product_view.image3 = data.p_image3;
+                            $('#product_title').html(data.p_title);
                             $('.image_btn').removeClass('active_image_btn');
                             $('#image1').addClass('active_image_btn');
-                            $('#product_image').attr('src',data.data.p_image1);
-                            $('#product_desc').html(data.data.p_description);
-                            $('#product_brand').html(data.data.brand);
-                            $('#product_category').html(data.data.category);
-                            $('#product_price').html('Rs: '+data.data.p_price+'/-');
-                            if(data.data.stock){
+                            $('#product_image').attr('src',data.p_image1);
+                            $('#product_desc').html(data.p_description);
+                            $('#product_brand').html(data.brand);
+                            $('#product_category').html(data.category);
+                            $('#product_price').html('Rs: '+data.p_price+'/-');
+                            if(data.stock){
                                 $('#product_stock').html('Available');
                             }else{
                                 $('#product_stock').html('Not available');
@@ -1649,7 +1773,436 @@
         }); 
     
     //------------End of View Product Detail Section------------   
+
+//------Start of User Profile Section--------------------
+
+        //If user press user name in navigation bar
+        $('#user_name_div').on('click',function(){
+            //set  user state
+            user_info.last_modelbox=user_info.current_modelbox;
+            user_info.current_modelbox = "user_modelbox";
+            user_info.last_active_button = user_info.active_button;
+            user_info.active_button = "user_name_div";              
+            change_user_state();  
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_pending_orders";              
+            change_user_profile_state();                        
+            user_pending_status();                          
+        });
+
+    // -----------Start of user profile Edit Section------------    
+
+        //If user press Edit Profile button in side navigation bar
+        $('#user_edit_profile').on('click',function(e){
+            e.preventDefault();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_edit_profile_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_edit_profile";              
+            change_user_profile_state();   
+
+            //Reset form fields
+            $('#user_edit_profile_form').trigger('reset');
+
+            //clear form's field messages
+            clear_edit_profile_form_msgs();
+            
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_user_profile.php",
+                type:"GET",
+                dataType:"json",
+                success:function(data){
+                    if(!data.error){
+                        debugger;
+                        $('#edit_user_name').val(data.record.user_name); 
+                        $('#edit_user_email').val(data.record.user_email);
+                        $('#edit_user_address').val(data.record.user_address);
+                        $('#edit_user_contact').val(data.record.user_contact);      
+                    }
+                }
+            });
+            
+            
+        });   
+    
+        //If user press Submit button in Edit User Profile form 
+        $('#edit_user_submit').on('click',function(e){
+            e.preventDefault();
+
+            //clear form's field messages
+            clear_edit_profile_form_msgs();
+
+            var form_error=false;
+
+            //retrive product name from input field
+            var user_name = $('#edit_user_name').val();
+
+            //check if User has entered name
+            if(user_name == ""){
+                $('#edit_user_name_msg').fadeIn('slow');
+                $('#edit_user_name_msg').text('Enter Name');
+                form_error = true;
+            }
+
+            //retrive user email from input field
+            var user_email = $('#edit_user_email').val();
+
+            //check if User has entered email
+            if(user_email == ""){
+                $('#edit_user_email_msg').fadeIn('slow');
+                $('#edit_user_email_msg').text('Enter Email');
+                form_error = true;
+            }
+
+            //retrive Address from input field
+            var user_address = $('#edit_user_address').val();
+
+            //check if User has entered address
+            if(user_address == ""){
+                $('#edit_user_address_msg').fadeIn('slow');
+                $('#edit_user_address_msg').text('Enter Address');
+                form_error = true;
+            } 
+
+            //retrive Contact from input field
+            var user_contact = $('#edit_user_contact').val();
+
+            //check if User has entered contact
+            if(user_contact == ""){
+                $('#edit_user_contact_msg').fadeIn('slow');
+                $('#edit_user_contact_msg').text('Enter Contact Number');
+                form_error = true;
+            } 
+
+            //check if there is no form error
+            if(!form_error){
+                debugger;
+                //convert variable to object
+                var obj = { 
+                            name:user_name,
+                            email:user_email,
+                            address:user_address,
+                            contact:user_contact
+                };
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+                    
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_update_user.php",
+                    type:"POST",
+                    data: json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success: function(data){
+                        debugger;
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.name.error){
+                                $('#edit_user_name_msg').text(data.name.message);
+                            }
+                            if(data.email.error){
+                                $('#edit_user_email_msg').text(data.email.message);
+                            } 
+                            if(data.address.error){
+                                $('#edit_user_address_msg').text(data.address.message);
+                            }      
+                            if(data.contact.error){
+                                $('#edit_user_contact_msg').text(data.contact.message);
+                            }                                                                                                                                                                           
+                        }else if(data.form_error){
+                            $('#edit_user_form_msg').fadeIn('slow');
+                            $('#edit_user_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_user_form_msg').fadeOut('slow');
+                            },3000);                                     
+                        }else{
+                            $('#edit_user_form_msg').fadeIn('slow');
+                            $('#edit_user_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_user_form_msg').fadeOut('slow');
+                            },3000);     
+                            
+                            //Reset form fields
+                            $('#user_edit_profile_form').trigger('reset');
+
+                            //clear form's field messages
+                            clear_edit_profile_form_msgs();
+
+                            $('#user_name_div').text('Welcome '+user_name);                                                         
+                        }
+                    }
+                });
+            }
+            
+                                              
+        });  
         
+        //if user has pressed Close button Edit User Profile form 
+        $('#edit_user_close').on('click',function(e){
+
+            e.preventDefault();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_pending_orders";              
+            change_user_profile_state();                        
+            user_pending_status();        
+        });         
+                      
+        
+    // -----------End of user profile Edit Section------------    
+ 
+    
+    // -----------Start of user profile Change password Section------------ 
+
+        //If user press Change password button in side navigation bar
+        $('#user_change_password').on('click',function(e){
+
+            e.preventDefault();
+            debugger;
+            //Reset form fields
+            $('#user_change_password_form').trigger('reset');
+
+            //clear form's field messages
+            clear_user_change_password_form_msgs();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_change_password_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_change_password";              
+            change_user_profile_state();                                               
+        });  
+        
+
+        //If user press Submit button in change user password form
+        $('#edit_user_csubmit').on('click',function(e){
+
+            debugger;
+            e.preventDefault();
+
+            //clear form's field messages
+            clear_user_change_password_form_msgs();            
+
+            var form_error = false;
+
+            //retrive Old Password from input field
+            var old_password = $('#edit_user_opassword').val();
+
+            //check if User has entered password 
+            if(old_password == ""){
+                $('#edit_user_opassword_msg').fadeIn('slow');
+                $('#edit_user_opassword_msg').text('Enter Password');
+                form_error = true;
+            }           
+
+            //retrive Password from input field
+            var password = $('#edit_user_password').val();
+
+            //check if User has entered password 
+            if(password == ""){
+                $('#edit_user_password_msg').fadeIn('slow');
+                $('#edit_user_password_msg').text('Enter Password');
+                form_error = true;
+            }
+
+            //retrive Confirm Password from input field
+            var cpassword = $('#edit_user_cpassword').val();
+
+            //check if User has entered Confirm password 
+            if(cpassword == ""){
+                $('#edit_user_cpassword_msg').fadeIn('slow');
+                $('#edit_user_cpassword_msg').text('Enter Password');
+                form_error = true;
+            }else if(password != cpassword){
+                $('#edit_user_password_msg').fadeIn('slow');
+                $('#edit_user_password_msg').text('Password does not match');
+                form_error = true;                            
+            } 
+
+            //check if there is no form error
+            if(!form_error){
+                debugger;
+                //convert variable to object
+                var obj = { old_password:old_password,
+                            password:password,
+                };
+
+                //convert object to json object
+                var json_obj = JSON.stringify(obj);
+                    
+                $.ajax({
+                    url: "http://localhost/ecommerce/rest_api/api_change_user_password.php",
+                    type:"POST",
+                    data: json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success: function(data){
+                        debugger;
+                        // if form field has error
+                        if(data.field_error){
+
+                            if(data.password.error){
+                                $('#edit_user_password_msg').text(data.password.message);
+                            }
+                            if(data.old_password.error){
+                                $('#edit_user_opassword_msg').text(data.old_password.message);
+                            }
+
+                        }else if(data.form_error){
+                            $('#edit_user_cform_msg').fadeIn('slow');
+                            $('#edit_user_cform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_user_cform_msg').fadeOut('slow');
+                            },3000);                                     
+                        }else{
+                            $('#edit_user_cform_msg').fadeIn('slow');
+                            $('#edit_user_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_user_cform_msg').fadeOut('slow');
+                            },3000);     
+                            
+                            //Reset form fields
+                            $('#user_change_password_form').trigger('reset');
+
+                            //clear form's field messages
+                            clear_user_change_password_form_msgs();                                                         
+                        }
+                    }
+                });
+            }            
+ 
+            
+                                              
+        });         
+
+        //if user has pressed Close button in Change User Password form 
+        $('#edit_user_cclose').on('click',function(e){
+
+            e.preventDefault();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_pending_orders";              
+            change_user_profile_state();                        
+            user_pending_status();        
+        });          
+        
+    // -----------Endo of user profile Change password Section------------ 
+
+        //If user press Delete Account button in side navigation bar
+        $('#user_delete_account').on('click',function(e){
+            e.preventDefault();
+            alert('Are you sure to delete account?');                                              
+        });
+        
+        //If user press My Orders button in side navigation bar
+        $('#user_my_orders').on('click',function(e){
+            e.preventDefault();
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_order_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_my_orders";              
+            change_user_profile_state();    
+
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_orders.php",
+                type:'GET',
+                dataType:"json",
+                success:function(data){
+
+                    //clear table
+                    $('#order_table_body').html('');
+
+                    if(!data.error){
+                        $.each(data.records, function(key,value){
+                            var payment='';
+                            if(value.order_status == 'Pending'){
+                                    payment = "incomplete";
+                            }else{
+                                payment = "complete";
+                            }
+                            $('#order_table_body').append("<tr class='table_row_border'>"+
+                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
+                                                        "<td>"+value.invoice_number+"</td>"+  
+                                                        "<td>"+value.total_products+"</td>"+
+                                                        "<td>"+value.amount_due+"</td>"+
+                                                        "<td>"+value.order_date+"</td>"+
+                                                        "<td>"+payment+"</td>"+
+                                                        "<td><a class='confirm_order' href='#' data-id ='"+value.order_id+"'>Confirm</a></td>"+
+                                                            "<tr>");
+                        });
+                    }
+                  
+                }
+
+            });           
+
+        }); 
+        
+
+        // If user press confirm in My Order table
+        $(document).on('click','.confirm_order',function(e){
+            e.preventDefault();
+            debugger;
+            var order_id = $(this).attr('data-id');
+        //     var obj ={order_id:order_id};
+        //     var json_obj=JSON.stringify(obj);
+
+        //     $.ajax({
+        //         url:"http://localhost/ecommerce/rest_api/api_fetch_single_order.php",
+        //         type:'POST',
+        //         data:json_obj,
+        //         contentType:"application/json",
+        //         dataType:"json",
+        //         success:function(data){
+        //             debugger;
+        //         }
+
+         });        
+        
+
+         //If user press Submit in Confirm Order Form
+         $('#confirm_submit').on('click',function(e){
+            e.preventDefault();
+            alert('you have submitted');
+         });
+
+         //If user press Close in Confirm Order Form
+         $('#confirm_close').on('click',function(e){
+            e.preventDefault();
+            alert('you have closed');
+         });         
+        
+        //If user press Pending Orders button in side navigation bar
+        $('#user_pending_orders').on('click',function(e){
+            e.preventDefault();
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.current_profile_button;
+            user_info.current_profile_button = "user_pending_orders";              
+            change_user_profile_state();
+            
+            user_pending_status();   
+        });         
+
+
+//------End of User Profile Section--------------------    
+        
+
     });
 </script>
 </html>
