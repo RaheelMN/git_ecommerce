@@ -243,7 +243,6 @@
                                 <button class="form_btn" id="reg_close">Close</button>
                             </div>
                             <div class="field_name form_redirect">Already registered? <a  id="reg_form_redirect" class="enable_underline" href="#">Login</a></div>
-                            <div id="reg_form_msg" class="form_msg"></div>
                             <div class="form_linebreak"></div>
                         </div>
                     </form>               
@@ -271,10 +270,7 @@
                                     <div class="field_name">Password</div>
                                     <input type="password" class="form_input" name="login_password" id="login_password" >
                                     <div id="login_password_msg" class="field_err_msg"></div>
-                            </div>
-                            <div class="form_row">
-                                    <div class="field_name"><a id="login_fpassword" href="#">Forgot Password</a></div>
-                            </div>   
+                            </div>  
                             <div class="form_linebreak"></div>                                                                                                                                            
                             <div class="form_row">
                                 <button class="form_btn" id="login_submit">Submit</button>
@@ -289,33 +285,6 @@
             </div>    
         <!-- End of login form        -->
 
-        <!-- Start of Payment Form -->
-            <div id="payment_modelbox">
-                <div class="form_linebreak"></div>           
-                <div class="form_div">
-                    <form action="" id="payment_form">
-                        <div class="form_header">
-                            <h3>Payment Options</h3>
-                        </div>
-                        <div class="form_linebreak"></div>
-                        <div class="form_body">
-                            <div class="form_linebreak"></div>                                                                                                                                            
-                            <div class="form_row text_center">
-                                <a id="payment_online" class="payment_anchor enable_underline" href="#">Pay Online</a>
-                                <a id="payment_offline" class="payment_anchor enable_underline" href="#">Pay Offline</a>
-                            </div>
-                            <div class="form_row text_center">
-                                <div class="form_linebreak"></div>                              
-                                <button class="form_btn" id="payment_close">Close</button>
-                            </div>                        
-                            <div id="payment_form_msg" class="form_msg"></div>
-                            <div class="form_linebreak"></div> 
-                        </div>
-                    </form>               
-                </div>
-                <div class="form_linebreak"></div>
-            </div>    
-        <!-- End of Pyament form        -->
 
         <!-- Start of User profile section -->
             <div id="user_modelbox">
@@ -603,13 +572,13 @@
 
         //parameters used in determining user's current state
         const user_info={
-            current_modelbox:"cards_modelbox",
+            active_modelbox:"cards_modelbox",
             last_modelbox:"",
             active_button:"home_btn",
-            last_active_button:"",
-            current_profile_modelbox:"order_pending_modelbox",
+            last_button:"",
+            active_profile_modelbox:"order_pending_modelbox",
             last_profile_modelbox:"",
-            current_profile_button:"order_pending_btn",
+            active_profile_button:"order_pending_btn",
             last_profile_button:"",
             user_checkout:false,
             user_name:""
@@ -859,15 +828,33 @@
             $('#'+user_info.last_modelbox).hide();                                          
 
             //Deactivate previous navbar button
-            $('#'+user_info.last_active_button).removeClass("nav_active_btn");
+            $('#'+user_info.last_button).removeClass("nav_active_btn");
 
             //Activate Current navbar button
             $('#'+user_info.active_button).addClass("nav_active_btn");
 
             //display current modelbox
-            $('#'+user_info.current_modelbox).show();            
+            $('#'+user_info.active_modelbox).show();            
 
         }
+
+        function change_navbar_modelbox(){
+
+            //Hide last modelbox
+            $('#'+user_info.last_modelbox).hide();                                          
+
+            //display current modelbox
+            $('#'+user_info.active_modelbox).show();            
+        } 
+        
+        function change_navbar_button(){         
+                                    
+            //Deactivate previous navbar button
+            $('#'+user_info.last_button).removeClass("nav_active_btn");
+
+            //Activate Current navbar button
+            $('#'+user_info.active_button).addClass("nav_active_btn");           
+        }        
 
         //Function to update user state
         function change_user_profile_state(){
@@ -879,10 +866,10 @@
             $('#'+user_info.last_profile_button).removeClass("user_active_btn");
 
             //Activate Current navbar button
-            $('#'+user_info.current_profile_button).addClass("user_active_btn");
+            $('#'+user_info.active_profile_button).addClass("user_active_btn");
 
             //display current modelbox
-            $('#'+user_info.current_profile_modelbox).show();            
+            $('#'+user_info.active_profile_modelbox).show();            
 
         }   
 
@@ -956,6 +943,15 @@
             }
         }
 
+        //This function reset registration form
+        function reset_registration_form(){
+            //reset form fields
+            $('#registration_form').trigger('reset');
+
+            //clear form's messages
+            clear_registration_form_msgs();   
+        }
+
         //This function clear all error messages of Registration Form
         function clear_registration_form_msgs(){
                         // clear field messages
@@ -965,7 +961,18 @@
                         $('#reg_cpassword_msg').html('');
                         $('#reg_address_msg').html('');
                         $('#reg_contact_msg').html('');
+                      
         }        
+
+        //This function reset login form
+        function reset_login_form(){
+
+            //Reset form fields
+            $('#login_form').trigger('reset');
+
+            //clear form's messages
+            clear_login_form_msgs();   
+        }
 
         //This function clear all error messages of Login Form
         function clear_login_form_msgs(){
@@ -981,7 +988,7 @@
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    user_info.last_modelbox=user_info.current_modelbox;
+                    user_info.last_modelbox=user_info.active_modelbox;
                     if(data.session_active){
                         user_info.user_name=data.user_name;
                         //change navbar tags
@@ -992,10 +999,6 @@
             });
         }
         
-        //This function clear all error messages of Payment modelbox
-        function clear_payment_msg(){
-            $('#payment_form_msg').text('');              
-        }
 
      //This function work on user's pending orders 
         function user_pending_status(){
@@ -1027,10 +1030,10 @@
 
         //This function set sets user profile state to default setting
         function default_user_profile_state(){
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_pending_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_pending_orders";              
             change_user_profile_state();                        
             user_pending_status(); 
         }
@@ -1098,6 +1101,20 @@
 
         }
 
+        // This function adds user order from cart table 
+        function add_user_order(){
+            //Insert user order
+            $.ajax({
+                url:"./rest_api/user/api_add_order.php",
+                type:"GET",
+                success:function(){
+                    //Reset cart information in navigation bar
+                    load_cart_info();
+                }
+            });
+        }
+
+
         //----------End of Functions Declaration Section------------     
     
     
@@ -1118,12 +1135,20 @@
         $('#home_btn').on('click',function(e){
             e.preventDefault();
 
-            //Set user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = 'cards_modelbox';
-            user_info.last_active_button = user_info.active_button;
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = 'cards_modelbox';
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
             user_info.active_button = "home_btn";
-            change_user_state();
+            change_navbar_button();
+
+            //---------End of Change User State---------- 
+
             load_cards_modelbox();          
         });
 
@@ -1132,12 +1157,20 @@
             
             var search = $('#input_search').val();
             if(search != ""){
-                //Set user state
-                user_info.last_modelbox=user_info.current_modelbox;
-                user_info.current_modelbox = 'cards_modelbox';
-                user_info.last_active_button = user_info.active_button;
+
+                //------Start of change User State----------
+
+                //change navigation bar modelbox
+                user_info.last_modelbox=user_info.active_modelbox;
+                user_info.active_modelbox = 'cards_modelbox';
+                change_navbar_modelbox();
+
+                //change navigation bar button
+                user_info.last_button = user_info.active_button;
                 user_info.active_button = "search_btn";
-                change_user_state();
+                change_navbar_button();
+                
+                //---------End of Change User State---------- 
 
                 cards_info.search_type='search';
                 cards_info.search_term=search;                
@@ -1161,49 +1194,55 @@
         });
 
 
-
     //-------Start of Registration Section----------------------   
 
         //if user has pressed Registration button in navigation bar
         $('#register_btn').on('click',function(){
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "registration_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "register_btn";              
-            change_user_state();   
-            
-            //Reset form fields
-            $('#registration_form').trigger('reset');
 
-            //clear form's field messages
-            clear_registration_form_msgs();               
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "registration_modelbox";
+            change_navbar_modelbox();
+
+            //---------End of Change User State----------   
+            
+            //Reset registration form
+            reset_registration_form();             
         });   
 
         //if user has pressed Close button Registration Form
         $('#reg_close_btn').on('click',function(e){
 
+            e.preventDefault();
+
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = 'cards_modelbox';
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
+            user_info.active_button = "home_btn";
+            change_navbar_button();
+
+            //---------End of Change User State----------  
+ 
             //if user has pressed checkout button in cart table then cancel payement
             user_info.user_checkout=false;
-            e.preventDefault();
-            //Reset form input fields
-            $('#registration_form').trigger('reset'); 
-
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "cards_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "home_btn";              
-            change_user_state();          
+       
         });   
 
         //if user has pressed Login link in Registration form
         $('#reg_form_redirect').on('click',function(e){
             e.preventDefault();
             //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "login_modelbox";
-            user_info.last_active_button = user_info.active_button;
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "login_modelbox";
+            user_info.last_button = user_info.active_button;
             user_info.active_button = "login_btn";              
             change_user_state();                       
         });  
@@ -1304,7 +1343,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function(data){
-  
+                        debugger;
                         // if form field has error
                         if(data.field_error){
                             if(data.name.error){
@@ -1321,47 +1360,50 @@
                             }      
                             if(data.contact.error){
                                 $('#reg_contact_msg').text(data.contact.message);
-                            }                                                                                                                                                                           
-                        }else if(data.form_error){
-                            $('#reg_form_msg').fadeIn('slow');
-                            $('#reg_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#reg_form_msg').fadeOut('slow');
-                            },3000);                                     
+                            }                                                                                                                                                                                                               
                         }else{
-                            $('#reg_form_msg').fadeIn('slow');
-                            $('#reg_form_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#reg_form_msg').fadeOut('slow');
-                            },3000);     
-                            
-                            //Reset form fields
-                            $('#registration_form').trigger('reset');
 
-                            //clear form's field messages
-                            clear_registration_form_msgs();
+                            //------Start of change User State----------
 
-                            //Set user status
-                            user_info.last_modelbox=user_info.current_modelbox;
-                            user_info.user_name = data.user_name;
-
+                            //Set user info
+                            user_info.user_name=data.user_name;
+            
                             //change navbar tags
-                            update_navbar_tags('logged_in');                                      
+                            update_navbar_tags('logged_in');
 
                             //check if user has pressed checkout button in Cart Table
-                            if(user_info.user_checkout){
-                                //set user state
-                                user_info.current_modelbox="payment_modelbox";
-                                user_info.last_active_button = user_info.active_button;
-                                user_info.active_button = "nav_cart_btn";                                  
-                                change_user_state();        
-                            }else{
-                                //set  user state
-                                user_info.current_modelbox = "cards_modelbox";
-                                user_info.last_active_button = user_info.active_button;
-                                user_info.active_button = "home_btn";                                  
+                            if(user_info.user_checkout){  
+
+                                //add user order
+                                add_user_order();                                                               
+
+                                //change navigation bar modelbox
+                                user_info.last_modelbox=user_info.active_modelbox;
+                                user_info.active_modelbox = "user_modelbox";
+
+                                //change navigation bar button
+                                user_info.last_button = user_info.active_button;
+                                user_info.active_button = "user_name_div";              
                                 change_user_state(); 
+
+                                //set user profile state
+                                default_user_profile_state();                                                                                            
+
+                            }else{
+
+                                //change navigation bar modelbox
+                                user_info.last_modelbox=user_info.active_modelbox;
+                                user_info.active_modelbox = 'cards_modelbox';
+                                change_navbar_modelbox();
+                                
+                                //change navigation bar button
+                                user_info.last_button = user_info.active_button;
+                                user_info.active_button = "home_btn";
+                                change_navbar_button();
                             }                                                          
+
+                            //---------End of Change User State----------                                       
+
                         }
                     }
                 });
@@ -1376,45 +1418,63 @@
         //if user has pressed Login button in navigation bar
         $('#login_btn').on('click',function(e){
             e.preventDefault();
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "login_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "login_btn";            
-            change_user_state();   
-            
-            //Reset form fields
-            $('#login_form').trigger('reset');
 
-            //clear form's field messages
-            clear_login_form_msgs();            
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "login_modelbox";
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
+            user_info.active_button = "login_btn";
+            change_navbar_button();            
+
+            //---------End of Change User State----------              
+
+            //Reset login form
+            reset_login_form();            
         });   
 
         //if user has pressed Close button Login Form
         $('#login_close').on('click',function(e){
             e.preventDefault();
 
-            //check if user has previously pressed checkin button in Cart Table form
-            if(user_info.user_checkout){
-                user_info.user_checkout=false;
-            }
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "cards_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "home_btn";            
-            change_user_state();          
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = 'cards_modelbox';
+            change_navbar_modelbox();
+
+            //change navigation bar button
+            user_info.last_button = user_info.active_button;
+            user_info.active_button = "home_btn";
+            change_navbar_button();
+
+            //---------End of Change User State----------  
+ 
+            //if user has pressed checkout button in cart table then cancel payement
+            user_info.user_checkout=false;
+        
         }); 
         
         //if user has pressed Register link in form
         $('#login_form_redirect').on('click',function(e){
             e.preventDefault();
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "registration_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "register_btn";            
-            change_user_state();              
+
+            //------Start of change User State----------
+
+            //change navigation bar modelbox
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "registration_modelbox";
+            change_navbar_modelbox();
+
+            //---------End of Change User State----------   
+            
+            //Reset registration form
+            reset_registration_form();            
         });
 
         //if user has pressed Submit button Login Form
@@ -1476,39 +1536,48 @@
                                 $('#login_password_msg').text(data.password.message);
                             } 
                                                                                                                                                                          
-                        }else if(data.form_error){
-                            $('#login_form_msg').fadeIn('slow');
-                            $('#login_form_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#reg_form_msg').fadeOut('slow');
-                            },3000);                                     
-                        }else{ 
-                            
-                            //Reset form fields
-                            $('#login_form').trigger('reset');
+                        }else{
+                            //------Start of change User State----------
 
-                            //clear form's field messages
-                            clear_login_form_msgs();
-
-                            //set user login state
-                            user_info.user_name = data.user_name;
-                            user_info.last_modelbox=user_info.current_modelbox;
-
+                            //Set user info
+                            user_info.user_name=data.user_name;
+            
                             //change navbar tags
-                            update_navbar_tags('logged_in');                                     
+                            update_navbar_tags('logged_in');
 
                             //check if user has pressed checkout button in Cart Table
-                            if(user_info.user_checkout){
-                                //set user state
-                                user_info.current_modelbox="payment_modelbox";
-                                change_user_state();        
-                            }else{
-                                //set  user state
-                                user_info.current_modelbox = "cards_modelbox";
-                                user_info.last_active_button = user_info.active_button;
-                                user_info.active_button = "home_btn";                                
+                            if(user_info.user_checkout){  
+
+                                //add user order
+                                add_user_order();                                                                
+
+                                //change navigation bar modelbox
+                                user_info.last_modelbox=user_info.active_modelbox;
+                                user_info.active_modelbox = "user_modelbox";
+
+                                //change navigation bar button
+                                user_info.last_button = user_info.active_button;
+                                user_info.active_button = "user_name_div";              
                                 change_user_state(); 
-                            }                          
+
+                                //set user profile state
+                                default_user_profile_state();                                                                                            
+
+                            }else{
+
+                                //change navigation bar modelbox
+                                user_info.last_modelbox=user_info.active_modelbox;
+                                user_info.active_modelbox = 'cards_modelbox';
+                                change_navbar_modelbox();
+                                
+                                //change navigation bar button
+                                user_info.last_button = user_info.active_button;
+                                user_info.active_button = "home_btn";
+                                change_navbar_button();
+                            }                                                          
+
+                            //---------End of Change User State----------                                
+                                                  
                         }
                     }
                 });
@@ -1525,21 +1594,32 @@
                 //End Session
                 $.ajax({
                     url:"./rest_api/user/api_logout_user.php",
+                    type: "GET",
+                    dataType:"json",
                     success: function(data){
-                        debugger;
-                        //Set user status
-                        user_info.user_name="";
-                        user_info.user_checkout=false;
-        
-                        //change navbar tags
-                        update_navbar_tags('logged_out');
-        
-                        //set  user state
-                        user_info.last_modelbox=user_info.current_modelbox;
-                        user_info.current_modelbox = "cards_modelbox";
-                        user_info.last_active_button = user_info.active_button;
-                        user_info.active_button = "home_btn";                
-                        change_user_state();          
+                        if(!data.error){
+
+                            //------Start of change User State----------
+
+                            //reset user info
+                            user_info.user_name="";
+                            user_info.user_checkout=false;
+            
+                            //change navbar tags
+                            update_navbar_tags('logged_out');
+
+                            //change navigation bar modelbox
+                            user_info.last_modelbox=user_info.active_modelbox;
+                            user_info.active_modelbox = 'cards_modelbox';
+                            change_navbar_modelbox();
+
+                            //change navigation bar button
+                            user_info.last_button = user_info.active_button;
+                            user_info.active_button = "home_btn";
+                            change_navbar_button();
+
+                            //---------End of Change User State----------                     
+                        }
                     }
                 });   
     
@@ -1596,9 +1676,9 @@
             e.preventDefault();
 
             //Set user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "cart_modelbox";
-            user_info.last_active_button=user_info.active_button;
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "cart_modelbox";
+            user_info.last_button=user_info.active_button;
             user_info.active_button = "nav_cart_btn";
             change_user_state();            
 
@@ -1715,21 +1795,43 @@
                 dataType:"json",
                 success: function(data){
 
-                    user_info.last_modelbox=user_info.current_modelbox;
+                    //if user is logged in then
                     if(data.session_active){
-                        //Reset payment page
-                        clear_payment_msg();
-                        //set user state
-                        user_info.current_modelbox = "payment_modelbox";
-                        user_info.last_active_button = user_info.active_button;
-                        user_info.active_button = "nav_cart_btn";                            
-                        change_user_state();
+
+                        //------Start of change User State---------- 
+
+                        //add user order
+                        add_user_order();    
+
+                        //change navigation bar modelbox
+                        user_info.last_modelbox=user_info.active_modelbox;
+                        user_info.active_modelbox = "user_modelbox";
+
+                        //change navigation bar button
+                        user_info.last_button = user_info.active_button;
+                        user_info.active_button = "user_name_div";              
+                        change_user_state(); 
+
+                        //set user profile state
+                        default_user_profile_state();                                                                                            
+
+                        //---------End of Change User State---------- 
+
                     }else{
-                        //set user state
-                        user_info.current_modelbox = "login_modelbox";
-                        user_info.last_active_button = user_info.active_button;
-                        user_info.active_button = "login_btn";                        
-                        change_user_state();
+                        //------Start of change User State----------
+
+                        //change navigation bar modelbox
+                        user_info.last_modelbox=user_info.active_modelbox;
+                        user_info.active_modelbox = 'login_modelbox';
+                        change_navbar_modelbox();
+
+                        //change navigation bar button
+                        user_info.last_button = user_info.active_button;
+                        user_info.active_button = "login_btn";
+                        change_navbar_button();
+
+                        //---------End of Change User State---------- 
+
                     }
                 }
 
@@ -1741,9 +1843,9 @@
         $('#cart_continue_shopping').on('click',function(e){
             e.preventDefault();
             //Set user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = 'cards_modelbox';
-            user_info.last_active_button = user_info.active_button;
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = 'cards_modelbox';
+            user_info.last_button = user_info.active_button;
             user_info.active_button = "home_btn";            
             change_user_state();
             load_cards_modelbox();    
@@ -1751,69 +1853,7 @@
         });        
         
     //---------------End of Cart Section-------
-              
-    //-------Start of Payment Section----------------------   
-
-        //if user has pressed Close button Pyament Form
-        $('#payment_close').on('click',function(e){
-
-            e.preventDefault();
-
-            //Reset user info
-            user_info.user_checkout=false;
- 
-
-            //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "cards_modelbox";
-            user_info.last_active_button = user_info.active_button;
-            user_info.active_button = "home_btn";              
-            change_user_state();          
-        });   
-        
-        //If user has pressed pay online 
-        $('#payment_online').on('click',function(e){
-            e.preventDefault();
-            alert('Online payment not implemented yet');
-        });
-
-        //If user has pressed pay offline 
-        $('#payment_offline').on('click',function(e){
-            e.preventDefault();
-   
-            //Insert user order
-            $.ajax({
-                url:"./rest_api/user/api_add_order.php",
-                type:"GET",
-                dataType:"json",
-                success:function(data){
-
-                    if(data.error){
-                        $('#payment_form_msg').text(data.message);                      
-                    }
-                    else{
-
-                        //Reset cart information in navigation bar
-                        load_cart_info();
-                        //set  user state
-                        user_info.last_modelbox=user_info.current_modelbox;
-                        user_info.current_modelbox = "user_modelbox";
-                        user_info.last_active_button = user_info.active_button;
-                        user_info.active_button = "user_name_div";              
-                        change_user_state(); 
-
-                        //set user profile state
-                        default_user_profile_state();           
-                    }
-                }
-            });
-
-
-        });        
-                        
-        
-    //-------End of Payment Section----------------------    
-    
+                
 
     //---------Start of Side Navigation Bar Section---------
 
@@ -1925,9 +1965,9 @@
         //If user press user name in navigation bar
         $('#user_name_div').on('click',function(){
             //set  user state
-            user_info.last_modelbox=user_info.current_modelbox;
-            user_info.current_modelbox = "user_modelbox";
-            user_info.last_active_button = user_info.active_button;
+            user_info.last_modelbox=user_info.active_modelbox;
+            user_info.active_modelbox = "user_modelbox";
+            user_info.last_button = user_info.active_button;
             user_info.active_button = "user_name_div";              
             change_user_state();  
 
@@ -1942,10 +1982,10 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_edit_profile_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_edit_profile";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_edit_profile_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_edit_profile";              
             change_user_profile_state();   
 
             //Reset form fields
@@ -2091,10 +2131,10 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_pending_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_pending_orders";              
             change_user_profile_state();                        
             user_pending_status();        
         });         
@@ -2117,10 +2157,10 @@
             clear_user_change_password_form_msgs();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_change_password_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_change_password";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_change_password_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_change_password";              
             change_user_profile_state();                                               
         });  
         
@@ -2231,10 +2271,10 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_pending_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_pending_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_pending_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_pending_orders";              
             change_user_profile_state();                        
             user_pending_status();        
         });          
@@ -2260,9 +2300,9 @@
                         update_navbar_tags('logged_out');
 
                         //Set user state
-                        user_info.last_modelbox=user_info.current_modelbox;
-                        user_info.current_modelbox = 'cards_modelbox';
-                        user_info.last_active_button = user_info.active_button;
+                        user_info.last_modelbox=user_info.active_modelbox;
+                        user_info.active_modelbox = 'cards_modelbox';
+                        user_info.last_button = user_info.active_button;
                         user_info.active_button = "home_btn";
                         change_user_state();
                         load_cards_modelbox();  
@@ -2279,10 +2319,10 @@
         $('#user_my_orders').on('click',function(e){
             e.preventDefault();
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_order_modelbox";
-            user_info.last_profile_button = user_info.current_profile_button;
-            user_info.current_profile_button = "user_my_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_order_modelbox";
+            user_info.last_profile_button = user_info.active_profile_button;
+            user_info.active_profile_button = "user_my_orders";              
             change_user_profile_state();   
             
             //This function loads user orders into user order modelbox
@@ -2296,10 +2336,10 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_confirm_modelbox";
-            // user_info.last_profile_button = user_info.current_profile_button;
-            // user_info.current_profile_button = "user_my_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_confirm_modelbox";
+            // user_info.last_profile_button = user_info.active_profile_button;
+            // user_info.active_profile_button = "user_my_orders";              
             change_user_profile_state();             
 
             var order_id = $(this).attr('data-id');
@@ -2362,10 +2402,10 @@
                         if(data.error){
 
                             //set user profile state
-                            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-                            user_info.current_profile_modelbox = "user_cancel_modelbox";
-                            // user_info.last_profile_button = user_info.current_profile_button;
-                            // user_info.current_profile_button = "user_my_orders";              
+                            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+                            user_info.active_profile_modelbox = "user_cancel_modelbox";
+                            // user_info.last_profile_button = user_info.active_profile_button;
+                            // user_info.active_profile_button = "user_my_orders";              
                             change_user_profile_state();                             
 
                             //clear form
@@ -2389,10 +2429,10 @@
                                 load_user_order_table();
 
                                 //set user profile state
-                                user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-                                user_info.current_profile_modelbox = "user_order_modelbox";
-                                // user_info.last_profile_button = user_info.current_profile_button;
-                                // user_info.current_profile_button = "user_my_orders";              
+                                user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+                                user_info.active_profile_modelbox = "user_order_modelbox";
+                                // user_info.last_profile_button = user_info.active_profile_button;
+                                // user_info.active_profile_button = "user_my_orders";              
                                 change_user_profile_state(); 
                                 
                                 
@@ -2408,10 +2448,10 @@
             e.preventDefault();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_order_modelbox";
-            // user_info.last_profile_button = user_info.current_profile_button;
-            // user_info.current_profile_button = "user_my_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_order_modelbox";
+            // user_info.last_profile_button = user_info.active_profile_button;
+            // user_info.active_profile_button = "user_my_orders";              
             change_user_profile_state(); 
          });  
          
@@ -2423,10 +2463,10 @@
             load_user_order_table();
 
             //set user profile state
-            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
-            user_info.current_profile_modelbox = "user_order_modelbox";
-            // user_info.last_profile_button = user_info.current_profile_button;
-            // user_info.current_profile_button = "user_my_orders";              
+            user_info.last_profile_modelbox=user_info.active_profile_modelbox;
+            user_info.active_profile_modelbox = "user_order_modelbox";
+            // user_info.last_profile_button = user_info.active_profile_button;
+            // user_info.active_profile_button = "user_my_orders";              
             change_user_profile_state(); 
          });          
         

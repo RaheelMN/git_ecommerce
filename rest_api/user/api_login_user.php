@@ -1,10 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
-
 
     //connecting with DB server
     require_once "../../include/config.php";
@@ -17,7 +13,6 @@
     $output['field_error']=false;
     $output['email']['error']=false;
     $output['password']['error']=false;
-    $output['form_error']=false;
     
     //Check if user email exists then get its password
     $sql = "SELECT user_id,user_name,user_password,ip_address FROM users where user_email='$user_email'";

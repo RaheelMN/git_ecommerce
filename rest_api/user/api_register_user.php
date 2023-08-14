@@ -1,9 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
 
 
     //connecting with DB server
@@ -52,15 +49,12 @@
                     $output['email']['error']=false;
                 }
     }
-            
-    
+             
     // //verify user password
     $output['password']=verify($user_password,"password",12);
     if($output['password']['error']){
         $output['field_error'] = true;
-    }
-
-    
+    } 
 
     // //verify user address
     $output['address']=verify($user_address,"address",255);
@@ -112,9 +106,6 @@
         mysqli_close($conn);
         echo json_encode($output,JSON_PRETTY_PRINT);          
 
-    }
-    
-
-
+    }  
 
 ?>

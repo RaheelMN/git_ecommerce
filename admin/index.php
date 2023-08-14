@@ -711,7 +711,7 @@
             //Reset form fields
             $('#add_pform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_add_product_form_msgs();
          }
 
@@ -740,7 +740,7 @@
             //Reset form fields
             $('#edit_pform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_edit_product_form_msgs();
         }         
 
@@ -863,7 +863,7 @@
             //Reset form fields
             $('#add_bform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_add_brand_form_msgs();
         } 
 
@@ -883,7 +883,7 @@
             //Reset form fields
             $('#edit_bform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_edit_brand_form_msgs();
         }  
         
@@ -935,7 +935,7 @@
             //Reset form fields
             $('#add_cform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_add_category_form_msgs();
         } 
 
@@ -955,7 +955,7 @@
             //Reset form fields
             $('#edit_cform').trigger('reset');
 
-            //clear field error messages
+            //clear form messages
             clear_edit_category_form_msgs();
         }  
 
