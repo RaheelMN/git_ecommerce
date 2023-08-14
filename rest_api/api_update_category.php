@@ -14,8 +14,6 @@ if(isset($_SESSION['admin_role'])){
     
     //verification function
     require_once "../include/validate.php";
-    
-    $output =[];
 
     $data = json_decode(file_get_contents("php://input"),true);
 

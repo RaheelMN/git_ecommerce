@@ -33,9 +33,6 @@
        header("location:http://localhost/ecommerce/admin/admin_login.php");
    }
 
-     //insert below line in navigation bar welcome message
-    // echo "{$_SESSION['admin_name']}";
-
 ?>
 
 <!DOCTYPE html>
@@ -94,9 +91,10 @@
                 <div id="right_nav">
                     <ul class="navbar1_ul">
                         <li class="items">
-                            Welcome Raheel
-                             <!-- php message here -->
-                            !
+                            <?php
+
+                                echo "Welcome: {$_SESSION['admin_name']}!";
+                                ?>
                         </li>              
                         <li class="items">
                             <button class="nav_btn" id="admin_logout_btn">Logout</button>
@@ -111,11 +109,11 @@
         
     <!-- -------Start of Defualt modelbox----- -->
         <div id="default_modelbox">
-            <div id="default_div">
-                    <div>
-                        <div class="form_linebreak"></div>
-                        <h3>Tasks are in menu bar</h3>
-                    </div>
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Tasks are in menu bar</h3>
+                </div>
             </div>
         </div>        
     <!-- -------End of Defualt modelbox----- -->
@@ -289,6 +287,12 @@
             
         <!-- Start of View Products Table -->
             <div id="products_table_modelbox">
+                <div class="header_div">
+                    <div>
+                        <div class="form_linebreak"></div>
+                        <h3>Products Details</h3>
+                    </div> 
+                </div>               
                 <div class="admin_table_div">
                     <table id="view_products_table" >
                         <thead>
@@ -374,23 +378,29 @@
 
         <!-- Start of View Brands Table -->
         <div id="brands_table_modelbox">
-                <div class="admin_table_div">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class='left_align'>S.No</th>
-                                <th rowspan="2" class='left_align'>Brand Name</th>
-                                <th rowspan="2">Edit</th>
-                                <th rowspan="2">Delete</th>
-                            </tr>                                   
-                        </thead>
-                        <tbody id="view_brand_table_body"> 
-                        </tbody>
-                    </table> 
-                </div>
-                <div class="form_linebreak"></div>
-                <div id="brand_table_msg" class="form_msg"></div>  
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Brands Details</h3>
+                </div> 
+            </div>              
+            <div class="admin_table_div">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>S.No</th>
+                            <th rowspan="2" class='left_align'>Brand Name</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
+                        </tr>                                   
+                    </thead>
+                    <tbody id="view_brand_table_body"> 
+                    </tbody>
+                </table> 
             </div>
+            <div class="form_linebreak"></div>
+            <div id="brand_table_msg" class="form_msg"></div>  
+        </div>
         <!-- ----End of View brand Table--- -->
 
     <!-- -----End of Brand selectbox-------- -->
@@ -453,26 +463,151 @@
         
         <!-- Start of View category Table -->
         <div id="category_table_modelbox">
-                <div class="admin_table_div">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class='left_align'>S.No</th>
-                                <th rowspan="2" class='left_align'>Category Name</th>
-                                <th rowspan="2">Edit</th>
-                                <th rowspan="2">Delete</th>
-                            </tr>                                   
-                        </thead>
-                        <tbody id="view_category_table_body"> 
-                        </tbody>
-                    </table> 
-                </div>
-                <div class="form_linebreak"></div>
-                <div id="category_table_msg" class="form_msg"></div>  
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Categories Details</h3>
+                </div> 
+            </div>             
+            <div class="admin_table_div">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>S.No</th>
+                            <th rowspan="2" class='left_align'>Category Name</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
+                        </tr>                                   
+                    </thead>
+                    <tbody id="view_category_table_body"> 
+                    </tbody>
+                </table> 
             </div>
+            <div class="form_linebreak"></div>
+            <div id="category_table_msg" class="form_msg"></div>  
+        </div>
         <!-- ----End of View category Table--- -->        
 
     <!-- -----End of Category selectbox-------- -->
+
+    <!-- Start of Delete Message box -->
+        <div id="delete_modelbox" class="form_modelbox" >
+            <div class="form_div">
+                <form action="" class="form">
+                    <div class="form_header">
+                        <h3 id="delete_header"></h3>                   
+                    </div>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+
+                        <div class="form_row">
+                            <div id="canceled_order_inv" class="field_name"></div>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <div class="field_name" id = "delete_msg1"></div>
+                        </div>    
+                        <div class="form_row">
+                            <div class="field_name">Either it is in cart table in data base</div>
+                        </div>    
+                        <div class="form_row">
+                            <div class="field_name">Or it is in order detail table in pending state.</div>   
+                        </div>  
+                        <div class="form_linebreak"></div>
+                        
+
+
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button class="form_btn" id="delete_close">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                 
+    <!-- ----End of Delete Modelbox--- -->  
+    
+    <!-- Start of Orders Details Table -->
+        <div id="orders_details_modelbox">
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Orders Details</h3>
+                </div> 
+            </div>             
+            <div class="admin_table_div">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>S.No</th>
+                            <th rowspan="2" class='left_align'>Category Name</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
+                        </tr>                                   
+                    </thead>
+                    <tbody id="orders_details_table_body"> 
+                    </tbody>
+                </table> 
+            </div>
+            <div class="form_linebreak"></div>
+            <div id="orders_details_table_msg" class="form_msg"></div>  
+        </div>
+    <!-- ----End of Orders Details Table--- -->   
+
+    <!-- Start of Payments Details Table -->
+    <div id="payments_details_modelbox">
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Payments Details</h3>
+                </div> 
+            </div>             
+            <div class="admin_table_div">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>S.No</th>
+                            <th rowspan="2" class='left_align'>Category Name</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
+                        </tr>                                   
+                    </thead>
+                    <tbody id="payments_details_table_body"> 
+                    </tbody>
+                </table> 
+            </div>
+            <div class="form_linebreak"></div>
+            <div id="payments_details_table_msg" class="form_msg"></div>  
+        </div>
+    <!-- ----End of Payements Details Table--- -->  
+
+    <!-- Start of Users Details Table -->
+    <div id="users_details_modelbox">
+            <div class="header_div">
+                <div>
+                    <div class="form_linebreak"></div>
+                    <h3>Users Details</h3>
+                </div> 
+            </div>             
+            <div class="admin_table_div">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>S.No</th>
+                            <th rowspan="2" class='left_align'>Category Name</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
+                        </tr>                                   
+                    </thead>
+                    <tbody id="users_details_table_body"> 
+                    </tbody>
+                </table> 
+            </div>
+            <div class="form_linebreak"></div>
+            <div id="users_details_table_msg" class="form_msg"></div>  
+        </div>
+    <!-- ----End of Users Details Table--- -->      
 
     </div>  
 
@@ -488,15 +623,42 @@
             current_modelbox:"default_modelbox",
             last_modelbox:"",
             selectbox_active:'',
-            selectbox_last:""
-            // active_button:"home_btn",
-            // last_active_button:"",
+            selectbox_last:"",
+            active_button:"",
+            last_active_button:"",
         }
     
     //------ End of Objects Declaration---------------------    
         
     // ---------Start of Function definitions-------------------   
 
+        //Function to update user state
+        function change_admin_state(){
+
+            //Hide last modelbox
+            $('#'+admin_info.last_modelbox).hide();                                          
+
+            //Deactivate previous navbar button
+            // $('#'+admin_info.last_active_button).removeClass("nav_active_btn");
+
+            //Activate Current navbar button
+            // $('#'+user_info.active_button).addClass("nav_active_btn");
+
+            //display current modelbox
+            $('#'+admin_info.current_modelbox).show();            
+
+        }        
+
+        //Function to check user selectbox
+        function check_selectbox(){
+            //check if last modelbox is not empty
+            if(admin_info.selectbox_last != ""){
+                //check if user is not same selectbox
+                if(admin_info.selectbox_active != admin_info.selectbox_last){
+                    $('#'+admin_info.selectbox_last).val(0);
+                }
+            }
+        }    
 
         // ---------Start of Product Function definitions------------   
 
@@ -557,123 +719,6 @@
                         $('#edit_pstock_msg').html('');
                         $('#edit_plimit_msg').html('');
         } 
-        
-        // ---------End of Product Function definitions------------
-        
-
-        // ---------Start of Brand Function definitions------------
-              
-        //This function reset add_brand form
-        function reset_add_brand_form(){
-
-            //clear add_product form message
-            $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
-
-            //Reset form fields
-            $('#add_bform').trigger('reset');
-
-            //clear field error messages
-            clear_add_brand_form_msgs();
-        } 
-
-        //This function clear all error messages of form add brand
-        function clear_add_brand_form_msgs(){
-                        // clear field messages
-                        $('#add_bname_msg').html('');
-
-        }         
-        
-         //This function reset edit_brand form
-         function reset_edit_brand_form(){
-
-            //clear edit_brand form message
-            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
-
-            //Reset form fields
-            $('#edit_bform').trigger('reset');
-
-            //clear field error messages
-            clear_edit_brand_form_msgs();
-        }  
-        
-        //This function clear all error messages of form edit_brand
-        function clear_edit_brand_form_msgs(){
-                        // clear field messages
-                        $('#edit_bname_msg').html('');
-        }  
-        
-       // ---------End of Brand Function definitions------------
-
- 
-       // ---------Start of Category Function definitions------------
-          
-        //This function reset add_category form
-        function reset_add_category_form(){
-
-            //clear add_product form message
-            $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
-
-            //Reset form fields
-            $('#add_cform').trigger('reset');
-
-            //clear field error messages
-            clear_add_category_form_msgs();
-        } 
-
-        //This function clear all error messages of form add category
-        function clear_add_category_form_msgs(){
-                        // clear field messages
-                        $('#add_cname_msg').html('');
-
-        }        
-        
-         //This function reset edit_category form
-         function reset_edit_category_form(){
-
-            //clear edit_category form message
-            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
-
-            //Reset form fields
-            $('#edit_cform').trigger('reset');
-
-            //clear field error messages
-            clear_edit_category_form_msgs();
-        }  
-
-        //This function clear all error messages of form edit_category
-        function clear_edit_category_form_msgs(){
-                    // clear field messages
-                    $('#edit_cname_msg').html('');
-        }         
-        // ---------End of Category Function definitions------------
-
-        //Function to update user state
-        function change_admin_state(){
-
-            //Hide last modelbox
-            $('#'+admin_info.last_modelbox).hide();                                          
-
-            //Deactivate previous navbar button
-            // $('#'+admin_info.last_active_button).removeClass("nav_active_btn");
-
-            //Activate Current navbar button
-            // $('#'+user_info.active_button).addClass("nav_active_btn");
-
-            //display current modelbox
-            $('#'+admin_info.current_modelbox).show();            
-
-        }        
-
-        //Function to check user selectbox
-        function check_selectbox(){
-            //check if last modelbox is not empty
-            if(admin_info.selectbox_last != ""){
-                //check if user is not same selectbox
-                if(admin_info.selectbox_active != admin_info.selectbox_last){
-                    $('#'+admin_info.selectbox_last).val(0);
-                }
-            }
-        }
 
         //Function to populate brand and category information from db in edit product form
         function fill_brand_category(brand, category){
@@ -728,21 +773,22 @@
 
                 }
             });              
-        }
+        }  
+        
         
         //This function load product table in view product modelblox
         function load_product_table(){
 
             $.ajax({
-                  url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
-                  dataType: "json",
-                  success:function(data){
-    
+                url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
+                dataType: "json",
+                success:function(data){
+
                     if(!data.error){
-    
+
                         //clear table body
                         $('#view_product_table_body').html('');
-    
+
                         $.each(data.records, function(key, value){
                             $('#view_product_table_body').append("<tr>"+
                                                                 "<td class='left_align'>"+(key+1)+"</td>"+
@@ -756,12 +802,56 @@
                                                                 "<td>"+'<button class="card_btn delete_product_btn" data-id="'+value.p_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
                                                                 "<tr>");
                         });
-    
+
                     }
-                  }
+                }
                     
             });
-        }
+        }  
+        
+        // ---------End of Product Function definitions------------
+        
+
+        // ---------Start of Brand Function definitions------------
+              
+        //This function reset add_brand form
+        function reset_add_brand_form(){
+
+            //clear add_product form message
+            $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#add_bform').trigger('reset');
+
+            //clear field error messages
+            clear_add_brand_form_msgs();
+        } 
+
+        //This function clear all error messages of form add brand
+        function clear_add_brand_form_msgs(){
+                        // clear field messages
+                        $('#add_bname_msg').html('');
+
+        }         
+        
+         //This function reset edit_brand form
+         function reset_edit_brand_form(){
+
+            //clear edit_brand form message
+            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#edit_bform').trigger('reset');
+
+            //clear field error messages
+            clear_edit_brand_form_msgs();
+        }  
+        
+        //This function clear all error messages of form edit_brand
+        function clear_edit_brand_form_msgs(){
+                        // clear field messages
+                        $('#edit_bname_msg').html('');
+        }  
 
         //This function load brand table in view brand modelblox
         function load_brand_table(){
@@ -789,11 +879,55 @@
                 }
                     
             });
-        }
-       
+        }        
+        
+       // ---------End of Brand Function definitions------------
+
+ 
+       // ---------Start of Category Function definitions------------
+          
+        //This function reset add_category form
+        function reset_add_category_form(){
+
+            //clear add_product form message
+            $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#add_cform').trigger('reset');
+
+            //clear field error messages
+            clear_add_category_form_msgs();
+        } 
+
+        //This function clear all error messages of form add category
+        function clear_add_category_form_msgs(){
+                        // clear field messages
+                        $('#add_cname_msg').html('');
+
+        }        
+        
+         //This function reset edit_category form
+         function reset_edit_category_form(){
+
+            //clear edit_category form message
+            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#edit_cform').trigger('reset');
+
+            //clear field error messages
+            clear_edit_category_form_msgs();
+        }  
+
+        //This function clear all error messages of form edit_category
+        function clear_edit_category_form_msgs(){
+                    // clear field messages
+                    $('#edit_cname_msg').html('');
+        }  
+
         //This function load category table in view category modelblox
         function load_category_table(){
-
+            
             $.ajax({
                 url: "http://localhost/ecommerce/rest_api/api_fetch_categories_details.php",
                 dataType: "json",
@@ -816,9 +950,11 @@
                 }
                     
             });
-        }        
+        }   
+        
+        // ---------End of Category Function definitions------------   
+        
                     
-
     // ---------End of Function definitions------------------- 
 
     //If user has pressed Logout button in navigation bar
@@ -838,6 +974,14 @@
 
         }
 
+    });
+
+    // if admin press close button in delete modelbox 
+    $('#delete_close').on('click',function(e){
+        e.preventDefault();
+
+        //hide delete modelbox
+        $('#delete_modelbox').hide();
     });
 
     //---- Start of Product events -------//
@@ -1173,11 +1317,17 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        if(!data.error){
-                            //load updated product table
+                        if(data.error){
+                            $('#delete_modelbox').show();
+                            $('#delete_header').text('Delete Product');
+                            $('#delete_msg1').text('Cannot delete Product bacause:');
+
+                        }else{
+                            //load updated category table
                             load_product_table();    
                         }
                     }
+
                 });
             }                                   
         });        
@@ -1519,7 +1669,14 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        if(!data.error){
+                        if(data.error){
+
+                            $('#delete_modelbox').show();
+                            $('#delete_header').text('Delete Brand');
+                            $('#delete_msg1').text('Cannot delete Brand bacause:');
+
+                        }else{
+
                             //load updated brand table
                             load_brand_table();    
                         }
@@ -1606,8 +1763,6 @@
             change_admin_state();                    
 
         });           
-
-
 
     //----End of brands events -------//    
 
@@ -1763,14 +1918,19 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-                        if(!data.error){
+                        if(data.error){
+                            $('#delete_modelbox').show();
+                            $('#delete_header').text('Delete Category');
+                            $('#delete_msg1').text('Cannot delete Category bacause:');
+
+                        }else{
                             //load updated category table
                             load_category_table();    
                         }
                     }
                 });
             }                                   
-        });  
+        });          
         
         //if admin press submit in Edit category form
         $('#edit_cform').on('submit',function(e){
@@ -1852,6 +2012,31 @@
         });    
 
     //----End of Categories events -------//    
+
+    // if admin press order button in navigation bar 
+    $('#order_btn').on('click',function(e){
+        e.preventDefault();
+
+        //hide delete modelbox
+        alert('order btn');
+    });
+
+    // if admin press payment button in navigation bar 
+    $('#payment_btn').on('click',function(e){
+        e.preventDefault();
+
+        //hide delete modelbox
+        alert('payment btn');
+    });
+    
+    // if admin press user button in navigation bar 
+    $('#users_btn').on('click',function(e){
+        e.preventDefault();
+
+        //hide delete modelbox
+        alert('user btn');
+    });
+
     });
 
 </script>

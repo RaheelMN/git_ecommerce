@@ -551,7 +551,7 @@
                                     </div>
                                 </div>                
 
-                            <!-- End of User's Confirm modelbox -->                                   
+                                <!-- End of User's Cancel Order modelbox -->                                   
                             </div>                           
                         </div>
                 </div>
@@ -1004,6 +1004,7 @@
                 type:"GET",
                 dataType:"json",
                 success: function(data){
+                    debugger;
                 $('#user_msg').text('You have '+data.orders+' pending orders');
                 }
             });
