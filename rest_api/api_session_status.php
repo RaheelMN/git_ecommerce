@@ -2,8 +2,6 @@
 
     header('content_type: application/json');
     header('Access-Control-Allow-Origin:*');
-    //connecting with DB server
-    include "../include/config.php";
 
     session_start();
 

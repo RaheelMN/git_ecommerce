@@ -451,6 +451,8 @@
                                                 <tbody id="order_table_body">
                                                 </tbody>
                                         </table> 
+                                        <div class="form_linebreak"></div>
+                                        <div id="order_table_msg" class="form_msg"></div>                                        
                                     </div>  
                                 <!-- End of User's Order modelbox -->       
                                 
@@ -474,7 +476,14 @@
                                                         <div id="amt_or_form_msg" class="field_err_msg"></div>
                                                     </div>
                                                     <div class="form_row">
-                                                        <select id="sel_pay_or_form" name="sel_pay_or_form"></select>
+                                                        <select id="sel_pay_or_form" class="form_selectbox" name="sel_pay_or_form">
+                                                            <option value="0">Select Payment mode</option>
+                                                            <option value="1">UPI</option>
+                                                            <option value="2">Net Banking</option>
+                                                            <option value="3">Paypal</option>
+                                                            <option value="4">Cash On Deliver</option>
+                                                            <option value="5">Pay Offline</option>
+                                                        </select>    
                                                         <div id="sel_pay_or_form_msg" class="field_err_msg"></div>
                                                     </div>
 
@@ -483,6 +492,7 @@
                                                         <input type="submit" class="form_btn" id="confirm_submit" name="confirm_submit" value="Submit">
                                                         <button class="form_btn" id="confirm_close">Close</button>
                                                     </div>
+                                                    <div class="form_linebreak"></div>
                                                     <div id="confirm_order_msg" class="form_msg"></div>
                                                 </div>
                                             </form>
@@ -621,14 +631,14 @@
                     //clear cards
                     $('#cards_container').html('');
                     //clear message class
-                    $('#products_msg').removeClass('products_msg_style').html('');
+                    $('#products_msg').removeClass('table_msg_style').html('');
                     //clear page numbers
                     $('#pagination_body').html('');                                     
 
                     //check if no record found
                     if(data.error){
                         $('#products_msg').fadeIn('slow');
-                        $('#products_msg').addClass('products_msg_style').text(data.message);                         
+                        $('#products_msg').addClass('table_msg_style').text(data.message);                         
                     }
                     else{
                         $.each(data.data,function(key, value){
@@ -715,7 +725,7 @@
                             //check if there is no record in database
                             if(data.error){
                                 $('#cart_message').fadeIn('slow');
-                                $('#cart_message').addClass('products_msg_style').text(data.message);
+                                $('#cart_message').addClass('table_msg_style').text(data.message);
 
                                 //set cart state
                                 cart_info.status = 'noitem';
@@ -732,12 +742,12 @@
                                     //reset cart changed flag
                                     cart_info.cart_changed=false;
                                     $('#cart_message').fadeIn('slow');                                                       
-                                    $('#cart_message').addClass('products_msg_style').text('Cart updated');
+                                    $('#cart_message').addClass('table_msg_style').text('Cart updated');
                                     setTimeout(function(){
                                         $('#cart_message').fadeOut('slow');
                                     },2000); 
                                     setTimeout(function(){
-                                        $('#cart_message').removeClass('products_msg_style');
+                                        $('#cart_message').removeClass('table_msg_style');
                                     },2600);                                     
                                 }
 
@@ -847,7 +857,7 @@
                     $('#cart_table_body').html('');
 
                     //clearing cart message and its css
-                    $('#cart_message').removeClass('products_msg_style').text('');
+                    $('#cart_message').removeClass('table_msg_style').text('');
 
                     //clearing check box All
                     $('#delete_all_checkbox').prop('checked',false);
@@ -919,7 +929,7 @@
      //This function work on user's pending orders 
         function user_pending_status(){
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_pending_orders_status.php",
+                url:"http://localhost/ecommerce/rest_api/user/api_pending_orders_status.php",
                 type:"GET",
                 dataType:"json",
                 success: function(data){
@@ -1143,7 +1153,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_register_user.php",
+                    url: "http://localhost/ecommerce/rest_api/user/api_register_user.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1305,7 +1315,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_login_user.php",
+                    url: "http://localhost/ecommerce/rest_api/user/api_login_user.php",
                     type:"POST",
                     data: json_obj,
                     dataType:"json",
@@ -1370,7 +1380,7 @@
 
                 //End Session
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_logout_user.php",
+                    url:"http://localhost/ecommerce/rest_api/user/api_logout_user.php",
                     success: function(data){
                         debugger;
                     }
@@ -1589,7 +1599,7 @@
    
             //Insert user order
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_add_order.php",
+                url:"http://localhost/ecommerce/rest_api/user/api_add_order.php",
                 type:"GET",
                 dataType:"json",
                 success:function(data){
@@ -1747,22 +1757,22 @@
                     success:function(data){
                         if(data.error){
                             $('#products_msg').fadeIn('slow');
-                            $('#products_msg').addClass('products_msg_style').text(data.message);
+                            $('#products_msg').addClass('table_msg_style').text(data.message);
                             setTimeout(function(){
                                 $('#products_msg').fadeOut('slow');
                             },2000); 
                             setTimeout(function(){
-                                $('#products_msg').removeClass('products_msg_style');
+                                $('#products_msg').removeClass('table_msg_style');
                             },2600); 
                         }
                         else{
                             $('#products_msg').fadeIn('slow');
-                            $('#products_msg').addClass('products_msg_style').text(data.message);
+                            $('#products_msg').addClass('table_msg_style').text(data.message);
                             setTimeout(function(){
                                 $('#products_msg').fadeOut('slow');
                             },2000); 
                             setTimeout(function(){
-                                $('#products_msg').removeClass('products_msg_style');
+                                $('#products_msg').removeClass('table_msg_style');
                             },2600); 
                             $('#total_cart_items').text(data.num_of_items);
                             $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
@@ -1814,7 +1824,7 @@
             clear_edit_profile_form_msgs();
             
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_user_profile.php",
+                url:"http://localhost/ecommerce/rest_api/user/api_fetch_user_profile.php",
                 type:"GET",
                 dataType:"json",
                 success:function(data){
@@ -1895,7 +1905,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_update_user.php",
+                    url: "http://localhost/ecommerce/rest_api/user/api_update_user.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -2041,7 +2051,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_change_user_password.php",
+                    url: "http://localhost/ecommerce/rest_api/user/api_change_user_password.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -2118,15 +2128,22 @@
             change_user_profile_state();    
 
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_orders.php",
+                url:"http://localhost/ecommerce/rest_api/user/api_fetch_orders.php",
                 type:'GET',
                 dataType:"json",
                 success:function(data){
-
+                    debugger;
                     //clear table
                     $('#order_table_body').html('');
+                    //clear message
+                    $('#order_table_msg').removeClass('table_msg_style').html('');                            
 
-                    if(!data.error){
+
+                    //check if no record found
+                    if(data.error){
+                        $('#order_table_msg').fadeIn('slow');
+                        $('#order_table_msg').addClass('table_msg_style').text(data.message);
+                    }else{
                         $.each(data.records, function(key,value){
                             var payment='';
                             if(value.order_status == 'Pending'){
@@ -2145,6 +2162,7 @@
                                                             "<tr>");
                         });
                     }
+                    
                   
                 }
 
@@ -2158,20 +2176,25 @@
             e.preventDefault();
             debugger;
             var order_id = $(this).attr('data-id');
-        //     var obj ={order_id:order_id};
-        //     var json_obj=JSON.stringify(obj);
+            var obj ={order_id:order_id};
+            var json_obj=JSON.stringify(obj);
 
-        //     $.ajax({
-        //         url:"http://localhost/ecommerce/rest_api/api_fetch_single_order.php",
-        //         type:'POST',
-        //         data:json_obj,
-        //         contentType:"application/json",
-        //         dataType:"json",
-        //         success:function(data){
-        //             debugger;
-        //         }
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/user/api_fetch_single_order.php",
+                type:'POST',
+                data:json_obj,
+                contentType:"application/json",
+                dataType:"json",
+                success:function(data){
+                    debugger;
+                    $('#inv_or_form').val(data.record.invoice_number);
+                    $('#amt_or_form').val(data.record.amount_due);
 
-         });        
+                }
+
+            });
+         
+        }); 
         
 
          //If user press Submit in Confirm Order Form

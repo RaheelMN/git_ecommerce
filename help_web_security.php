@@ -1,5 +1,6 @@
 <?php
 
+
 // Start of validation
 
     //filter_var
@@ -99,7 +100,7 @@
 
 //Start of cookies
 
-    session_start();
+    // session_start();
     // $params = session_get_cookie_params();
     //set cookie parameters for localhost
     //name
@@ -113,6 +114,19 @@
     // echo "<br>$session_name<br>";
     // echo "<br>$session_value<br>";
     // setcookie(session_name(),session_id(),time()+10,"/");
+
+    //If hackers access page without session then it should redirect them to user index page
+    //if(isset($_SESSION['user_name'])){
+        // ...
+    // }else{
+        // header("location:http//localhost/ecommerce/index.html")
+    // }
+
+    //Question. Can hacker be prevented from accessing user registration page through url
+    // http://localhost/ecommerce/rest_api/user/api_register_user.php
+    //Can following code help?
+        // header('Access-Control-Allow-Origin:*');
+        // header('Access-Control-Allow-Methods:POST'); 
 
 //End of cookies
 

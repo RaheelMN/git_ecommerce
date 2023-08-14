@@ -88,11 +88,11 @@
                             <div id="add_pkeyw_msg" class="field_err_msg"></div>
                         </div>
                         <div class="form_row">
-                            <select id="add_pform_brand" name="add_pform_brand"></select>
+                            <select id="add_pform_brand" class="form_selectbox" name="add_pform_brand"></select>
                             <div id="add_pbrand_msg" class="field_err_msg"></div>
                         </div>
                         <div class="form_row">
-                            <select id="add_pform_category" name="add_pform_category"></select>
+                            <select id="add_pform_category" class="form_selectbox" name="add_pform_category"></select>
                             <div id="add_pcatg_msg" class="field_err_msg"></div>
                         </div>
                         <div class="form_row">
