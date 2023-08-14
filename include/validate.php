@@ -7,13 +7,13 @@
             return $x;
     }
 
-    function verify($x,$type){
+    function verify($x,$type,$length){
         $result=[];
         switch ($type){
             case "name":
-                if(strlen($x)>50){
+                if(strlen($x)>$length){
                     $result['status']='false';
-                    $result['message']='Name should be less than 50 characters';  
+                    $result['message']='Name should be less than '.$length.' characters';  
                     return $result;                  
 
                 }elseif
@@ -21,7 +21,21 @@
                     $result['status']='false';
                     $result['message']='Name should consist of alphabets';
                     return $result;
-                }        
+                }  
+                break; 
+
+                case "desc":
+                    if(strlen($x)>$length){
+                        $result['status']='false';
+                        $result['message']='Description should be less than '.$length.' characters';  
+                        return $result;                  
+    
+                    }elseif
+                    (!preg_match('/^[a-z A-Z]+[, . a-z A-Z 0-9 \x20]* $/i',$x)){
+                        $result['status']='false';
+                        $result['message']='Description should consist of alphabets and digits.';
+                        return $result;
+                    }          
         }
         $result['status']='true';
         return $result;

@@ -132,40 +132,32 @@
 
             //empty side-nav ul
             $('#side-nav').html('');
-            
-            //retrive brands record
+
+            //retrive side-nav records
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_all_brands.php",
+                url:"http://localhost/ecommerce/rest_api/api_fetch_sidenav.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    if(data.status != 'false' ){
+                    debugger;
+                    if(data.brands.status != 'false' ){
                         $('#side-nav').append('<li class="side-nav-h">Brands</li>');
-                        $.each(data,function(key,value){
-                            $('#side-nav').append('<li><a class="side-nav-hov" href="">'+value.bname+'</a></li>');
+                        $.each(data.brands,function(key,value){
+                            $('#side-nav').append('<li><a class="side-nav-hov" href="brand'+value.bid+'">'+value.bname+'</a></li>');
                         });                       
                         
                     }
-                }
-
-            });
- 
-            //retrive categories record
-            $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_all_categories.php",
-                type: "GET",
-                dataType:"json",
-                success: function(data){
-                    if(data.status != 'false' ){
+                    if(data.categories.status != 'false' ){
                         $('#side-nav').append('<li class="side-nav-h">Categories</li>');
-                        $.each(data,function(key,value){
-                            $('#side-nav').append('<li><a class="side-nav-hov" href="">'+value.cname+'</a></li>');
+                        $.each(data.categories,function(key,value){
+                            $('#side-nav').append('<li><a class="side-nav-hov" href="category'+value.cid+'">'+value.cname+'</a></li>');
                         });                       
                         
                     }
                 }
 
-            });            
+            });    
+            
         }
 
         load_sidenav();

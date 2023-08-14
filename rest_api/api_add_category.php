@@ -16,7 +16,7 @@
     $category_name = $data['cname'];
 
     //verify name
-    $verify=verify($category_name,"name");
+    $verify=verify($category_name,"name",20);
 
     if($verify['status']=='false'){
         echo json_encode($verify,JSON_PRETTY_PRINT);

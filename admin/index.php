@@ -64,53 +64,67 @@
         </nav> 
         
         <!-- Add Product form -->
-         <!-- <div id="add_model_form">
-            <div id="add_form_div">
-                <form action="" id="add_form">
-                    <div class="header">
-                        <h3>Add Employee record</h3>
+         <div id="add_pform_modelbox" class="form_modelbox">
+            <div class="form_div">
+                <form action="" id="add_pform" class="form">
+                    <div class="form_header">
+                        <h3>Add Product</h3>                   
                     </div>
-                    <table  style="width:60%; margin:auto"cellpadding="10px">
-                        <tr>
-                            <td class="r1">Name</td>
-                            <td><input type="text" name="add_name" id="add_name" value=""></td>
-                        </tr>
-                        <tr>
-                            <td class="r1">Age</td>
-                            <td><input type="number" name="add_age" id="add_age" value=""></td>
-                        </tr>
-                        <tr>
-                            <td class="r1">Gender</td>
-                            <td>
-                                <input type='radio' name="add_gender" value="male">Male
-                                <input type='radio' name="add_gender" value="female">Female
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="r1">Country</td>
-                            <td>
-                                <select name="add_country" id="add_country">
-                                    <option value="pak">Pakistan</option>
-                                    <option value="afg">Afganistan</option>
-                                    <option value="ind">India</option>
-                                    <option value="bng">Bangladesh</option>
-                                    
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="r1"></td>
-                            <td><button id="add_submit">Submit</button>
-                                <button id="add_close">Close</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="add_form_msg" colspan="2"></td>
-                        </tr>
-                    </table>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <div class="form_row">
+                            <div class="field_name">Product name</div>
+                            <input type="text" class="form_input" name="add_pname" id="add_pname" value="" autocomplete="off">
+                            <div id="add_pname_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Product Description</div>
+                            <input type="text"  class="form_input" name="add_pdesc" id="add_pdesc" value="" autocomplete="off">
+                            <div id="add_pdesc_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Product Keyword</div>
+                            <input type="text"  class="form_input" name="add_pkeyw" id="add_pkeyw" value="" autocomplete="off">
+                            <div id="add_pkeyw_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <select id="add_pform_brand" name="add_pform_brand"></select>
+                            <div id="add_pbrand_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <select id="add_pform_category" name="add_pform_category"></select>
+                            <div id="add_pcatg_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Upload Image 1</div>
+                            <input type="file"  class="form_input" name="add_pimg1" id="add_pimg1" val="">
+                            <div id="add_pimg1_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Upload Image 2</div>
+                            <input type="file"  class="form_input" name="add_pimg2" id="add_pimg2" val="">
+                            <div id="add_pimg2_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Upload Image 3</div>
+                            <input type="file"  class="form_input" name="add_pimg3" id="add_pimg3" val="">
+                            <div id="add_pimg3_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Product Price</div>
+                            <input type="text"  class="form_input" name="add_pprice" id="add_pprice" value="" autocomplete="off">
+                            <div id="add_pprice_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <input type="submit" class="form_btn" id="add_psubmit" name="add_psubmit" value="Submit">
+                            <button class="form_btn" id="add_pclose">Close</button>
+                        </div>
+                        <div id="add_pform_msg" class="form_msg"></div>
+                    </div>
                 </form>
             </div>
-        </div> -->
+        </div>
 
         <!-- Add Brand Form -->
         <div id="add_bform_modelbox" class="form_modelbox">
@@ -119,15 +133,21 @@
                     <div class="form_header">
                         <h3>Add Brand</h3>
                     </div>
-                    <div class="form_row2">Brand Name
-                            <input type="text" name="add_bname" id="add_bname" value="">
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <div class="form_row">
+                            <div class="field_name">Brand name</div>
+                            <input type="text" class="form_input" name="add_bname" id="add_bname" value="" autocomplete="off">
+                            <div id="add_bname_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button class="form_btn" id="add_bsubmit">Submit</button>
+                            <button class="form_btn" id="add_bclose">Close</button>
+                        </div>
+                        <div id="add_bform_msg" class="form_msg"></div>
+                    </form>
                     </div>
-                    <div class="form_row3">
-                        <button class="form_btn" id="add_bsubmit">Submit</button>
-                        <button class="form_btn" id="add_bclose">Close</button>
-                    </div>
-                    <div id="add_bform_msg" ></div>
-                </form>
             </div>
         </div>
 
@@ -138,14 +158,20 @@
                     <div class="form_header">
                         <h3>Add Category</h3>
                     </div>
-                    <div class="form_row2">Category Name
-                            <input type="text" name="add_cname" id="add_cname" value="">
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <div class="form_row">
+                                <div class="field_name">Category name</div>
+                                <input type="text" class="form_input" name="add_cname" id="add_cname" value="" autocomplete="off">
+                                <div id="add_cname_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button class="form_btn" id="add_csubmit">Submit</button>
+                            <button class="form_btn" id="add_cclose">Close</button>
+                        </div>
+                        <div id="add_cform_msg" class="form_msg"></div>
                     </div>
-                    <div class="form_row3">
-                        <button class="form_btn" id="add_csubmit">Submit</button>
-                        <button class="form_btn" id="add_cclose">Close</button>
-                    </div>
-                    <div id="add_cform_msg" ></div>
                 </form>
             </div>
         </div>
@@ -154,6 +180,225 @@
     <script src="../js/jquery.js"></script>
     <script>
         $(document).ready(function(){
+
+            //---- product events -------//
+            
+            //if admin has selected option from brand selectbox
+            $('#select_product').change(function(){
+
+                //if admin has selected add brand from selectbox
+                if($('#select_product').val()== 1){
+
+                    //display add brand form
+                    $('#add_pform_modelbox').show();
+
+                    //populate brand and category select box
+                    $.ajax({
+                        url:"http://localhost/ecommerce/rest_api/api_fetch_sidenav.php",
+                        type: "GET",
+                        dataType:"json",
+                        success: function(data){
+
+                            //clear selectboxes brand and category
+                            $('#add_pform_brand').html('');
+                            $('#add_pform_category').html('');
+
+                            if(data.brands.status != 'false' ){
+                                $('#add_pform_brand').append($('<option>',{
+                                                                        value:'0',
+                                                                        text: 'Select Brand'
+                                }));
+                                $.each(data.brands,function(key,value){
+                                    $('#add_pform_brand').append($('<option>',{
+                                                            value: value.bid,
+                                                            text: value.bname
+                                    }));
+                                }); 
+                            }
+                            if(data.categories.status != 'false' ){
+                                $('#add_pform_category').append($('<option>',{
+                                                                        value:'0',
+                                                                        text: 'Select Category'
+                                }));
+                                $.each(data.categories,function(key,value){
+                                    $('#add_pform_category').append($('<option>',{
+                                                            value: value.cid,
+                                                            text: value.cname
+                                    }));
+                                }); 
+                            }
+
+                        }
+                    });    
+                                
+                    //if admin press submit in add_brand form
+                    $('#add_pform').on('submit',function(e){
+                        //prevent default setting of add brand form
+                        e.preventDefault();
+
+                        //clear field messages
+                        $('#add_pname_msg').html('');
+                        $('#add_pdesc_msg').html('');
+                        $('#add_pkeyw_msg').html('');
+                        $('#add_pbrand_msg').html('');
+                        $('#add_pcatg_msg').html('');
+                        $('#add_pimg1_msg').html('');
+                        $('#add_pimg2_msg').html('');
+                        $('#add_pimg3_msg').html('');
+                        $('#add_pprice_msg').html('');
+
+                        var form_error="false";
+
+                        //retrive product name from input field
+                        var product_name = $('#add_pname').val();
+
+                        //check if admin has entered product name
+                        if(product_name == ""){
+                            $('#add_pname_msg').fadeIn('slow');
+                            $('#add_pname_msg').text('Enter product name');
+                            form_error = 'true';
+                        }
+
+                        //retrive product description from input field
+                        var product_desc = $('#add_pdesc').val();
+
+                        //check if admin has entered product desciption
+                        if(product_desc == ""){
+                            $('#add_pdesc_msg').fadeIn('slow');
+                            $('#add_pdesc_msg').text('Enter product description');
+                            form_error = 'true';
+                        }
+
+                        //retrive product keyword from input field
+                        var product_keyw = $('#add_pkeyw').val();
+
+                        //check if admin has entered product desciption
+                        if(product_keyw == ""){
+                            $('#add_pkeyw_msg').fadeIn('slow');
+                            $('#add_pkeyw_msg').text('Enter product keywords');
+                            form_error = 'true';
+                        }
+                        
+                        //retrive brand from selectbox
+                        var product_brand = $('#add_pform_brand').val();
+
+                        //check if admin has selected brand
+                        if(product_brand == "0"){
+                            $('#add_pbrand_msg').fadeIn('slow');
+                            $('#add_pbrand_msg').text('Select brand for product');
+                            form_error = 'true';
+                        }   
+                        
+                        //retrive category from selectbox
+                        var product_category = $('#add_pform_category').val();
+
+                        //check if admin has selected category
+                        if(product_category == "0"){
+                            $('#add_pcatg_msg').fadeIn('slow');
+                            $('#add_pcatg_msg').text('Select category for product');
+                            form_error = 'true';
+                        }   
+                        
+                        var form_data = new FormData(this);
+                        //retrive image 1 value 
+                        var product_img1 = $('#add_pimg1').val();
+
+                        //check if admin has uploaded image
+                        if(product_img1 == ""){
+                            $('#add_pimg1_msg').fadeIn('slow');
+                            $('#add_pimg1_msg').text('Upload image for product');
+                            form_error = 'true';
+                        }    
+                        
+                        //retrive image 2 value 
+                        var product_img2 = $('#add_pimg2').val();
+
+                        //check if admin has uploaded image
+                        if(product_img2 == ""){
+                            $('#add_pimg2_msg').fadeIn('slow');
+                            $('#add_pimg2_msg').text('Upload image for product');
+                            form_error = 'true';
+                        }                         
+
+                        //retrive image 3 value 
+                        var product_img3 = $('#add_pimg3').val();
+
+                        //check if admin has uploaded image
+                        if(product_img3 == ""){
+                            $('#add_pimg3_msg').fadeIn('slow');
+                            $('#add_pimg3_msg').text('Upload image for product');
+                            form_error = 'true';
+                        }                         
+                        //retrive product price from input field
+                        var product_price = $('#add_pprice').val();
+
+                        //check if admin has entered product price
+                        if(product_price == ""){
+                            $('#add_pprice_msg').fadeIn('slow');
+                            $('#add_pprice_msg').text('Enter product price');
+                            form_error = 'true';
+                        }
+
+
+                        $.ajax({
+                            url: "http://localhost/ecommerce/add_product.php",
+                            type:"POST",
+                            data: form_data,
+                            dataType:"json",
+                            contentType:false,
+                            processData:false,
+                            success: function(data){
+                                debugger;
+                                if(data.pname.status=='false'){
+                                    $('#add_pname_msg').text(data.pname.message);
+                                }
+                            //     if(data.status == "false"){
+                            //         $('#add_pform_msg').fadeIn('slow');
+                            //         $('#add_pform_msg').text(data.message);                                
+                            //     }else{
+                            //         $('#add_pform_msg').fadeIn('slow');
+                            //         $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);
+                            //         setTimeout(function(){
+                            //             $('#add_pform_msg').fadeOut('slow');
+                            //         },3000);                                   
+                            //     }
+                             }
+                        });
+                        
+                    });
+
+                    //if admin press close button
+                    $('#add_pclose').on('click',function(e){
+                        debugger;
+                        //prevent default form setting
+                        e.preventDefault();
+
+                        //clear field messages
+                        $('#add_pname_msg').html('');
+                        $('#add_pdesc_msg').html('');
+                        $('#add_pkeyw_msg').html('');
+                        $('#add_pbrand_msg').html('');
+                        $('#add_pcatg_msg').html('');
+                        $('#add_pimg1_msg').html('');
+                        $('#add_pimg2_msg').html('');
+                        $('#add_pimg3_msg').html('');
+                        $('#add_pprice_msg').html('');
+
+                        //clear add_product form message
+                        $('#add_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');
+
+                        //reset form fields
+                        $('#add_pform').trigger('reset');
+
+                        //reset product selectbox
+                        $("#select_product").val('0');
+
+                        //hide add_product form
+                        $('#add_pform_modelbox').hide();
+
+                    });
+                }
+            });
 
             //---- brands events -------//
             
@@ -173,14 +418,14 @@
     
                         //retrive brand name from input field
                         var brand_name = $('#add_bname').val();
+
+                        //clear field messages
+                        $('#add_bname_msg').html('');
     
                         //check if admin has entered brand name
                         if(brand_name == ""){
-                            $('#add_bform_msg').fadeIn('slow');
-                            $('#add_bform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text('Enter brand name');
-                            setTimeout(function(){
-                                $('#add_bform_msg').fadeOut('slow');
-                            },3000); 
+                            $('#add_bname_msg').fadeIn('slow');
+                            $('#add_bname_msg').text('Enter brand name');
                         }else{
     
                             //convert variable to object
@@ -195,11 +440,8 @@
                                 data: json_obj,
                                 success: function(data){
                                     if(data.status == "false"){
-                                        $('#add_bform_msg').fadeIn('slow');
-                                        $('#add_bform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.message);
-                                        setTimeout(function(){
-                                            $('#add_bform_msg').fadeOut('slow');
-                                        },3000);                                
+                                        $('#add_bname_msg').fadeIn('slow');
+                                        $('#add_bname_msg').text(data.message);                                
                                     }else{
                                         $('#add_bform_msg').fadeIn('slow');
                                         $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);
@@ -249,16 +491,16 @@
                         //prevent default setting of add category form
                         e.preventDefault();
 
+                        //clear all messages
+                        $('#add_cname_msg').html('');
+
                         //retrive category name from input field
                         var category_name = $('#add_cname').val();
 
                         //check if admin has entered category name
                         if(category_name == ""){
-                            $('#add_cform_msg').fadeIn('slow');
-                            $('#add_cform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text('Enter category name');
-                            setTimeout(function(){
-                                $('#add_cform_msg').fadeOut('slow');
-                            },3000); 
+                            $('#add_cname_msg').fadeIn('slow');
+                            $('#add_cname_msg').text('Enter category name');
                         }else{
 
                             //convert variable to object
@@ -273,11 +515,8 @@
                                 data: json_obj,
                                 success: function(data){
                                     if(data.status == "false"){
-                                        $('#add_cform_msg').fadeIn('slow');
-                                        $('#add_cform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.message);
-                                        setTimeout(function(){
-                                            $('#add_cform_msg').fadeOut('slow');
-                                        },3000);                                
+                                        $('#add_cname_msg').fadeIn('slow');
+                                        $('#add_cname_msg').text(data.message);                              
                                     }else{
                                         $('#add_cform_msg').fadeIn('slow');
                                         $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.message);

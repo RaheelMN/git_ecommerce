@@ -16,7 +16,7 @@
     $brand_name = $data['bname'];
 
     //verify name
-    $verify=verify($brand_name,"name");
+    $verify=verify($brand_name,"name",20);
 
     if($verify['status']=='false'){
         echo json_encode($verify,JSON_PRETTY_PRINT);
