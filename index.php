@@ -71,15 +71,21 @@
 
         <div id="contents">
             <div id="products">
-            <div id="products_msg"></div>
+                <div id="products_msg">
+                </div>
                 <div id="cards_container">
                 </div>                           
+                <div id="pagination_container">
+                        <div id="pagination_body">                    
+                        </div>
+                </div>
             </div>
             <div id="side_nav_bar_div">
                 <ul id ="side_nav">
                 </ul>
             </div>
         </div>
+
 
         <!-- Section Footer -->
         <Footer>
@@ -92,6 +98,14 @@
 <script src="http://localhost/ecommerce/js/jquery.js"></script>
 <script>
     $('document').ready(function(){
+
+        //parameters used in load_cards function ajax call
+        const load_cards_info ={
+                                search_type: 'all',
+                                search_term: '0',
+                                page_no: 1
+        }
+
         //Function to populate side navigation bar with brands and categories records
         function load_sidenav(){
 
@@ -104,7 +118,7 @@
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    debugger;
+
                     //Clear side nav bar
                     $('#side_nav').html('');
 
@@ -141,11 +155,9 @@
         }
 
         //Function to load cards based on type ie all,brand or category
-        function load_cards(card_type,id){
-            obj = {card_type:card_type,
-                    id:id
-                  };
-            json_obj = JSON.stringify(obj);
+        function load_cards(){
+
+            json_obj = JSON.stringify(load_cards_info);
             $.ajax({               
                 url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
                 type: "POST",
@@ -158,7 +170,8 @@
                     $('#cards_container').html('');
                     //clear message class
                     $('#products_msg').removeClass('products_msg_style');
-                    
+                    //clear page numbers
+                    $('#pagination_body').html('');                    
 
                     //check if no record found
                     if(data.error){
@@ -182,7 +195,9 @@
                                                             '</div>'+
                                                         '</div>'+
                                                     '</div>');
+                                           
                         });
+                        $('#pagination_body').append(data.pagination);
 
                     }
                 }
@@ -194,25 +209,32 @@
         load_sidenav();
 
         //load all cards
-        load_cards('all',0);
+        load_cards();
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
             
-            var brand_id = $(this).data('id');
-            load_cards('brand',brand_id)
+            load_cards_info.search_type='brand';
+            load_cards_info.search_term=$(this).data('id');
+            load_cards_info.page_no=1;
+            load_cards();
         });
         
         //if User press one of the side navigation bar cateogry button
         $(document).on('click','.side_nav_category_btn',function(){
             
-            var category_id = $(this).data('id');
-            load_cards('category',category_id)
+            load_cards_info.search_type='category';
+            load_cards_info.search_term=$(this).data('id');
+            load_cards_info.page_no=1;
+            load_cards();
         }); 
         
-        //if user has pressed home button
+        //if user has pressed products button
         $('#products_btn').on('click',function(){
-            load_cards('all',0);
+            load_cards_info.search_type='all';
+            load_cards_info.search_term='0';  
+            load_cards_info.page_no=1;
+            load_cards();
         });
 
         //if user has pressed search button
@@ -220,11 +242,30 @@
             
             var search = $('#input_search').val();
             if(search != ""){
-
-                load_cards('search',search);
+                load_cards_info.search_type='search';
+                load_cards_info.search_term=search;                
+                load_cards_info.page_no=1;
+                load_cards();
             }
 
         }); 
+
+        //if user has pressed page button
+        $(document).on('click','#pagination_body a',function(e){
+            e.preventDefault();
+            load_cards_info.page_no = $(this).attr('id');
+            load_cards();
+        });
+
+
+        // $(document).on('click','#pagination a',function(e){
+        //     e.preventDefault();
+        //     var page = $(this).attr('id');
+        //     load_table(page);
+
+        // });
+
+
                 
     });
 </script>
