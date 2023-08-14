@@ -1,5 +1,11 @@
 <?php
 
+    // To prevent cache use following code 
+    header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+    header('Cache-Control: no-store, no-cache, must-revalidate');
+    header('Cache-Control: post-check=0, pre-check=0', FALSE);
+    header('Pragma: no-cache');
+
    //Authenticate the host
    session_start();
 
@@ -166,6 +172,16 @@
                             <input type="text"  class="form_input" name="add_pprice" id="add_pprice" value="" autocomplete="off">
                             <div id="add_pprice_msg" class="field_err_msg"></div>
                         </div>
+                        <div class="form_row">
+                            <div class="field_name">Product's Stock</div>
+                            <input type="text"  class="form_input" name="add_pstock" id="add_pstock" autocomplete="off">
+                            <div id="add_pstock_msg" class="field_err_msg"></div>
+                        </div>   
+                        <div class="form_row">
+                            <div class="field_name">Product's per order upper limit </div>
+                            <input type="text"  class="form_input" name="add_plimit" id="add_plimit" value="" autocomplete="off">
+                            <div id="add_plimit_msg" class="field_err_msg"></div>
+                        </div>                                                
                         <div class="form_linebreak"></div>
                         <div class="form_row">
                             <input type="submit" class="form_btn" id="add_psubmit" name="add_psubmit" value="Submit">
@@ -248,6 +264,16 @@
                             <input type="text"  class="form_input" name="edit_pprice" id="edit_pprice" value="" autocomplete="off">
                             <div id="edit_pprice_msg" class="field_err_msg"></div>
                         </div>
+                        <div class="form_row">
+                            <div class="field_name">Product Stock</div>
+                            <input type="text"  class="form_input" name="edit_pstock" id="edit_pstock" value="" autocomplete="off">
+                            <div id="edit_pstock_msg" class="field_err_msg"></div>
+                        </div> 
+                        <div class="form_row">
+                            <div class="field_name">Product's per order upper limit </div>
+                            <input type="text"  class="form_input" name="edit_plimit" id="edit_plimit" value="" autocomplete="off">
+                            <div id="edit_plimit_msg" class="field_err_msg"></div>
+                        </div>                                               
                         <div class="form_linebreak"></div>
                         <div class="form_row">
                             <input type="submit" class="form_btn" id="edit_psubmit" name="edit_psubmit" value="Submit">
@@ -395,6 +421,8 @@
                         $('#add_pimg2_msg').html('');
                         $('#add_pimg3_msg').html('');
                         $('#add_pprice_msg').html('');
+                        $('#add_pstock_msg').html('');
+                        $('#add_plimit_msg').html('');
         }
 
         //This function clear all error messages of form edit_product
@@ -409,7 +437,10 @@
                         $('#edit_pimg2_msg').html('');
                         $('#edit_pimg3_msg').html('');
                         $('#edit_pprice_msg').html('');
+                        $('#edit_pstock_msg').html('');
+                        $('#edit_plimit_msg').html('');
         }        
+     
 
         //Function to update user state
         function change_admin_state(){
@@ -427,7 +458,6 @@
             $('#'+admin_info.current_modelbox).show();            
 
         }        
-
 
         //Function to populate brand and category information from db in edit product form
         function fill_brand_category(brand, category){
@@ -709,6 +739,26 @@
                 form_error = true;
             }
 
+            //retrive product stock from input field
+            var product_stock = $('#add_pstock').val();
+
+            //check if admin has entered product stock
+            if(product_stock == ""){
+                $('#add_pstock_msg').fadeIn('slow');
+                $('#add_pstock_msg').text('Enter product quantity');
+                form_error = true;
+            }            
+
+            //retrive product's quantity limit per order
+            var product_limit = $('#add_plimit').val();
+
+            //check if admin has entered limit
+            if(product_limit == ""){
+                $('#add_plimit_msg').fadeIn('slow');
+                $('#add_plimit_msg').text('Enter product quantity');
+                form_error = true;
+            } 
+
             //check if there is no form error
             if(!form_error){
 
@@ -743,7 +793,13 @@
                             } 
                             if(data.pprice.error){
                                 $('#add_pprice_msg').text(data.pprice.message);
-                            }                                                                                                                                                                              
+                            }    
+                            if(data.pstock.error){
+                                $('#add_pstock_msg').text(data.pstock.message);
+                            } 
+                            if(data.limit.error){
+                                $('#add_plimit_msg').text(data.limit.message);
+                            }                                                                                                                                                                                                                                   
                         }else if(data.form_error){
                             $('#add_pform_msg').fadeIn('slow');
                             $('#add_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
@@ -814,7 +870,7 @@
                     dataType:"json",
                     success:function(data){
                         if(!data.error){
-
+                            debugger;
                             //fill brand and category selectboxes using db    
                             fill_brand_category(data.brand, data.category);
 
@@ -826,6 +882,8 @@
                             $('#edit_image2').attr('src',"../"+data.p_image2);
                             $('#edit_image3').attr('src',"../"+data.p_image3);
                             $('#edit_pprice').val(data.p_price);
+                            $('#edit_pstock').val(data.stock);
+                            $('#edit_plimit').val(data.limit);
                         }
                     }
                 });
@@ -935,6 +993,26 @@
                 form_error = true;
             }
 
+            //retrive product stock from input field
+            var product_price = $('#edit_pstock').val();
+
+            //check if admin has entered product stock
+            if(product_price == ""){
+                $('#edit_pstock_msg').fadeIn('slow');
+                $('#edit_pstock_msg').text('Enter product price');
+                form_error = true;
+            }
+            
+            //retrive product order limit from input field
+            var product_limit = $('#edit_plimit').val();
+
+            //check if admin has entered product's order limit
+            if(product_limit == ""){
+                $('#edit_plimit_msg').fadeIn('slow');
+                $('#edit_plimit_msg').text('Enter product price');
+                form_error = true;
+            }            
+
             //check if there is no form error
             if(!form_error){
 
@@ -969,7 +1047,13 @@
                             } 
                             if(data.pprice.error){
                                 $('#edit_pprice_msg').text(data.pprice.message);
-                            }                                                                                                                                                                                                                  
+                            }   
+                            if(data.stock.error){
+                                $('#edit_pstock_msg').text(data.stock.message);
+                            } 
+                            if(data.limit.error){
+                                $('#edit_plimit_msg').text(data.limit.message);
+                            }                                                                                                                                                                                                                                                                        
                         }else{
                             $('#edit_pform_msg').fadeIn('slow');
                             $('#edit_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);

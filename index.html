@@ -157,7 +157,8 @@
                                 <table id="cart_table" >
                                 <thead  style="border:1px solid black;">
                                         <tr>
-                                            <th rowspan="2">Product Title</th>
+                                            <th rowspan="2" class="left_align" >S.No</th>
+                                            <th rowspan="2"  class="left_align">Product Title</th>
                                             <th rowspan="2">Product Image</th>
                                             <th rowspan="2">Change Quantity</th>
                                             <th rowspan="2">Quantity</th>
@@ -499,7 +500,58 @@
                                         </div>
                                     </div>                
 
-                                <!-- End of User's Confirm modelbox -->                    
+                                <!-- End of User's Confirm modelbox -->     
+                                
+                                <!-- Start of User's Order Cancel modelbox -->
+                                <div id="user_cancel_modelbox" >
+
+                                    <div id="order_cancel_div">
+                                        <form action="#"  class="form">
+                                            <div class="form_header">
+                                                <h3>Order Canceled</h3>                   
+                                            </div>
+                                            <div class="form_linebreak"></div>
+                                            <div class="form_body">
+                                                <div class="form_row">
+                                                    <div id="canceled_order_inv" class="field_name"></div>
+                                                </div>
+                                                <div class="form_linebreak"></div>
+                                                <div class="form_row">
+                                                    <div class="field_name">Order is canceled because one or more products are low in stock.</div>
+                                                </div>    
+                                                <div class="form_row">
+                                                    <div class="field_name">You can buy product's remaining stock by using add to cart button.</div>
+                                                </div>    
+                                                <div class="form_row">
+                                                    <div class="field_name">Detailed information about order is listed below.</div>   
+                                                </div>  
+                                                <div class="form_linebreak"></div>
+                                                
+                                                <div class="form_row">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="left_align">S.No</th>
+                                                                <th class="left_align">Product Name</th>
+                                                                <th>Quantity Ordered</th>
+                                                                <th class="left_align">Stock Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="canceled_order_tbody">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="form_linebreak"></div>
+                                                <div class="form_row">
+                                                    <button class="form_btn" id="order_cancel_close">Close</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>                
+
+                            <!-- End of User's Confirm modelbox -->                                   
                             </div>                           
                         </div>
                 </div>
@@ -627,7 +679,7 @@
                 contentType: "application/json; charset=utf-8",
                 data:json_obj,
                 success:function(data){
-
+                    debugger;
                     //clear cards
                     $('#cards_container').html('');
                     //clear message class
@@ -642,18 +694,36 @@
                     }
                     else{
                         $.each(data.data,function(key, value){
-                            $('#cards_container').append('<div class="card">'+
-                                                        '<img class="card_img" src='+value.p_image1+' alt="Card image">'+
-                                                        '<div class="card_body">'+
-                                                            '<h5 class="card_title card_row">'+value.p_title+'</h5>'+
-                                                            '<p class="card_text card_row">'+value.p_description+'</p>'+
-                                                            '<p class="card_row card_price"> Price: '+value.p_price+'/-</p>'+
-                                                            '<div class="card_row">'+                                        
-                                                                '<button class="card_btn add_product_btn"  data-id="'+value.p_id+'">Add to cart</button>'+
-                                                                '<button class="card_btn view_product_btn" data-id="'+value.p_id+'">View</button>'+
+                            if(value.status=="Available"){
+
+                                $('#cards_container').append('<div class="card">'+
+                                                            '<img class="card_img" src='+value.p_image1+' alt="Card image">'+
+                                                            '<div class="card_body">'+
+                                                                '<h5 class="card_title card_row">'+value.p_title+'</h5>'+
+                                                                '<p class="card_text card_row">'+value.p_description+'</p>'+
+                                                                '<p class="card_row card_price"> Price: '+value.p_price+'/-</p>'+
+                                                                '<p class="card_row card_price"> Stock: Available </p>'+
+                                                                '<div class="card_row">'+                                        
+                                                                    '<button class="card_btn add_product_btn"  data-id="'+value.p_id+'">Add to cart</button>'+
+                                                                    '<button class="card_btn view_product_btn" data-id="'+value.p_id+'">View</button>'+
+                                                                '</div>'+
                                                             '</div>'+
-                                                        '</div>'+
-                                                    '</div>');
+                                                        '</div>');
+                            }else{
+                                $('#cards_container').append('<div class="card">'+
+                                                            '<img class="card_img" src='+value.p_image1+' alt="Card image">'+
+                                                            '<div class="card_body">'+
+                                                                '<h5 class="card_title card_row">'+value.p_title+'</h5>'+
+                                                                '<p class="card_text card_row">'+value.p_description+'</p>'+
+                                                                '<p class="card_row card_price"> Price: '+value.p_price+'/-</p>'+
+                                                                '<p class="card_row card_price"> Stock: Unvailable </p>'+
+                                                                '<div class="card_row">'+                                        
+                                                                    '<button class="card_btn add_product_btn no_hover nav_disabled_btn"  data-id="'+value.p_id+' disabled">Add to cart</button>'+
+                                                                    '<button class="card_btn view_product_btn" data-id="'+value.p_id+'">View</button>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</div>');                                
+                            }
                                            
                         });
                         $('#pagination_body').append(data.pagination);
@@ -750,12 +820,13 @@
                                         $('#cart_message').removeClass('table_msg_style');
                                     },2600);                                     
                                 }
-
+                                debugger;
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr>'+
-                                                                '<td class="cart_table_col1">'+value.p_title+'</td>'+
+                                                                '<td class="left_align">'+(key+1)+'</td>'+
+                                                                '<td class="left_align">'+value.p_title+'</td>'+
                                                                 '<td class="cart_cell"><img src="'+value.p_image1+'" alt="mangoes" class="cart_image"></td>'+
-                                                                '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
+                                                                '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="'+value.purchase_limit +'" value="1" onKeyDown="return false"></td>'+
                                                                 '<td class="cart_cell">'+value.quantity+'</td>'+
                                                                 '<td class="cart_cell">'+value.p_price+'</td>'+
                                                                 '<td class="cart_cell">'+value.total_cost+'</td>'+
@@ -963,7 +1034,70 @@
             user_pending_status(); 
         }
         
-    //----------End of Functions Declaration Section------------     
+
+        //This function loads user orders into user order modelbox
+        function load_user_order_table(){
+            
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/user/api_fetch_orders.php",
+                type:'GET',
+                dataType:"json",
+                success:function(data){
+
+                    //clear table
+                    $('#order_table_body').html('');
+                    //clear message
+                    $('#order_table_msg').removeClass('table_msg_style').html('');                            
+
+
+                    //check if no record found
+                    if(data.error){
+                        $('#order_table_msg').fadeIn('slow');
+                        $('#order_table_msg').addClass('table_msg_style').text(data.message);
+                    }else{
+                        $.each(data.records, function(key,value){
+                        if(value.order_status=="Pending"){
+                            $('#order_table_body').append("<tr>"+
+                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
+                                                        "<td>"+value.invoice_number+"</td>"+  
+                                                        "<td>"+value.total_products+"</td>"+
+                                                        "<td>"+value.amount_due+"</td>"+
+                                                        "<td>"+value.order_date+"</td>"+
+                                                        "<td>"+value.order_status+"</td>"+
+                                                        "<td><a class='confirm_order' href='#' data-id ='"+value.order_id+"'>Confirm</a></td>"+
+                                                            "<tr>");
+                            }else if(value.order_status=="Canceled"){
+                                $('#order_table_body').append("<tr>"+
+                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
+                                                        "<td>"+value.invoice_number+"</td>"+  
+                                                        "<td>"+value.total_products+"</td>"+
+                                                        "<td>"+value.amount_due+"</td>"+
+                                                        "<td>"+value.order_date+"</td>"+
+                                                        "<td>"+value.order_status+"</td>"+
+                                                        "<td>Canceled</td>"+
+                                                            "<tr>");                                    
+                            }else{
+                                $('#order_table_body').append("<tr>"+
+                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
+                                                        "<td>"+value.invoice_number+"</td>"+  
+                                                        "<td>"+value.total_products+"</td>"+
+                                                        "<td>"+value.amount_due+"</td>"+
+                                                        "<td>"+value.order_date+"</td>"+
+                                                        "<td>"+value.order_status+"</td>"+
+                                                        "<td>Paid</td>"+
+                                                            "<tr>");                                    
+                            }    
+                        });
+                    }
+                    
+                  
+                }
+
+            });           
+
+        }
+
+        //----------End of Functions Declaration Section------------     
     
     
     //-------Start of Functions called at startup-----------
@@ -1415,6 +1549,46 @@
 
     //---------Start of Cart Section-------------
 
+        //if user has pressed add to cart button in product card
+        $(document).on('click','.add_product_btn',function(){
+                cart_info.product_id =$(this).data('id');
+                cart_info.op_type = "add";
+                cart_info.quantity = 1;
+                var json_obj = JSON.stringify(cart_info);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(data.error){
+                            $('#products_msg').fadeIn('slow');
+                            $('#products_msg').addClass('table_msg_style').text(data.message);
+                            setTimeout(function(){
+                                $('#products_msg').fadeOut('slow');
+                            },2000); 
+                            setTimeout(function(){
+                                $('#products_msg').removeClass('table_msg_style');
+                            },2600); 
+                        }
+                        else{
+                            $('#products_msg').fadeIn('slow');
+                            $('#products_msg').addClass('table_msg_style').text(data.message);
+                            setTimeout(function(){
+                                $('#products_msg').fadeOut('slow');
+                            },2000); 
+                            setTimeout(function(){
+                                $('#products_msg').removeClass('table_msg_style');
+                            },2600); 
+                            $('#total_cart_items').text(data.num_of_items);
+                            $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
+
+                        }
+                    }
+                });
+        });    
+
         //if user has pressed cart button in navigation bar
         $('#nav_cart_btn').on('click',function(e){
             e.preventDefault();
@@ -1714,11 +1888,8 @@
                             $('#product_brand').html(data.brand);
                             $('#product_category').html(data.category);
                             $('#product_price').html('Rs: '+data.p_price+'/-');
-                            if(data.stock){
-                                $('#product_stock').html('Available');
-                            }else{
-                                $('#product_stock').html('Not available');
-                            }
+                            $('#product_stock').html(data.stock);
+
                         }
                     }
                 });
@@ -1743,46 +1914,6 @@
         $('#product_close_btn').on('click',function(e){
             e.preventDefault();
             $('#product_modelbox').hide();
-        });
-
-        //if user has pressed add to cart button in product card
-        $(document).on('click','.add_product_btn',function(){
-                cart_info.product_id =$(this).data('id');
-                cart_info.op_type = "add";
-                cart_info.quantity = 1;
-                var json_obj = JSON.stringify(cart_info);
-                $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
-                    type: "POST",
-                    data:json_obj,
-                    contentType: "application/json; charset=utf-8",
-                    dataType:"json",
-                    success:function(data){
-                        if(data.error){
-                            $('#products_msg').fadeIn('slow');
-                            $('#products_msg').addClass('table_msg_style').text(data.message);
-                            setTimeout(function(){
-                                $('#products_msg').fadeOut('slow');
-                            },2000); 
-                            setTimeout(function(){
-                                $('#products_msg').removeClass('table_msg_style');
-                            },2600); 
-                        }
-                        else{
-                            $('#products_msg').fadeIn('slow');
-                            $('#products_msg').addClass('table_msg_style').text(data.message);
-                            setTimeout(function(){
-                                $('#products_msg').fadeOut('slow');
-                            },2000); 
-                            setTimeout(function(){
-                                $('#products_msg').removeClass('table_msg_style');
-                            },2600); 
-                            $('#total_cart_items').text(data.num_of_items);
-                            $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
-
-                        }
-                    }
-                });
         }); 
     
     //------------End of View Product Detail Section------------   
@@ -2150,54 +2281,10 @@
             user_info.current_profile_modelbox = "user_order_modelbox";
             user_info.last_profile_button = user_info.current_profile_button;
             user_info.current_profile_button = "user_my_orders";              
-            change_user_profile_state();    
-
-            $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_fetch_orders.php",
-                type:'GET',
-                dataType:"json",
-                success:function(data){
-
-                    //clear table
-                    $('#order_table_body').html('');
-                    //clear message
-                    $('#order_table_msg').removeClass('table_msg_style').html('');                            
-
-
-                    //check if no record found
-                    if(data.error){
-                        $('#order_table_msg').fadeIn('slow');
-                        $('#order_table_msg').addClass('table_msg_style').text(data.message);
-                    }else{
-                        $.each(data.records, function(key,value){
-                        if(value.order_status=="Pending"){
-                            $('#order_table_body').append("<tr>"+
-                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
-                                                        "<td>"+value.invoice_number+"</td>"+  
-                                                        "<td>"+value.total_products+"</td>"+
-                                                        "<td>"+value.amount_due+"</td>"+
-                                                        "<td>"+value.order_date+"</td>"+
-                                                        "<td>"+value.order_status+"</td>"+
-                                                        "<td><a class='confirm_order' href='#' data-id ='"+value.order_id+"'>Confirm</a></td>"+
-                                                            "<tr>");
-                            }else{
-                                $('#order_table_body').append("<tr>"+
-                                                        "<td class='left_align'>"+(key+1)+"</td>"+  
-                                                        "<td>"+value.invoice_number+"</td>"+  
-                                                        "<td>"+value.total_products+"</td>"+
-                                                        "<td>"+value.amount_due+"</td>"+
-                                                        "<td>"+value.order_date+"</td>"+
-                                                        "<td>"+value.order_status+"</td>"+
-                                                        "<td>Paid</td>"+
-                                                            "<tr>");                                    
-                            }  
-                        });
-                    }
-                    
-                  
-                }
-
-            });           
+            change_user_profile_state();   
+            
+            //This function loads user orders into user order modelbox
+            load_user_order_table();          
 
         }); 
         
@@ -2205,6 +2292,14 @@
         // If user press confirm in My Order table
         $(document).on('click','.confirm_order',function(e){
             e.preventDefault();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_confirm_modelbox";
+            // user_info.last_profile_button = user_info.current_profile_button;
+            // user_info.current_profile_button = "user_my_orders";              
+            change_user_profile_state();             
+
             var order_id = $(this).attr('data-id');
             var obj ={order_id:order_id};
             var json_obj=JSON.stringify(obj);
@@ -2217,10 +2312,10 @@
                 dataType:"json",
                 success:function(data){
 
-                    //show confirm model box
-                    $('#user_confirm_modelbox').show();
+                    // reset confirm_order_form
+                    $('#confirm_order_form').trigger('reset');
 
-                    //clear error message from confirm order form
+                    //clear select payment mode error message from confirm order form
                     $('#sel_pay_or_form_msg').text('');
 
                     $('#inv_or_form').val(data.record.invoice_number);
@@ -2239,7 +2334,7 @@
             e.preventDefault();
 
 
-            //clear error message from confirm order form
+            //clear select payment mode error message from confirm order form
             $('#sel_pay_or_form_msg').text('');  
             
             //Store form information
@@ -2262,20 +2357,45 @@
                     dataType: "json",
                     success: function(data){
 
-                        if(!data.error){
-
-                            //clear error message from confirm order form
-                            $('#sel_pay_or_form_msg').text('');                             
-
-                            // reset confirm_order_form
-                            $('#confirm_order_form').trigger('reset');
-
-                            //hide confirm order modelbox
-                            $('#user_confirm_modelbox').hide();
+                        if(data.error){
+                            debugger;
 
                             //set user profile state
-                            default_user_profile_state();
-                                                
+                            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+                            user_info.current_profile_modelbox = "user_cancel_modelbox";
+                            // user_info.last_profile_button = user_info.current_profile_button;
+                            // user_info.current_profile_button = "user_my_orders";              
+                            change_user_profile_state();                             
+
+                            //clear form
+                            $('#canceled_order_inv').html('');
+                            $('#canceled_order_tbody').html('');
+
+                            $('#canceled_order_inv').text('Invoice Number: '+data.invoice);
+
+                            $.each(data.data, function(key,value){
+                                $('#canceled_order_tbody').append('<tr>'+
+                                                                    '<td class="left_align" >'+(key+1)+'</td>'+
+                                                                    '<td class="left_align">'+value.p_title+'</td>'+
+                                                                    '<td>'+value.quantity+'</td>'+
+                                                                    '<td class="left_align">'+value.stock_message+'</td>'+
+                                                                    '<tr>');  
+                            })                                                               
+                        
+                        }else{
+
+                                //load updated user orders table
+                                load_user_order_table();
+
+                                //set user profile state
+                                user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+                                user_info.current_profile_modelbox = "user_order_modelbox";
+                                // user_info.last_profile_button = user_info.current_profile_button;
+                                // user_info.current_profile_button = "user_my_orders";              
+                                change_user_profile_state(); 
+                                
+                                
+
                         }
                     }
                 });
@@ -2286,22 +2406,33 @@
          $('#confirm_close').on('click',function(e){
             e.preventDefault();
 
-            //clear error message from confirm order form
-            $('#sel_pay_or_form_msg').text('');                             
-
-            // reset confirm_order_form
-            $('#confirm_order_form').trigger('reset');
-
-            //hide confirm order modelbox
-            $('#user_confirm_modelbox').hide();            
-            
             //set user profile state
-            default_user_profile_state();
-         });         
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_order_modelbox";
+            // user_info.last_profile_button = user_info.current_profile_button;
+            // user_info.current_profile_button = "user_my_orders";              
+            change_user_profile_state(); 
+         });  
+         
+         //If user press Close in Cancel Order Form
+         $('#order_cancel_close').on('click',function(e){
+            e.preventDefault();
+
+            //load updated user orders table
+            load_user_order_table();
+
+            //set user profile state
+            user_info.last_profile_modelbox=user_info.current_profile_modelbox;
+            user_info.current_profile_modelbox = "user_order_modelbox";
+            // user_info.last_profile_button = user_info.current_profile_button;
+            // user_info.current_profile_button = "user_my_orders";              
+            change_user_profile_state(); 
+         });          
         
         //If user press Pending Orders button in side navigation bar
         $('#user_pending_orders').on('click',function(e){
-            e.preventDefault();            
+            e.preventDefault();     
+            
             //set user profile state
             default_user_profile_state(); 
         });         

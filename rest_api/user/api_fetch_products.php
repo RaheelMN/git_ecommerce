@@ -67,19 +67,34 @@ $records=[];
 
 switch($data['search_type']){
     case 'all':
+
         //calculating total pages and page no
-        $sql = "SELECT * FROM products ";
+        $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
+                INNER JOIN inventory ON p_id = product_id";
         $result = mysqli_query($conn,$sql) or die("Error query failed"); 
         $r['total_records']  = mysqli_num_rows($result);
 
         if($r['total_records']  > 0){
 
             $records= mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+            //output number of records based on pagination
             get_records();
+
+            //close db connection
+            mysqli_close($conn);
+
+            //free results
+            mysqli_free_result($result);
+
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
             $output['error']=true;
             $output['message']="No record found";
+
+            //close db connection
+            mysqli_close($conn);
+
             echo json_encode($output,JSON_PRETTY_PRINT);
         }
         break;
@@ -89,17 +104,34 @@ switch($data['search_type']){
         $brand_id = $data['search_term'];
 
         //sql query to fetch all records
-        $sql = "SELECT * FROM products WHERE brand_id = '$brand_id'";
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch brand records from DB');
+        $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
+                INNER JOIN inventory ON p_id = product_id WHERE brand_id = '$brand_id' ";        
+
+        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
         $r['total_records']  = mysqli_num_rows($result);              
         if($r['total_records']>0){
 
             $records= mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+            //output number of records based on pagination
             get_records();
+
+            //close db connection
+            mysqli_close($conn);
+
+            //free results
+            mysqli_free_result($result);
+
             echo json_encode($output,JSON_PRETTY_PRINT);
 
-        }else echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);  
+        }else{
+
+            //close db connection
+            mysqli_close($conn);
+
+            echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);  
+        }
         break;
 
     case 'category':
@@ -107,18 +139,34 @@ switch($data['search_type']){
         $category_id = $data['search_term'];
 
         //sql query to fetch all records
-        $sql = "SELECT * FROM products WHERE category_id = '$category_id'";
+        $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
+                INNER JOIN inventory ON p_id = product_id WHERE category_id = '$category_id'"; 
 
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch brand records from DB');
+        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
         $r['total_records']  = mysqli_num_rows($result);              
         if($r['total_records']>0){
 
             $records= mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+            //output number of records based on pagination
             get_records();
+
+            //close db connection
+            mysqli_close($conn);
+
+            //free results
+            mysqli_free_result($result);
+
             echo json_encode($output,JSON_PRETTY_PRINT);        
 
-        }else echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);  
+        }else{
+
+            //close db connection
+            mysqli_close($conn);
+
+            echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);  
+        }  
         break;
         
     case 'search':
@@ -128,18 +176,34 @@ switch($data['search_type']){
         $search_encode =mysqli_real_escape_string($conn, $search);
 
         //sql query to fetch all records
-        $sql = "SELECT * FROM products WHERE keywords LIKE '%$search_encode%'";
+        $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
+                INNER JOIN inventory ON p_id = product_id WHERE keywords LIKE '%$search_encode%'"; 
 
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch brand records from DB');
+        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
 
         $r['total_records']  = mysqli_num_rows($result);              
         if($r['total_records']>0){
 
             $records= mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+            //output number of records based on pagination
             get_records();
+
+            //close db connection
+            mysqli_close($conn);
+
+            //free results
+            mysqli_free_result($result);
+
             echo json_encode($output,JSON_PRETTY_PRINT);              
 
-        }else echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);               
+        }else{
+
+            //close db connection
+            mysqli_close($conn);
+
+            echo json_encode(array('message'=>"No record found", "error"=>true),JSON_PRETTY_PRINT);  
+        }            
 
 }
 

@@ -20,11 +20,12 @@ if(isset($_SESSION['admin_role'])){
     $pimg2 = $_FILES['add_pimg2'];
     $pimg3 = $_FILES['add_pimg3'];
     $pprice = $_POST['add_pprice'];
+    $pstock = $_POST['add_pstock'];
+    $limit = $_POST['add_plimit'];
     
     //initialize variables
     $output =[];
     $output['field_error']=false;
-    $output['form_error']=false;
     
     //verify product name
     $output['pname'] = verify($pname,'name',50);
@@ -84,7 +85,18 @@ if(isset($_SESSION['admin_role'])){
         $output['field_error']=true;
      }    
     
-    
+    //verify product stock
+    $output['pstock'] = verify($pstock,'stock',0);
+    if($output['pstock']['error']){
+        $output['field_error']=true;
+     }  
+     
+    //verify product quantity limit per order
+    $output['limit'] = verify($limit,'limit',0);
+    if($output['limit']['error']){
+        $output['field_error']=true;
+     }         
+        
      if($output['field_error']){
         mysqli_close($conn); 
         echo json_encode($output,JSON_PRETTY_PRINT);
@@ -101,18 +113,26 @@ if(isset($_SESSION['admin_role'])){
         $pdesc =mysqli_real_escape_string($conn, $pdesc);
         $pkeyw =mysqli_real_escape_string($conn, $pkeyw);
     
-        $sql = "INSERT INTO products (p_title,p_description,keywords,brand_id,category_id,p_image1,p_image2,p_image3,p_price,date,status) 
-                VALUES ('$pname','$pdesc','$pkeyw',$pbrand,$pcatg,'$img1_path','$img2_path','$img3_path',$pprice,NOW(),'true')";       
+        $sql = "INSERT INTO products (p_title,p_description,keywords,brand_id,category_id,p_image1,p_image2,p_image3,p_price,`date`) 
+                VALUES ('$pname','$pdesc','$pkeyw',$pbrand,$pcatg,'$img1_path','$img2_path','$img3_path',$pprice,NOW())";       
     
-        $result=mysqli_query($conn,$sql);
-        if(!$result){
-            $output['form_error']=true;
-            $output['form_msg']='Failed to insert record in DB';
-    
-            mysqli_close($conn);
-            echo json_encode($output,JSON_PRETTY_PRINT);
+        $result=mysqli_query($conn,$sql) or die("Failed to perform query");
+
+        //Retrive product id
+        $sql = "SELECT  p_id FROM products where p_title = '$pname'";
+        $result = mysqli_query($conn,$sql) or die("Failed to perform query");
+        $row = mysqli_fetch_assoc($result);
+        $product_id = $row['p_id'];
+
+        //check if stock is available
+        if($pstock > 0){
+            $stock_status = "Available";
         }
-    
+
+        //add product to invertory table
+        $sql = "INSERT INTO inventory (product_id, stock, purchased, order_limit) VALUES ($product_id,$pstock,0,$limit)";
+        $result = mysqli_query($conn,$sql) or die("Failed to perform query");
+
         //upload images to server
         move_uploaded_file($pimg1['tmp_name'],$img1_path); 
         move_uploaded_file($pimg2['tmp_name'],$img2_path); 

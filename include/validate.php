@@ -85,15 +85,8 @@
                 break;
 
             case "price":
-                // if($x<=0 || $x>100000){
-                //     $result['error']=true;
-                //     $result['message']='Price should be between 0 and 100000';  
-                //     return $result;                  
-                // }else{
-                //     $result['error']=false;
-                //     return $result;
-                // } 
-                if(filter_var($x,FILTER_VALIDATE_FLOAT,array('options'=>array('min_range'=>.1, 'max_range'=>10000)))){
+
+                if(filter_var($x,FILTER_VALIDATE_FLOAT,array('options'=>array('min_range'=>.1, 'max_range'=>100000)))){
                     $result['error']=false;
                     return $result;
                 }else{            
@@ -103,20 +96,36 @@
                 }              
                 break; 
 
+            case "stock":
+
+                    if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>0, 'max_range'=>1000)))){
+                        $result['error']=false;
+                        return $result;
+                    }else{            
+                        $result['error']=true;
+                        $result['message']='Stock quantity should be between 0 and 1000';  
+                        return $result;                  
+                    }              
+                    break;                 
+
+                    case "limit":
+
+                        if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>0, 'max_range'=>100)))){
+                            $result['error']=false;
+                            return $result;
+                        }else{            
+                            $result['error']=true;
+                            $result['message']="Product's per order limit should be between 0 and 100";  
+                            return $result;                  
+                        }              
+                        break;  
+
                 case "email":
                     if(strlen($x)>$length){
                         $result['error']=true;
                         $result['message']='Email should be less then '.$length.' characters';  
                         return $result;                  
-    
-                    // }elseif(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$x)){
-                    //     $result['error']=true;
-                    //     $result['message']='Email not valid';
-                    //     return $result;
-                    // }else{
-                    //     $result['error']=false;
-                    //     return $result;
-                    // }  
+
                     }elseif(filter_var($x,FILTER_VALIDATE_EMAIL)){
                         $result['error']=false;
                         return $result;

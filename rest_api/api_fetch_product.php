@@ -22,9 +22,11 @@
         //sql query to fetch all records
         $sql = "SELECT p_id,p_title, p_description,keywords,c_name as category,
                     b_name as brand, p_image1,p_image2, p_image3, p_price,
-                    `status` as stock FROM products p 
+                    stock,order_limit FROM products p 
                     inner join categories c on p.category_id = c.c_id 
-                    inner join brands b on p.brand_id=b.b_id WHERE p.p_id ='$product_id'";
+                    inner join brands b on p.brand_id=b.b_id 
+                    inner join inventory i on p_id= product_id 
+                    WHERE p_id ='$product_id'";
         $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
         if(mysqli_num_rows($result)>0){
 
@@ -45,6 +47,7 @@
             $output['p_image3'] = $row['p_image3'];
             $output['p_price'] = $row['p_price'];
             $output['stock'] = $row['stock'];
+            $output['limit'] = $row['order_limit'];
 
             //unset $result
             mysqli_free_result($result);

@@ -14,9 +14,10 @@
     //sql query to fetch all records
     $sql = "SELECT p_id,p_title, p_description, c_name as category,
                    b_name as brand, p_image1,p_image2, p_image3, p_price,
-                   status as stock FROM products p 
+                   `status` as stock FROM products p 
                    inner join categories c on p.category_id = c.c_id 
-                   inner join brands b on p.brand_id=b.b_id WHERE p.p_id ='$product_id'";
+                   inner join brands b on p.brand_id=b.b_id
+                   INNER JOIN inventory on p_id = product_id WHERE p.p_id ='$product_id'";
     $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
     if(mysqli_num_rows($result)>0){
 

@@ -13,16 +13,31 @@ if(isset($_SESSION['admin_role'])){
     $output =[];
 
     //retrieve variable values
-    $output[] =$p_id = $_POST['p_id'];
-    $output[] =$pname = $_POST['edit_pname'];
-    $output[] =$pdesc =  $_POST['edit_pdesc'];
-    $output[] =$pkeyw =  $_POST['edit_pkeyw'];
-    $output[] =$pbrand = $_POST['edit_pform_brand'];
-    $output[] =$pcatg = $_POST['edit_pform_category'];
-    $output[] =$pimg1 = $_FILES['edit_pimg1'];
-    $output[] =$pimg2 = $_FILES['edit_pimg2'];
-    $output[] =$pimg3 = $_FILES['edit_pimg3'];
-    $output[] =$pprice = $_POST['edit_pprice'];
+    $p_id = $_POST['p_id'];
+    $pname = $_POST['edit_pname'];
+    $pdesc =  $_POST['edit_pdesc'];
+    $pkeyw =  $_POST['edit_pkeyw'];
+    $pbrand = $_POST['edit_pform_brand'];
+    $pcatg = $_POST['edit_pform_category'];
+    $pimg1 = $_FILES['edit_pimg1'];
+    $pimg2 = $_FILES['edit_pimg2'];
+    $pimg3 = $_FILES['edit_pimg3'];
+    $pprice = $_POST['edit_pprice'];
+    $stock = $_POST['edit_pstock'];
+    $limit = $_POST['edit_plimit'];
+
+    // $output[] =$p_id = $_POST['p_id'];
+    // $output[] =$pname = $_POST['edit_pname'];
+    // $output[] =$pdesc =  $_POST['edit_pdesc'];
+    // $output[] =$pkeyw =  $_POST['edit_pkeyw'];
+    // $output[] =$pbrand = $_POST['edit_pform_brand'];
+    // $output[] =$pcatg = $_POST['edit_pform_category'];
+    // $output[] =$pimg1 = $_FILES['edit_pimg1'];
+    // $output[] =$pimg2 = $_FILES['edit_pimg2'];
+    // $output[] =$pimg3 = $_FILES['edit_pimg3'];
+    // $output[] =$pprice = $_POST['edit_pprice'];
+    // $output[] =$stock = $_POST['edit_pstock'];
+    // $output[] =$limit = $_POST['edit_plimit'];    
     
     //initialize variables
     $output =[];
@@ -109,7 +124,19 @@ if(isset($_SESSION['admin_role'])){
     $output['pprice'] = verify($pprice,'price',0);
     if($output['pprice']['error']){
         $output['field_error']=true;
-     }    
+     }   
+     
+    //verify product stock
+    $output['pstock'] = verify($stock,'stock',0);
+    if($output['pstock']['error']){
+        $output['field_error']=true;
+     } 
+     
+    //verify product per order upper limit
+    $output['plimit'] = verify($limit,'limit',0);
+    if($output['plimit']['error']){
+        $output['field_error']=true;
+     }      
     
     
      if($output['field_error']){
@@ -165,6 +192,9 @@ if(isset($_SESSION['admin_role'])){
         $sql = "UPDATE products SET p_title='$pname',p_description='$pdesc',keywords='$pkeyw',brand_id=$pbrand,
         category_id=$pcatg,p_image1='$img1_path',p_image2='$img2_path',p_image3='$img3_path',p_price=$pprice
         WHERE p_id = $p_id";  
+        $result=mysqli_query($conn,$sql) or die('Failed to perform query');
+
+        $sql = "UPDATE inventory SET stock = $stock, order_limit = $limit WHERE product_id = $p_id";
         $result=mysqli_query($conn,$sql) or die('Failed to perform query');
 
         //upload images to server
