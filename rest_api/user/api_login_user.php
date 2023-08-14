@@ -5,6 +5,9 @@
     //connecting with DB server
     require_once "../../include/config.php";
 
+    //retrieving ip address
+   require_once "../../include/get_ip_address.php";
+
     $data = json_decode(file_get_contents("php://input"),true);
     $user_email = $data['email'];
     $user_password = $data['password'];
@@ -13,9 +16,12 @@
     $output['field_error']=false;
     $output['email']['error']=false;
     $output['password']['error']=false;
+
+    //retrieve user ip address
+    $client_ip = get_ip_address();
     
     //Check if user email exists then get its password
-    $sql = "SELECT user_id,user_name,user_password,ip_address FROM users where user_email='$user_email'";
+    $sql = "SELECT user_id,user_name,user_password FROM users where user_email='$user_email'";
  
     $result = mysqli_query($conn,$sql)or die('Failed to peform db query');
     if(mysqli_num_rows($result)>0){
@@ -29,9 +35,12 @@
 
             //store user info
             $_SESSION['user_id']=$row['user_id'];
-            $_SESSION['ip_address']=$row['ip_address'];     //used in cart_details
+            $_SESSION['ip_address']=$client_ip;     //used in cart_details
             $_SESSION['user_name']=$output['user_name']=$row['user_name'];
 
+            // update user ip address in users table 
+            $sql = "UPDATE users SET ip_address= '$client_ip'  WHERE user_id = {$row['user_id']}";
+            $result = mysqli_query($conn,$sql)or die('Failed to peform db query');
             $output['form_msg']='User logged in successfully';
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);

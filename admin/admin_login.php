@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce Admin</title>
+    <link rel="icon" type="image/x-icon" href="https://localhost/web_ecommerce/images/favicon.ico">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>

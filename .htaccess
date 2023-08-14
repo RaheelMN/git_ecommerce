@@ -1,0 +1,51 @@
+## Flags are in square brackets. Multiple flags are seperated by comma with no space
+## [NC] url is not case sensitive
+## [OR] OR condition. Tell parses to join current cond with next condition with OR
+## [F] Forbidden. Generate 403 forbidden error. When using [F] an [L] is implied
+## [L] last command. The response is returned immediately, and no further rules are evaluated.
+## [R] Redirect. 
+
+## mod_rewrite
+## RewriteCond TestString ConditionPattern flags
+## There can be multiple RewriteCond before RerwiteRule
+## For multiple statments AND is implied implicitly
+## For OR statment [OR] is used between statments
+
+## RewriteRule
+## RewriteRule pattern subsitution flags
+
+## Set default index page
+DirectoryIndex home.html
+
+## Client Request Errors
+ErrorDocument 403 /web_ecommerce/errorFiles/forbidden.html
+ErrorDocument 404 /web_ecommerce/errorFiles/not_found.html
+ErrorDocument 500 /web_ecommerce/errorFiles/server_error.html
+
+
+## Error Settings
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag log_errors on
+php_value error_log ../log/error_log.txt
+
+## prevent hackers to access images,css,text and javascript files
+RewriteEngine on
+## Rules for localhost server
+## if host request has no referer and you donot want to block it
+## RewriteCond %{HTTP_REFERER} !^$
+## if referer is my website then allow it to access files
+ RewriteCond %{HTTP_REFERER} !^https?://localhost/.*$ [NC]
+## if host access following files through url do not allow and redirect to error page
+ RewriteRule \.(jpg|css|txt|js)$ "-" [F]
+
+## redirect https request to http request
+ RewriteCond %{HTTPS} on
+ RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+ ## redirect host request to index page if it is folder
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*)$ http://localhost/web_ecommerce/home.html?http_referer=%{HTTP_REFERER} [L,NC,R=301]
+
+

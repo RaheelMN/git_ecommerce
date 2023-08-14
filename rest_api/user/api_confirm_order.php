@@ -103,10 +103,11 @@
                 $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
                 $result =mysqli_query($conn,$sql) or die("Failed to perform query");
 
-
                 //Update inventory
-                $sql = "UPDATE inventory SET stock = (stock -  {$value['quantity']}), purchased = (purchased +  {$value['quantity']})
-                WHERE product_Id = {$value['product_id']}";
+                $sql = "UPDATE inventory SET `status` = CASE WHEN (stock -  {$value['quantity']}) <= 0 THEN
+                            'Unavailable' ELSE  'Available' END, 
+                            stock = (stock -  {$value['quantity']}), purchased = (purchased +  {$value['quantity']})
+                 WHERE product_Id = {$value['product_id']}";
                 $result =mysqli_query($conn,$sql) or die("Failed to perform query");
             }
         }  
@@ -120,7 +121,7 @@
 
     }else{
         //redirect user if he access page without login
-        header("location:../../index.html");        
+        header("location:../../home.html");        
     }
 
 

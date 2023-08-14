@@ -27,6 +27,6 @@
     else{
 
         //redirect user if he access page without login
-        header("location:../../index.html");        
+        header("location:../../home.html");        
     }    
 ?>

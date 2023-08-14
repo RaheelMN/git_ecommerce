@@ -1,6 +1,7 @@
 <?php 
 
     header('Content-Type: application/json');
+    header('Cache-Control: no-cache');
 
     //connecting with DB server
     require_once "../include/config.php";

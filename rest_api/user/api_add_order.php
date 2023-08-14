@@ -7,12 +7,17 @@
     if(isset($_SESSION['user_id'])){
 
         //connecting with DB server
-       require_once "../../include/config.php";
+        require_once "../../include/config.php";
 
         //include verfication and validation functions
-       require_once "../../include/validate.php";
+        require_once "../../include/validate.php";
 
-        $ip_address = $_SESSION['ip_address']; 
+        //retrieving ip address
+        require_once "../../include/get_ip_address.php";
+
+        //retrieve user ip address
+        $ip_address = get_ip_address(); //used in deleting order from cart table
+        
         $user_id = $_SESSION['user_id'];
         $invoice_number = mt_rand();
         $order_status = "Pending";
@@ -54,7 +59,7 @@
 
     }else{
         //redirect user if he access page without login
-        header("location:../../index.html");        
+        header("location:../../home.html");        
     }
 
 

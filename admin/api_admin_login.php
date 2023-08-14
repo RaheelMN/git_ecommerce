@@ -2,6 +2,9 @@
 
     header('Content-Type: application/json');
 
+    //Exception handling Settings
+    require_once "../include/error_handling.php";
+    
     //connecting with DB server
     require_once "../include/config.php";
 
