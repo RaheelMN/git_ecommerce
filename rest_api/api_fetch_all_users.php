@@ -12,8 +12,6 @@
 
         $output=[];
         $output['error']=false;
-
-        $user_id = $_SESSION['user_id'];
     
         //sql query to fetch user orders
         $sql = "SELECT user_id, user_name, user_email,user_address, user_contact FROM users";

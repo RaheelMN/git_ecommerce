@@ -9,3 +9,6 @@ css/
 
 #ignore CSS files
 *.css
+
+#ignore error log files
+error_log.txt

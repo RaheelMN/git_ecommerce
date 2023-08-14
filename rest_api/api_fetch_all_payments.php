@@ -12,8 +12,6 @@
 
         $output=[];
         $output['error']=false;
-
-        $user_id = $_SESSION['user_id'];
     
         //sql query to fetch user orders
         $sql = "SELECT * FROM view_payment_table";
