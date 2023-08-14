@@ -21,7 +21,10 @@
     if(mysqli_num_rows($result)>0){
 
         //To prevent XSS attack browser ouput is displayed using htmlenttites() function
-        //Although this data was added by adminstrator, it is used only for demonstration purpose
+        //Browser parse or interpret server text when it is placed in .html()
+        //If output is placed in input field of form or in .text() then browser doesnot
+        //parse it therefore no need of htmlentities
+
         $row = mysqli_fetch_assoc($result);
         $output['p_id'] = htmlentities($row['p_id']);
         $output['p_title'] = htmlentities($row['p_title']);

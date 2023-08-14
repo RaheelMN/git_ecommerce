@@ -1,7 +1,8 @@
 <?php 
 
-//Check if hacker has not used get method
-if(empty($_GET)){
+session_start();
+    
+if(isset($_SESSION['admin_role'])){  
 
     //connecting with DB server
     include "include/config.php";
@@ -101,7 +102,7 @@ if(empty($_GET)){
         $pkeyw =mysqli_real_escape_string($conn, $pkeyw);
     
         $sql = "INSERT INTO products (p_title,p_description,keywords,brand_id,category_id,p_image1,p_image2,p_image3,p_price,date,status) 
-                VALUES ('$pname','$pdesc','$pkeyw','$pbrand','$pcatg','$img1_path','$img2_path','$img3_path',$pprice,NOW(),'true')";       
+                VALUES ('$pname','$pdesc','$pkeyw',$pbrand,$pcatg,'$img1_path','$img2_path','$img3_path',$pprice,NOW(),'true')";       
     
         $result=mysqli_query($conn,$sql);
         if(!$result){
@@ -121,6 +122,9 @@ if(empty($_GET)){
         mysqli_close($conn);
         echo json_encode($output,JSON_PRETTY_PRINT);  
     }
+}else{
+    //    rediect host to login page
+    header("location:http://localhost/ecommerce/admin/admin_login.php");
 }
 
 

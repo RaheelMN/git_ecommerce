@@ -1534,7 +1534,7 @@
             user_info.user_checkout=true;
             //check if user is logged in
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/api_session_status.php",
+                url: "http://localhost/ecommerce/rest_api/user/api_session_status.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){

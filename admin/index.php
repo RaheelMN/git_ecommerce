@@ -266,7 +266,7 @@
                 <table id="view_products_table" >
                     <thead>
                         <tr>
-                            <th rowspan="2" class='left_align'>Product ID</th>
+                            <th rowspan="2" class='left_align'>S.No</th>
                             <th rowspan="2" class='left_align'>Product Title</th>
                             <th rowspan="2">Product Image</th>
                             <th rowspan="2">Product Price</th>
@@ -484,6 +484,40 @@
             });              
         }
         
+        //This function load product table in view product modelblox
+        function load_product_table(){
+
+            $.ajax({
+                  url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
+                  dataType: "json",
+                  success:function(data){
+    
+                    if(!data.error){
+    
+                        //clear table body
+                        $('#view_product_table_body').html('');
+    
+                        $.each(data.records, function(key, value){
+                            $('#view_product_table_body').append("<tr>"+
+                                                                "<td class='left_align'>"+(key+1)+"</td>"+
+                                                                "<td class='left_align'>"+value.p_title+"</td>"+
+                                                                "<td><img class='cart_image' src=../"+value.p_image1+" alt='img.jpg'></td>"+
+                                                                "<td>"+value.p_price+"</td>"+
+                                                                "<td>"+value.purchased+"</td>"+
+                                                                "<td>"+value.stock+"</td>"+
+                                                                "<td>"+value.status+"</td>"+
+                                                                "<td>"+'<button class="card_btn edit_product_btn"  data-id="'+value.p_id+'">Edit</button>'+"</td>"+
+                                                                "<td>"+'<button class="card_btn delete_product_btn" data-id="'+value.p_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
+                                                                "<tr>");
+                        });
+    
+                    }
+                  }
+                    
+            });
+        }
+                    
+
     // ---------End of Function definitions------------------- 
 
     //If user has pressed Logout button in navigation bar
@@ -571,35 +605,7 @@
                     admin_info.current_modelbox = "products_table_modelbox";
                     change_admin_state();
 
-                    $.ajax({
-                          url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
-                          dataType: "json",
-                          success:function(data){
-
-                            if(!data.error){
-
-                                //clear table body
-                                $('#view_product_table_body').html('');
-
-                                $.each(data.records, function(key, value){
-                                    $('#view_product_table_body').append("<tr>"+
-                                                                        "<td class='left_align'>"+value.p_id+"</td>"+
-                                                                        "<td class='left_align'>"+value.p_title+"</td>"+
-                                                                        "<td><img class='cart_image' src=../"+value.p_image1+" alt='img.jpg'></td>"+
-                                                                        "<td>"+value.p_price+"</td>"+
-                                                                        "<td>"+value.purchased+"</td>"+
-                                                                        "<td>"+value.stock+"</td>"+
-                                                                        "<td>"+value.status+"</td>"+
-                                                                        "<td>"+'<button class="card_btn edit_product_btn"  data-id="'+value.p_id+'">Edit</button>'+"</td>"+
-                                                                        "<td>"+'<button class="card_btn delete_product_btn" data-id="'+value.p_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
-                                                                        "<tr>");
-                                });
-
-                            }
-                          }
-                            
-                    });
-                                
+                    load_product_table();                               
             }                      
         });
 
@@ -809,8 +815,10 @@
                     success:function(data){
                         if(!data.error){
 
+                            //fill brand and category selectboxes using db    
                             fill_brand_category(data.brand, data.category);
 
+                            $('#edit_pname').attr('data-id',data.p_id);
                             $('#edit_pname').val(data.p_title);
                             $('#edit_pdesc').val(data.p_description);
                             $('#edit_pkeyw').val(data.keywords);
@@ -824,15 +832,43 @@
                                       
         });
 
+        //if admin press Delete product In view product table
+        $(document).on('click','.delete_product_btn',function(e){
+            e.preventDefault();
+
+            if(confirm("Are you sure?")){
+
+                var product_id =$(this).data('id');
+                var obj = {product_id:product_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_delete_product.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(!data.error){
+                            //load updated product table
+                            load_product_table();    
+                        }
+                    }
+                });
+            }                                   
+        });        
+
         //if admin press submit in Edit product form
         $('#edit_pform').on('submit',function(e){
 
             e.preventDefault();                           
-            debugger;
+
             //clear form's field messages
             clear_edit_product_form_msgs();
 
             var form_error=false;
+
+            //retrive product id 
+            var product_id = $('#edit_pname').attr('data-id');
 
             //retrive product name from input field
             var product_name = $('#edit_pname').val();
@@ -885,8 +921,9 @@
             }   
             
             var form_data = new FormData(this);
-            //retrive image 1 value 
-            var product_img1 = $('#edit_pimg1').val();            
+            
+            //add product id to form_data
+            form_data.append("p_id",product_id);
             
             //retrive product price from input field
             var product_price = $('#edit_pprice').val();
@@ -911,45 +948,47 @@
                     success: function(data){
                         debugger;
                         // if form field has error
-                        // if(data.field_error){
-                        //     if(data.pname.error){
-                        //         $('#edit_pname_msg').text(data.pname.message);
-                        //     }
-                        //     if(data.pdesc.error){
-                        //         $('#edit_pdesc_msg').text(data.pdesc.message);
-                        //     } 
-                        //     if(data.pkeyw.error){
-                        //         $('#edit_pkeyw_msg').text(data.pkeyw.message);
-                        //     } 
-                        //     if(data.pimg1.error){
-                        //         $('#edit_pimg1_msg').text(data.pimg1.message);
-                        //     }      
-                        //     if(data.pimg2.error){
-                        //         $('#edit_pimg2_msg').text(data.pimg2.message);
-                        //     } 
-                        //     if(data.pimg3.error){
-                        //         $('#edit_pimg3_msg').text(data.pimg3.message);
-                        //     } 
-                        //     if(data.pprice.error){
-                        //         $('#edit_pprice_msg').text(data.pprice.message);
-                        //     }                                                                                                                                                                              
-                        // }else if(data.form_error){
-                        //     $('#edit_pform_msg').fadeIn('slow');
-                        //     $('#edit_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                        //     setTimeout(function(){
-                        //         $('#edit_pform_msg').fadeOut('slow');
-                        //     },3000);                                     
-                        // }else{
-                        //     $('#edit_pform_msg').fadeIn('slow');
-                        //     $('#edit_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                        //     setTimeout(function(){
-                        //         $('#edit_pform_msg').fadeOut('slow');
-                        //     },3000);  
+                        if(data.field_error){
+                            if(data.pname.error){
+                                $('#edit_pname_msg').text(data.pname.message);
+                            }
+                            if(data.pdesc.error){
+                                $('#edit_pdesc_msg').text(data.pdesc.message);
+                            } 
+                            if(data.pkeyw.error){
+                                $('#edit_pkeyw_msg').text(data.pkeyw.message);
+                            } 
+                            if(data.pimg1.error){
+                                $('#edit_pimg1_msg').text(data.pimg1.message);
+                            }      
+                            if(data.pimg2.error){
+                                $('#edit_pimg2_msg').text(data.pimg2.message);
+                            } 
+                            if(data.pimg3.error){
+                                $('#edit_pimg3_msg').text(data.pimg3.message);
+                            } 
+                            if(data.pprice.error){
+                                $('#edit_pprice_msg').text(data.pprice.message);
+                            }                                                                                                                                                                                                                  
+                        }else{
+                            $('#edit_pform_msg').fadeIn('slow');
+                            $('#edit_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#edit_pform_msg').fadeOut('slow');
+                            },3000);  
                             
-                        //     //reset add product form
-                        //     reset_edit_product_form();
+                            //reset add product form
+                            reset_edit_product_form();
+
+                            //change admin state
+                            admin_info.last_modelbox=admin_info.current_modelbox;
+                            admin_info.current_modelbox = "products_table_modelbox";
+                            change_admin_state();    
                             
-                        // }
+                            //load updated product table
+                            load_product_table();
+                            
+                        }
                     }
                 });
             }

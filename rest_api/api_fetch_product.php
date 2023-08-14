@@ -27,22 +27,24 @@
                     inner join brands b on p.brand_id=b.b_id WHERE p.p_id ='$product_id'";
         $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
         if(mysqli_num_rows($result)>0){
-            // echo "{$row['p_description']}";
-            // die();
+
             //To prevent XSS attack browser ouput is displayed using htmlenttites() function
-            //Although this data was added by adminstrator, it is used only for demonstration purpose
+            //Browser parse or interpret server text when it is placed in .html()
+            //If output is placed in input field of form or in .text() then browser doesnot
+            //parse it therefore no need of htmlentities
+
             $row = mysqli_fetch_assoc($result);
-            $output['p_id'] = htmlentities($row['p_id']);
-            $output['p_title'] = htmlentities($row['p_title']);
-            $output['p_description'] = htmlentities($row['p_description']);
-            $output['keywords'] = htmlentities($row['keywords']);
-            $output['category'] = htmlentities($row['category']);
-            $output['brand'] = htmlentities($row['brand']);
-            $output['p_image1'] = htmlentities($row['p_image1']);
-            $output['p_image2'] = htmlentities($row['p_image2']);
-            $output['p_image3'] = htmlentities($row['p_image3']);
-            $output['p_price'] = htmlentities($row['p_price']);
-            $output['stock'] = htmlentities($row['stock']);
+            $output['p_id'] = $row['p_id'];
+            $output['p_title'] = $row['p_title'];
+            $output['p_description'] = $row['p_description'];
+            $output['keywords'] = $row['keywords'];
+            $output['category'] = $row['category'];
+            $output['brand'] = $row['brand'];
+            $output['p_image1'] = $row['p_image1'];
+            $output['p_image2'] = $row['p_image2'];
+            $output['p_image3'] = $row['p_image3'];
+            $output['p_price'] = $row['p_price'];
+            $output['stock'] = $row['stock'];
 
             //unset $result
             mysqli_free_result($result);

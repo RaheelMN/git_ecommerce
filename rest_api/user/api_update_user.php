@@ -10,10 +10,10 @@
     if(isset($_SESSION['user_id'])){
         
         //connecting with DB server
-        include "../include/config.php";
+        include "../../include/config.php";
     
         //include verfication and validation functions
-        include "../include/validate.php";
+        include "../../include/validate.php";
 
         $user_id = $_SESSION['user_id'];       
         $data = json_decode(file_get_contents("php://input"),true);
