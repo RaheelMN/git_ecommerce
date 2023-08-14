@@ -37,18 +37,19 @@
     //Create function used in set_exception_handler function
     //Its argument is object of class Exception
     function myException($e) {
-         $error_msg = "-- myException -- Error[{$e->getCode()}] in line: ".$e->getLine()."-- File Name: " .$e->getFile()." -- Message:  ".$e->getMessage();
- 
+        $code = $e->getCode();
+         $error_msg = "-- myException -- Error[$code] in line: ".$e->getLine()."-- File Name: " .$e->getFile()." -- Message:  ".$e->getMessage();
+        $error_msg = htmlentities($error_msg);
         //Debugging Mode 
-        echo "<br> $error_msg";
-        error_log($error_msg);
-        exit();
+        // echo "$error_msg";
+        // error_log($error_msg);
+        // exit();
 
         // Production Mode
         // error_log($error_msg);
-        // http_response_code(500); 
-        // echo ' <p style="text-align: center;font-size: 24px;color: red;margin: 100px 0px;">Error Code 500: Database Server Error</p>';      
-        // exit();        
+        http_response_code(500); 
+        echo ' <p style="text-align: center;font-size: 24px;color: red;margin: 100px 0px;">Error Code 500: Database Server Error</p>';      
+        exit();        
       }
       
       //Create function used in set_error_handler

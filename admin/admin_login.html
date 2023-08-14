@@ -135,7 +135,12 @@
                             window.location.href = 'index.php';     
                            
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('error');
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }    
                 });
             }
             

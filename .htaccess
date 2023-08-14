@@ -44,8 +44,13 @@ RewriteEngine on
  RewriteCond %{HTTPS} on
  RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
- ## redirect host request to index page if it is folder
+ ## redirect host request to index page of admin folder 
+ RewriteCond %{REQUEST_FILENAME} -d
+ RewriteCond %{REQUEST_FILENAME} ^.*/admin(/)?$ [NC] 
+ RewriteRule ^(.*)$ http://localhost/web_ecommerce/admin/index.php [L,NC,R=301]
+
+## redirect host request to user html page
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.*)$ http://localhost/web_ecommerce/home.html?http_referer=%{HTTP_REFERER} [L,NC,R=301]
+RewriteRule ^(.*)$ http://localhost/web_ecommerce/home.html [L,NC,R=301]
 
 
