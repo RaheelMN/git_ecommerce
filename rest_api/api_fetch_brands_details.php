@@ -1,7 +1,5 @@
 <?php 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    //connecting with DB server
 
    //Authenticate the host
    session_start();
@@ -10,9 +8,8 @@
    if(!isset($_SESSION['admin_role'])){
 
         //rediect host to login page
-       header("location:http://localhost/ecommerce/admin/admin_login.php");
+       header("location:../admin/admin_login.php");
    }
-
 
     //connect to db
     require_once "../include/config.php";

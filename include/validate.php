@@ -97,26 +97,28 @@
                 break; 
 
             case "stock":
+                    $min = 0;
+                    $max =1000;
 
-                    if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>0, 'max_range'=>1000)))){
+                    if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>$min, 'max_range'=>$max)))===FALSE){
+                        $result['error']=true;
+                        $result['message']='Stock quantity should be of type integer and range between 0 and 1000';  
+                        return $result;                  
+                    }else{            
                         $result['error']=false;
                         return $result;
-                    }else{            
-                        $result['error']=true;
-                        $result['message']='Stock quantity should be between 0 and 1000';  
-                        return $result;                  
                     }              
                     break;                 
 
                     case "limit":
 
-                        if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>0, 'max_range'=>100)))){
+                        if(filter_var($x,FILTER_VALIDATE_INT,array('options'=>array('min_range'=>0, 'max_range'=>100)))===FALSE){
+                            $result['error']=true;
+                            $result['message']="Product's per order limit should be of type integer and range between 0 and 100";  
+                            return $result;                  
+                        }else{            
                             $result['error']=false;
                             return $result;
-                        }else{            
-                            $result['error']=true;
-                            $result['message']="Product's per order limit should be between 0 and 100";  
-                            return $result;                  
                         }              
                         break;  
 

@@ -1,3 +1,0 @@
-
-03-08-23 02:06:32 -- Error in line: 36-- File Name: C:\xampp\htdocs\ecommerce\help_error_reporting.php -- Message:  Access denied for user 'roo'@'localhost' (using password: NO)
-03-08-23 02:15:44 -- Error in line: 26-- File Name: C:\xampp\htdocs\ecommerce\help_error_reporting.php -- Message:  Access denied for user 'roo'@'localhost' (using password: NO)

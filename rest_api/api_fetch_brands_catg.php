@@ -1,7 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -13,9 +12,10 @@
     //sql query to fetch all records
     $sql = "SELECT * FROM brands";
     $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+    
     if(mysqli_num_rows($result)>0){
         $output['brands']['data'] = mysqli_fetch_all($result,MYSQLI_ASSOC);
-        //echo json_encode($output,JSON_PRETTY_PRINT);
+
     }else{
     $output['brands']= array('message'=>"No record found", "error"=>true);
     } 

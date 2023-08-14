@@ -1,7 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
         
     session_start();
     
@@ -12,9 +11,9 @@
 
         $output=[];
         $output['error']=false;
-    
-        //sql query to fetch user orders
-        $sql = "SELECT * FROM view_payment_table";
+
+        $sql = "SELECT payment_id,invoice_no,amount,pay_type,`date` FROM user_payments
+                INNER JOIN payment_type ON payment_mode = pay_id";
         $result = mysqli_query($conn,$sql) or die('Failed to fetch records from DB');
         
         if(mysqli_num_rows($result)>0){
@@ -34,7 +33,7 @@
         } 
     }else{
         //redirect user if he access page without login
-        header("location:http://localhost/ecommerce/index.html"); 
+        header("location:../admin/admin_login.php");
     }
 
 ?>

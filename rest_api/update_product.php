@@ -5,10 +5,10 @@ session_start();
 if(isset($_SESSION['admin_role'])){    
 
     //connecting with DB server
-    include "include/config.php";
+    include "../include/config.php";
     
     //verification function
-    include "include/validate.php";
+    include "../include/validate.php";
     
     $output =[];
 
@@ -24,24 +24,14 @@ if(isset($_SESSION['admin_role'])){
     $pimg3 = $_FILES['edit_pimg3'];
     $pprice = $_POST['edit_pprice'];
     $stock = $_POST['edit_pstock'];
-    $limit = $_POST['edit_plimit'];
-
-    // $output[] =$p_id = $_POST['p_id'];
-    // $output[] =$pname = $_POST['edit_pname'];
-    // $output[] =$pdesc =  $_POST['edit_pdesc'];
-    // $output[] =$pkeyw =  $_POST['edit_pkeyw'];
-    // $output[] =$pbrand = $_POST['edit_pform_brand'];
-    // $output[] =$pcatg = $_POST['edit_pform_category'];
-    // $output[] =$pimg1 = $_FILES['edit_pimg1'];
-    // $output[] =$pimg2 = $_FILES['edit_pimg2'];
-    // $output[] =$pimg3 = $_FILES['edit_pimg3'];
-    // $output[] =$pprice = $_POST['edit_pprice'];
-    // $output[] =$stock = $_POST['edit_pstock'];
-    // $output[] =$limit = $_POST['edit_plimit'];    
+    $limit = $_POST['edit_plimit']; 
     
     //initialize variables
     $output =[];
     $output['field_error']=false;
+    $output['pimg1']['error']=false;
+    $output['pimg2']['error']=false;
+    $output['pimg3']['error']=false;
 
     //check if admin has uploaded image 1
     $update_img1=true;
@@ -194,19 +184,27 @@ if(isset($_SESSION['admin_role'])){
         WHERE p_id = $p_id";  
         $result=mysqli_query($conn,$sql) or die('Failed to perform query');
 
-        $sql = "UPDATE inventory SET stock = $stock, order_limit = $limit WHERE product_id = $p_id";
+        $stock_status = '';
+        //check if stock is available
+        if($stock > 0){
+            $stock_status = "Available";
+        }else{
+            $stock_status = "Unavailable";
+        }
+
+        $sql = "UPDATE inventory SET stock = $stock, order_limit = $limit,`status`= '$stock_status' WHERE product_id = $p_id";
         $result=mysqli_query($conn,$sql) or die('Failed to perform query');
 
         //upload images to server
         if($update_img1){
-            move_uploaded_file($pimg1['tmp_name'],$img1_path); 
+            move_uploaded_file($pimg1['tmp_name'],"../".$img1_path); 
         } 
  
         if($update_img2){
-            move_uploaded_file($pimg2['tmp_name'],$img2_path); 
+            move_uploaded_file($pimg2['tmp_name'],"../".$img2_path); 
         }             
         if($update_img3){
-            move_uploaded_file($pimg3['tmp_name'],$img3_path); 
+            move_uploaded_file($pimg3['tmp_name'],"../".$img3_path); 
         }      
         $output['form_msg']='Record successfully inserted.';
 

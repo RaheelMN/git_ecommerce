@@ -17,7 +17,7 @@
                         <ul class="navbar1_ul"> 
                             <li class ="items">
                                 <div id="logo">
-                                    <img src="http://localhost/ecommerce/images/logo.jpg" alt="logo.jpg">
+                                    <img src="./images/logo.jpg" alt="logo.jpg">
                                 </div>
                             </li>
                             <li class="items">
@@ -198,7 +198,7 @@
         <!-- End of Cart Table -->    
 
         <!-- Start of Registration Form -->
-            <div id="registration_modelbox">
+            <div id="registration_modelbox" class="form_modelbox">
                 <div class="form_linebreak"></div>           
                 <div class="form_div">
                     <form action="" id="registration_form">
@@ -253,7 +253,7 @@
         <!-- End of Registration Form  -->
             
         <!-- Start of Login Form -->
-            <div id="login_modelbox">
+            <div id="login_modelbox" class="form_modelbox">
                 <div class="form_linebreak"></div>           
                 <div class="form_div">
                     <form action="" id="login_form">
@@ -570,7 +570,7 @@
 
     </div>
 </body>
-<script src="http://localhost/ecommerce/js/jquery.js"></script>
+<script src="./js/jquery.js"></script>
 <script>
     $(document).ready(function(){
 
@@ -628,7 +628,7 @@
 
             //retrive side-nav records
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
+                url:"./rest_api/api_fetch_brands_catg.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
@@ -673,7 +673,7 @@
 
             json_obj = JSON.stringify(cards_info);
             $.ajax({               
-                url:"http://localhost/ecommerce/rest_api/user/api_fetch_products.php",
+                url:"./rest_api/user/api_fetch_products.php",
                 type: "POST",
                 dataType:"json",
                 contentType: "application/json; charset=utf-8",
@@ -740,7 +740,7 @@
 
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+                    url:"./rest_api/user/api_cart_operations.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -781,7 +781,7 @@
                 cart_info.op_type="table";
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                        url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+                        url:"./rest_api/user/api_cart_operations.php",
                         type: "POST",
                         data:json_obj,
                         contentType: "application/json; charset=utf-8",
@@ -977,7 +977,7 @@
         //Function to check user session status
         function check_user_session(){
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/user/api_session_status.php",
+                url: "./rest_api/user/api_session_status.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
@@ -1000,7 +1000,7 @@
      //This function work on user's pending orders 
         function user_pending_status(){
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_pending_orders_status.php",
+                url:"./rest_api/user/api_pending_orders_status.php",
                 type:"GET",
                 dataType:"json",
                 success: function(data){
@@ -1040,7 +1040,7 @@
         function load_user_order_table(){
             
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_fetch_orders.php",
+                url:"./rest_api/user/api_fetch_orders.php",
                 type:'GET',
                 dataType:"json",
                 success:function(data){
@@ -1298,7 +1298,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/user/api_register_user.php",
+                    url: "./rest_api/user/api_register_user.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1459,7 +1459,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/user/api_login_user.php",
+                    url: "./rest_api/user/api_login_user.php",
                     type:"POST",
                     data: json_obj,
                     dataType:"json",
@@ -1524,8 +1524,9 @@
 
                 //End Session
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_logout_user.php",
+                    url:"./rest_api/user/api_logout_user.php",
                     success: function(data){
+                        debugger;
                         //Set user status
                         user_info.user_name="";
                         user_info.user_checkout=false;
@@ -1557,7 +1558,7 @@
                 cart_info.quantity = 1;
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+                    url:"./rest_api/user/api_cart_operations.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1638,7 +1639,7 @@
             cart_info.op_type="delete";
             var json_obj = JSON.stringify(cart_info);
             $.ajax({
-            url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+            url:"./rest_api/user/api_cart_operations.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -1690,7 +1691,7 @@
             cart_info.op_type="update";
             var json_obj = JSON.stringify(cart_info);
             $.ajax({
-            url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
+            url:"./rest_api/user/api_cart_operations.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -1709,7 +1710,7 @@
             user_info.user_checkout=true;
             //check if user is logged in
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/user/api_session_status.php",
+                url: "./rest_api/user/api_session_status.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
@@ -1782,7 +1783,7 @@
    
             //Insert user order
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_add_order.php",
+                url:"./rest_api/user/api_add_order.php",
                 type:"GET",
                 dataType:"json",
                 success:function(data){
@@ -1869,7 +1870,7 @@
                 var obj = {product_id:product_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_fetch_single_product.php",
+                    url:"./rest_api/user/api_fetch_single_product.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1954,7 +1955,7 @@
             clear_edit_profile_form_msgs();
             
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_fetch_user_profile.php",
+                url:"./rest_api/user/api_fetch_user_profile.php",
                 type:"GET",
                 dataType:"json",
                 success:function(data){
@@ -2035,7 +2036,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/user/api_update_user.php",
+                    url: "./rest_api/user/api_update_user.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -2180,7 +2181,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/user/api_change_user_password.php",
+                    url: "./rest_api/user/api_change_user_password.php",
                     type:"POST",
                     data: json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -2246,7 +2247,7 @@
             if(confirm('Are you sure to delete account?')){
 
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_delete_user_account.php",
+                    url:"./rest_api/user/api_delete_user_account.php",
                     type:"GET",
                     dataType:"json",
                     success: function(data){
@@ -2306,7 +2307,7 @@
             var json_obj=JSON.stringify(obj);
 
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/user/api_fetch_single_order.php",
+                url:"./rest_api/user/api_fetch_single_order.php",
                 type:'POST',
                 data:json_obj,
                 contentType:"application/json",
@@ -2351,7 +2352,7 @@
 
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/user/api_confirm_order.php",
+                    url:"./rest_api/user/api_confirm_order.php",
                     type: "POST",
                     contentType: "application/json",
                     data: json_obj,

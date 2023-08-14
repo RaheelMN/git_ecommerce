@@ -83,7 +83,7 @@
     }else{
 
         //redirect user if he access page without login
-        header("location:http://localhost/ecommerce/index.html");    
+        header("location:../../index.html");    
     }
     
 ?>

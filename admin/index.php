@@ -2,8 +2,7 @@
 
     // To prevent cache use following code 
     header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
-    header('Cache-Control: no-store, no-cache, must-revalidate');
-    header('Cache-Control: post-check=0, pre-check=0', FALSE);
+    header('Cache-Control: no-cache, must-revalidate');
     header('Pragma: no-cache');
 
    //Authenticate the host
@@ -12,25 +11,8 @@
    //check if host not authorize to access page
    if(!isset($_SESSION['admin_role'])){
 
-
-        // //check if host has sent cookie
-        if(!empty($_COOKIE)){
-    
-            //destroy host's browser cookie
-            $cookie_name="";
-            foreach($_COOKIE as $key=>$value){
-                $cookie_name = $key;
-            }
-                setcookie($cookie_name,"",time()-42000,"/");
-        }
-        else{
-            //destroy new session
-            setcookie(session_name(),"",time()-42000,"/");
-        }
-
-
-    //    rediect host to login page
-       header("location:http://localhost/ecommerce/admin/admin_login.php");
+    // rediect host to login page
+       header("location:./admin_login.php");
    }
 
 ?>
@@ -53,9 +35,12 @@
                     <ul class="navbar1_ul"> 
                         <li class ="items">
                             <div id="logo">
-                                <img src="http://localhost/ecommerce/images/logo.jpg" alt="logo.jpg">
+                                <img src="../images/logo.jpg" alt="logo.jpg">
                             </div>
                         </li>
+                        <li class="items">
+                                <button id= "home_btn" class="nav_btn nav_active_btn ">Home</button>
+                        </li>                        
                         <li class="items">
                             <select id ="select_product"class="nav_select">
                                 <option value="0">Products</option>
@@ -235,7 +220,7 @@
                             <div class="form_row">
                                 <div class="edit_image_div">
                                         <div class="field_name">Edit Image 1 </div>
-                                    <img src="" alt="" id="edit_image2" class="edit_image">
+                                    <img src="" alt="" id="edit_image1" class="edit_image">
                                     </div>
                                     <input type="file"  class="form_input" name="edit_pimg1" id="edit_pimg1" val="">
                                     <div id="edit_pimg1_msg" class="field_err_msg"></div>
@@ -244,7 +229,7 @@
                             <div class="form_row">
                                 <div class="edit_image_div">
                                     <div class="field_name">Edit Image 2 </div>
-                                <img src="" alt="" id="edit_image1" class="edit_image">
+                                <img src="" alt="" id="edit_image2" class="edit_image">
                                 </div>
                                 <input type="file"  class="form_input" name="edit_pimg2" id="edit_pimg2" val="">
                                 <div id="edit_pimg2_msg" class="field_err_msg"></div>
@@ -323,84 +308,84 @@
     <!-- -----Start of Brand selectbox-------- -->
 
         <!-- Start of Add Brand Form -->
-        <div id="add_bform_modelbox"  class="form_modelbox">
-            <div class="form_div">
-                <form action="" id="add_bform" class="form">
-                    <div class="form_header">
-                        <h3>Add Brand</h3>
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <div class="form_row">
-                            <div class="field_name">Brand name</div>
-                            <input type="text" class="form_input" name="add_bname" id="add_bname" value="" autocomplete="off">
-                            <div id="add_bname_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_linebreak"></div>
-                        <div class="form_row">
-                            <button class="form_btn" id="add_bsubmit">Submit</button>
-                            <button class="form_btn" id="add_bclose">Close</button>
-                        </div>
-                        <div id="add_bform_msg" class="form_msg"></div>
-                    </form>
-                    </div>
-            </div>
-        </div>
-        <!-- End of Add Brand Form -->
-
-        <!-- Start of Edit brand form -->
-        <div id="edit_bform_modelbox" class="form_modelbox" >
+            <div id="add_bform_modelbox"  class="form_modelbox">
                 <div class="form_div">
-                    <form action="#" id="edit_bform" class="form">
+                    <form action="" id="add_bform" class="form">
                         <div class="form_header">
-                            <h3>Edit brand</h3>                   
+                            <h3>Add Brand</h3>
                         </div>
                         <div class="form_linebreak"></div>
                         <div class="form_body">
-
                             <div class="form_row">
                                 <div class="field_name">Brand name</div>
-                                <input type="text" class="form_input" name="edit_bname" id="edit_bname" value="" autocomplete="off">
-                                <div id="edit_bname_msg" class="field_err_msg"></div>
-                            </div>                                              
+                                <input type="text" class="form_input" name="add_bname" id="add_bname" value="" autocomplete="off">
+                                <div id="add_bname_msg" class="field_err_msg"></div>
+                            </div>
                             <div class="form_linebreak"></div>
                             <div class="form_row">
-                                <input type="submit" class="form_btn" id="edit_bsubmit" name="edit_bsubmit" value="Submit">
-                                <button class="form_btn" id="edit_bclose">Close</button>
+                                <button class="form_btn" id="add_bsubmit">Submit</button>
+                                <button class="form_btn" id="add_bclose">Close</button>
                             </div>
-                            <div id="edit_bform_msg" class="form_msg"></div>
+                            <div id="add_bform_msg" class="form_msg"></div>
+                        </form>
                         </div>
-                    </form>
                 </div>
             </div>
+        <!-- End of Add Brand Form -->
+
+        <!-- Start of Edit brand form -->
+            <div id="edit_bform_modelbox" class="form_modelbox" >
+                    <div class="form_div">
+                        <form action="#" id="edit_bform" class="form">
+                            <div class="form_header">
+                                <h3>Edit brand</h3>                   
+                            </div>
+                            <div class="form_linebreak"></div>
+                            <div class="form_body">
+
+                                <div class="form_row">
+                                    <div class="field_name">Brand name</div>
+                                    <input type="text" class="form_input" name="edit_bname" id="edit_bname" value="" autocomplete="off">
+                                    <div id="edit_bname_msg" class="field_err_msg"></div>
+                                </div>                                              
+                                <div class="form_linebreak"></div>
+                                <div class="form_row">
+                                    <input type="submit" class="form_btn" id="edit_bsubmit" name="edit_bsubmit" value="Submit">
+                                    <button class="form_btn" id="edit_bclose">Close</button>
+                                </div>
+                                <div id="edit_bform_msg" class="form_msg"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
         <!-- ----End of Edit brand Form--- -->   
 
 
         <!-- Start of View Brands Table -->
-        <div id="brands_table_modelbox">
-            <div class="header_div">
-                <div>
-                    <div class="form_linebreak"></div>
-                    <h3>Brands Details</h3>
-                </div> 
-            </div>              
-            <div class="admin_table_div">
-                <table>
-                    <thead>
-                        <tr>
-                            <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Brand Name</th>
-                            <th rowspan="2">Edit</th>
-                            <th rowspan="2">Delete</th>
-                        </tr>                                   
-                    </thead>
-                    <tbody id="view_brand_table_body"> 
-                    </tbody>
-                </table> 
+            <div id="brands_table_modelbox">
+                <div class="header_div">
+                    <div>
+                        <div class="form_linebreak"></div>
+                        <h3>Brands Details</h3>
+                    </div> 
+                </div>              
+                <div class="admin_table_div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class='left_align'>S.No</th>
+                                <th rowspan="2" class='left_align'>Brand Name</th>
+                                <th rowspan="2">Edit</th>
+                                <th rowspan="2">Delete</th>
+                            </tr>                                   
+                        </thead>
+                        <tbody id="view_brand_table_body"> 
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="form_linebreak"></div>
+                <div id="brand_table_msg" class="form_msg"></div>  
             </div>
-            <div class="form_linebreak"></div>
-            <div id="brand_table_msg" class="form_msg"></div>  
-        </div>
         <!-- ----End of View brand Table--- -->
 
     <!-- -----End of Brand selectbox-------- -->
@@ -409,103 +394,98 @@
     <!-- -----Start of Category selectbox-------- -->
 
         <!-- Start of Add Category Form -->
-        <div id="add_cform_modelbox" class="form_modelbox">
-            <div class="form_div">
-                <form action="#" id="add_cform" class="form">
-                    <div class="form_header">
-                        <h3>Add Category</h3>
-                    </div>
-                    <div class="form_linebreak"></div>
-                    <div class="form_body">
-                        <div class="form_row">
-                                <div class="field_name">Category name</div>
-                                <input type="text" class="form_input" name="add_cname" id="add_cname" value="" autocomplete="off">
-                                <div id="add_cname_msg" class="field_err_msg"></div>
-                        </div>
-                        <div class="form_linebreak"></div>
-                        <div class="form_row">
-                            <button class="form_btn" id="add_csubmit">Submit</button>
-                            <button class="form_btn" id="add_cclose">Close</button>
-                        </div>
-                        <div id="add_cform_msg" class="form_msg"></div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- End of Add Category Form -->
-
-        <!-- Start of Edit category form -->
-        <div id="edit_cform_modelbox" class="form_modelbox" >
+            <div id="add_cform_modelbox" class="form_modelbox">
                 <div class="form_div">
-                    <form action="" id="edit_cform" class="form">
+                    <form action="#" id="add_cform" class="form">
                         <div class="form_header">
-                            <h3>Edit category</h3>                   
+                            <h3>Add Category</h3>
                         </div>
                         <div class="form_linebreak"></div>
                         <div class="form_body">
-
                             <div class="form_row">
-                                <div class="field_name">Category name</div>
-                                <input type="text" class="form_input" name="edit_cname" id="edit_cname" value="" autocomplete="off">
-                                <div id="edit_cname_msg" class="field_err_msg"></div>
-                            </div>                                              
+                                    <div class="field_name">Category name</div>
+                                    <input type="text" class="form_input" name="add_cname" id="add_cname" value="" autocomplete="off">
+                                    <div id="add_cname_msg" class="field_err_msg"></div>
+                            </div>
                             <div class="form_linebreak"></div>
                             <div class="form_row">
-                                <input type="submit" class="form_btn" id="edit_csubmit" name="edit_csubmit" value="Submit">
-                                <button class="form_btn" id="edit_cclose">Close</button>
+                                <button class="form_btn" id="add_csubmit">Submit</button>
+                                <button class="form_btn" id="add_cclose">Close</button>
                             </div>
-                            <div id="edit_cform_msg" class="form_msg"></div>
+                            <div id="add_cform_msg" class="form_msg"></div>
                         </div>
                     </form>
                 </div>
             </div>
+        <!-- End of Add Category Form -->
+
+        <!-- Start of Edit category form -->
+            <div id="edit_cform_modelbox" class="form_modelbox" >
+                    <div class="form_div">
+                        <form action="" id="edit_cform" class="form">
+                            <div class="form_header">
+                                <h3>Edit category</h3>                   
+                            </div>
+                            <div class="form_linebreak"></div>
+                            <div class="form_body">
+
+                                <div class="form_row">
+                                    <div class="field_name">Category name</div>
+                                    <input type="text" class="form_input" name="edit_cname" id="edit_cname" value="" autocomplete="off">
+                                    <div id="edit_cname_msg" class="field_err_msg"></div>
+                                </div>                                              
+                                <div class="form_linebreak"></div>
+                                <div class="form_row">
+                                    <input type="submit" class="form_btn" id="edit_csubmit" name="edit_csubmit" value="Submit">
+                                    <button class="form_btn" id="edit_cclose">Close</button>
+                                </div>
+                                <div id="edit_cform_msg" class="form_msg"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
         <!-- ----End of Edit category Form--- -->   
         
         <!-- Start of View category Table -->
-        <div id="category_table_modelbox">
-            <div class="header_div">
-                <div>
-                    <div class="form_linebreak"></div>
-                    <h3>Categories Details</h3>
-                </div> 
-            </div>             
-            <div class="admin_table_div">
-                <table>
-                    <thead>
-                        <tr>
-                            <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Category Name</th>
-                            <th rowspan="2">Edit</th>
-                            <th rowspan="2">Delete</th>
-                        </tr>                                   
-                    </thead>
-                    <tbody id="view_category_table_body"> 
-                    </tbody>
-                </table> 
+            <div id="category_table_modelbox">
+                <div class="header_div">
+                    <div>
+                        <div class="form_linebreak"></div>
+                        <h3>Categories Details</h3>
+                    </div> 
+                </div>             
+                <div class="admin_table_div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class='left_align'>S.No</th>
+                                <th rowspan="2" class='left_align'>Category Name</th>
+                                <th rowspan="2">Edit</th>
+                                <th rowspan="2">Delete</th>
+                            </tr>                                   
+                        </thead>
+                        <tbody id="view_category_table_body"> 
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="form_linebreak"></div>
+                <div id="category_table_msg" class="form_msg"></div>  
             </div>
-            <div class="form_linebreak"></div>
-            <div id="category_table_msg" class="form_msg"></div>  
-        </div>
         <!-- ----End of View category Table--- -->        
 
     <!-- -----End of Category selectbox-------- -->
 
     <!-- Start of Delete Message box -->
-        <div id="delete_modelbox" class="form_modelbox" >
-            <div class="form_div">
+        <div id="delete_modelbox" >
+            <div id="delete_msg_form">
                 <form action="" class="form">
                     <div class="form_header">
                         <h3 id="delete_header"></h3>                   
                     </div>
-                    <div class="form_linebreak"></div>
                     <div class="form_body">
-
-                        <div class="form_row">
-                            <div id="canceled_order_inv" class="field_name"></div>
-                        </div>
                         <div class="form_linebreak"></div>
                         <div class="form_row">
-                            <div class="field_name" id = "delete_msg1"></div>
+                            <div class="field_name" id = "delete_msg"></div>
                         </div>    
                         <div class="form_row">
                             <div class="field_name">It can be in cart table in database</div>
@@ -513,10 +493,6 @@
                         <div class="form_row">
                             <div class="field_name">It can be in order detail table in pending state in database.</div>   
                         </div>  
-                        <div class="form_linebreak"></div>
-                        
-
-
                         <div class="form_linebreak"></div>
                         <div class="form_row">
                             <button class="form_btn" id="delete_close">Close</button>
@@ -526,7 +502,31 @@
             </div>
         </div>
                  
-    <!-- ----End of Delete Modelbox--- -->  
+    <!-- ----End of Delete Message Modelbox--- -->  
+
+    <!-- Start of Success Message box -->
+        <div id="success_msg_modelbox">
+            <div id="success_msg_form">
+                <form action="" class="form">
+                    <div class="form_header">
+                        <h3 id="success_header"></h3>                   
+                    </div>
+                    <div class="form_body">
+                        <div class="form_linebreak"></div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <div class="field_name" id = "success_msg"></div>
+                        </div>    
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button class="form_btn" id="success_close">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                 
+    <!-- ----End of Success Message Modelbox--- -->      
     
     <!-- Start of Orders Details Table -->
         <div id="orders_details_modelbox">
@@ -560,7 +560,7 @@
     <!-- ----End of Orders Details Table--- -->   
 
     <!-- Start of Payments Details Table -->
-    <div id="payments_details_modelbox">
+        <div id="payments_details_modelbox">
             <div class="header_div">
                 <div>
                     <div class="form_linebreak"></div>
@@ -589,7 +589,7 @@
     <!-- ----End of Payements Details Table--- -->  
 
     <!-- Start of Users Details Table -->
-    <div id="users_details_modelbox">
+        <div id="users_details_modelbox">
             <div class="header_div">
                 <div>
                     <div class="form_linebreak"></div>
@@ -600,7 +600,6 @@
                 <table>
                     <thead>
                         <tr>
-
                             <th rowspan="2" class='left_align'>S.No</th>
                             <th rowspan="2" class='left_align'>User Name</th>
                             <th rowspan="2" class='left_align'>User Email</th>
@@ -626,14 +625,13 @@
 
     //-------Start of Objects Declaration-------------------
 
-
         //parameters used in determining user's current state
         const admin_info={
             active_modelbox:"default_modelbox",
             last_modelbox:"",
             active_selectbox:'',
             last_selectbox:"",
-            active_button:"",
+            active_button:"home_btn",
             last_button:"",
         }
     
@@ -692,7 +690,7 @@
             }
         }  
         
-        //Function to change button CSS
+        //Function to change button's CSS
         function change_button(){
 
             //Deactivate last button
@@ -708,10 +706,7 @@
         // ---------Start of Product Function definitions------------   
 
          //This function reset add_product form
-         function reset_add_product_form(){
-
-            //clear add_product form message
-            $('#add_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+         function reset_add_product_form(){   
             
             //Reset form fields
             $('#add_pform').trigger('reset');
@@ -719,19 +714,6 @@
             //clear field error messages
             clear_add_product_form_msgs();
          }
-
-         //This function reset edit_product form
-         function reset_edit_product_form(){
-
-            //clear edit_product form message
-            $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
-
-            //Reset form fields
-            $('#edit_pform').trigger('reset');
-
-            //clear field error messages
-            clear_edit_product_form_msgs();
-        }         
 
         //This function clear all error messages of form add_product
         function clear_add_product_form_msgs(){
@@ -747,7 +729,20 @@
                         $('#add_pprice_msg').html('');
                         $('#add_pstock_msg').html('');
                         $('#add_plimit_msg').html('');
-        }
+
+                        //clear form message
+                        $('#add_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');                         
+        }         
+
+         //This function reset edit_product form
+         function reset_edit_product_form(){  
+
+            //Reset form fields
+            $('#edit_pform').trigger('reset');
+
+            //clear field error messages
+            clear_edit_product_form_msgs();
+        }         
 
         //This function clear all error messages of form edit_product
         function clear_edit_product_form_msgs(){
@@ -763,6 +758,9 @@
                         $('#edit_pprice_msg').html('');
                         $('#edit_pstock_msg').html('');
                         $('#edit_plimit_msg').html('');
+
+                        //clear edit_product form message
+                        $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');                          
         } 
 
         //Function to populate brand and category information from db in edit product form
@@ -770,7 +768,7 @@
 
             //populate brand and category select box
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
+                url:"../rest_api/api_fetch_brands_catg.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
@@ -825,7 +823,7 @@
         function load_product_table(){
 
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
+                url: "../rest_api/api_fetch_orders_details.php",
                 dataType: "json",
                 success:function(data){
 
@@ -860,10 +858,7 @@
         // ---------Start of Brand Function definitions------------
               
         //This function reset add_brand form
-        function reset_add_brand_form(){
-
-            //clear add_product form message
-            $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+        function reset_add_brand_form(){  
 
             //Reset form fields
             $('#add_bform').trigger('reset');
@@ -874,16 +869,16 @@
 
         //This function clear all error messages of form add brand
         function clear_add_brand_form_msgs(){
-                        // clear field messages
-                        $('#add_bname_msg').html('');
+            // clear field messages
+            $('#add_bname_msg').html('');
+
+            //clear add_brand form message
+            $('#add_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');                          
 
         }         
         
          //This function reset edit_brand form
-         function reset_edit_brand_form(){
-
-            //clear edit_brand form message
-            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+         function reset_edit_brand_form(){    
 
             //Reset form fields
             $('#edit_bform').trigger('reset');
@@ -894,15 +889,18 @@
         
         //This function clear all error messages of form edit_brand
         function clear_edit_brand_form_msgs(){
-                        // clear field messages
-                        $('#edit_bname_msg').html('');
+            // clear field messages
+            $('#edit_bname_msg').html('');
+
+             //clear edit brand form message
+             $('#edit_bform_msg').removeClass('suc_msg err_msg pro_msg').text('');                        
         }  
 
         //This function load brand table in view brand modelblox
         function load_brand_table(){
 
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/api_fetch_brands_details.php",
+                url: "../rest_api/api_fetch_brands_details.php",
                 dataType: "json",
                 success:function(data){
 
@@ -932,10 +930,7 @@
        // ---------Start of Category Function definitions------------
           
         //This function reset add_category form
-        function reset_add_category_form(){
-
-            //clear add_product form message
-            $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+        function reset_add_category_form(){   
 
             //Reset form fields
             $('#add_cform').trigger('reset');
@@ -946,16 +941,16 @@
 
         //This function clear all error messages of form add category
         function clear_add_category_form_msgs(){
-                        // clear field messages
-                        $('#add_cname_msg').html('');
+            // clear field messages
+            $('#add_cname_msg').html('');
+
+            //clear add category form message
+            $('#add_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');                         
 
         }        
         
          //This function reset edit_category form
-         function reset_edit_category_form(){
-
-            //clear edit_category form message
-            // $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+         function reset_edit_category_form(){  
 
             //Reset form fields
             $('#edit_cform').trigger('reset');
@@ -966,15 +961,18 @@
 
         //This function clear all error messages of form edit_category
         function clear_edit_category_form_msgs(){
-                    // clear field messages
-                    $('#edit_cname_msg').html('');
+            // clear field messages
+            $('#edit_cname_msg').html('');
+
+            //clear edit category form message
+            $('#edit_cform_msg').removeClass('suc_msg err_msg pro_msg').text('');                       
         }  
 
         //This function load category table in view category modelblox
         function load_category_table(){
             
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/api_fetch_categories_details.php",
+                url: "../rest_api/api_fetch_categories_details.php",
                 dataType: "json",
                 success:function(data){
                     if(!data.error){
@@ -1003,7 +1001,7 @@
         //This function load orders details table
         function load_users_orders_table(){
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_all_orders.php",
+                url:"../rest_api/api_fetch_all_orders.php",
                 dataType:"json",
                 success: function(data){
 
@@ -1037,7 +1035,7 @@
         //This function load payments details table
         function load_payments_table(){
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_all_payments.php",
+                url:"../rest_api/api_fetch_all_payments.php",
                 dataType:"json",
                 success: function(data){
 
@@ -1069,7 +1067,7 @@
         //This function load users details table
         function load_users_table(){
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_all_users.php",
+                url:"../rest_api/api_fetch_all_users.php",
                 dataType:"json",
                 success: function(data){
 
@@ -1099,6 +1097,26 @@
                     
     // ---------End of Function definitions------------------- 
 
+    //if user has pressed Home button in navigation bar
+    $('#home_btn').on('click',function(e){
+        e.preventDefault();
+
+            //------Start of change Admin State----------
+            //change modelbox
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "default_modelbox";
+            change_modelbox();
+
+            //Reset Active selectbox if exists
+            reset_active_selectbox();
+
+            //change button
+            admin_info.last_button= admin_info.active_button;
+            admin_info.active_button = "home_btn";
+            change_button();
+            //---------End of Change Admin State----------        
+    });
+
     //If user has pressed Logout button in navigation bar
     $('#admin_logout_btn').on('click',function(e){
         e.preventDefault();
@@ -1107,10 +1125,10 @@
 
             //End Session
             $.ajax({
-                url:"http://localhost/ecommerce/admin/api_admin_logout.php",
+                url:"../admin/api_admin_logout.php",
                 success: function(data){
 
-                    window.location.href = 'http://localhost/ecommerce/admin/admin_login.php';
+                    window.location.href = '../admin/admin_login.php';
                 }
             });   
 
@@ -1118,7 +1136,7 @@
 
     });
 
-    // if admin press close button in delete modelbox 
+    // if admin press close button in delete message modelbox 
     $('#delete_close').on('click',function(e){
         e.preventDefault();
 
@@ -1126,10 +1144,36 @@
         $('#delete_modelbox').hide();
     });
 
+    // if admin press close button in Success Message modelbox 
+    $('#success_close').on('click',function(e){
+        e.preventDefault();
+
+        //enable body tag scrollbar
+        $('body').removeClass('hide_scroll');
+
+        //hide success message modelbox
+        $('#success_msg_modelbox').hide();
+    });    
+    
+
     //---- Start of Product events -------//
         
         //if admin has selected option from product selectbox
         $('#select_product').change(function(){  
+
+            if($('#select_product').val()== 0){
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "default_modelbox";
+                change_modelbox();
+
+                //change button
+                admin_info.last_button= admin_info.active_button;
+                admin_info.active_button = "home_btn";
+                change_button();                
+                //---------End of Change Admin State----------                
+            }
 
             //if admin has selected add product in selectbox
             if($('#select_product').val()== 1){
@@ -1154,7 +1198,7 @@
 
                 //populate brand and category select box
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
+                    url:"../rest_api/api_fetch_brands_catg.php",
                     type: "GET",
                     dataType:"json",
                     success: function(data){
@@ -1340,7 +1384,7 @@
             if(!form_error){
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/add_product.php",
+                    url: "../rest_api/add_product.php",
                     type:"POST",
                     data: form_data,
                     dataType:"json",
@@ -1383,7 +1427,7 @@
                             reset_add_product_form();
 
                             $('#add_pform_msg').fadeIn('slow');
-                            $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            $('#add_pform_msg').addClass('suc_msg').text(data.form_msg);
                             
                         }
                     }
@@ -1397,16 +1441,21 @@
             //prevent default form setting
             e.preventDefault();
 
-            //reset add product form 
-            reset_add_product_form();
-
-            //reset product selectbox in navigation bar
-            $('#select_product').val('0');
+            //------Start of change Admin State----------       
             
-            //change admin state
+            //change modelbox
             admin_info.last_modelbox=admin_info.active_modelbox;
             admin_info.active_modelbox = "default_modelbox";
-            change_modelbox();                    
+            change_modelbox(); 
+
+            //reset product selectbox 
+            reset_active_selectbox();
+
+            //change button
+            admin_info.last_button= admin_info.active_button;
+            admin_info.active_button = "home_btn";
+            change_button();
+            //------End of change Admin State----------            
 
         });  
         
@@ -1426,7 +1475,7 @@
                 var obj = {product_id:product_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_fetch_product.php",
+                    url:"../rest_api/api_fetch_product.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1463,20 +1512,40 @@
                 var obj = {product_id:product_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_delete_product.php",
+                    url:"../rest_api/api_delete_product.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
                         if(data.error){
+                            //Display failure message box
                             $('#delete_modelbox').show();
                             $('#delete_header').text('Delete Product');
-                            $('#delete_msg1').text('Cannot delete Product bacause:');
+                            $('#delete_msg').text('Cannot delete Product bacause:');
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
 
                         }else{
-                            //load updated category table
-                            load_product_table();    
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Delete Product');
+                            $('#success_msg').text('Product successfully deleted');
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');                            
+                            
+                            //load updated product table
+                            load_product_table();
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+  
                         }
                     }
 
@@ -1585,8 +1654,8 @@
             //check if there is no form error
             if(!form_error){
 
-                $.ajax({
-                    url: "http://localhost/ecommerce/update_product.php",
+                $.ajax({  
+                    url: "../rest_api/update_product.php",  
                     type:"POST",
                     data: form_data,
                     dataType:"json",
@@ -1617,21 +1686,21 @@
                             if(data.pprice.error){
                                 $('#edit_pprice_msg').text(data.pprice.message);
                             }   
-                            if(data.stock.error){
-                                $('#edit_pstock_msg').text(data.stock.message);
+                            if(data.pstock.error){
+                                $('#edit_pstock_msg').text(data.pstock.message);
                             } 
-                            if(data.limit.error){
-                                $('#edit_plimit_msg').text(data.limit.message);
+                            if(data.plimit.error){
+                                $('#edit_plimit_msg').text(data.plimit.message);
                             }                                                                                                                                                                                                                                                                        
                         }else{
-                            $('#edit_pform_msg').fadeIn('slow');
-                            $('#edit_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_pform_msg').fadeOut('slow');
-                            },3000);  
-                            
-                            //reset add product form
-                            reset_edit_product_form();
+
+                            //Display success message modelbox
+                            $('#success_header').text('Edit Product');
+                            $('#success_msg').text('Product successfully updated');
+                            $('#success_msg_modelbox').show();
+                           
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
 
                             //change admin state
                             admin_info.last_modelbox=admin_info.active_modelbox;
@@ -1640,7 +1709,11 @@
                             
                             //load updated product table
                             load_product_table();
-                            
+
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+                                                            
                         }
                     }
                 });
@@ -1652,9 +1725,6 @@
         $('#edit_pclose').on('click',function(e){
             //prevent default form setting
             e.preventDefault();
-
-            //reset Edit product form 
-            reset_edit_product_form();
             
             //change admin state
             admin_info.last_modelbox=admin_info.active_modelbox;
@@ -1669,6 +1739,20 @@
         
         //if admin has selected option from brand selectbox
         $('#select_brand').change(function(){
+
+            if($('#select_brand').val()== 0){
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "default_modelbox";
+                change_modelbox();
+
+                //change button
+                admin_info.last_button= admin_info.active_button;
+                admin_info.active_button = "home_btn";
+                change_button();                
+                //---------End of Change Admin State----------                
+            } 
 
             //if admin has selected add brand from selectbox
             if($('#select_brand').val()== 1){
@@ -1740,9 +1824,11 @@
                 var json_obj = JSON.stringify(obj);
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_add_brand.php",
+                    url: "../rest_api/api_add_brand.php",
                     type:"POST",
+                    contentType:"application/json",
                     data: json_obj,
+                    dataType:"json",
                     success: function(data){
                         //if there is error in input field
                         if(data.field_error){
@@ -1769,17 +1855,22 @@
             //prevent default form setting
             e.preventDefault();
 
-            //reset add brand from
-            reset_add_brand_form();
-
-            //reset brand selectbox
-            $("#select_brand").val('0');
-
-            //change admin state
+            //------Start of change Admin State----------
+            
+            //change modelbox
             admin_info.last_modelbox=admin_info.active_modelbox;
             admin_info.active_modelbox = "default_modelbox";
-            change_modelbox();              
+            change_modelbox(); 
 
+            //reset brand selectbox
+            reset_active_selectbox();   
+
+            //change button
+            admin_info.last_button= admin_info.active_button;
+            admin_info.active_button = "home_btn";
+            change_button();
+
+            //---------End of Change Admin State----------
         }); 
         
         //if admin press Edit brand In view brand table
@@ -1798,7 +1889,7 @@
             var obj = {brand_id:brand_id};
             var json_obj = JSON.stringify(obj);
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_brand.php",
+                url:"../rest_api/api_fetch_brand.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -1825,7 +1916,7 @@
                 var obj = {brand_id:brand_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_delete_brand.php",
+                    url:"../rest_api/api_delete_brand.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1833,14 +1924,34 @@
                     success:function(data){
                         if(data.error){
 
+                            //Display failure message box
                             $('#delete_modelbox').show();
                             $('#delete_header').text('Delete Brand');
-                            $('#delete_msg1').text('Cannot delete Brand bacause it can be in product table in database');
+                            $('#delete_msg').text('Cannot delete Brand bacause it can be in product table in database');
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
 
                         }else{
 
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Delete Brand');
+                            $('#success_msg').text('Brand successfully deleted');
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
                             //load updated brand table
-                            load_brand_table();    
+                            load_brand_table();   
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+
                         }
                     }
                 });
@@ -1881,7 +1992,7 @@
                 var json_obj = JSON.stringify(obj);
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_update_brand.php",
+                    url: "../rest_api/api_update_brand.php",
                     type:"POST",
                     contentType:"application/json",
                     data: json_obj,
@@ -1893,6 +2004,30 @@
                                 $('#edit_bname_msg').text(data.name.message);
                             }                                                                                                                                                                                                                                                                      
                         }else{
+                            //Display success message modelbox
+                            $('#success_header').text('Edit Brand');
+                            $('#success_msg').text('Brand successfully updated');
+                            $('#success_msg_modelbox').show();
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
+                            //change admin state
+                            admin_info.last_modelbox=admin_info.active_modelbox;
+                            admin_info.active_modelbox = "brand_table_modelbox";
+                            change_modelbox();    
+                            
+                            //load updated brand table
+                            load_brand_table();
+
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+
+
+
+
+
                             $('#edit_bform_msg').fadeIn('slow');
                             $('#edit_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
                             setTimeout(function(){
@@ -1932,6 +2067,20 @@
         
         //if admin has selected option from category selectbox
         $('#select_category').change(function(){
+
+            if($('#select_category').val()== 0){
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "default_modelbox";
+                change_modelbox();
+
+                //change button
+                admin_info.last_button= admin_info.active_button;
+                admin_info.active_button = "home_btn";
+                change_button();                
+                //---------End of Change Admin State----------                
+            } 
 
             //if admin has selected add category from selectbox
             if($('#select_category').val()== 1){
@@ -2003,9 +2152,11 @@
                 var json_obj = JSON.stringify(obj);
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_add_category.php",
+                    url: "../rest_api/api_add_category.php",
                     type:"POST",
+                    contentType:"application/json",
                     data: json_obj,
+                    dataType:"json",
                     success: function(data){
                         //if there is error in input field
                         if(data.field_error){
@@ -2030,15 +2181,24 @@
         $('#add_cclose').on('click',function(e){
             //prevent default form setting
             e.preventDefault();
-
-            //reset category selectbox
-            $("#select_category").val('0');
-
-            //change admin state
+            
+            //---------Start of Change Admin State----------
+            
+            //change modelbox
             admin_info.last_modelbox=admin_info.active_modelbox;
             admin_info.active_modelbox = "default_modelbox";
-            change_modelbox();              
+            change_modelbox();   
+            
+            //reset category selectbox
+            reset_active_selectbox();   
+            
+            //change button
+            admin_info.last_button= admin_info.active_button;
+            admin_info.active_button = "home_btn";
+            change_button();
 
+            //---------End of Change Admin State----------
+            
         }); 
 
         //if admin press Edit category In view category table
@@ -2057,7 +2217,7 @@
             var obj = {category_id:category_id};
             var json_obj = JSON.stringify(obj);
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_fetch_category.php",
+                url:"../rest_api/api_fetch_category.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -2084,21 +2244,44 @@
                 var obj = {category_id:category_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_delete_category.php",
+                    url:"../rest_api/api_delete_category.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
                         if(data.error){
+
+                            //Display failure message box
                             $('#delete_modelbox').show();
                             $('#delete_header').text('Delete Category');
-                            $('#delete_msg1').text('Cannot delete Category bacause it can be in products table in database.');
+                            $('#delete_msg').text('Cannot delete Category bacause it can be in products table in database.');
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
 
                         }else{
+
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Delete Category');
+                            $('#success_msg').text('Category successfully deleted');
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
                             //load updated category table
-                            load_category_table();    
+                            load_category_table(); 
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
+
                         }
+
                     }
                 });
             }                                   
@@ -2138,23 +2321,27 @@
                 var json_obj = JSON.stringify(obj);
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/rest_api/api_update_category.php",
+                    url: "../rest_api/api_update_category.php",
                     type:"POST",
                     contentType:"application/json",
                     data: json_obj,
                     dataType:"json",
                     success: function(data){
+
                         // if form field has error
                         if(data.field_error){
                             if(data.name.error){
                                 $('#edit_cname_msg').text(data.name.message);
                             }                                                                                                                                                                                                                                                                      
                         }else{
-                            $('#edit_cform_msg').fadeIn('slow');
-                            $('#edit_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                            setTimeout(function(){
-                                $('#edit_cform_msg').fadeOut('slow');
-                            },3000);                              
+
+                            //Display success message modelbox
+                            $('#success_header').text('Edit Category');
+                            $('#success_msg').text('Category successfully updated');
+                            $('#success_msg_modelbox').show();
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
 
                             //change admin state
                             admin_info.last_modelbox=admin_info.active_modelbox;
@@ -2163,6 +2350,10 @@
                             
                             //load updated category table
                             load_category_table();
+
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
                             
                         }
                     }
@@ -2219,7 +2410,7 @@
             var obj = {order_id:order_id};
             var json_obj = JSON.stringify(obj);
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_delete_user_order.php",
+                url:"../rest_api/api_delete_user_order.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -2228,9 +2419,23 @@
                     if(data.error){
 
                     }else{
-                        //load updated category table
+
+                        //Display success message modelbox
+                        $('#success_msg_modelbox').show();  
+                        $('#success_header').text('Delete order');
+                        $('#success_msg').text('Order successfully deleted');
+
+                        //disable page scrolling
+                        $('body').addClass('hide_scroll');      
+
+                        //load updated order table
                         load_users_orders_table();    
-                    }
+                                               
+                        //reset page scroll position 
+                        $(function() {
+                            $(this).scrollTop(0);
+                        });                       
+                    }                       
                 }
             });
         }                                   
@@ -2268,7 +2473,7 @@
             var obj = {p_id:p_id};
             var json_obj = JSON.stringify(obj);
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_delete_payment.php",
+                url:"../rest_api/api_delete_payment.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -2277,8 +2482,21 @@
                     if(data.error){
 
                     }else{
-                        //load updated category table
-                        load_payments_table();    
+                            //Display success message modelbox
+                            $('#success_msg_modelbox').show();  
+                            $('#success_header').text('Delete payment');
+                            $('#success_msg').text('Payment record successfully deleted');
+
+                            //disable page scrolling
+                            $('body').addClass('hide_scroll');
+
+                            //load updated payment table
+                            load_payments_table();    
+
+                            //reset page scroll position 
+                            $(function() {
+                                $(this).scrollTop(0);
+                            });
                     }
                 }
             });
@@ -2317,7 +2535,7 @@
             var obj = {u_id:u_id};
             var json_obj = JSON.stringify(obj);
             $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_delete_user.php",
+                url:"../rest_api/api_delete_user.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -2326,8 +2544,22 @@
                     if(data.error){
 
                     }else{
-                        //load updated category table
+
+                        //Display success message modelbox
+                        $('#success_msg_modelbox').show();  
+                        $('#success_header').text('Delete user');
+                        $('#success_msg').text("User's record successfully deleted");
+                        
+                        //disable page scrolling
+                        $('body').addClass('hide_scroll');    
+
+                        //load updated user table
                         load_users_table();    
+
+                        //reset page scroll position 
+                        $(function() {
+                            $(this).scrollTop(0);
+                        });   
                     }
                 }
             });

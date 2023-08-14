@@ -31,6 +31,7 @@
 
             //start session
             session_start();
+
             //store user info
             $_SESSION['user_id']=$row['user_id'];
             $_SESSION['ip_address']=$row['ip_address'];     //used in cart_details

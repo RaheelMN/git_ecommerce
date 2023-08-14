@@ -1,9 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:POST');
-    header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
 
     session_start();
     
@@ -50,7 +47,7 @@
                 $sql = "INSERT INTO categories (c_name) VALUES ('$category_name')";
                 $result = mysqli_query($conn,$sql) or die('Failed to pefrom query');
 
-                $output['form_msg']="Record successfully inserted.";
+                $output['form_msg']="Record successfully inserted. Add another category.";
 
                 //close db connection
                 mysqli_close($conn);
@@ -61,7 +58,7 @@
         }
     }else{
         //rediect host to login page
-        header("location:http://localhost/ecommerce/admin/admin_login.php");
+        header("location:../admin/admin_login.php");
     }
 
 ?>

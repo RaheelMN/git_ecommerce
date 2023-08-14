@@ -78,7 +78,7 @@ if(isset($_SESSION['admin_role'])){
     }
 }else{
     //    rediect host to login page
-    header("location:http://localhost/ecommerce/admin/admin_login.php");
+    header("location:../admin/admin_login.php");
 }
 
 

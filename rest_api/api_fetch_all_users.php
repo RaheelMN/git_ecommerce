@@ -1,7 +1,6 @@
 <?php 
 
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin:*');
         
     session_start();
     
@@ -34,7 +33,7 @@
         } 
     }else{
         //redirect user if he access page without login
-        header("location:http://localhost/ecommerce/index.html"); 
+        header("location:../admin/admin_login.php");
     }
 
 ?>

@@ -7,10 +7,10 @@ session_start();
 if(isset($_SESSION['admin_role'])){  
 
     //connecting with DB server
-    require_once "include/config.php";
+    require_once "../include/config.php";
     
     //verification function
-    require_once "include/validate.php";
+    require_once "../include/validate.php";
     
     //retrieve variable values
     $pname = $_POST['add_pname'];
@@ -129,18 +129,20 @@ if(isset($_SESSION['admin_role'])){
         //check if stock is available
         if($pstock > 0){
             $stock_status = "Available";
+        }else{
+            $stock_status = "Unavailable";
         }
 
         //add product to invertory table
-        $sql = "INSERT INTO inventory (product_id, stock, purchased, order_limit) VALUES ($product_id,$pstock,0,$limit)";
+        $sql = "INSERT INTO inventory (product_id, stock, purchased, `status`,order_limit) VALUES ($product_id,$pstock,0,'$stock_status',$limit)";
         $result = mysqli_query($conn,$sql) or die("Failed to perform query");
 
         //upload images to server
-        move_uploaded_file($pimg1['tmp_name'],$img1_path); 
-        move_uploaded_file($pimg2['tmp_name'],$img2_path); 
-        move_uploaded_file($pimg3['tmp_name'],$img3_path); 
+        move_uploaded_file($pimg1['tmp_name'],"../".$img1_path); 
+        move_uploaded_file($pimg2['tmp_name'],"../".$img2_path); 
+        move_uploaded_file($pimg3['tmp_name'],"../".$img3_path); 
     
-        $output['form_msg']='Record successfully inserted.';
+        $output['form_msg']='Record successfully inserted. Add another product.';
         mysqli_close($conn);
         echo json_encode($output,JSON_PRETTY_PRINT);  
     }

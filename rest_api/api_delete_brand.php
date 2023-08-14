@@ -1,9 +1,44 @@
 <?php 
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods:POST');
-header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');
+
+
+function check_delete_brand($brand_id){
+    global $conn;
+
+    // check if brand is in products table
+    $sql = "SELECT count(p_id) AS ans FROM brands 
+    INNER JOIN products ON b_id = brand_id 
+    WHERE b_id = $brand_id";
+    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row['ans'] > 0 ){
+        return 1;
+    }    
+   
+    // Check if brand is in use in cart details table
+    $sql = "SELECT count(b_id) AS ans FROM products 
+    INNER JOIN  brands ON brand_id = b_id
+    INNER JOIN cart_detail ON p_id = product_id 
+    WHERE b_id = $brand_id";
+    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row['ans'] > 0 ){
+        return 1;
+    }
+   
+    //  Check if brand is in use in order details table		
+    $sql = "SELECT count(b_id) AS ans FROM products 
+    INNER JOIN  brands ON brand_id = b_id
+    INNER JOIN orders_details ON p_id = product_id
+     WHERE b_id = $brand_id  AND order_status = 'Pending'";
+    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $row = mysqli_fetch_assoc($result);
+        return $row['ans'];
+}
+
 
 session_start();
     
@@ -23,15 +58,10 @@ if(isset($_SESSION['admin_role'])){
  
     //Check if brand is in use in cart details table 
     //or in orders details table where order status is pending
-    $sql = "call check_delete_brand($brand_id)";
-    $result=mysqli_query($conn,$sql) or die('Failed to perform query');
-    $row = mysqli_fetch_assoc($result);
-
-    mysqli_free_result($result);
-    mysqli_next_result($conn);
+    $ans = check_delete_brand($brand_id);
 
     //if brand exits then
-    if($row['output']){
+    if($ans){
         $output['error']=true;
 
         //close db connection
@@ -57,7 +87,7 @@ if(isset($_SESSION['admin_role'])){
     }
 }else{
     //    rediect host to login page
-    header("location:http://localhost/ecommerce/admin/admin_login.php");
+    header("location:../admin/admin_login.php");
 }
 
 

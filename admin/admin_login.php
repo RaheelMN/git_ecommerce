@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecommerce</title>
+    <title>Ecommerce Admin</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -100,7 +100,7 @@
                 var json_obj = JSON.stringify(obj);
                     
                 $.ajax({
-                    url: "http://localhost/ecommerce/admin/api_admin_login.php",
+                    url: "./api_admin_login.php",
                     type:"POST",
                     data: json_obj,
                     dataType:"json",
@@ -131,10 +131,7 @@
                             //clear form's field messages
                             clear_login_form_msgs();
 
-                            window.location.href = 'http://localhost/ecommerce/admin/index.php';
-                            //Go to main admin page
-                            // header("location:http://localhost/ecommerce/admin/index.php");
-                            // header("location:http://localhost/ecommerce/index.html");       
+                            window.location.href = 'index.php';     
                            
                         }
                     }
