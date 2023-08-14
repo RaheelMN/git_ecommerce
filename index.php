@@ -56,37 +56,42 @@
                         <a href="#"> Welcome Guest!</a>
                     </li>
                     <li class = "items">
-                        <a href="#"> Login</a>
+                        <a id="login_btn" href="#"> Login</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <!-- Section Header -->
-        <div id="main_heading">
-            <h3>Hidden Store</h3>
-            <p id="sub_heading">Check our inventory</p>
-        </div>
+        <!-- Cards and Side navigation bar -->
+        <div id="container_cards_sidebar">
 
-        <!-- Product cards and side navigation bar -->
-        <div id="contents">
-            <div id="products">
-                <div id="products_msg">
+            <!-- Section Header -->
+            <div id="main_heading">
+                <h3>Hidden Store</h3>
+                <p id="sub_heading">Check our inventory</p>
+            </div>
+    
+            <!-- Product cards and side navigation bar -->
+            <div id="contents_cards_sidebar">
+                
+                <div id="products">
+                    <div id="products_msg">
+                    </div>
+                    <div id="cards_container">
+                    </div>                           
+                    <div id="pagination_container">
+                            <div id="pagination_body">                    
+                            </div>
+                    </div>
                 </div>
-                <div id="cards_container">
-                </div>                           
-                <div id="pagination_container">
-                        <div id="pagination_body">                    
-                        </div>
+                <div id="side_nav_bar_div">
+                    <ul id ="side_nav">
+                    </ul>
                 </div>
             </div>
-            <div id="side_nav_bar_div">
-                <ul id ="side_nav">
-                </ul>
-            </div>
         </div>
 
-        <!-- Product detail page -->
+        <!-- View Product details page -->
         <div id="product_modelbox" class="form_modelbox">
             <div id="product_container">
                  <div id="product_contents">
@@ -138,7 +143,7 @@
         </div>
 
         <!-- Cart Table -->
-        <div id ="cart_modelbox" class="form_modelbox">
+        <div id ="cart_modelbox" >
             <div id="cart_container">
                     <div id="cart_contents">
                         <div class="product_heading">Cart item's Detail</div>
@@ -174,7 +179,7 @@
                             </div>                                                        
                             <div class="product_row">
                                 <div class="product_close_btn_div">
-                                    <button id="cart_close_btn">Close</button>
+                                    <button id="cart_close_btn">Continue Shopping</button>
                                 </div>
                             </div>                               
                         </div>
@@ -183,6 +188,99 @@
 
         </div>
 
+        <!-- Registration Form -->
+        <div id="registration_modelbox">
+            <div class="form_linebreak"></div>           
+            <div class="form_div">
+                <form action="" class="form">
+                    <div class="form_header">
+                        <h3>Registration Form</h3>
+                    </div>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <div class="form_row">
+                                <div class="field_name">User Name</div>
+                                <input type="text" class="form_input" name="reg_name" id="reg_name" value="" autocomplete="off">
+                                <div id="reg_name_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                                <div class="field_name">Email</div>
+                                <input type="email" class="form_input" name="reg_email" id="reg_email">
+                                <div id="reg_email_msg" class="field_err_msg"></div>
+                        </div>  
+                        <div class="form_row">
+                                <div class="field_name">User Image</div>
+                                <input type="file" class="form_input" name="reg_image" id="reg_image" val="">
+                                <div id="reg_email_msg" class="field_err_msg"></div>
+                        </div>  
+                        <div class="form_row">
+                                <div class="field_name">Password</div>
+                                <input type="password" class="form_input" name="reg_password" id="reg_password" >
+                                <div id="reg_password_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                                <div class="field_name">Confirm Password</div>
+                                <input type="password" class="form_input" name="reg_cpassword" id="reg_cpassword" >
+                                <div id="reg_cpassword_msg" class="field_err_msg"></div>
+                        </div>   
+                        <div class="form_row">
+                                <div class="field_name">Address</div>
+                                <input type="text" class="form_input" name="reg_address" id="reg_address" value="" autocomplete="off">
+                                <div id="reg_address_msg" class="field_err_msg"></div>
+                        </div>  
+                        <div class="form_row">
+                                <div class="field_name">Contact</div>
+                                <input type="text" class="form_input" name="reg_contact" id="reg_contact" value="" autocomplete="off">
+                                <div id="reg_contact_msg" class="field_err_msg"></div>
+                        </div> 
+                        <div class="form_linebreak"></div>                                                                                                                                            
+                        <div class="form_row">
+                            <button class="form_btn" id="reg_submit">Submit</button>
+                            <button class="form_btn" id="reg_close">Close</button>
+                        </div>
+                        <div class="field_name form_redirect">Already registered? <a  id="reg_form_redirect" href="#">Login</a></div>
+                        <div id="reg_form_msg" class="form_msg"></div>
+                    </div>
+                </form>               
+            </div>
+            <div class="form_linebreak"></div>
+        </div>  
+        
+        <!-- Login Form -->
+        <div id="login_modelbox">
+            <div class="form_linebreak"></div>           
+            <div class="form_div">
+                <form action="" class="form">
+                    <div class="form_header">
+                        <h3>Login Form</h3>
+                    </div>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+                        <div class="form_row">
+                                <div class="field_name">User Name</div>
+                                <input type="text" class="form_input" name="log_name" id="log_name" value="" autocomplete="off">
+                                <div id="log_name_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                                <div class="field_name">Password</div>
+                                <input type="password" class="form_input" name="log_password" id="log_password" >
+                                <div id="log_password_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                                <div class="field_name"><a id="log_fpassword" href="#">Forgot Password</a></div>
+                        </div>   
+                        <div class="form_linebreak"></div>                                                                                                                                            
+                        <div class="form_row">
+                            <button class="form_btn" id="log_submit">Submit</button>
+                            <button class="form_btn" id="log_close">Close</button>
+                        </div>
+                        <div class="field_name form_redirect">Don't have an account? <a  id="log_form_redirect" href="#">Register</a></div>
+                        <div id="log_form_msg" class="form_msg"></div>
+                    </div>
+                </form>               
+            </div>
+            <div class="form_linebreak"></div>
+        </div>           
 
         <!-- Section Footer -->
         <Footer>
@@ -196,27 +294,41 @@
 <script>
     $('document').ready(function(){
 
+    //---------Objects Declaration------------------------
+
         //parameters used in load_cards function ajax call
-        const load_cards_info ={
+        const cards_info ={
                                 search_type: 'all',
                                 search_term: '0',
                                 page_no: 1
         }
 
+        //parameter used in view product detail form
         const product_view={
             image1: '',
             image2: '',
             image3: '',
         }
         
+        //parameters used in ajax call for cart detail form
         const cart_info = {
                         op_type: "",
                         product_id:0,
                         quantity: 0,
+                        status:"",
                         cart_changed:false,
-                        cart_empty:false,
                         records: []
         }
+
+        //parameters used in determining user's current state
+        const user_info={
+            user_state:"products"
+        }
+    
+    //------ End of Objects Declaration---------------------    
+
+
+    //-------------Functions Declaration Section---------------    
 
         //Function to populate side navigation bar with brands and categories records
         function load_sidenav(){
@@ -266,10 +378,10 @@
             
         }
 
-        //Function to load cards based on type ie all,brand or category
+        //Function to load cards based on card_info's parameter search_type 
         function load_cards(){
 
-            json_obj = JSON.stringify(load_cards_info);
+            json_obj = JSON.stringify(cards_info);
             $.ajax({               
                 url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
                 type: "POST",
@@ -311,7 +423,7 @@
                 }
 
             });
-        }  
+        }        
         
         //Function to initialize cart items and total price in navigation bar
         function load_cart_info(){
@@ -337,6 +449,25 @@
             load_cards();
         }
 
+        //Function loads cards and side navigation bar 
+        function load_container_cards_sidebar(){
+            //Set user state
+            user_info.user_state = 'cards';
+            change_user_state();
+
+            //Set card_info parameter to load all cards
+            cards_info.search_type='all';
+            cards_info.search_term='0';  
+            cards_info.page_no=1;
+            load_contents();
+
+            //Update sub heading 
+            $("#sub_heading").text('Check our inventory');
+
+            //clear previously active sidebar item
+            $('#side_nav input').removeClass('active_side_bar');                
+        }
+
         //Function to load cart table 
         function load_cart_table(){                
                 $('#cart_modelbox').show();
@@ -349,33 +480,25 @@
                         data:json_obj,
                         success:function(data){
                             debugger;
-                            //initializing form
-                            //clearing cart table body
-                            $('#cart_table_body').html('');
-                            //clearing cart message and its css
-                            $('#cart_message').removeClass('products_msg_style').text('');
-                            //clearing check box All
-                            $('#delete_all_checkbox').prop('checked',false);
-                            $('#update_all_checkbox').prop('checked',false);
+
+                            //set cart state
+                            cart_info.status = 'startup';
+                            cart_state();
 
                             //check if there is no record in database
                             if(data.error){
                                 $('#cart_message').fadeIn('slow');
                                 $('#cart_message').addClass('products_msg_style').text(data.message);
 
-                                //disable cart table buttons and checkboxes
-                                $("#update_all_checkbox").prop("disabled", true);
-                                $("#delete_all_checkbox").prop("disabled", true);
-                                $("#update_cart_btn").addClass('cart_btn_no_hover').prop("disabled", true);
-                                $("#delete_cart_btn").addClass('cart_btn_no_hover').prop("disabled", true);
-                                
-                                cart_info.cart_empty = true;
+                                //set cart state
+                                cart_info.status = 'noitem';
+                                cart_state();
 
-                            }else{
+                            }else{                             
 
                                 //Check if cart items are changed
                                 if(cart_info.cart_changed){
-                                    //reset cart changed 
+                                    //reset cart changed flag
                                     cart_info.cart_changed=false;
                                     $('#cart_message').fadeIn('slow');                                                       
                                     $('#cart_message').addClass('products_msg_style').text('Cart updated');
@@ -414,13 +537,236 @@
                         
                         }
                     });            
-            }        
+        }
 
-        //load side navigation bar with brands and categories records
-        load_sidenav();
+        //Function to update user state
+        function change_user_state(){
+            switch (user_info.user_state){
+                case 'cards':
+                    //Hide Cart Table Page
+                    $('#cart_modelbox').hide();
 
-        //load all cards
-        load_cards();
+                    //Hide Registration form
+                    $('#registration_modelbox').hide();
+
+                    //Hide Login Form
+                    $('#login_modelbox').hide();                       
+                   
+                    //Enable Register Button in navigation bar
+                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
+                    
+                    //Enable login Button in navigation bar
+                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
+                    
+                    //Enable Search button and input field
+                    $("#search_btn").removeClass('no_hover').prop("disabled", false);
+                    $("#input_search").removeClass('no_hover').prop("disabled", false);
+                    
+                    //Enable Cart icon in navigation bar
+                    $("#nav_cart_btn").removeClass('no_hover').prop("disabled", false);
+
+                    //display cards and side navigation bar
+                    $('#container_cards_sidebar').show();
+                    break;
+
+                case 'cart':                   
+                    //Hide cards and side navigation bar
+                    $('#container_cards_sidebar').hide();
+
+                    //Hide Registration form
+                    $('#registration_modelbox').hide(); 
+                    
+                    //Hide Login Form
+                    $('#login_modelbox').hide();   
+                    
+                    //Disable Search button and input field
+                    $("#search_btn").addClass('no_hover').prop("disabled", true);
+                    $("#input_search").addClass('no_hover').prop("disabled", true);
+                    
+                    //Disable Cart icon in navigation bar
+                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true); 
+                    
+                    //Enable Register Button in navigation bar
+                    $("#register_btn").removeClass('no_hover').prop("disabled", false);                      
+
+                    //Enable login Button in navigation bar
+                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                     
+
+                    //Show Cart Table Page
+                    $('#cart_modelbox').show();
+                    break;
+
+                case 'register':                  
+                    //Hide cards and side navigation bar
+                    $('#container_cards_sidebar').hide();
+
+                     //Hide Cart Table Page
+                     $('#cart_modelbox').hide();   
+                     
+                    //Hide Login Form
+                    $('#login_modelbox').hide();                     
+                    
+                    //Disable Search button and input field
+                    $("#search_btn").addClass('no_hover').prop("disabled", true);
+                    $("#input_search").addClass('no_hover').prop("disabled", true);
+                    
+                    //Disable Cart icon in navigation bar
+                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
+                    
+                    //Disable Register Button in navigation bar
+                    $("#register_btn").addClass('no_hover').prop("disabled", true);  
+
+                    //Enable login Button in navigation bar
+                    $("#login_btn").removeClass('no_hover').prop("disabled", false);                      
+
+                    //Show Registration Form
+                    $('#registration_modelbox').show();
+                    break; 
+
+                case 'login':     
+                    debugger;             
+                    //Hide cards and side navigation bar
+                    $('#container_cards_sidebar').hide();
+
+                    //Hide Cart Table Page
+                    $('#cart_modelbox').hide();  
+                    
+                    //Hide Registration Form
+                    $('#registration_modelbox').hide();                    
+                    
+                    //Disable Search button and input field
+                    $("#search_btn").addClass('no_hover').prop("disabled", true);
+                    $("#input_search").addClass('no_hover').prop("disabled", true);
+                    
+                    //Disable Cart icon in navigation bar
+                    $("#nav_cart_btn").addClass('no_hover').prop("disabled", true);  
+                    
+                    //Disable login Button in navigation bar
+                    $("#login_btn").addClass('no_hover').prop("disabled", true); 
+
+                    //Enable Register Button in navigation bar
+                    $("#register_btn").removeClass('no_hover').prop("disabled", false);  
+
+                    //Show Login Form
+                    $('#login_modelbox').show();
+                    break;                    
+                    
+            }
+        }
+
+        //Function to update cart table state
+        function cart_state(){
+            switch (cart_info.status){
+                case 'startup':
+                    //initializing form
+                    //clearing cart table body
+                    $('#cart_table_body').html('');
+                    //clearing cart message and its css
+                    $('#cart_message').removeClass('products_msg_style').text('');
+                    //clearing check box All
+                    $('#delete_all_checkbox').prop('checked',false);
+                    $('#update_all_checkbox').prop('checked',false);
+                    //restore cart table
+                    $("#update_all_checkbox").prop("disabled", false);
+                    $("#delete_all_checkbox").prop("disabled", false);
+                    $("#update_cart_btn").removeClass('no_hover').prop("disabled", false);
+                    $("#delete_cart_btn").removeClass('no_hover').prop("disabled", false);
+                    break;
+
+                case 'noitem':
+                    //disable cart table buttons and checkboxes
+                    $("#update_all_checkbox").prop("disabled", true);
+                    $("#delete_all_checkbox").prop("disabled", true);
+                    $("#update_cart_btn").addClass('no_hover').prop("disabled", true);
+                    $("#delete_cart_btn").addClass('no_hover').prop("disabled", true);
+                    break;
+            }
+        }
+
+    //----------End of Functions Declaration Section------------     
+        
+        //load cards and side navigation bar    
+        load_contents();
+
+        //if user has pressed products button in navigation bar
+        $('#products_btn').on('click',function(){
+
+            load_container_cards_sidebar();          
+        });
+
+        //if user has pressed search button in navigation bar
+        $('#search_btn').on('click',function(){
+            
+            var search = $('#input_search').val();
+            if(search != ""){
+                cards_info.search_type='search';
+                cards_info.search_term=search;                
+                cards_info.page_no=1;
+                load_cards();
+
+                 //Update sub heading with search term
+                $("#sub_heading").text('Search term: '+$('#input_search').val());
+
+                //clear previously active sidebar item
+                $('#side_nav input').removeClass('active_side_bar');                 
+            }
+
+        }); 
+
+
+    //-------Start of Registration Form----------------------   
+
+        //if user has pressed Registration button in navigation bar
+        $('#register_btn').on('click',function(){
+            //set  user state
+            user_info.user_state = "register";
+            change_user_state();          
+        });   
+
+        //if user has pressed Close button Registration Form
+        $('#reg_close_btn').on('click',function(){
+            //set  user state
+            user_info.user_state = "cards";
+            change_user_state();          
+        });   
+
+        //if user has pressed Login link in form
+        $('#reg_form_redirect').on('click',function(e){
+            e.preventDefault();
+            //set  user state
+            user_info.user_state = "login";
+            change_user_state();              
+        });        
+        
+    //-------End of Registration Form----------------------    
+
+    //-------Start of Login Form----------------------   
+
+        //if user has pressed Login button in navigation bar
+        $('#login_btn').on('click',function(){
+            //set  user state
+            user_info.user_state = "login";
+            change_user_state();          
+        });   
+
+        //if user has pressed Close button Registration Form
+        $('#log_close_btn').on('click',function(){
+            //set  user state
+            user_info.user_state = "cards";
+            change_user_state();          
+        }); 
+        
+        //if user has pressed Register link in form
+        $('#log_form_redirect').on('click',function(e){
+            e.preventDefault();
+            //set  user state
+            user_info.user_state = "register";
+            change_user_state();              
+        });
+        
+    //-------End of Login Form----------------------   
+
+    //--------------Cart Section-------------
 
         //load user's cart information in navigation bar
         load_cart_info();
@@ -428,96 +774,88 @@
         //if user has pressed cart button in navigation bar
         $('#nav_cart_btn').on('click',function(e){
             e.preventDefault();
+
+            //Set user state
+            user_info.user_state = 'cart';
+            change_user_state();            
+
+            //load cart table page
             load_cart_table();
         });
 
         //If user has pressed close button in cart table form
         $('#cart_close_btn').on('click',function(e){
             e.preventDefault();
-            debugger;
-            //check if cart is empty
-            if(cart_info.cart_empty){
-                //restore cart table
-                $("#update_all_checkbox").prop("disabled", false);
-                $("#delete_all_checkbox").prop("disabled", false);
-                $("#update_cart_btn").removeClass('cart_btn_no_hover').prop("disabled", false);
-                $("#delete_cart_btn").removeClass('cart_btn_no_hover').prop("disabled", false);
-                //reset cart_empty
-                cart_info.cart_empty=false;
-            }
-            $('#cart_modelbox').hide();
-            
+            load_container_cards_sidebar();           
         });
 
-          //If user clicks delete all checkbox in cart table form
-          $('#delete_all_checkbox').on('click',function(){
-            if($('#delete_all_checkbox').prop('checked')){
-                $('.delete_checkbox').prop('checked',true);
-            }else{
-                $('.delete_checkbox').prop('checked',false);
-            }
-          });
+        //If user clicks delete all checkbox in cart table form
+        $('#delete_all_checkbox').on('click',function(){
+        if($('#delete_all_checkbox').prop('checked')){
+            $('.delete_checkbox').prop('checked',true);
+        }else{
+            $('.delete_checkbox').prop('checked',false);
+        }
+        });
        
         //if user clicks single delete checkbox in cart table form
         $(document).on('click','.delete_checkbox',function(){
             if(!$(this).prop('checked')){
                 $('#delete_all_checkbox').prop('checked',false);
             }
-          });
+        });
 
+        //if user has pressed delete button in cart table form
+        $('#delete_cart_btn').on('click',function(){
 
-          //if user has pressed delete button in cart table form
-          $('#delete_cart_btn').on('click',function(){
+        //reset cart_info record key
+        cart_info.records=[];
+        //check if user has checked any delete checkbox
+        $('.delete_checkbox:checked').each(function(key){
+            cart_info.records[key]=$(this).val();
+        });
+        if(cart_info.records.length==0){
+            alert('Select atleast one checkbox to remove items.');
 
-            //reset cart_info record key
-            cart_info.records=[];
-            //check if user has checked any delete checkbox
-            $('.delete_checkbox:checked').each(function(key){
-                cart_info.records[key]=$(this).val();
-            });
-            if(cart_info.records.length==0){
-                alert('Select atleast one checkbox to remove items.');
+        }else if(confirm('Do you really want to remove items?')){
 
-            }else if(confirm('Do you really want to remove items?')){
-
-                //check if user has any unchecked delete checkbox
-                if($('.delete_checkbox:not(:checked)').length==0){
-                    cart_info.cart_empty=true;
-                }
-
-                cart_info.op_type="delete";
-                var json_obj = JSON.stringify(cart_info);
-                $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
-                    type: "POST",
-                    dataType:"json",
-                    data:json_obj,
-                    success:function(data){
-                        if(data.error){
-                            $('#cart_message').fadeIn('slow').text(data.message);
-                        }else{ 
-
-                            //if cart is empty then cart update message is not displayed
-                            if(!cart_info.cart_empty){
-                                cart_info.cart_changed=true;  
-                            }                         
-                            load_cart_table(); 
-                            
-                        }
-                    }
-                });                  
+            //check if user has any unchecked delete checkbox
+            if($('.delete_checkbox:not(:checked)').length==0){
+                // cart_info.cart_empty=true;
+                cart_info.status = "noitem";
             }
-          });        
 
+            cart_info.op_type="delete";
+            var json_obj = JSON.stringify(cart_info);
+            $.ajax({
+            url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                type: "POST",
+                dataType:"json",
+                data:json_obj,
+                success:function(data){
+                    if(data.error){
+                        $('#cart_message').fadeIn('slow').text(data.message);
+                    }else{ 
 
-          //If user clicks update all checkbox in cart table form
-          $('#update_all_checkbox').on('click',function(){
-            if($('#update_all_checkbox').prop('checked')){
-                $('.update_checkbox').prop('checked',true);
-            }else
-            $('.update_checkbox').prop('checked',false);
-          });
+                        //if cart is empty then cart update message is not displayed
+                        if(cart_info.status != "noitem"){
+                            cart_info.cart_changed=true;  
+                        }                         
+                        load_cart_table(); 
+                        
+                    }
+                }
+            });                  
+        }
+        });        
 
+        //If user clicks update all checkbox in cart table form
+        $('#update_all_checkbox').on('click',function(){
+        if($('#update_all_checkbox').prop('checked')){
+            $('.update_checkbox').prop('checked',true);
+        }else
+        $('.update_checkbox').prop('checked',false);
+        });
 
         //if user clicks single update checkbox in cart table form
         $(document).on('click','.update_checkbox',function(){
@@ -525,47 +863,51 @@
             if(!$(this).prop('checked')){
                 $('#update_all_checkbox').prop('checked',false);
             }
-          });
+        });
 
+        //if user has pressed update button in cart table form
+        $('#update_cart_btn').on('click',function(){
 
-          //if user has pressed update button in cart table form
-          $('#update_cart_btn').on('click',function(){
-
-            //clear cart_info records array
-            cart_info.records = [];
-            id=[];
-            quantity=[];
-            //check if user has checked any update checkbox
-            $('.update_checkbox:checked').each(function(key){
-                id[key]=$(this).val();
-                var input_id = 'cart_'+id[key];
-                 quantity[key]=($('#'+input_id).val());
-                 cart_info.records[key]=[id[key],quantity[key]];
-            });
-            if(cart_info.records.length==0){
-                alert('Select atleast one checkbox to update items.');
-            }else{
-                cart_info.op_type="update";
-                var json_obj = JSON.stringify(cart_info);
-                $.ajax({
-                url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
-                    type: "POST",
-                    dataType:"json",
-                    data:json_obj,
-                    success:function(data){
-                        debugger;
-                            cart_info.cart_changed=true;  
-                            load_cart_table();                        
-                    }
-                });                  
-            }
-          });
+        //clear cart_info records array
+        cart_info.records = [];
+        id=[];
+        quantity=[];
+        //check if user has checked any update checkbox
+        $('.update_checkbox:checked').each(function(key){
+            id[key]=$(this).val();
+            var input_id = 'cart_'+id[key];
+                quantity[key]=($('#'+input_id).val());
+                cart_info.records[key]=[id[key],quantity[key]];
+        });
+        if(cart_info.records.length==0){
+            alert('Select atleast one checkbox to update items.');
+        }else{
+            cart_info.op_type="update";
+            var json_obj = JSON.stringify(cart_info);
+            $.ajax({
+            url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                type: "POST",
+                dataType:"json",
+                data:json_obj,
+                success:function(data){
+                    debugger;
+                        cart_info.cart_changed=true;  
+                        load_cart_table();                        
+                }
+            });                  
+        }
+        });
+        
+    //---------------End of Cart Section-------
+              
+        
+    //--------------Side Navigation Bar Section---------
 
         //if User press one of the side navigation bar brand button
         $(document).on('click','.side_nav_brand_btn',function(){
-            load_cards_info.search_type='brand';
-            load_cards_info.search_term=$(this).data('id');
-            load_cards_info.page_no=1;
+            cards_info.search_type='brand';
+            cards_info.search_term=$(this).data('id');
+            cards_info.page_no=1;
             load_cards();
 
             //Update sub heading with selected brand information
@@ -577,13 +919,13 @@
             //Make selected brand active
             $(this).addClass('active_side_bar'); 
         });
-        
+
         //if User press one of the side navigation bar cateogry button
         $(document).on('click','.side_nav_category_btn',function(){
             
-            load_cards_info.search_type='category';
-            load_cards_info.search_term=$(this).data('id');
-            load_cards_info.page_no=1;
+            cards_info.search_type='category';
+            cards_info.search_term=$(this).data('id');
+            cards_info.page_no=1;
             load_cards();
 
             //Update sub heading with selected category information
@@ -596,45 +938,17 @@
             $(this).addClass('active_side_bar'); 
         }); 
         
-        //if user has pressed navigation bar's products button
-        $('#products_btn').on('click',function(){
-            load_cards_info.search_type='all';
-            load_cards_info.search_term='0';  
-            load_cards_info.page_no=1;
-            load_cards();
 
-            //Update sub heading 
-            $("#sub_heading").text('Check our inventory');
-
-            //clear previously active sidebar item
-            $('#side_nav input').removeClass('active_side_bar');            
-        });
-
-        //if user has pressed search button
-        $('#search_btn').on('click',function(){
-            
-            var search = $('#input_search').val();
-            if(search != ""){
-                load_cards_info.search_type='search';
-                load_cards_info.search_term=search;                
-                load_cards_info.page_no=1;
-                load_cards();
-
-                 //Update sub heading with search term
-                $("#sub_heading").text('Search term: '+$('#input_search').val());
-
-                //clear previously active sidebar item
-                $('#side_nav input').removeClass('active_side_bar');                 
-            }
-
-        }); 
+    //-----------End of Side Navigation Bar Section---------    
 
         //if user has pressed page button
         $(document).on('click','#pagination_body a',function(e){
             e.preventDefault();
-            load_cards_info.page_no = $(this).attr('id');
+            cards_info.page_no = $(this).attr('id');
             load_cards();
         });
+
+    //---------View Product Detail Section--------------------    
 
         //if user has pressed view button in product card
         $(document).on('click','.view_product_btn',function(){
@@ -729,7 +1043,10 @@
                         }
                     }
                 });
-        });         
+        }); 
+    
+    //------------End of View Product Detail Section------------   
+        
     });
 </script>
 </html>
