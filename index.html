@@ -482,7 +482,7 @@
                                                             <option value="1">UPI</option>
                                                             <option value="2">Net Banking</option>
                                                             <option value="3">Paypal</option>
-                                                            <option value="4">Cash On Deliver</option>
+                                                            <option value="4">Cash On Delivery</option>
                                                             <option value="5">Pay Offline</option>
                                                         </select>    
                                                         <div id="sel_pay_or_form_msg" class="field_err_msg"></div>
@@ -679,7 +679,7 @@
                 contentType: "application/json; charset=utf-8",
                 data:json_obj,
                 success:function(data){
-                    debugger;
+
                     //clear cards
                     $('#cards_container').html('');
                     //clear message class
@@ -820,7 +820,7 @@
                                         $('#cart_message').removeClass('table_msg_style');
                                     },2600);                                     
                                 }
-                                debugger;
+
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr>'+
                                                                 '<td class="left_align">'+(key+1)+'</td>'+
@@ -1004,7 +1004,7 @@
                 type:"GET",
                 dataType:"json",
                 success: function(data){
-                    debugger;
+
                 $('#user_msg').text('You have '+data.orders+' pending orders');
                 }
             });
@@ -2359,7 +2359,6 @@
                     success: function(data){
 
                         if(data.error){
-                            debugger;
 
                             //set user profile state
                             user_info.last_profile_modelbox=user_info.current_profile_modelbox;

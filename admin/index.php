@@ -508,10 +508,10 @@
                             <div class="field_name" id = "delete_msg1"></div>
                         </div>    
                         <div class="form_row">
-                            <div class="field_name">Either it is in cart table in data base</div>
+                            <div class="field_name">It can be in cart table in database</div>
                         </div>    
                         <div class="form_row">
-                            <div class="field_name">Or it is in order detail table in pending state.</div>   
+                            <div class="field_name">It can be in order detail table in pending state in database.</div>   
                         </div>  
                         <div class="form_linebreak"></div>
                         
@@ -541,12 +541,16 @@
                     <thead>
                         <tr>
                             <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Category Name</th>
-                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">User ID</th>
+                            <th rowspan="2">Invoice No</th>
+                            <th rowspan="2">Products Selected</th>
+                            <th rowspan="2">Amount Due</th>
+                            <th rowspan="2">Order Date</th>
+                            <th rowspan="2">Order Status</th>
                             <th rowspan="2">Delete</th>
                         </tr>                                   
                     </thead>
-                    <tbody id="orders_details_table_body"> 
+                    <tbody id="orders_details_table_body">                     
                     </tbody>
                 </table> 
             </div>
@@ -568,12 +572,14 @@
                     <thead>
                         <tr>
                             <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Category Name</th>
-                            <th rowspan="2">Edit</th>
+                            <th rowspan="2" class="left_align">Payment Mode</th>
+                            <th rowspan="2" >Invoice No</th>
+                            <th rowspan="2">Amount</th>
+                            <th rowspan="2">Date</th>
                             <th rowspan="2">Delete</th>
                         </tr>                                   
                     </thead>
-                    <tbody id="payments_details_table_body"> 
+                    <tbody id="payments_details_table_body">                         
                     </tbody>
                 </table> 
             </div>
@@ -594,13 +600,16 @@
                 <table>
                     <thead>
                         <tr>
+
                             <th rowspan="2" class='left_align'>S.No</th>
-                            <th rowspan="2" class='left_align'>Category Name</th>
-                            <th rowspan="2">Edit</th>
+                            <th rowspan="2" class='left_align'>User Name</th>
+                            <th rowspan="2" class='left_align'>User Email</th>
+                            <th rowspan="2" class='left_align'>User Address</th>
+                            <th rowspan="2" class="left_align">Contact No</th>
                             <th rowspan="2">Delete</th>
                         </tr>                                   
                     </thead>
-                    <tbody id="users_details_table_body"> 
+                    <tbody id="users_details_table_body">                      
                     </tbody>
                 </table> 
             </div>
@@ -620,45 +629,81 @@
 
         //parameters used in determining user's current state
         const admin_info={
-            current_modelbox:"default_modelbox",
+            active_modelbox:"default_modelbox",
             last_modelbox:"",
-            selectbox_active:'',
-            selectbox_last:"",
+            active_selectbox:'',
+            last_selectbox:"",
             active_button:"",
-            last_active_button:"",
+            last_button:"",
         }
     
     //------ End of Objects Declaration---------------------    
         
     // ---------Start of Function definitions-------------------   
+ 
 
-        //Function to update user state
-        function change_admin_state(){
+        //This function is used when admin press navbar button after pressing selectbox
+        function reset_active_selectbox(){
+
+            //if admin has pressed selectbox 
+            if(admin_info.active_selectbox != ""){
+                $('#'+admin_info.active_selectbox).val(0);                                          
+            }
+            
+            //Clear selectbox parameters
+            admin_info.active_selectbox = admin_info.last_selectbox = "";
+
+        } 
+        
+        //This function is used when admin press selectbox after pressing button
+        function reset_active_button(){ 
+
+            //check if admin has pressed button
+            if(admin_info.active_button != ""){
+                //Deactivate active navbar button
+                $('#'+admin_info.active_button).removeClass("nav_active_btn");            
+            }
+
+            //clear button parameters
+            admin_info.active_button = admin_info.last_button = "";
+
+        }  
+        
+        //Function to change modelbox
+        function change_modelbox(){
 
             //Hide last modelbox
             $('#'+admin_info.last_modelbox).hide();                                          
 
-            //Deactivate previous navbar button
-            // $('#'+admin_info.last_active_button).removeClass("nav_active_btn");
-
-            //Activate Current navbar button
-            // $('#'+user_info.active_button).addClass("nav_active_btn");
-
             //display current modelbox
-            $('#'+admin_info.current_modelbox).show();            
+            $('#'+admin_info.active_modelbox).show();            
 
-        }        
+        }         
 
-        //Function to check user selectbox
-        function check_selectbox(){
-            //check if last modelbox is not empty
-            if(admin_info.selectbox_last != ""){
+        //Function to reset last selectbox
+        //This function is used when admin press on selectbox after another
+        function reset_last_selectbox(){
+            //check if last selectbox is not empty
+            if(admin_info.last_selectbox != ""){
                 //check if user is not same selectbox
-                if(admin_info.selectbox_active != admin_info.selectbox_last){
-                    $('#'+admin_info.selectbox_last).val(0);
+                if(admin_info.active_selectbox != admin_info.last_selectbox){
+                    $('#'+admin_info.last_selectbox).val(0);
                 }
             }
-        }    
+        }  
+        
+        //Function to change button CSS
+        function change_button(){
+
+            //Deactivate last button
+            //check if last button is not empty
+            if(admin_info.last_button != ""){
+                $('#'+admin_info.last_button).removeClass("nav_active_btn");
+            }
+
+            //Activate Current navbar button
+            $('#'+admin_info.active_button).addClass("nav_active_btn");            
+        }          
 
         // ---------Start of Product Function definitions------------   
 
@@ -954,6 +999,103 @@
         
         // ---------End of Category Function definitions------------   
         
+
+        //This function load orders details table
+        function load_users_orders_table(){
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_all_orders.php",
+                dataType:"json",
+                success: function(data){
+
+                    //clear order table
+                    $('#orders_details_table_body').html('');
+                    $('#orders_details_table_msg').removeClass('table_msg_style').text('');
+
+                    if(data.error){
+                        $('#orders_details_table_msg').addClass('table_msg_style').text('No Orders');
+                    }else{
+
+                        $.each(data.records, function(key,value){
+                            $('#orders_details_table_body').append('<tr>'+
+                                                                '<td class="left_align">'+(key+1)+'</td>'+ 
+                                                                '<td>'+value.user_id+'</td>'+ 
+                                                                '<td>'+value.invoice_number+'</td>'+ 
+                                                                '<td>'+value.total_products+'</td>'+ 
+                                                                '<td>'+value.amount_due+'</td>'+ 
+                                                                '<td>'+value.order_date+'</td>'+ 
+                                                                '<td>'+value.order_status+'</td>'+ 
+                                                                "<td>"+'<button class="card_btn delete_order_btn" data-id="'+value.order_id+'">Delete</button>'+"</td>"+ 
+                                                                '<tr>');
+                        });                  
+                    }               
+
+                }
+
+            }); 
+        }
+
+        //This function load payments details table
+        function load_payments_table(){
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_all_payments.php",
+                dataType:"json",
+                success: function(data){
+
+                    //clear order table
+                    $('#payments_details_table_body').html('');
+                    $('#payments_details_table_msg').removeClass('table_msg_style').text('');
+
+                    if(data.error){
+                        $('#payments_details_table_msg').addClass('table_msg_style').text('No Orders');
+                    }else{
+
+                        $.each(data.records, function(key,value){
+                            $('#payments_details_table_body').append('<tr>'+
+                                                                '<td class="left_align">'+(key+1)+'</td>'+ 
+                                                                '<td class="left_align">'+value.pay_type+'</td>'+ 
+                                                                '<td>'+value.invoice_no+'</td>'+ 
+                                                                '<td>'+value.amount+'</td>'+ 
+                                                                '<td>'+value.date+'</td>'+ 
+                                                                "<td>"+'<button class="card_btn delete_pay_btn" data-id="'+value.payment_id+'">Delete</button>'+"</td>"+ 
+                                                                '<tr>');
+                        });                  
+                    }               
+
+                }
+
+            }); 
+        }   
+        
+        //This function load users details table
+        function load_users_table(){
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_all_users.php",
+                dataType:"json",
+                success: function(data){
+
+                    //clear order table
+                    $('#users_details_table_body').html('');
+                    $('#users_details_table_msg').removeClass('table_msg_style').text('');
+
+                    if(data.error){
+                        $('#users_details_table_msg').addClass('table_msg_style').text('No Orders');
+                    }else{
+
+                        $.each(data.records, function(key,value){
+                            $('#users_details_table_body').append('<tr>'+
+                                                                '<td class="left_align">'+(key+1)+'</td>'+ 
+                                                                '<td class="left_align">'+value.user_name+'</td>'+ 
+                                                                '<td class="left_align">'+value.user_email+'</td>'+ 
+                                                                '<td class="left_align">'+value.user_address+'</td>'+ 
+                                                                '<td class="left_align">'+value.user_contact+'</td>'+ 
+                                                                "<td>"+'<button class="card_btn delete_user_btn" data-id="'+value.user_id+'">Delete</button>'+"</td>"+ 
+                                                                '<tr>');
+                        });                  
+                    }                 
+                }
+
+            }); 
+        }          
                     
     // ---------End of Function definitions------------------- 
 
@@ -967,7 +1109,7 @@
             $.ajax({
                 url:"http://localhost/ecommerce/admin/api_admin_logout.php",
                 success: function(data){
-                    debugger;
+
                     window.location.href = 'http://localhost/ecommerce/admin/admin_login.php';
                 }
             });   
@@ -992,15 +1134,20 @@
             //if admin has selected add product in selectbox
             if($('#select_product').val()== 1){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "add_pform_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "add_pform_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_product";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_product";
+                reset_last_selectbox();
+
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------
 
                 //reset add product form
                 reset_add_product_form();
@@ -1049,15 +1196,20 @@
             //if admin has selected view products in selectbox
             if($('#select_product').val()== 2){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "products_table_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "products_table_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_product";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_product";
+                reset_last_selectbox();
+
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------
 
                 //load product table
                 load_product_table();                               
@@ -1252,9 +1404,9 @@
             $('#select_product').val('0');
             
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "default_modelbox";
-            change_admin_state();                    
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "default_modelbox";
+            change_modelbox();                    
 
         });  
         
@@ -1263,9 +1415,9 @@
             e.preventDefault();
 
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "edit_pform_modelbox";
-            change_admin_state();           
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "edit_pform_modelbox";
+            change_modelbox();           
 
             //reset edit product form
             reset_edit_product_form();
@@ -1281,7 +1433,7 @@
                     dataType:"json",
                     success:function(data){
                         if(!data.error){
-                            debugger;
+
                             //fill brand and category selectboxes using db    
                             fill_brand_category(data.brand, data.category);
 
@@ -1441,7 +1593,7 @@
                     contentType:false,
                     processData:false,
                     success: function(data){
-                        debugger;
+
                         // if form field has error
                         if(data.field_error){
                             if(data.pname.error){
@@ -1482,9 +1634,9 @@
                             reset_edit_product_form();
 
                             //change admin state
-                            admin_info.last_modelbox=admin_info.current_modelbox;
-                            admin_info.current_modelbox = "products_table_modelbox";
-                            change_admin_state();    
+                            admin_info.last_modelbox=admin_info.active_modelbox;
+                            admin_info.active_modelbox = "products_table_modelbox";
+                            change_modelbox();    
                             
                             //load updated product table
                             load_product_table();
@@ -1505,9 +1657,9 @@
             reset_edit_product_form();
             
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "products_table_modelbox";
-            change_admin_state();                    
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "products_table_modelbox";
+            change_modelbox();                    
 
         });      
 
@@ -1521,15 +1673,20 @@
             //if admin has selected add brand from selectbox
             if($('#select_brand').val()== 1){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "add_bform_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "add_bform_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_brand";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_brand";
+                reset_last_selectbox();
+
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------
 
                 //reset add brand form
                 reset_add_brand_form();
@@ -1539,15 +1696,20 @@
             //if admin has selected view brand in selectbox
             if($('#select_brand').val()== 2){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "brands_table_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "brands_table_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_brand";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_brand";
+                reset_last_selectbox();
+
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------                
 
                 //load product table
                 load_brand_table();                               
@@ -1614,9 +1776,9 @@
             $("#select_brand").val('0');
 
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "default_modelbox";
-            change_admin_state();              
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "default_modelbox";
+            change_modelbox();              
 
         }); 
         
@@ -1625,9 +1787,9 @@
             e.preventDefault();
 
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "edit_bform_modelbox";
-            change_admin_state();          
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "edit_bform_modelbox";
+            change_modelbox();          
 
             //reset edit brand form
             reset_edit_brand_form();
@@ -1673,7 +1835,7 @@
 
                             $('#delete_modelbox').show();
                             $('#delete_header').text('Delete Brand');
-                            $('#delete_msg1').text('Cannot delete Brand bacause:');
+                            $('#delete_msg1').text('Cannot delete Brand bacause it can be in product table in database');
 
                         }else{
 
@@ -1738,9 +1900,9 @@
                             },3000);                              
 
                             //change admin state
-                            admin_info.last_modelbox=admin_info.current_modelbox;
-                            admin_info.current_modelbox = "brands_table_modelbox";
-                            change_admin_state();    
+                            admin_info.last_modelbox=admin_info.active_modelbox;
+                            admin_info.active_modelbox = "brands_table_modelbox";
+                            change_modelbox();    
                             
                             //load updated brand table
                             load_brand_table();
@@ -1758,9 +1920,9 @@
             e.preventDefault();
             
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "brands_table_modelbox";
-            change_admin_state();                    
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "brands_table_modelbox";
+            change_modelbox();                    
 
         });           
 
@@ -1774,15 +1936,20 @@
             //if admin has selected add category from selectbox
             if($('#select_category').val()== 1){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "add_cform_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "add_cform_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_category";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_category";
+                reset_last_selectbox();
+
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------  
 
                 //reset add category form
                 reset_add_category_form();
@@ -1792,17 +1959,22 @@
             //if admin has selected view category in selectbox
             if($('#select_category').val()== 2){
 
-                //change admin state
-                admin_info.last_modelbox=admin_info.current_modelbox;
-                admin_info.current_modelbox = "category_table_modelbox";
-                change_admin_state();
+                //------Start of change Admin State----------
+                //change modelbox
+                admin_info.last_modelbox=admin_info.active_modelbox;
+                admin_info.active_modelbox = "category_table_modelbox";
+                change_modelbox();
 
-                //change admin selectbox
-                admin_info.selectbox_last= admin_info.selectbox_active;
-                admin_info.selectbox_active = "select_category";
-                check_selectbox();
+                //change selectbox
+                admin_info.last_selectbox= admin_info.active_selectbox;
+                admin_info.active_selectbox = "select_category";
+                reset_last_selectbox();
 
-                //load product table
+                //Reset Active button if exists
+                reset_active_button();
+                //---------End of Change Admin State----------                  
+
+                //load category table
                 load_category_table();                               
             }              
         });
@@ -1855,7 +2027,7 @@
         });
 
         //if admin press close button in add category form
-        $('#add_bclose').on('click',function(e){
+        $('#add_cclose').on('click',function(e){
             //prevent default form setting
             e.preventDefault();
 
@@ -1863,9 +2035,9 @@
             $("#select_category").val('0');
 
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "default_modelbox";
-            change_admin_state();              
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "default_modelbox";
+            change_modelbox();              
 
         }); 
 
@@ -1874,9 +2046,9 @@
             e.preventDefault();
 
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "edit_cform_modelbox";
-            change_admin_state();          
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "edit_cform_modelbox";
+            change_modelbox();          
 
             //reset edit category form
             reset_edit_category_form();
@@ -1921,7 +2093,7 @@
                         if(data.error){
                             $('#delete_modelbox').show();
                             $('#delete_header').text('Delete Category');
-                            $('#delete_msg1').text('Cannot delete Category bacause:');
+                            $('#delete_msg1').text('Cannot delete Category bacause it can be in products table in database.');
 
                         }else{
                             //load updated category table
@@ -1985,9 +2157,9 @@
                             },3000);                              
 
                             //change admin state
-                            admin_info.last_modelbox=admin_info.current_modelbox;
-                            admin_info.current_modelbox = "category_table_modelbox";
-                            change_admin_state();    
+                            admin_info.last_modelbox=admin_info.active_modelbox;
+                            admin_info.active_modelbox = "category_table_modelbox";
+                            change_modelbox();    
                             
                             //load updated category table
                             load_category_table();
@@ -2005,9 +2177,9 @@
             e.preventDefault();
             
             //change admin state
-            admin_info.last_modelbox=admin_info.current_modelbox;
-            admin_info.current_modelbox = "category_table_modelbox";
-            change_admin_state();                    
+            admin_info.last_modelbox=admin_info.active_modelbox;
+            admin_info.active_modelbox = "category_table_modelbox";
+            change_modelbox();                    
 
         });    
 
@@ -2016,26 +2188,152 @@
     // if admin press order button in navigation bar 
     $('#order_btn').on('click',function(e){
         e.preventDefault();
+   
+        //------Start of change Admin State----------
+        //change modelbox
+        admin_info.last_modelbox=admin_info.active_modelbox;
+        admin_info.active_modelbox = "orders_details_modelbox";
+        change_modelbox();
 
-        //hide delete modelbox
-        alert('order btn');
+        //change button
+        admin_info.last_button= admin_info.active_button;
+        admin_info.active_button = "order_btn";
+        change_button();
+
+        //Reset Active selectbox if exists
+        reset_active_selectbox();
+        //---------End of Change Admin State----------
+        
+        //load user orders table
+        load_users_orders_table();
+
     });
+
+    //if admin press Delete Order In Orders Details table
+    $(document).on('click','.delete_order_btn',function(e){
+        e.preventDefault();
+
+        if(confirm("Are you sure?")){
+
+            var order_id =$(this).data('id');
+            var obj = {order_id:order_id};
+            var json_obj = JSON.stringify(obj);
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_delete_user_order.php",
+                type: "POST",
+                data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success:function(data){
+                    if(data.error){
+
+                    }else{
+                        //load updated category table
+                        load_users_orders_table();    
+                    }
+                }
+            });
+        }                                   
+    });     
 
     // if admin press payment button in navigation bar 
     $('#payment_btn').on('click',function(e){
         e.preventDefault();
 
-        //hide delete modelbox
-        alert('payment btn');
+        //------Start of change Admin State----------
+        //change modelbox
+        admin_info.last_modelbox=admin_info.active_modelbox;
+        admin_info.active_modelbox = "payments_details_modelbox";
+        change_modelbox();
+
+        //change button
+        admin_info.last_button= admin_info.active_button;
+        admin_info.active_button = "payment_btn";
+        change_button();
+
+        //Reset Active selectbox if exists
+        reset_active_selectbox();
+        //---------End of Change Admin State----------
+        
+        load_payments_table();
     });
+
+    //if admin press Delete payment In Payments Details table
+    $(document).on('click','.delete_pay_btn',function(e){
+        e.preventDefault();
+
+        if(confirm("Are you sure?")){
+
+            var p_id =$(this).data('id');
+            var obj = {p_id:p_id};
+            var json_obj = JSON.stringify(obj);
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_delete_payment.php",
+                type: "POST",
+                data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success:function(data){
+                    if(data.error){
+
+                    }else{
+                        //load updated category table
+                        load_payments_table();    
+                    }
+                }
+            });
+        }                                   
+    });      
     
     // if admin press user button in navigation bar 
     $('#users_btn').on('click',function(e){
         e.preventDefault();
 
-        //hide delete modelbox
-        alert('user btn');
+        //------Start of change Admin State----------
+        //change modelbox
+        admin_info.last_modelbox=admin_info.active_modelbox;
+        admin_info.active_modelbox = "users_details_modelbox";
+        change_modelbox();
+
+        //change button
+        admin_info.last_button= admin_info.active_button;
+        admin_info.active_button = "users_btn";
+        change_button();
+
+        //Reset Active selectbox if exists
+        reset_active_selectbox();
+        //---------End of Change Admin State---------- 
+        
+        load_users_table();
     });
+
+    //if admin press Delete user In Users Details table
+    $(document).on('click','.delete_user_btn',function(e){
+        e.preventDefault();
+
+        if(confirm("Are you sure?")){
+
+            var u_id =$(this).data('id');
+            var obj = {u_id:u_id};
+            var json_obj = JSON.stringify(obj);
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_delete_user.php",
+                type: "POST",
+                data:json_obj,
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success:function(data){
+                    if(data.error){
+
+                    }else{
+                        //load updated category table
+                        load_users_table();    
+                    }
+                }
+            });
+        }                                   
+    });      
+       
 
     });
 

@@ -1,6 +1,6 @@
 <?php 
 
-    header('content_type: application/json');
+    header('Content-Type: application/json');
     header('Access-Control-Allow-Origin:*');
     header('Access-Control-Allow-Methods:POST');
     header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,Authorization,X-Requested-With');

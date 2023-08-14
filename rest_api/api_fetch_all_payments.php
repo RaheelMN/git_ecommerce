@@ -5,10 +5,10 @@
         
     session_start();
     
-    if(isset($_SESSION['user_id'])){
+    if(isset($_SESSION['admin_role'])){ 
 
         //connecting with DB server
-       require_once "../../include/config.php";
+       require_once "../include/config.php";
 
         $output=[];
         $output['error']=false;
@@ -16,7 +16,7 @@
         $user_id = $_SESSION['user_id'];
     
         //sql query to fetch user orders
-        $sql = "SELECT order_id,invoice_number,total_products,amount_due,order_date,order_status FROM user_orders WHERE user_id = $user_id";
+        $sql = "SELECT * FROM view_payment_table";
         $result = mysqli_query($conn,$sql) or die('Failed to fetch records from DB');
         
         if(mysqli_num_rows($result)>0){
@@ -26,7 +26,7 @@
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);
         }else{
-           $output['message']= "You have no orders";
+           $output['message']= "No payments";
            $output['error'] =true;
 
             //close db connection
