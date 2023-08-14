@@ -105,7 +105,7 @@
                     $result = mysqli_query($conn,$sql) or die('Failed to perform query');
                     $record = mysqli_fetch_assoc($result);
 
-                    $sql = "UPDATE cart_detail SET quantity={$value[1]}, total_cost=cal_cost($value[1],{$record['p_price']}) where cart_id={$value[0]}";
+                    $sql = "UPDATE cart_detail SET quantity={$value[1]}, total_cost=($value[1]*{$record['p_price']}) where cart_id={$value[0]}";
                     $result = mysqli_query($conn,$sql) or die('Failed to perform query');
                 }
 

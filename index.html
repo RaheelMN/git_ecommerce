@@ -731,7 +731,7 @@
         //Function to initialize cart items and total price in navigation bar
         function load_navbar_cart_info(){
             cart_info.op_type="refresh";
-
+                debugger;
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
                     url:"./rest_api/user/api_cart_operations.php",
@@ -804,7 +804,7 @@
                         contentType: "application/json; charset=utf-8",
                         dataType:"json",
                         success:function(data){
-
+                            debugger;
                             //set cart state
                             cart_info.status = 'startup';
                             change_cart_state();  
@@ -1744,7 +1744,7 @@
 
         //if user has pressed add to cart button in product card
         $(document).on('click','.add_product_btn',function(){
-
+                debugger;
                 //set cart info object
                 cart_info.product_id =$(this).data('id');
                 cart_info.op_type = "add";
@@ -1761,9 +1761,9 @@
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success:function(data){
-
+                        debugger;
                         //if product is already in cart
-                        if(!data.error){
+                        if(data.error){
                             $('#products_msg').fadeIn('slow');
                             $('#products_msg').addClass('table_msg_style').text(data.message);
                             setTimeout(function(){
