@@ -621,7 +621,7 @@
 
             json_obj = JSON.stringify(cards_info);
             $.ajax({               
-                url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
+                url:"http://localhost/ecommerce/rest_api/user/api_fetch_products.php",
                 type: "POST",
                 dataType:"json",
                 contentType: "application/json; charset=utf-8",
@@ -670,7 +670,7 @@
 
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -711,7 +711,7 @@
                 cart_info.op_type="table";
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                        url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                        url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
                         type: "POST",
                         data:json_obj,
                         contentType: "application/json; charset=utf-8",
@@ -752,7 +752,7 @@
                                 }
 
                                 $.each(data.data,function(key, value){
-                                    $('#cart_table_body').append('<tr class="table_row_border">'+
+                                    $('#cart_table_body').append('<tr>'+
                                                                 '<td class="cart_table_col1">'+value.p_title+'</td>'+
                                                                 '<td class="cart_cell"><img src="'+value.p_image1+'" alt="mangoes" class="cart_image"></td>'+
                                                                 '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
@@ -906,7 +906,7 @@
         //Function to check user session status
         function check_user_session(){
             $.ajax({
-                url: "http://localhost/ecommerce/rest_api/api_session_status.php",
+                url: "http://localhost/ecommerce/rest_api/user/api_session_status.php",
                 type: "GET",
                 dataType:"json",
                 success: function(data){
@@ -1463,7 +1463,7 @@
             cart_info.op_type="delete";
             var json_obj = JSON.stringify(cart_info);
             $.ajax({
-            url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+            url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -1515,7 +1515,7 @@
             cart_info.op_type="update";
             var json_obj = JSON.stringify(cart_info);
             $.ajax({
-            url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+            url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
                 type: "POST",
                 data:json_obj,
                 contentType: "application/json; charset=utf-8",
@@ -1694,7 +1694,7 @@
                 var obj = {product_id:product_id};
                 var json_obj = JSON.stringify(obj);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_fetch_single_product.php",
+                    url:"http://localhost/ecommerce/rest_api/user/api_fetch_single_product.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -1752,7 +1752,7 @@
                 cart_info.quantity = 1;
                 var json_obj = JSON.stringify(cart_info);
                 $.ajax({
-                    url:"http://localhost/ecommerce/rest_api/api_cart_operations.php",
+                    url:"http://localhost/ecommerce/rest_api/user/api_cart_operations.php",
                     type: "POST",
                     data:json_obj,
                     contentType: "application/json; charset=utf-8",
@@ -2171,7 +2171,7 @@
                     }else{
                         $.each(data.records, function(key,value){
                         if(value.order_status=="Pending"){
-                            $('#order_table_body').append("<tr class='table_row_border'>"+
+                            $('#order_table_body').append("<tr>"+
                                                         "<td class='left_align'>"+(key+1)+"</td>"+  
                                                         "<td>"+value.invoice_number+"</td>"+  
                                                         "<td>"+value.total_products+"</td>"+
@@ -2181,7 +2181,7 @@
                                                         "<td><a class='confirm_order' href='#' data-id ='"+value.order_id+"'>Confirm</a></td>"+
                                                             "<tr>");
                             }else{
-                                $('#order_table_body').append("<tr class='table_row_border'>"+
+                                $('#order_table_body').append("<tr>"+
                                                         "<td class='left_align'>"+(key+1)+"</td>"+  
                                                         "<td>"+value.invoice_number+"</td>"+  
                                                         "<td>"+value.total_products+"</td>"+

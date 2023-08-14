@@ -1,10 +1,31 @@
 <?php
 
-    //start session
-    // session_start();
-    // if(!isset($_SESSION['admin_role'])){
-    //     header("location:http://localhost/ecommerce/admin/admin_login.php");
-    // }
+   //Authenticate the host
+   session_start();
+
+   //check if host not authorize to access page
+   if(!isset($_SESSION['admin_role'])){
+
+
+        // //check if host has sent cookie
+        if(!empty($_COOKIE)){
+    
+            //destroy host's browser cookie
+            $cookie_name="";
+            foreach($_COOKIE as $key=>$value){
+                $cookie_name = $key;
+            }
+                setcookie($cookie_name,"",time()-42000,"/");
+        }
+        else{
+            //destroy new session
+            setcookie(session_name(),"",time()-42000,"/");
+        }
+
+
+    //    rediect host to login page
+       header("location:http://localhost/ecommerce/admin/admin_login.php");
+   }
 
      //insert below line in navigation bar welcome message
     // echo "{$_SESSION['admin_name']}";
@@ -78,6 +99,7 @@
                 </div>
             </div>
         </nav> 
+        <div class="form_linebreak"></div>
 
     <!-- End of Navigation Bar -->    
         
@@ -93,7 +115,6 @@
     <!-- -------End of Defualt modelbox----- -->
 
     <!-- Start of Add Product form -->
-        <div class="form_linebreak"></div>
          <div id="add_pform_modelbox">
             <div class="form_div">
                 <form action="" id="add_pform" class="form">
@@ -155,42 +176,116 @@
                 </form>
             </div>
         </div>
-    <!-- ----End of Product Form--- -->
+    <!-- ----End of Add Product Form--- -->
+
+
+    <!-- Start of Edit Product form -->
+        <div id="edit_pform_modelbox">
+            <div class="form_div">
+                <form action="" id="edit_pform" class="form">
+                    <div class="form_header">
+                        <h3>Edit Product</h3>                   
+                    </div>
+                    <div class="form_linebreak"></div>
+                    <div class="form_body">
+
+                        <div class="form_row">
+                            <div class="field_name">Product name</div>
+                            <input type="text" class="form_input" name="edit_pname" id="edit_pname" value="" autocomplete="off">
+                            <div id="edit_pname_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <div class="field_name">Product Description</div>
+                            <input type="text"  class="form_input" name="edit_pdesc" id="edit_pdesc" value="" autocomplete="off">
+                            <div id="edit_pdesc_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <div class="field_name">Product Keyword</div>
+                            <input type="text"  class="form_input" name="edit_pkeyw" id="edit_pkeyw" value="" autocomplete="off">
+                            <div id="edit_pkeyw_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <select id="edit_pform_brand" class="form_selectbox" name="edit_pform_brand"></select>
+                            <div id="edit_pbrand_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <select id="edit_pform_category" class="form_selectbox" name="edit_pform_category"></select>
+                            <div id="edit_pcatg_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <div class="edit_image_div">
+                                    <div class="field_name">Edit Image 1 </div>
+                                <img src="" alt="" id="edit_image2" class="edit_image">
+                                </div>
+                                <input type="file"  class="form_input" name="edit_pimg1" id="edit_pimg1" val="">
+                                <div id="edit_pimg1_msg" class="field_err_msg"></div>
+                            </div>
+
+                        <div class="form_row">
+                            <div class="edit_image_div">
+                                <div class="field_name">Edit Image 2 </div>
+                               <img src="" alt="" id="edit_image1" class="edit_image">
+                            </div>
+                            <input type="file"  class="form_input" name="edit_pimg2" id="edit_pimg2" val="">
+                            <div id="edit_pimg2_msg" class="field_err_msg"></div>
+                        </div>
+
+                        <div class="form_row">
+                            <div class="edit_image_div">
+                                <div class="field_name">Edit Image 3 </div>
+                               <img src="" alt="" id="edit_image3" class="edit_image">
+                            </div>
+                            <input type="file"  class="form_input" name="edit_pimg3" id="edit_pimg3" val="">
+                            <div id="edit_pimg3_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_row">
+                            <div class="field_name">Product Price</div>
+                            <input type="text"  class="form_input" name="edit_pprice" id="edit_pprice" value="" autocomplete="off">
+                            <div id="edit_pprice_msg" class="field_err_msg"></div>
+                        </div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <input type="submit" class="form_btn" id="edit_psubmit" name="edit_psubmit" value="Submit">
+                            <button class="form_btn" id="edit_pclose">Close</button>
+                        </div>
+                        <div id="edit_pform_msg" class="form_msg"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <!-- ----End of Edit Product Form--- -->    
         
-        <!-- Start of View Products Table -->
-        <div id="product_table_modelbox">
-            <table id="view_products_table" class="user_table" >
-                    <thead  style="border:1px solid black;">
-                            <tr>
-                                <th rowspan="2" class='left_align'>Product ID</th>
-                                <th rowspan="2">Product Title</th>
-                                <th rowspan="2">Product Image</th>
-                                <th rowspan="2">Product Price</th>
-                                <th rowspan="2">Total Sold</th>
-                                <th rowspan="2">Status</th>
-                                <th rowspan="2">Edit</th>
-                                <th rowspan="2">Delete</th>
+    <!-- Start of View Products Table -->
+        <div id="products_table_modelbox">
+            <div id="products_table_div">
+                <table id="view_products_table" >
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class='left_align'>Product ID</th>
+                            <th rowspan="2" class='left_align'>Product Title</th>
+                            <th rowspan="2">Product Image</th>
+                            <th rowspan="2">Product Price</th>
+                            <th rowspan="2">Total Sold</th>
+                            <th rowspan="2">Stock</th>
+                            <th rowspan="2">Status</th>
+                            <th rowspan="2">Edit</th>
+                            <th rowspan="2">Delete</th>
 
-                            </tr>                                   
+                        </tr>                                   
                     </thead>
-                    <tbody id="order_table_body">
-                    <tr>
-                                <td>Product ID</th>
-                                <td>Product Title</th>
-                                <td>Product Image</th>
-                                <td>Product Price</th>
-                                <td>Total Sold</th>
-                                <td>Status</th>
-                                <td>Edit</th>
-                                <td>Delete</th>
-
-                            </tr>  
+                    <tbody id="view_product_table_body"> 
                     </tbody>
-            </table> 
+                </table> 
+            </div>
             <div class="form_linebreak"></div>
             <div id="order_table_msg" class="form_msg"></div>  
         </div>
-        <!-- ----End of View Product Table--- -->
+    <!-- ----End of View Product Table--- -->
 
         <!-- Add Brand Form -->
         <div id="add_bform_modelbox" class="form_modelbox">
@@ -275,6 +370,19 @@
             clear_product_form_msgs();
          }
 
+         //This function reset edit_product form
+         function reset_edit_product_form(){
+
+            //clear edit_product form message
+            $('#edit_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');    
+
+            //Reset form fields
+            $('#edit_pform').trigger('reset');
+
+            //clear field error messages
+            clear_product_form_msgs();
+        }         
+
         //This function clear all error messages of form add_product
         function clear_product_form_msgs(){
                         // clear field messages
@@ -288,6 +396,20 @@
                         $('#add_pimg3_msg').html('');
                         $('#add_pprice_msg').html('');
         }
+
+        //This function clear all error messages of form edit_product
+        function clear_edit_product_form_msgs(){
+                        // clear field messages
+                        $('#edit_pname_msg').html('');
+                        $('#edit_pdesc_msg').html('');
+                        $('#edit_pkeyw_msg').html('');
+                        $('#edit_pbrand_msg').html('');
+                        $('#edit_pcatg_msg').html('');
+                        $('#edit_pimg1_msg').html('');
+                        $('#edit_pimg2_msg').html('');
+                        $('#edit_pimg3_msg').html('');
+                        $('#edit_pprice_msg').html('');
+        }        
 
         //Function to update user state
         function change_admin_state(){
@@ -306,6 +428,62 @@
 
         }        
 
+
+        //Function to populate brand and category information from db in edit product form
+        function fill_brand_category(brand, category){
+
+            //populate brand and category select box
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_brands_catg.php",
+                type: "GET",
+                dataType:"json",
+                success: function(data){
+
+                    //clear selectboxes brand and category
+                    $('#edit_pform_brand').html('');
+                    $('#edit_pform_category').html('');
+
+                    if(!data.brands.error){
+                        $('#edit_pform_brand').append($('<option>',{
+                                                                value:'0',
+                                                                text: 'Select Brand'
+                        }));
+                        $.each(data.brands.data,function(key,value){
+                            $('#edit_pform_brand').append($('<option>',{
+                                value: value.b_id,
+                                text: value.b_name
+                            }));
+                        }); 
+
+                        $("#edit_pform_brand option").each(function() {
+                            if($(this).text() == brand) {
+                                $(this).attr('selected', 'selected');            
+                            }                        
+                        });
+                    }
+                    if(!data.categories.error){
+                        $('#edit_pform_category').append($('<option>',{
+                                                                value:'0',
+                                                                text: 'Select Category'
+                        }));
+                        $.each(data.categories.data,function(key,value){
+                            $('#edit_pform_category').append($('<option>',{
+                                                    value: value.c_id,
+                                                    text: value.c_name
+                            }));
+                        });
+
+                        $("#edit_pform_category option").each(function() {
+                            if($(this).text() == category) {
+                                $(this).attr('selected', 'selected');            
+                            }                        
+                        });                        
+                    }
+
+                }
+            });              
+        }
+        
     // ---------End of Function definitions------------------- 
 
     //If user has pressed Logout button in navigation bar
@@ -331,8 +509,9 @@
         
         //if admin has selected option from product selectbox
         $('#select_product').change(function(){
-            debugger;
-            //if admin has selected add_brand from selectbox
+        // $("#select_product option").mouseup(function(){    
+
+            //if admin has selected add product in selectbox
             if($('#select_product').val()== 1){
 
                 //change admin state
@@ -349,7 +528,7 @@
                     type: "GET",
                     dataType:"json",
                     success: function(data){
-                        debugger;
+
                         //clear selectboxes brand and category
                         $('#add_pform_brand').html('');
                         $('#add_pform_category').html('');
@@ -382,189 +561,418 @@
                     }
                 });    
                             
-                //if admin press submit in add_brand form
-                $('#add_pform').on('submit',function(e){
-                    //prevent default setting of add brand form
-                    e.preventDefault();                           
+            }
 
-                    //clear form's field messages
-                    clear_product_form_msgs();
+            //if admin has selected view products in selectbox
+            if($('#select_product').val()== 2){
 
-                    var form_error=false;
-
-                    //retrive product name from input field
-                    var product_name = $('#add_pname').val();
-
-                    //check if admin has entered product name
-                    if(product_name == ""){
-                        $('#add_pname_msg').fadeIn('slow');
-                        $('#add_pname_msg').text('Enter product name');
-                        form_error = true;
-                    }
-
-                    //retrive product description from input field
-                    var product_desc = $('#add_pdesc').val();
-
-                    //check if admin has entered product desciption
-                    if(product_desc == ""){
-                        $('#add_pdesc_msg').fadeIn('slow');
-                        $('#add_pdesc_msg').text('Enter product description');
-                        form_error = true;
-                    }
-
-                    //retrive product keyword from input field
-                    var product_keyw = $('#add_pkeyw').val();
-
-                    //check if admin has entered product desciption
-                    if(product_keyw == ""){
-                        $('#add_pkeyw_msg').fadeIn('slow');
-                        $('#add_pkeyw_msg').text('Enter product keywords');
-                        form_error = true;
-                    }
-                    
-                    //retrive brand from selectbox
-                    var product_brand = $('#add_pform_brand').val();
-
-                    //check if admin has selected brand
-                    if(product_brand == "0"){
-                        $('#add_pbrand_msg').fadeIn('slow');
-                        $('#add_pbrand_msg').text('Select brand for product');
-                        form_error = true;
-                    }   
-                    
-                    //retrive category from selectbox
-                    var product_category = $('#add_pform_category').val();
-
-                    //check if admin has selected category
-                    if(product_category == "0"){
-                        $('#add_pcatg_msg').fadeIn('slow');
-                        $('#add_pcatg_msg').text('Select category for product');
-                        form_error = true;
-                    }   
-                    
-                    var form_data = new FormData(this);
-                    //retrive image 1 value 
-                    var product_img1 = $('#add_pimg1').val();
-
-                    //check if admin has uploaded image
-                    if(product_img1 == ""){
-                        $('#add_pimg1_msg').fadeIn('slow');
-                        $('#add_pimg1_msg').text('Upload image for product');
-                        form_error = true;
-                    }    
-                    
-                    //retrive image 2 value 
-                    var product_img2 = $('#add_pimg2').val();
-
-                    //check if admin has uploaded image
-                    if(product_img2 == ""){
-                        $('#add_pimg2_msg').fadeIn('slow');
-                        $('#add_pimg2_msg').text('Upload image for product');
-                        form_error = true;
-                    }                         
-
-                    //retrive image 3 value 
-                    var product_img3 = $('#add_pimg3').val();
-
-                    //check if admin has uploaded image
-                    if(product_img3 == ""){
-                        $('#add_pimg3_msg').fadeIn('slow');
-                        $('#add_pimg3_msg').text('Upload image for product');
-                        form_error = true;
-                    }                         
-                    //retrive product price from input field
-                    var product_price = $('#add_pprice').val();
-
-                    //check if admin has entered product price
-                    if(product_price == ""){
-                        $('#add_pprice_msg').fadeIn('slow');
-                        $('#add_pprice_msg').text('Enter product price');
-                        form_error = true;
-                    }
-
-                    //check if there is no form error
-                    if(!form_error){
-
-                        $.ajax({
-                            url: "http://localhost/ecommerce/add_product.php",
-                            type:"POST",
-                            data: form_data,
-                            dataType:"json",
-                            contentType:false,
-                            processData:false,
-                            success: function(data){
-                                debugger;
-                                // if form field has error
-                                if(data.field_error){
-                                    if(data.pname.error){
-                                        $('#add_pname_msg').text(data.pname.message);
-                                    }
-                                    if(data.pdesc.error){
-                                        $('#add_pdesc_msg').text(data.pdesc.message);
-                                    } 
-                                    if(data.pkeyw.error){
-                                        $('#add_pkeyw_msg').text(data.pkeyw.message);
-                                    } 
-                                    if(data.pimg1.error){
-                                        $('#add_pimg1_msg').text(data.pimg1.message);
-                                    }      
-                                    if(data.pimg2.error){
-                                        $('#add_pimg2_msg').text(data.pimg2.message);
-                                    } 
-                                    if(data.pimg3.error){
-                                        $('#add_pimg3_msg').text(data.pimg3.message);
-                                    } 
-                                    if(data.pprice.error){
-                                        $('#add_pprice_msg').text(data.pprice.message);
-                                    }                                                                                                                                                                              
-                                }else if(data.form_error){
-                                    $('#add_pform_msg').fadeIn('slow');
-                                    $('#add_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
-                                    setTimeout(function(){
-                                        $('#add_pform_msg').fadeOut('slow');
-                                    },3000);                                     
-                                }else{
-                                    $('#add_pform_msg').fadeIn('slow');
-                                    $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
-                                    setTimeout(function(){
-                                        $('#add_pform_msg').fadeOut('slow');
-                                    },3000);  
-                                    
-                                    //reset add product form
-                                    reset_add_product_form();
-                                    
-                                    // // clear form field messages
-                                    // clear_product_form_msgs();
-
-                                    // //reset form fields
-                                    // $('#add_pform').trigger('reset');
-                                }
-                            }
-                        });
-                    }
-                    
-                });
-
-                //if admin press close button
-                $('#add_pclose').on('click',function(e){
-                    //prevent default form setting
-                    e.preventDefault();
-                    debugger;
-
-                    //reset add product form 
-                    reset_add_product_form();
-
-                    //reset product selectbox in navigation bar
-                    $('#select_product').val('0');
-                    
                     //change admin state
                     admin_info.last_modelbox=admin_info.current_modelbox;
-                    admin_info.current_modelbox = "default_modelbox";
-                    change_admin_state();                    
+                    admin_info.current_modelbox = "products_table_modelbox";
+                    change_admin_state();
 
+                    $.ajax({
+                          url: "http://localhost/ecommerce/rest_api/api_fetch_orders_details.php",
+                          dataType: "json",
+                          success:function(data){
+
+                            if(!data.error){
+
+                                //clear table body
+                                $('#view_product_table_body').html('');
+
+                                $.each(data.records, function(key, value){
+                                    $('#view_product_table_body').append("<tr>"+
+                                                                        "<td class='left_align'>"+value.p_id+"</td>"+
+                                                                        "<td class='left_align'>"+value.p_title+"</td>"+
+                                                                        "<td><img class='cart_image' src=../"+value.p_image1+" alt='img.jpg'></td>"+
+                                                                        "<td>"+value.p_price+"</td>"+
+                                                                        "<td>"+value.purchased+"</td>"+
+                                                                        "<td>"+value.stock+"</td>"+
+                                                                        "<td>"+value.status+"</td>"+
+                                                                        "<td>"+'<button class="card_btn edit_product_btn"  data-id="'+value.p_id+'">Edit</button>'+"</td>"+
+                                                                        "<td>"+'<button class="card_btn delete_product_btn" data-id="'+value.p_id+'">Delete</button>'+"</td>"+                                                                                                                                                                                                         
+                                                                        "<tr>");
+                                });
+
+                            }
+                          }
+                            
+                    });
+                                
+            }                      
+        });
+
+        //if admin press submit in add product form
+        $('#add_pform').on('submit',function(e){
+            //prevent default setting of add brand form
+            e.preventDefault();                           
+
+            //clear form's field messages
+            clear_product_form_msgs();
+
+            var form_error=false;
+
+            //retrive product name from input field
+            var product_name = $('#add_pname').val();
+
+            //check if admin has entered product name
+            if(product_name == ""){
+                $('#add_pname_msg').fadeIn('slow');
+                $('#add_pname_msg').text('Enter product name');
+                form_error = true;
+            }
+
+            //retrive product description from input field
+            var product_desc = $('#add_pdesc').val();
+
+            //check if admin has entered product desciption
+            if(product_desc == ""){
+                $('#add_pdesc_msg').fadeIn('slow');
+                $('#add_pdesc_msg').text('Enter product description');
+                form_error = true;
+            }
+
+            //retrive product keyword from input field
+            var product_keyw = $('#add_pkeyw').val();
+
+            //check if admin has entered product desciption
+            if(product_keyw == ""){
+                $('#add_pkeyw_msg').fadeIn('slow');
+                $('#add_pkeyw_msg').text('Enter product keywords');
+                form_error = true;
+            }
+            
+            //retrive brand from selectbox
+            var product_brand = $('#add_pform_brand').val();
+
+            //check if admin has selected brand
+            if(product_brand == "0"){
+                $('#add_pbrand_msg').fadeIn('slow');
+                $('#add_pbrand_msg').text('Select brand for product');
+                form_error = true;
+            }   
+            
+            //retrive category from selectbox
+            var product_category = $('#add_pform_category').val();
+
+            //check if admin has selected category
+            if(product_category == "0"){
+                $('#add_pcatg_msg').fadeIn('slow');
+                $('#add_pcatg_msg').text('Select category for product');
+                form_error = true;
+            }   
+            
+            var form_data = new FormData(this);
+            //retrive image 1 value 
+            var product_img1 = $('#add_pimg1').val();
+
+            //check if admin has uploaded image
+            if(product_img1 == ""){
+                $('#add_pimg1_msg').fadeIn('slow');
+                $('#add_pimg1_msg').text('Upload image for product');
+                form_error = true;
+            }    
+            
+            //retrive image 2 value 
+            var product_img2 = $('#add_pimg2').val();
+
+            //check if admin has uploaded image
+            if(product_img2 == ""){
+                $('#add_pimg2_msg').fadeIn('slow');
+                $('#add_pimg2_msg').text('Upload image for product');
+                form_error = true;
+            }                         
+
+            //retrive image 3 value 
+            var product_img3 = $('#add_pimg3').val();
+
+            //check if admin has uploaded image
+            if(product_img3 == ""){
+                $('#add_pimg3_msg').fadeIn('slow');
+                $('#add_pimg3_msg').text('Upload image for product');
+                form_error = true;
+            }                         
+            //retrive product price from input field
+            var product_price = $('#add_pprice').val();
+
+            //check if admin has entered product price
+            if(product_price == ""){
+                $('#add_pprice_msg').fadeIn('slow');
+                $('#add_pprice_msg').text('Enter product price');
+                form_error = true;
+            }
+
+            //check if there is no form error
+            if(!form_error){
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/add_product.php",
+                    type:"POST",
+                    data: form_data,
+                    dataType:"json",
+                    contentType:false,
+                    processData:false,
+                    success: function(data){
+
+                        // if form field has error
+                        if(data.field_error){
+                            if(data.pname.error){
+                                $('#add_pname_msg').text(data.pname.message);
+                            }
+                            if(data.pdesc.error){
+                                $('#add_pdesc_msg').text(data.pdesc.message);
+                            } 
+                            if(data.pkeyw.error){
+                                $('#add_pkeyw_msg').text(data.pkeyw.message);
+                            } 
+                            if(data.pimg1.error){
+                                $('#add_pimg1_msg').text(data.pimg1.message);
+                            }      
+                            if(data.pimg2.error){
+                                $('#add_pimg2_msg').text(data.pimg2.message);
+                            } 
+                            if(data.pimg3.error){
+                                $('#add_pimg3_msg').text(data.pimg3.message);
+                            } 
+                            if(data.pprice.error){
+                                $('#add_pprice_msg').text(data.pprice.message);
+                            }                                                                                                                                                                              
+                        }else if(data.form_error){
+                            $('#add_pform_msg').fadeIn('slow');
+                            $('#add_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#add_pform_msg').fadeOut('slow');
+                            },3000);                                     
+                        }else{
+                            $('#add_pform_msg').fadeIn('slow');
+                            $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                            setTimeout(function(){
+                                $('#add_pform_msg').fadeOut('slow');
+                            },3000);  
+                            
+                            //reset add product form
+                            reset_add_product_form();
+                            
+                            // // clear form field messages
+                            // clear_product_form_msgs();
+
+                            // //reset form fields
+                            // $('#add_pform').trigger('reset');
+                        }
+                    }
                 });
             }
+            
         });
+
+        //if admin press close button in add product form 
+        $('#add_pclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
+
+            //reset add product form 
+            reset_add_product_form();
+
+            //reset product selectbox in navigation bar
+            $('#select_product').val('0');
+            
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "default_modelbox";
+            change_admin_state();                    
+
+        });  
+        
+
+        //if admin press Edit product In view product table
+        $(document).on('click','.edit_product_btn',function(e){
+            e.preventDefault();
+
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "edit_pform_modelbox";
+            change_admin_state();
+
+            //reset edit product form
+            reset_edit_product_form();
+
+                var product_id =$(this).data('id');
+                var obj = {product_id:product_id};
+                var json_obj = JSON.stringify(obj);
+                $.ajax({
+                    url:"http://localhost/ecommerce/rest_api/api_fetch_product.php",
+                    type: "POST",
+                    data:json_obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    success:function(data){
+                        if(!data.error){
+
+                            fill_brand_category(data.brand, data.category);
+
+                            $('#edit_pname').val(data.p_title);
+                            $('#edit_pdesc').val(data.p_description);
+                            $('#edit_pkeyw').val(data.keywords);
+                            $('#edit_image1').attr('src',"../"+data.p_image1);
+                            $('#edit_image2').attr('src',"../"+data.p_image2);
+                            $('#edit_image3').attr('src',"../"+data.p_image3);
+                            $('#edit_pprice').val(data.p_price);
+                        }
+                    }
+                });
+                                      
+        });
+
+        //if admin press submit in Edit product form
+        $('#edit_pform').on('submit',function(e){
+
+            e.preventDefault();                           
+            debugger;
+            //clear form's field messages
+            clear_edit_product_form_msgs();
+
+            var form_error=false;
+
+            //retrive product name from input field
+            var product_name = $('#edit_pname').val();
+
+            //check if admin has entered product name
+            if(product_name == ""){
+                $('#edit_pname_msg').fadeIn('slow');
+                $('#edit_pname_msg').text('Enter product name');
+                form_error = true;
+            }
+
+            //retrive product description from input field
+            var product_desc = $('#edit_pdesc').val();
+
+            //check if admin has entered product desciption
+            if(product_desc == ""){
+                $('#edit_pdesc_msg').fadeIn('slow');
+                $('#edit_pdesc_msg').text('Enter product description');
+                form_error = true;
+            }
+
+            //retrive product keyword from input field
+            var product_keyw = $('#edit_pkeyw').val();
+
+            //check if admin has entered product desciption
+            if(product_keyw == ""){
+                $('#edit_pkeyw_msg').fadeIn('slow');
+                $('#edit_pkeyw_msg').text('Enter product keywords');
+                form_error = true;
+            }
+            
+            //retrive brand from selectbox
+            var product_brand = $('#edit_pform_brand').val();
+
+            //check if admin has selected brand
+            if(product_brand == "0"){
+                $('#edit_pbrand_msg').fadeIn('slow');
+                $('#edit_pbrand_msg').text('Select brand for product');
+                form_error = true;
+            }   
+            
+            //retrive category from selectbox
+            var product_category = $('#edit_pform_category').val();
+
+            //check if admin has selected category
+            if(product_category == "0"){
+                $('#edit_pcatg_msg').fadeIn('slow');
+                $('#edit_pcatg_msg').text('Select category for product');
+                form_error = true;
+            }   
+            
+            var form_data = new FormData(this);
+            //retrive image 1 value 
+            var product_img1 = $('#edit_pimg1').val();            
+            
+            //retrive product price from input field
+            var product_price = $('#edit_pprice').val();
+
+            //check if admin has entered product price
+            if(product_price == ""){
+                $('#edit_pprice_msg').fadeIn('slow');
+                $('#edit_pprice_msg').text('Enter product price');
+                form_error = true;
+            }
+
+            //check if there is no form error
+            if(!form_error){
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/update_product.php",
+                    type:"POST",
+                    data: form_data,
+                    dataType:"json",
+                    contentType:false,
+                    processData:false,
+                    success: function(data){
+                        debugger;
+                        // if form field has error
+                        // if(data.field_error){
+                        //     if(data.pname.error){
+                        //         $('#edit_pname_msg').text(data.pname.message);
+                        //     }
+                        //     if(data.pdesc.error){
+                        //         $('#edit_pdesc_msg').text(data.pdesc.message);
+                        //     } 
+                        //     if(data.pkeyw.error){
+                        //         $('#edit_pkeyw_msg').text(data.pkeyw.message);
+                        //     } 
+                        //     if(data.pimg1.error){
+                        //         $('#edit_pimg1_msg').text(data.pimg1.message);
+                        //     }      
+                        //     if(data.pimg2.error){
+                        //         $('#edit_pimg2_msg').text(data.pimg2.message);
+                        //     } 
+                        //     if(data.pimg3.error){
+                        //         $('#edit_pimg3_msg').text(data.pimg3.message);
+                        //     } 
+                        //     if(data.pprice.error){
+                        //         $('#edit_pprice_msg').text(data.pprice.message);
+                        //     }                                                                                                                                                                              
+                        // }else if(data.form_error){
+                        //     $('#edit_pform_msg').fadeIn('slow');
+                        //     $('#edit_pform_msg').removeClass('suc_msg pro_msg').addClass('err_msg').text(data.form_msg);
+                        //     setTimeout(function(){
+                        //         $('#edit_pform_msg').fadeOut('slow');
+                        //     },3000);                                     
+                        // }else{
+                        //     $('#edit_pform_msg').fadeIn('slow');
+                        //     $('#edit_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
+                        //     setTimeout(function(){
+                        //         $('#edit_pform_msg').fadeOut('slow');
+                        //     },3000);  
+                            
+                        //     //reset add product form
+                        //     reset_edit_product_form();
+                            
+                        // }
+                    }
+                });
+            }
+            
+        });  
+        
+        //if admin press close button in Edit product form 
+        $('#edit_pclose').on('click',function(e){
+            //prevent default form setting
+            e.preventDefault();
+
+            //reset add product form 
+            reset_edit_product_form();
+
+            //reset product selectbox in navigation bar
+            $('#select_product').val('0');
+            
+            //change admin state
+            admin_info.last_modelbox=admin_info.current_modelbox;
+            admin_info.current_modelbox = "default_modelbox";
+            change_admin_state();                    
+
+        });      
 
     //---- End of Product events -------//
 

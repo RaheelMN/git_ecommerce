@@ -7,8 +7,8 @@
 
 
     //connecting with DB server
-    include "../include/config.php";
-    include "../include/get_ip_address.php";
+    include "../../include/config.php";
+    include "../../include/get_ip_address.php";
 
     function calculate_navbar_cart_info(){
             global $conn;

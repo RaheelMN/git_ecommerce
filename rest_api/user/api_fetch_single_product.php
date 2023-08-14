@@ -5,7 +5,7 @@
     header('Access-Control-Allow-Methods:POST');
     
     //connecting with DB server
-    include "../include/config.php";
+    include "../../include/config.php";
 
 
     $data = json_decode(file_get_contents("php://input"),true);
@@ -34,7 +34,20 @@
         $output['p_price'] = htmlentities($row['p_price']);
         $output['stock'] = htmlentities($row['stock']);
 
-        echo json_encode($output,JSON_PRETTY_PRINT);
-    }else echo json_encode(array('message'=>"No record found", "status"=>"false"),JSON_PRETTY_PRINT);
+        //free $result memory at server
+        mysqli_free_result($result);
 
+        //close db connection
+        mysqli_close($conn);
+
+        echo json_encode($output,JSON_PRETTY_PRINT);
+    }else{
+        $output['error']=true;
+        $output['message']="no record found";
+
+        //close db connection
+        mysqli_close($conn);
+
+        echo json_encode($output,JSON_PRETTY_PRINT);            
+    } 
 ?>

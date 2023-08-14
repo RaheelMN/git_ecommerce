@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Access-Control
 
 
 //connecting with DB server
-include "../include/config.php";
+include "../../include/config.php";
 
 
 function pagination(){

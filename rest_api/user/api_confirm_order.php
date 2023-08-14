@@ -41,9 +41,9 @@
             $sql = "UPDATE user_orders  SET order_status='Complete' where order_id = $order_id";        
             $result = mysqli_query($conn,$sql) or die('Failed to perform DB query'); 
 
-            //Update user pending orders table
+            //Update user orders details table
             //Retriving rows of same invoice number in pending order table
-            $sql = "SELECT order_id FROM orders_details WHERE invoice_number = $invoice ";        
+            $sql = "SELECT order_id,product_id,quantity FROM orders_details WHERE invoice_number = $invoice ";        
             $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
 
             if(mysqli_num_rows($result)>0){
@@ -53,6 +53,10 @@
                 foreach($records as $value){
                     //Update order_status for each order id
                     $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
+                    $result =mysqli_query($conn,$sql) or die("Failed to perform query");
+
+                    //Update inventory
+                    $sql = "UPDATE  inventory SET stock = (stock - {$value['quantity']}), purchased = (purchased + {$value['quantity']}) where product_id={$value['product_id']}";
                     $result =mysqli_query($conn,$sql) or die("Failed to perform query");
                 }
             }
