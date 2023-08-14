@@ -312,12 +312,17 @@ ul {
     }
 
     .card{
-        border: 2px solid #7c540b;
+        border: 2px solid #38434a;
         border-radius: 5px;
         padding: 10px 10px 12px 10px;
         margin: 0px 0px 25px 0px;
         text-align: center;
         width: 14rem;
+        transition: all liner .5;
+    }
+
+    .card:hover{
+        border: 2px solid #6b7c88;  
     }
 
     .card_img{
@@ -340,6 +345,7 @@ ul {
 
     }
     .card_btn{
+        cursor: pointer;
         background-color: rgb(83 143 143);
         color: #f7f3ef;
         padding: 5px 10px;

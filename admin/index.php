@@ -181,12 +181,26 @@
     <script>
         $(document).ready(function(){
 
+            //This function clear all error messages of form add_product
+            function clear_product_form_msgs(){
+                            // clear field messages
+                            $('#add_pname_msg').html('');
+                            $('#add_pdesc_msg').html('');
+                            $('#add_pkeyw_msg').html('');
+                            $('#add_pbrand_msg').html('');
+                            $('#add_pcatg_msg').html('');
+                            $('#add_pimg1_msg').html('');
+                            $('#add_pimg2_msg').html('');
+                            $('#add_pimg3_msg').html('');
+                            $('#add_pprice_msg').html('');
+            }
+
             //---- product events -------//
             
-            //if admin has selected option from brand selectbox
+            //if admin has selected option from product selectbox
             $('#select_product').change(function(){
 
-                //if admin has selected add brand from selectbox
+                //if admin has selected add_brand from selectbox
                 if($('#select_product').val()== 1){
 
                     //display add brand form
@@ -198,7 +212,6 @@
                         type: "GET",
                         dataType:"json",
                         success: function(data){
-                            debugger;
                             //clear selectboxes brand and category
                             $('#add_pform_brand').html('');
                             $('#add_pform_category').html('');
@@ -234,18 +247,10 @@
                     //if admin press submit in add_brand form
                     $('#add_pform').on('submit',function(e){
                         //prevent default setting of add brand form
-                        e.preventDefault();
+                        e.preventDefault();                           
 
-                        //clear field messages
-                        $('#add_pname_msg').html('');
-                        $('#add_pdesc_msg').html('');
-                        $('#add_pkeyw_msg').html('');
-                        $('#add_pbrand_msg').html('');
-                        $('#add_pcatg_msg').html('');
-                        $('#add_pimg1_msg').html('');
-                        $('#add_pimg2_msg').html('');
-                        $('#add_pimg3_msg').html('');
-                        $('#add_pprice_msg').html('');
+                        //clear form's field messages
+                        clear_product_form_msgs();
 
                         var form_error=false;
 
@@ -350,6 +355,7 @@
                                 contentType:false,
                                 processData:false,
                                 success: function(data){
+                                    debugger;
                                     // if form field has error
                                     if(data.field_error){
                                         if(data.pname.error){
@@ -384,7 +390,13 @@
                                         $('#add_pform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
                                         setTimeout(function(){
                                             $('#add_pform_msg').fadeOut('slow');
-                                        },3000);                                                                      
+                                        },3000);     
+                                        
+                                        // clear form field messages
+                                        clear_product_form_msgs();
+
+                                        //reset form fields
+                                        $('#add_pform').trigger('reset');
                                     }
                                  }
                             });
@@ -396,23 +408,18 @@
                     $('#add_pclose').on('click',function(e){
                         //prevent default form setting
                         e.preventDefault();
+                        debugger;
 
-                        //clear field messages
-                        $('#add_pname_msg').html('');
-                        $('#add_pdesc_msg').html('');
-                        $('#add_pkeyw_msg').html('');
-                        $('#add_pbrand_msg').html('');
-                        $('#add_pcatg_msg').html('');
-                        $('#add_pimg1_msg').html('');
-                        $('#add_pimg2_msg').html('');
-                        $('#add_pimg3_msg').html('');
-                        $('#add_pprice_msg').html('');
+                        clear_product_form_msgs();
 
                         //clear add_product form message
                         $('#add_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');
 
                         //reset form fields
                         $('#add_pform').trigger('reset');
+
+                        //clear add_product form message
+                        $('#add_pform_msg').removeClass('suc_msg err_msg pro_msg').text('');
 
                         //reset product selectbox
                         $("#select_product").val('0');
@@ -463,7 +470,6 @@
                                 type:"POST",
                                 data: json_obj,
                                 success: function(data){
-                                    debugger;
                                     //if there is error in input field
                                     if(data.field_error){
                                         if(data.bname.error){
@@ -551,7 +557,6 @@
                                 type:"POST",
                                 data: json_obj,
                                 success: function(data){
-                                    debugger;
                                     //if there is error in form field
                                     if(data.field_error){
                                         $('#add_cname_msg').fadeIn('slow');

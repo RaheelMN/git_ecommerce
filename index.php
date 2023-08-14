@@ -128,10 +128,13 @@
             
         }
 
-        function load_cards(){
-            $.ajax({
+        function load_cards(card_type){
+            obj = {card_type:card_type};
+            json_obj = JSON.stringify(obj);
+            $.ajax({               
                 url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
-                type: "GET",
+                type: "POST",
+                data:json_obj,
                 dataType:"json",
                 success:function(data){
                     debugger;
@@ -161,7 +164,7 @@
         }        
 
         load_sidenav();
-        load_cards();
+        load_cards('all');
 
 
             

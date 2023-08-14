@@ -1,0 +1,11 @@
+# ignore  javascript folder
+js/
+
+#ignore style sheet folder
+css/
+
+#ignore javascript files
+*.js
+
+#ignore CSS files
+*.css
