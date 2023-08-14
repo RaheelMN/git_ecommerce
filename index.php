@@ -153,12 +153,12 @@
                                         <th rowspan="2">Quantity</th>
                                         <th rowspan="2">Unit Cost</th>
                                         <th rowspan="2">Total Cost</th>
-                                        <th ><input type="button" class="card_btn" value="Update" id="update_cart_btn"></th>
-                                        <th ><input type="button" class="card_btn" value="Delete" id="delete_cart_btn"></th>
+                                        <th ><input type="button" class="cart_btn" value="Update" id="update_cart_btn"></th>
+                                        <th ><input type="button" class="cart_btn" value="Delete" id="delete_cart_btn"></th>
                                     </tr>
                                     <tr>
-                                        <th>Update All <input type="checkbox" value="11" id="update_all_checkbox"></th>
-                                        <th>Delete All <input type="checkbox" value="12" id="delete_all_checkbox"></th>
+                                        <th class="cart_table_th_checkbox_cell">Update All <input type="checkbox" class="cart_table_th_checkbox" id="update_all_checkbox"></th>
+                                        <th class="cart_table_th_checkbox_cell">Delete All <input type="checkbox" class="cart_table_th_checkbox" id="delete_all_checkbox"></th>
                                     </tr>                                    
                                     </thead>
                                 <tbody id="cart_table_body">
@@ -352,9 +352,9 @@
                                 $('#cart_table_body').html('');
                                 $.each(data.data,function(key, value){
                                     $('#cart_table_body').append('<tr class="cart_row">'+
-                                                                '<td>'+value.p_title+'</td>'+
+                                                                '<td class="cart_table_col1">'+value.p_title+'</td>'+
                                                                 '<td class="cart_cell"><img src="'+value.p_image1+'" alt="mangoes" class="cart_image"></td>'+
-                                                                '<td class="cart_cell"><input type="number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
+                                                                '<td class="cart_cell"><input type="number" class="cart_input_number" id="cart_'+value.cart_id+'" data-id="'+value.cart_id +'" min="1" max="10" value="1"></td>'+
                                                                 '<td class="cart_cell">'+value.quantity+'</td>'+
                                                                 '<td class="cart_cell">'+value.p_price+'</td>'+
                                                                 '<td class="cart_cell">'+value.quantity*value.p_price+'</td>'+
