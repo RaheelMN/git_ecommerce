@@ -350,7 +350,6 @@
                                 contentType:false,
                                 processData:false,
                                 success: function(data){
-                                    debugger;
                                     // if form field has error
                                     if(data.field_error){
                                         if(data.pname.error){
@@ -395,7 +394,6 @@
 
                     //if admin press close button
                     $('#add_pclose').on('click',function(e){
-                        debugger;
                         //prevent default form setting
                         e.preventDefault();
 

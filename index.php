@@ -71,43 +71,8 @@
 
         <div id="contents">
             <div id="products">
-                <div id="cards-container">
-                    <div class="card">
-                        <img class="card-img" src="images/item1.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-btn">Add to cart</a>
-                            <a href="#" class="card-btn">View</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img" src="images/item2.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-btn">Add to cart</a>
-                            <a href="#" class="card-btn">View</a>
-                        </div>
-                    </div>
-                     <div class="card">
-                        <img class="card-img" src="images/item3.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-btn">Add to cart</a>
-                            <a href="#" class="card-btn">View</a>
-                        </div> 
-                    </div> 
-                    <div class="card">
-                        <img class="card-img" src="images/item1.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-btn">Add to cart</a>
-                            <a href="#" class="card-btn">View</a>
-                        </div> 
-                    </div> 
+            <div id="products_msg" class="form_msg"></div>
+                <div id="cards_container">
                 </div>                           
             </div>
             <div id="side-nav-bar-div">
@@ -139,7 +104,6 @@
                 type: "GET",
                 dataType:"json",
                 success: function(data){
-                    debugger;
                     if(data.brands.status != 'false' ){
                         $('#side-nav').append('<li class="side-nav-h">Brands</li>');
                         $.each(data.brands,function(key,value){
@@ -160,7 +124,40 @@
             
         }
 
+        function load_cards(){
+            $.ajax({
+                url:"http://localhost/ecommerce/rest_api/api_fetch_products.php",
+                type: "GET",
+                dataType:"json",
+                success:function(data){
+                    debugger;
+                    //check if no record found
+                    if(data.error){
+                        $('#products_msg').addClass('err_msg').text(data.message);
+                    }
+                    else{
+                        $.each(data.data,function(key, value){
+                            $('#cards_container').append('<div class="card">'+
+                                                        '<img class="card-img" src='+value.p_image1+' alt="Card image cap">'+
+                                                        '<div class="card-body">'+
+                                                            '<h5 class="card-title">'+value.p_title+'</h5>'+
+                                                            '<p class="card-text">'+value.p_description+'</p>'+
+                                                            '<a href="#" class="card-btn">Add to cart</a>'+
+                                                            '<a href="#" class="card-btn">View</a>'+
+                                                        '</div>'+
+                                                    '</div>');
+                        });
+
+                    }
+                }
+
+            });
+        }        
+
         load_sidenav();
+        load_cards();
+
+
             
     });
 </script>

@@ -305,7 +305,7 @@ ul {
         width: 80%;
     }
 
-    #cards-container{
+    #cards_container{
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;

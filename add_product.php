@@ -29,7 +29,7 @@
     }else{
         
         //check if product already exist
-        $sql = "SELECT * FROM products WHERE name='$pname'";
+        $sql = "SELECT * FROM products WHERE p_title='$pname'";
         
         $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
         
@@ -44,7 +44,7 @@
     }
 
     //verify product description
-    $output['pdesc'] = verify($pdesc,'desc',50);
+    $output['pdesc'] = verify($pdesc,'desc',500);
     if($output['pdesc']['error']){
         $field_error=true;
     } 
@@ -90,8 +90,8 @@
         $img1_path = $target_dir.$pimg1['name'];
         $img2_path = $target_dir.$pimg2['name'];
         $img3_path = $target_dir.$pimg3['name'];
-        $sql = "INSERT INTO products (name,description,keywords,brand,category,image1,image2,image3,price) 
-                VALUES ('$pname','$pdesc','$pkeyw','$pbrand','$pcatg','$img1_path','$img2_path','$img3_path',$pprice)";       
+        $sql = "INSERT INTO products (p_title,p_description,keywords,brand_id,category_id,p_image1,p_image2,p_image3,p_price,date,status) 
+                VALUES ('$pname','$pdesc','$pkeyw','$pbrand','$pcatg','$img1_path','$img2_path','$img3_path',$pprice,NOW(),'true')";       
 
         $result=mysqli_query($conn,$sql);
         if(!$result){
