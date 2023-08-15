@@ -20,8 +20,6 @@ DirectoryIndex home.html
 ## Client Request Errors
 ErrorDocument 403 /git_ecommerce/errorFiles/forbidden.html
 ErrorDocument 404 /git_ecommerce/errorFiles/not_found.html
-ErrorDocument 500 /git_ecommerce/errorFiles/server_error.html
-
 
 ## Error Settings
 php_flag display_startup_errors on

@@ -6,14 +6,14 @@
    session_start();
 
    //check if host not authorize to access page
-   if(!isset($_SESSION['admin_role'])){
-
-        //Exception handling Settings
-        require_once "../include/error_handling.php";     
+   if(!isset($_SESSION['admin_role'])){  
 
         //rediect host to login page
        header("location:../admin/admin_login.html");
    }
+
+    //Exception handling Settings
+    require_once "../include/error_handling.php";   
 
     //connect to db
     require_once "../include/config.php";

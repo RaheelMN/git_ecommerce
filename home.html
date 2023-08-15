@@ -682,15 +682,32 @@
                     }
 
                  },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                }
 
             });    
             
@@ -759,15 +776,32 @@
 
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
 
             });
         }        
@@ -789,15 +823,32 @@
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
                     },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
                 });
         }
 
@@ -924,15 +975,32 @@
 
                         
                         },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            error_code = xhr.status;
-                            error_message = "Error "+error_code+": "+thrownError;
-
+                        error: function (jqXHR, exception) {
                             //Display error modelbox
                             $('#error_modelbox').show();  
                             $('#error_header').text('Error Message');
-                            $('#error_text').text(error_message);
-                        }  
+                            if (jqXHR.status === 0) {
+                                $('#error_text').text('Not connect.\n Verify Network.');
+                            } else if (jqXHR.status == 404) {
+                                $('#error_text').text('Requested page not found. [404]');
+                                
+                            } else if (jqXHR.status == 500) {
+                                $('#error_text').text('Internal Server Error [500].');
+                                
+                            } else if (exception === 'parsererror') {
+                                $('#error_text').text('Requested JSON parse failed.');
+                                
+                            } else if (exception === 'timeout') {
+                                $('#error_text').text('Time out error.');
+                                
+                            } else if (exception === 'abort') {
+                                $('#error_text').text('Ajax request aborted.');
+
+                            } else {
+                                $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                                
+                            }
+                        } 
                     });            
         }
 
@@ -1095,15 +1163,32 @@
                         update_navbar_tags('logged_in');
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
 
             });
         }
@@ -1190,15 +1275,32 @@
 
                 $('#user_msg').text('You have '+data.orders+' pending orders');
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
             });
         }
 
@@ -1313,15 +1415,32 @@
                     
                   
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
 
             });           
 
@@ -1337,15 +1456,32 @@
                     //Reset cart information in navigation bar
                     load_navbar_cart_info();
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }    
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                }   
             });
         }
 
@@ -1637,15 +1773,32 @@
 
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    } 
                 });
             }
             
@@ -1812,15 +1965,32 @@
                                                   
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
             }
             
@@ -1848,15 +2018,32 @@
                     
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });   
     
             }
@@ -1914,15 +2101,32 @@
 
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
         });    
 
@@ -2002,15 +2206,32 @@
                             load_cart_table();                         
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    } 
                 });                  
             }
         });        
@@ -2079,15 +2300,32 @@
                         //load updated cart table
                         load_cart_table();                        
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });                  
             }
         });
@@ -2148,15 +2386,32 @@
 
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
 
             });
 
@@ -2267,15 +2522,32 @@
                         $('#product_price').html('Rs: '+data.p_price+'/-');
                         $('#product_stock').html(data.stock_status);
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
         }); 
 
@@ -2370,15 +2642,32 @@
                     $('#edit_user_address').val(data.record.user_address);
                     $('#edit_user_contact').val(data.record.user_contact);      
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
             });
             
             
@@ -2493,14 +2782,31 @@
                             $('#user_name_div').text('Welcome '+user_name);                                                         
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
                     }  
                 });
             }
@@ -2640,15 +2946,32 @@
                             default_user_profile_state();                             
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
             }                                                                   
         });         
@@ -2685,15 +3008,32 @@
                        load_default_index_page();  
 
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
             }          
         });
@@ -2758,15 +3098,32 @@
                     $('#amt_or_form').val(data.record.amount_due);
 
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    error_code = xhr.status;
-                    error_message = "Error "+error_code+": "+thrownError;
-
+                 error: function (jqXHR, exception) {
                     //Display error modelbox
                     $('#error_modelbox').show();  
                     $('#error_header').text('Error Message');
-                    $('#error_text').text(error_message);
-                }  
+                    if (jqXHR.status === 0) {
+                        $('#error_text').text('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        $('#error_text').text('Requested page not found. [404]');
+                        
+                    } else if (jqXHR.status == 500) {
+                        $('#error_text').text('Internal Server Error [500].');
+                        
+                    } else if (exception === 'parsererror') {
+                        $('#error_text').text('Requested JSON parse failed.');
+                        
+                    } else if (exception === 'timeout') {
+                        $('#error_text').text('Time out error.');
+                        
+                    } else if (exception === 'abort') {
+                        $('#error_text').text('Ajax request aborted.');
+
+                    } else {
+                        $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                        
+                    }
+                } 
             });
          
         }); 
@@ -2841,15 +3198,32 @@
                             load_user_order_table();                                                          
                         }
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        error_code = xhr.status;
-                        error_message = "Error "+error_code+": "+thrownError;
-
+                    error: function (jqXHR, exception) {
                         //Display error modelbox
                         $('#error_modelbox').show();  
                         $('#error_header').text('Error Message');
-                        $('#error_text').text(error_message);
-                    }  
+                        if (jqXHR.status === 0) {
+                            $('#error_text').text('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            $('#error_text').text('Requested page not found. [404]');
+                            
+                        } else if (jqXHR.status == 500) {
+                            $('#error_text').text('Internal Server Error [500].');
+                            
+                        } else if (exception === 'parsererror') {
+                            $('#error_text').text('Requested JSON parse failed.');
+                            
+                        } else if (exception === 'timeout') {
+                            $('#error_text').text('Time out error.');
+                            
+                        } else if (exception === 'abort') {
+                            $('#error_text').text('Ajax request aborted.');
+
+                        } else {
+                            $('#error_text').text('Uncaught Error.\n' + jqXHR.responseText);
+                            
+                        }
+                    }
                 });
             }
          });
