@@ -45,29 +45,29 @@
     </div>
     <!-- End of Admin login modelbox --> 
     
-    <!-- Start of Message box -->
-    <div id="message_modelbox">
-        <div id="message_form">
+    <!-- Start of Error Modelbox -->
+    <div id="error_modelbox">
+        <div id="error_form">
             <form action="" class="form">
                 <div class="form_header">
-                    <h3 id="message_header"></h3>                   
+                    <h3 id="error_header"></h3>                   
                 </div>
                 <div class="form_body">
                     <div class="form_linebreak"></div>
                     <div class="form_linebreak"></div>
                     <div class="form_row">
-                        <div class="field_name" id = "message_text"></div>
+                        <div class="field_name" id = "error_text"></div>
                     </div>    
                     <div class="form_linebreak"></div>
                     <div class="form_row">
-                        <button class="form_btn" id="message_close">Close</button>
+                        <button class="form_btn" id="error_close">Close</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
              
-<!-- ----End of Message Modelbox--- -->     
+<!-- ----End of Error Modelbox--- -->     
 </body>
 <script src="../js/jquery.js"></script>
 <script>
@@ -165,9 +165,9 @@
                         error_message = "Error "+error_code+": "+thrownError;
 
                         //Display message modelbox
-                        $('#message_modelbox').show();  
-                        $('#message_header').text('Error Message');
-                        $('#message_text').text(error_message);
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }    
                 });
             }
@@ -177,11 +177,11 @@
     });
 
     // if admin press close button in Success Message modelbox 
-    $('#message_close').on('click',function(e){
+    $('#error_close').on('click',function(e){
         e.preventDefault();
 
         //hide success message modelbox
-        $('#message_modelbox').hide();
+        $('#error_modelbox').hide();
     });   
 </script>    
 </html>

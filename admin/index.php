@@ -528,6 +528,30 @@
         </div>
                  
     <!-- ----End of Message Modelbox--- -->      
+
+    <!-- Start of Error modelbox -->
+    <div id="error_modelbox">
+            <div id="error_form">
+                <form action="" class="form">
+                    <div class="form_header">
+                        <h3 id="error_header"></h3>                   
+                    </div>
+                    <div class="form_body">
+                        <div class="form_linebreak"></div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <div class="field_name" id = "error_text"></div>
+                        </div>    
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button class="form_btn" id="error_close">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                 
+    <!-- ----End of Error Modelbox--- -->          
     
     <!-- Start of Orders Details Table -->
         <div id="orders_details_modelbox">
@@ -815,7 +839,16 @@
                         });                        
                     }
 
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }                   
             });              
         }  
         
@@ -1144,15 +1177,26 @@
         $('#delete_modelbox').hide();
     });
 
-    // if admin press close button in Success Message modelbox 
+    // if admin press close button in Message modelbox 
     $('#message_close').on('click',function(e){
         e.preventDefault();
 
         //enable body tag scrollbar
         $('body').removeClass('hide_scroll');
 
-        //hide success message modelbox
+        //hide message modelbox
         $('#message_modelbox').hide();
+    });  
+    
+        // if admin press close button in Error modelbox 
+        $('#error_close').on('click',function(e){
+        e.preventDefault();
+
+        //hide error modelbox
+        $('#error_modelbox').hide();
+
+        //redirect to index page
+        window.location.href = './index.php';
     });    
     
 
@@ -1237,10 +1281,10 @@
                         error_code = xhr.status;
                         error_message = "Error "+error_code+": "+thrownError;
 
-                        //Display message modelbox
-                        $('#message_modelbox').show();  
-                        $('#message_header').text('Error Message');
-                        $('#message_text').text(error_message);
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }  
                 });    
                             

@@ -40,16 +40,10 @@
         $code = $e->getCode();
          $error_msg = "-- myException -- Error[$code] in line: ".$e->getLine()."-- File Name: " .$e->getFile()." -- Message:  ".$e->getMessage();
 
-        //Debugging Mode 
-        echo "$error_msg";
-        error_log($error_msg);
-        // exit();
-
         // Production Mode
-        // error_log($error_msg);
-        // http_response_code(500); 
-        //  $output = ' <p style="text-align: center;font-size: 24px;color: red;margin: 100px 0px;">Error Code 500: Database Server Error</p>';      
-        // echo json_encode($output,JSON_PRETTY_PRINT);      
+        error_log($error_msg);
+        http_response_code(500); 
+        exit();     
       }
       
       //Create function used in set_error_handler
@@ -57,14 +51,11 @@
       function myErrorHandler($errno,$errstr, $errfile, $errline){
 
          $error_msg = "-- myErrorHandler -- Error[$errno] in line: ".$errline."-- File Name: " .$errfile." -- Message:  ".$errstr;
-
-         //Debugging Mode
-          echo "<br> $error_msg";
-          error_log($error_msg);
         
         // Production Mode Type 1
-        // error_log($error_msg);
-        //Send Warining to error log file and exit
+        error_log($error_msg);
+        http_response_code(500); 
+        exit();   
 
         // Production Mode Type 2
         // throw new ErrorException($errstr, $errno,$errno,$errfile,$errline);
