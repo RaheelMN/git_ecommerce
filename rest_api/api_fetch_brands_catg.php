@@ -3,6 +3,9 @@
     header('Content-Type: application/json');
     header('Cache-Control: no-cache');
 
+    //Exception handling Settings
+    require_once "../include/error_handling.php";    
+
     //connecting with DB server
     require_once "../include/config.php";
 
@@ -12,7 +15,7 @@
 
     //sql query to fetch all records
     $sql = "SELECT * FROM brands";
-    $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+    $result = mysqli_query($conn,$sql);
     
     if(mysqli_num_rows($result)>0){
         $output['brands']['data'] = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -23,7 +26,7 @@
 
     //sql query to fetch all records
     $sql = "SELECT * FROM categories";
-    $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+    $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         $output['categories']['data'] = mysqli_fetch_all($result,MYSQLI_ASSOC);
 

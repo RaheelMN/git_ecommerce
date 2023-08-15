@@ -18,9 +18,9 @@
 DirectoryIndex home.html
 
 ## Client Request Errors
-ErrorDocument 403 /web_ecommerce/errorFiles/forbidden.html
-ErrorDocument 404 /web_ecommerce/errorFiles/not_found.html
-ErrorDocument 500 /web_ecommerce/errorFiles/server_error.html
+ErrorDocument 403 /git_ecommerce/errorFiles/forbidden.html
+ErrorDocument 404 /git_ecommerce/errorFiles/not_found.html
+ErrorDocument 500 /git_ecommerce/errorFiles/server_error.html
 
 
 ## Error Settings
@@ -47,10 +47,10 @@ RewriteEngine on
  ## redirect host request to index page of admin folder 
  RewriteCond %{REQUEST_FILENAME} -d
  RewriteCond %{REQUEST_FILENAME} ^.*/admin(/)?$ [NC] 
- RewriteRule ^(.*)$ http://localhost/web_ecommerce/admin/index.php [L,NC,R=301]
+ RewriteRule ^(.*)$ http://localhost/git_ecommerce/admin/admin_login.html [L,NC,R=301]
 
 ## redirect host request to user html page
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.*)$ http://localhost/web_ecommerce/home.html [L,NC,R=301]
+RewriteRule ^(.*)$ http://localhost/git_ecommerce/home.html [L,NC,R=301]
 
 

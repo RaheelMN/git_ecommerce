@@ -7,5 +7,5 @@
     // $conn = mysqli_connect($server_name,$user_name,$password,$db_name);
 
     //Development Mode
-    $conn = mysqli_connect('localhost','roots','','web_ecommerce');
+    $conn = mysqli_connect('localhost','root','','web_ecommerce');
 ?>

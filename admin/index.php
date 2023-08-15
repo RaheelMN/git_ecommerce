@@ -23,7 +23,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce Admin</title>
-    <link rel="icon" type="image/x-icon" href="https://localhost/web_ecommerce/images/favicon.ico">
+
+        <!-- http used for localhost request of favicon  -->
+    <link rel="icon" type="image/x-icon" href="http://localhost/git_ecommerce/images/favicon.ico">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -505,29 +507,29 @@
                  
     <!-- ----End of Delete Message Modelbox--- -->  
 
-    <!-- Start of Success Message box -->
-        <div id="success_msg_modelbox">
-            <div id="success_msg_form">
+    <!-- Start of Message box -->
+        <div id="message_modelbox">
+            <div id="message_form">
                 <form action="" class="form">
                     <div class="form_header">
-                        <h3 id="success_header"></h3>                   
+                        <h3 id="message_header"></h3>                   
                     </div>
                     <div class="form_body">
                         <div class="form_linebreak"></div>
                         <div class="form_linebreak"></div>
                         <div class="form_row">
-                            <div class="field_name" id = "success_msg"></div>
+                            <div class="field_name" id = "message_text"></div>
                         </div>    
                         <div class="form_linebreak"></div>
                         <div class="form_row">
-                            <button class="form_btn" id="success_close">Close</button>
+                            <button class="form_btn" id="message_close">Close</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
                  
-    <!-- ----End of Success Message Modelbox--- -->      
+    <!-- ----End of Message Modelbox--- -->      
     
     <!-- Start of Orders Details Table -->
         <div id="orders_details_modelbox">
@@ -1146,14 +1148,14 @@
     });
 
     // if admin press close button in Success Message modelbox 
-    $('#success_close').on('click',function(e){
+    $('#message_close').on('click',function(e){
         e.preventDefault();
 
         //enable body tag scrollbar
         $('body').removeClass('hide_scroll');
 
         //hide success message modelbox
-        $('#success_msg_modelbox').hide();
+        $('#message_modelbox').hide();
     });    
     
 
@@ -1233,7 +1235,16 @@
                             }); 
                         }
 
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display message modelbox
+                        $('#message_modelbox').show();  
+                        $('#message_header').text('Error Message');
+                        $('#message_text').text(error_message);
+                    }  
                 });    
                             
             }
@@ -1531,10 +1542,10 @@
                             });
 
                         }else{
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Delete Product');
-                            $('#success_msg').text('Product successfully deleted');
+                            //Display message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Delete Product');
+                            $('#message_text').text('Product successfully deleted');
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');                            
@@ -1695,10 +1706,10 @@
                             }                                                                                                                                                                                                                                                                        
                         }else{
 
-                            //Display success message modelbox
-                            $('#success_header').text('Edit Product');
-                            $('#success_msg').text('Product successfully updated');
-                            $('#success_msg_modelbox').show();
+                            //Display message modelbox
+                            $('#message_header').text('Edit Product');
+                            $('#message_text').text('Product successfully updated');
+                            $('#message_modelbox').show();
                            
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -1937,10 +1948,10 @@
 
                         }else{
 
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Delete Brand');
-                            $('#success_msg').text('Brand successfully deleted');
+                            //Display message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Delete Brand');
+                            $('#message_text').text('Brand successfully deleted');
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2005,10 +2016,10 @@
                                 $('#edit_bname_msg').text(data.name.message);
                             }                                                                                                                                                                                                                                                                      
                         }else{
-                            //Display success message modelbox
-                            $('#success_header').text('Edit Brand');
-                            $('#success_msg').text('Brand successfully updated');
-                            $('#success_msg_modelbox').show();
+                            //Display message modelbox
+                            $('#message_header').text('Edit Brand');
+                            $('#message_text').text('Brand successfully updated');
+                            $('#message_modelbox').show();
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2265,10 +2276,10 @@
 
                         }else{
 
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Delete Category');
-                            $('#success_msg').text('Category successfully deleted');
+                            //Display message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Delete Category');
+                            $('#message_text').text('Category successfully deleted');
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2336,10 +2347,10 @@
                             }                                                                                                                                                                                                                                                                      
                         }else{
 
-                            //Display success message modelbox
-                            $('#success_header').text('Edit Category');
-                            $('#success_msg').text('Category successfully updated');
-                            $('#success_msg_modelbox').show();
+                            //Display message modelbox
+                            $('#message_header').text('Edit Category');
+                            $('#message_text').text('Category successfully updated');
+                            $('#message_modelbox').show();
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2421,10 +2432,10 @@
 
                     }else{
 
-                        //Display success message modelbox
-                        $('#success_msg_modelbox').show();  
-                        $('#success_header').text('Delete order');
-                        $('#success_msg').text('Order successfully deleted');
+                        //Display message modelbox
+                        $('#message_modelbox').show();  
+                        $('#message_header').text('Delete order');
+                        $('#message_text').text('Order successfully deleted');
 
                         //disable page scrolling
                         $('body').addClass('hide_scroll');      
@@ -2483,10 +2494,10 @@
                     if(data.error){
 
                     }else{
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Delete payment');
-                            $('#success_msg').text('Payment record successfully deleted');
+                            //Display message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Delete payment');
+                            $('#message_text').text('Payment record successfully deleted');
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2546,10 +2557,10 @@
 
                     }else{
 
-                        //Display success message modelbox
-                        $('#success_msg_modelbox').show();  
-                        $('#success_header').text('Delete user');
-                        $('#success_msg').text("User's record successfully deleted");
+                        //Display message modelbox
+                        $('#message_modelbox').show();  
+                        $('#message_header').text('Delete user');
+                        $('#message_text').text("User's record successfully deleted");
                         
                         //disable page scrolling
                         $('body').addClass('hide_scroll');    
