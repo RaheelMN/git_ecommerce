@@ -6,6 +6,10 @@
     
     if(isset($_SESSION['user_id'])){
 
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";
+        ini_set('error_log', "../../log/error_log.txt");                    
+
         //connecting with DB server
         require_once "../../include/config.php";
     
@@ -17,7 +21,7 @@
         $user_id = $_SESSION['user_id'];
 
         $sql = "SELECT count(order_status) as total FROM user_orders where user_id = $user_id AND order_status='Pending'";
-        $result = mysqli_query($conn,$sql)or die('Failed to perfom DB query');
+        $result = mysqli_query($conn,$sql);
  
         $row = mysqli_fetch_assoc($result);
         $output['orders'] = $row['total'];

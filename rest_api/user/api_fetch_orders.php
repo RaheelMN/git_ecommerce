@@ -6,6 +6,10 @@
     
     if(isset($_SESSION['user_id'])){
 
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";
+        ini_set('error_log', "../../log/error_log.txt");                    
+
         //connecting with DB server
        require_once "../../include/config.php";
 
@@ -16,7 +20,7 @@
     
         //sql query to fetch user orders
         $sql = "SELECT order_id,invoice_number,total_products,amount_due,order_date,order_status FROM user_orders WHERE user_id = $user_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch records from DB');
+        $result = mysqli_query($conn,$sql);
         
         if(mysqli_num_rows($result)>0){
             $output['records'] = mysqli_fetch_all($result,MYSQLI_ASSOC);

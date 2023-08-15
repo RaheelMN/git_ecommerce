@@ -533,7 +533,7 @@
     <div id="error_modelbox">
             <div id="error_form">
                 <form action="" class="form">
-                    <div class="form_header">
+                    <div class="form_heade">
                         <h3 id="error_header"></h3>                   
                     </div>
                     <div class="form_body">
@@ -544,7 +544,7 @@
                         </div>    
                         <div class="form_linebreak"></div>
                         <div class="form_row">
-                            <button class="form_btn" id="error_close">Close</button>
+                            <button id="error_close">Close</button>
                         </div>
                     </div>
                 </form>
@@ -881,6 +881,15 @@
                         });
 
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
                     
             });
@@ -953,8 +962,16 @@
                         });
 
                     }
-                }
-                    
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }                  
             });
         }        
         
@@ -1024,8 +1041,16 @@
                         });
 
                     }
-                }
-                    
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }                    
             });
         }   
         
@@ -1061,8 +1086,16 @@
                         });                  
                     }               
 
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
 
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }
             }); 
         }
 
@@ -1093,8 +1126,16 @@
                         });                  
                     }               
 
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
 
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }
             }); 
         }   
         
@@ -1124,8 +1165,16 @@
                                                                 '<tr>');
                         });                  
                     }                 
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
 
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }                
             }); 
         }          
                     
@@ -1162,6 +1211,15 @@
                 url:"../admin/api_admin_logout.php",
                 success: function(){
                     window.location.href = './admin_login.html';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });   
 
@@ -1483,6 +1541,15 @@
                             $('#add_pform_msg').addClass('suc_msg').text(data.form_msg);
                             
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -1550,6 +1617,15 @@
                             $('#edit_pstock').val(data.stock);
                             $('#edit_plimit').val(data.limit);
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
                                       
@@ -1600,6 +1676,15 @@
                             });
   
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
 
                 });
@@ -1768,6 +1853,15 @@
                             });
                                                             
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -1898,6 +1992,15 @@
                             $('#add_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);                                   
                             
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -1954,6 +2057,15 @@
                         $('#edit_bname').val(data.name);
 
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });
                                       
@@ -2006,6 +2118,15 @@
                             });
 
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }                                   
@@ -2077,10 +2198,6 @@
                                 $(this).scrollTop(0);
                             });
 
-
-
-
-
                             $('#edit_bform_msg').fadeIn('slow');
                             $('#edit_bform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);
                             setTimeout(function(){
@@ -2096,6 +2213,15 @@
                             load_brand_table();
                             
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -2225,6 +2351,15 @@
                             $('#add_cform_msg').removeClass('err_msg pro_msg').addClass('suc_msg').text(data.form_msg);                                   
                                   
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -2282,6 +2417,15 @@
                         $('#edit_cname').val(data.name);
 
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });
                                       
@@ -2335,6 +2479,15 @@
 
                         }
 
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }                                   
@@ -2409,6 +2562,15 @@
                             });
                             
                         }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
                     }
                 });
             }
@@ -2489,6 +2651,15 @@
                             $(this).scrollTop(0);
                         });                       
                     }                       
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });
         }                                   
@@ -2551,6 +2722,15 @@
                                 $(this).scrollTop(0);
                             });
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });
         }                                   
@@ -2614,6 +2794,15 @@
                             $(this).scrollTop(0);
                         });   
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
                 }
             });
         }                                   

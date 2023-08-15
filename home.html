@@ -534,29 +534,54 @@
         <!-- End of User profile section -->
 
 
-        <!-- Start of Success Message box -->
-            <div id="success_msg_modelbox">
-                <div id="success_msg_form">
+        <!-- Start of  Message box -->
+            <div id="message_modelbox">
+                <div id="message_form">
                     <form action="" class="form">
                         <div class="form_header">
-                            <h3 id="success_header"></h3>                   
+                            <h3 id="message_header"></h3>                   
                         </div>
                         <div class="form_body">
                             <div class="form_linebreak"></div>
                             <div class="form_linebreak"></div>
                             <div class="form_row">
-                                <div class="field_name" id = "success_msg"></div>
+                                <div class="field_name" id = "message_text"></div>
                             </div>    
                             <div class="form_linebreak"></div>
                             <div class="form_row">
-                                <button class="form_btn" id="success_close">Close</button>
+                                <button class="form_btn" id="message_close">Close</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
                     
-        <!-- ----End of Success Message Modelbox--- -->         
+        <!-- ----End of  Message Modelbox--- -->         
+
+
+        <!-- Start of Error modelbox -->
+        <div id="error_modelbox">
+            <div id="error_form">
+                <form action="" class="form">
+                    <div>
+                        <h3 id="error_header"></h3>                   
+                    </div>
+                    <div class="form_body">
+                        <div class="form_linebreak"></div>
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <div class="field_name" id = "error_text"></div>
+                        </div>    
+                        <div class="form_linebreak"></div>
+                        <div class="form_row">
+                            <button id="error_close">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                
+        <!-- ----End of Error Modelbox--- -->           
 
         <!--Start of Section Footer -->
             <Footer>
@@ -659,7 +684,16 @@
                         });                       
                     }
 
-                 }
+                 },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
 
             });    
             
@@ -727,7 +761,16 @@
                         $('#pagination_body').append(data.pagination);
 
                     }
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
 
             });
         }        
@@ -748,7 +791,16 @@
                         $('#total_cart_items').text(data.num_of_items);
                         $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
-                    }
+                    },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
                 });
         }
 
@@ -874,7 +926,16 @@
                             $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
                         
-                        }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            error_code = xhr.status;
+                            error_message = "Error "+error_code+": "+thrownError;
+
+                            //Display error modelbox
+                            $('#error_modelbox').show();  
+                            $('#error_header').text('Error Message');
+                            $('#error_text').text(error_message);
+                        }  
                     });            
         }
 
@@ -1036,7 +1097,16 @@
                         //change navbar tags
                         update_navbar_tags('logged_in');
                     }
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
 
             });
         }
@@ -1122,7 +1192,16 @@
                 success: function(data){
 
                 $('#user_msg').text('You have '+data.orders+' pending orders');
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
             });
         }
 
@@ -1236,7 +1315,16 @@
                     }
                     
                   
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
 
             });           
 
@@ -1251,7 +1339,16 @@
                 success:function(){
                     //Reset cart information in navigation bar
                     load_navbar_cart_info();
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }    
             });
         }
 
@@ -1328,15 +1425,15 @@
             load_cards();
         });
 
-        // if user press close button in Success Message modelbox 
-        $('#success_close').on('click',function(e){
+        // if user press close button in Message modelbox 
+        $('#message_close').on('click',function(e){
             e.preventDefault();
 
             //enable body tag scrollbar
             $('body').removeClass('hide_scroll');
 
-            //hide success message modelbox
-            $('#success_msg_modelbox').hide();
+            //hide message modelbox
+            $('#message_modelbox').hide();
         });  
 
     //-------Start of Registration Section----------------------   
@@ -1542,7 +1639,16 @@
                             //---------End of Change User State----------                                       
 
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }
             
@@ -1708,7 +1814,16 @@
                             //---------End of Change User State----------                                
                                                   
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }
             
@@ -1735,7 +1850,16 @@
                             load_default_index_page();                              
                     
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });   
     
             }
@@ -1792,7 +1916,16 @@
                             $('#total_items_price').text('Total Price Rs: '+data.total_price+'/-');
 
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
         });    
 
@@ -1871,7 +2004,16 @@
                             //load updated cart table
                             load_cart_table();                         
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });                  
             }
         });        
@@ -1939,7 +2081,16 @@
 
                         //load updated cart table
                         load_cart_table();                        
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });                  
             }
         });
@@ -1999,7 +2150,16 @@
                         //---------End of Change User State---------- 
 
                     }
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
 
             });
 
@@ -2109,7 +2269,16 @@
                         $('#product_category').html(data.category);
                         $('#product_price').html('Rs: '+data.p_price+'/-');
                         $('#product_stock').html(data.stock_status);
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
         }); 
 
@@ -2203,7 +2372,16 @@
                     $('#edit_user_email').val(data.record.user_email);
                     $('#edit_user_address').val(data.record.user_address);
                     $('#edit_user_contact').val(data.record.user_contact);      
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
+
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
             });
             
             
@@ -2295,10 +2473,10 @@
                                 $('#edit_user_contact_msg').text(data.contact.message);
                             }                                                                                                                                                                           
                         }else{
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Edit Profile');
-                            $('#success_msg').text("User's profile successfully updated");
+                            //Display message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Edit Profile');
+                            $('#message_text').text("User's profile successfully updated");
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2317,7 +2495,16 @@
                             //update user name in navigation bar
                             $('#user_name_div').text('Welcome '+user_name);                                                         
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }
             
@@ -2439,10 +2626,10 @@
 
                         }else{
 
-                            //Display success message modelbox
-                            $('#success_msg_modelbox').show();  
-                            $('#success_header').text('Edit Password');
-                            $('#success_msg').text("User's password successfully updated");
+                            //Display  message modelbox
+                            $('#message_modelbox').show();  
+                            $('#message_header').text('Edit Password');
+                            $('#message_text').text("User's password successfully updated");
 
                             //disable page scrolling
                             $('body').addClass('hide_scroll');
@@ -2455,7 +2642,16 @@
                             //set user profile state
                             default_user_profile_state();                             
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }                                                                   
         });         
@@ -2491,7 +2687,16 @@
                         //Display default contents of index page
                        load_default_index_page();  
 
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }          
         });
@@ -2555,8 +2760,16 @@
                     $('#inv_or_form').attr('data-id',data.record.order_id);
                     $('#amt_or_form').val(data.record.amount_due);
 
-                }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    error_code = xhr.status;
+                    error_message = "Error "+error_code+": "+thrownError;
 
+                    //Display error modelbox
+                    $('#error_modelbox').show();  
+                    $('#error_header').text('Error Message');
+                    $('#error_text').text(error_message);
+                }  
             });
          
         }); 
@@ -2630,7 +2843,16 @@
                             //load updated user orders table
                             load_user_order_table();                                                          
                         }
-                    }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        error_code = xhr.status;
+                        error_message = "Error "+error_code+": "+thrownError;
+
+                        //Display error modelbox
+                        $('#error_modelbox').show();  
+                        $('#error_header').text('Error Message');
+                        $('#error_text').text(error_message);
+                    }  
                 });
             }
          });
@@ -2669,6 +2891,16 @@
 
 //------End of User Profile Section--------------------    
         
+        // if admin press close button in Error modelbox 
+        $('#error_close').on('click',function(e){
+        e.preventDefault();
+
+        //hide error modelbox
+        $('#error_modelbox').hide();
+
+        //redirect to index page
+        window.location.href = './home.html';
+    }); 
 
     });
 </script>

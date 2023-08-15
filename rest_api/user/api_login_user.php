@@ -2,6 +2,10 @@
 
     header('Content-Type: application/json');
 
+    //Exception handling Settings
+    require_once "../../include/error_handling.php";  
+    ini_set('error_log', "../../log/error_log.txt");          
+
     //connecting with DB server
     require_once "../../include/config.php";
 
@@ -23,7 +27,7 @@
     //Check if user email exists then get its password
     $sql = "SELECT user_id,user_name,user_password FROM users where user_email='$user_email'";
  
-    $result = mysqli_query($conn,$sql)or die('Failed to peform db query');
+    $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         //check user password
         $row  = mysqli_fetch_assoc($result);
@@ -40,7 +44,7 @@
 
             // update user ip address in users table 
             $sql = "UPDATE users SET ip_address= '$client_ip'  WHERE user_id = {$row['user_id']}";
-            $result = mysqli_query($conn,$sql)or die('Failed to peform db query');
+            $result = mysqli_query($conn,$sql);
             $output['form_msg']='User logged in successfully';
             mysqli_close($conn);
             echo json_encode($output,JSON_PRETTY_PRINT);

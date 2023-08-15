@@ -5,6 +5,10 @@
     session_start();
 
     if(isset($_SESSION['user_id'])){  
+
+        //Exception handling Settings
+        require_once "../../include/error_handling.php"; 
+        ini_set('error_log', "../../log/error_log.txt");                   
         
         //connecting with DB server
         require_once "../../include/config.php";
@@ -14,7 +18,7 @@
 
         //sql query to fetch user record
         $sql = "SELECT user_name,user_email,user_address,user_contact FROM users WHERE user_id = $user_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
 
         //store record in output
         $output['record'] = mysqli_fetch_assoc($result);

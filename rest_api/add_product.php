@@ -6,6 +6,9 @@ session_start();
     
 if(isset($_SESSION['admin_role'])){  
 
+    //Exception handling Settings
+    require_once "../include/error_handling.php";  
+
     //connecting with DB server
     require_once "../include/config.php";
     
@@ -38,7 +41,7 @@ if(isset($_SESSION['admin_role'])){
         //check if product already exist
         $sql = "SELECT * FROM products WHERE p_title='$pname'";
         
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
         
         //if record already exits
         if(mysqli_num_rows($result)>0){
@@ -118,11 +121,11 @@ if(isset($_SESSION['admin_role'])){
         $sql = "INSERT INTO products (p_title,p_description,keywords,brand_id,category_id,p_image1,p_image2,p_image3,p_price,`date`) 
                 VALUES ('$pname','$pdesc','$pkeyw',$pbrand,$pcatg,'$img1_path','$img2_path','$img3_path',$pprice,NOW())";       
     
-        $result=mysqli_query($conn,$sql) or die("Failed to perform query");
+        $result=mysqli_query($conn,$sql);
 
         //Retrive product id
         $sql = "SELECT  p_id FROM products where p_title = '$pname'";
-        $result = mysqli_query($conn,$sql) or die("Failed to perform query");
+        $result = mysqli_query($conn,$sql);
         $row = mysqli_fetch_assoc($result);
         $product_id = $row['p_id'];
 
@@ -135,7 +138,7 @@ if(isset($_SESSION['admin_role'])){
 
         //add product to invertory table
         $sql = "INSERT INTO inventory (product_id, stock, purchased, `status`,order_limit) VALUES ($product_id,$pstock,0,'$stock_status',$limit)";
-        $result = mysqli_query($conn,$sql) or die("Failed to perform query");
+        $result = mysqli_query($conn,$sql);
 
         //upload images to server
         move_uploaded_file($pimg1['tmp_name'],"../".$img1_path); 
@@ -150,6 +153,5 @@ if(isset($_SESSION['admin_role'])){
     //    rediect host to login page
     header("location:../admin/admin_login.html");
 }
-
 
 ?>

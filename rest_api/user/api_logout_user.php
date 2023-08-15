@@ -2,9 +2,14 @@
 
     header('Content-Type: application/json');
     
-    session_start();
+    session_start();  
     
-    if(isset($_SESSION['user_id'])){    
+    if(isset($_SESSION['user_id'])){ 
+
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";
+        ini_set('error_log', "../../log/error_log.txt");                    
+        
         $output = [];
         $output['error']=false;
         

@@ -9,7 +9,7 @@ function check_delete_category($category_id){
     $sql = "SELECT count(p_id) AS ans FROM categories 
     INNER JOIN products ON c_id = category_id 
     WHERE c_id = $category_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row['ans'] > 0 ){
@@ -21,7 +21,7 @@ function check_delete_category($category_id){
     INNER JOIN  categories ON category_id = c_id
     INNER JOIN cart_detail ON p_id = product_id 
     WHERE c_id = $category_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row['ans'] > 0 ){
@@ -33,14 +33,17 @@ function check_delete_category($category_id){
     INNER JOIN  categories ON category_id = c_id
     INNER JOIN orders_details ON p_id = product_id
      WHERE c_id = $category_id  AND order_status = 'Pending'";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
         return $row['ans'];
 }
 
 session_start();
     
-if(isset($_SESSION['admin_role'])){    
+if(isset($_SESSION['admin_role'])){ 
+    
+    //Exception handling Settings
+    require_once "../include/error_handling.php";       
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -72,7 +75,7 @@ if(isset($_SESSION['admin_role'])){
     }else{
     
         $sql = "DELETE FROM categories WHERE c_id = $category_id";
-        $result2=mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result2=mysqli_query($conn,$sql);
     
         $output['message']='Category successfully deleted.';
 

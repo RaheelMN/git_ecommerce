@@ -4,7 +4,10 @@ header('Content-Type: application/json');
 
 session_start();
     
-if(isset($_SESSION['admin_role'])){    
+if(isset($_SESSION['admin_role'])){   
+    
+    //Exception handling Settings
+    require_once "../include/error_handling.php";       
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -16,7 +19,7 @@ if(isset($_SESSION['admin_role'])){
 
     //delete record in db
     $sql = "DELETE FROM user_orders WHERE  order_id = $order_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to preform query');  
+    $result = mysqli_query($conn,$sql);  
 
     //close db connection
     mysqli_close($conn);

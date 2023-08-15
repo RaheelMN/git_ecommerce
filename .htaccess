@@ -28,7 +28,8 @@ php_flag display_startup_errors on
 php_flag display_errors on
 php_flag html_errors on
 php_flag log_errors on
-php_value error_log ../log/error_log.txt
+# error log path is from php file where error_log is called
+php_value error_log "../log/error_log.txt"
 
 ## prevent hackers to access images,css,text and javascript files
 RewriteEngine on

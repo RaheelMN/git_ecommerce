@@ -3,6 +3,9 @@
 header('Content-Type: application/json');
 // header('Cache-Control: no-cache');
 
+//Exception handling Settings
+require_once "../../include/error_handling.php";
+ini_set('error_log', "../../log/error_log.txt");    
 
 //connecting with DB server
 require_once "../../include/config.php";
@@ -73,7 +76,7 @@ switch($data['search_type']){
         //calculating total pages and page no
         $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
                 INNER JOIN inventory ON p_id = product_id";
-        $result = mysqli_query($conn,$sql) or die("Error query failed"); 
+        $result = mysqli_query($conn,$sql); 
         $r['total_records']  = mysqli_num_rows($result);
 
         if($r['total_records']  > 0){
@@ -108,7 +111,7 @@ switch($data['search_type']){
         $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
                 INNER JOIN inventory ON p_id = product_id WHERE brand_id = '$brand_id' ";        
 
-        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result = mysqli_query($conn,$sql);
 
         $r['total_records']  = mysqli_num_rows($result);
 
@@ -144,7 +147,7 @@ switch($data['search_type']){
         $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
                 INNER JOIN inventory ON p_id = product_id WHERE category_id = '$category_id'"; 
 
-        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result = mysqli_query($conn,$sql);
 
         $r['total_records']  = mysqli_num_rows($result);              
         if($r['total_records']>0){
@@ -181,7 +184,7 @@ switch($data['search_type']){
         $sql = "SELECT p_id, p_title, p_description,p_image1, p_price, `status` FROM products
                 INNER JOIN inventory ON p_id = product_id WHERE keywords LIKE '%$search_encode%'"; 
 
-        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result = mysqli_query($conn,$sql);
 
         $r['total_records']  = mysqli_num_rows($result);              
         if($r['total_records']>0){

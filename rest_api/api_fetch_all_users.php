@@ -6,6 +6,9 @@
     
     if(isset($_SESSION['admin_role'])){ 
 
+        //Exception handling Settings
+        require_once "../include/error_handling.php";           
+
         //connecting with DB server
        require_once "../include/config.php";
 
@@ -14,7 +17,7 @@
     
         //sql query to fetch user orders
         $sql = "SELECT user_id, user_name, user_email,user_address, user_contact FROM users";
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch records from DB');
+        $result = mysqli_query($conn,$sql);
         
         if(mysqli_num_rows($result)>0){
             $output['records'] = mysqli_fetch_all($result,MYSQLI_ASSOC);

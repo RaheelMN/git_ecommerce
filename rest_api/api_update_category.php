@@ -4,7 +4,10 @@ header('Content-Type: application/json');
 
 session_start();
     
-if(isset($_SESSION['admin_role'])){    
+if(isset($_SESSION['admin_role'])){  
+    
+    //Exception handling Settings
+    require_once "../include/error_handling.php";     
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -31,7 +34,7 @@ if(isset($_SESSION['admin_role'])){
         //check if category already exist of same name
         $sql = "SELECT * FROM categories WHERE c_name='$category_name' AND c_id != $category_id";
         
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
         
         //if record already exits of same name
         if(mysqli_num_rows($result)>0){

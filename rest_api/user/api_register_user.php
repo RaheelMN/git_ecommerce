@@ -2,9 +2,13 @@
 
     header('Content-Type: application/json');
 
+    //Exception handling Settings
+    require_once "../../include/error_handling.php";   
+    ini_set('error_log', "../../log/error_log.txt");        
 
     //connecting with DB server
    require_once "../../include/config.php";
+
     //get current user ip address
    require_once "../../include/get_ip_address.php";
 
@@ -38,7 +42,7 @@
         //check if email already exist
         $sql = "SELECT * FROM users WHERE user_email='$user_email'";
         
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
         
         //if record already exits
         if(mysqli_num_rows($result)>0){
@@ -84,11 +88,11 @@
         $sql = "INSERT INTO users (user_name,user_email,user_password,user_address,user_contact,ip_address) 
                 VALUES ('$user_name','$user_email','$hash_password','$user_address','$user_contact','$ip_address')";       
 
-        $result=mysqli_query($conn,$sql)or die('Failed to perfom DB query');
+        $result=mysqli_query($conn,$sql);
 
         //Fetch user id from db
         $sql = "SELECT user_id FROM users where user_email='$user_email'";
-        $result = mysqli_query($conn,$sql)or die('Failed to perfom DB query');
+        $result = mysqli_query($conn,$sql);
         $row = mysqli_fetch_assoc($result);
 
         //start session

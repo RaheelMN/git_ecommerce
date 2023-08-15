@@ -4,6 +4,9 @@ session_start();
     
 if(isset($_SESSION['admin_role'])){    
 
+    //Exception handling Settings
+    require_once "../include/error_handling.php";     
+
     //connecting with DB server
     include "../include/config.php";
     
@@ -61,7 +64,7 @@ if(isset($_SESSION['admin_role'])){
         //check if product already exist
         $sql = "SELECT * FROM products WHERE p_title='$pname' AND p_id != $p_id";
         
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
         
         //if record already exits
         if(mysqli_num_rows($result)>0){

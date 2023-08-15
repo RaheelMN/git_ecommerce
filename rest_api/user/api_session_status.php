@@ -2,6 +2,10 @@
 
     header('Content-Type: application/json');
 
+    //Exception handling Settings
+    require_once "../../include/error_handling.php";
+    ini_set('error_log', "../../log/error_log.txt");        
+
     session_start();
 
     $output=[];

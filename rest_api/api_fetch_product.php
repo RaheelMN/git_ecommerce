@@ -5,9 +5,11 @@
     session_start();
     if(isset($_SESSION['admin_role'])){
 
+        //Exception handling Settings
+        require_once "../include/error_handling.php";         
+
         //connecting with DB server
         require_once "../include/config.php";
-
 
         $data = json_decode(file_get_contents("php://input"),true);
         $product_id = $data['product_id'];
@@ -23,7 +25,7 @@
                     inner join brands b on p.brand_id=b.b_id 
                     inner join inventory i on p_id= product_id 
                     WHERE p_id ='$product_id'";
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
 
         //To prevent XSS attack browser ouput is displayed using htmlenttites() function
         //Browser parse or interpret server text when it is placed in .html()

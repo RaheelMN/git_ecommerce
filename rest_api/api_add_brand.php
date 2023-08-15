@@ -7,6 +7,9 @@
     //check if admin is sending request 
     if(isset($_SESSION['admin_role'])){ 
 
+        //Exception handling Settings
+        require_once "../include/error_handling.php";          
+
         //connecting with DB server
         require_once "../include/config.php";
 
@@ -35,7 +38,7 @@
 
             //sql query to check if record already exits
             $sql = "SELECT * FROM brands WHERE b_name='$brand_name'";
-            $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+            $result = mysqli_query($conn,$sql);
         
             //if record already exits
             if(mysqli_num_rows($result)>0){
@@ -52,7 +55,7 @@
 
                 //query to insert record in database
                 $sql = "INSERT INTO brands (b_name) VALUES ('$brand_name')"; 
-                $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+                $result = mysqli_query($conn,$sql);
 
                 $output['form_msg']="Record successfully inserted. Add another brand.";
 

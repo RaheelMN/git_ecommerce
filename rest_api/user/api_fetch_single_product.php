@@ -1,6 +1,10 @@
 <?php 
 
     header('Content-Type: application/json');
+
+    //Exception handling Settings
+    require_once "../../include/error_handling.php"; 
+    ini_set('error_log', "../../log/error_log.txt");           
     
     //connecting with DB server
     require_once "../../include/config.php";
@@ -16,7 +20,7 @@
                    inner join categories c on p.category_id = c.c_id 
                    inner join brands b on p.brand_id=b.b_id
                    INNER JOIN inventory on p_id = product_id WHERE p.p_id ='$product_id'";
-    $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+    $result = mysqli_query($conn,$sql);
 
     //To prevent XSS attack browser ouput is displayed using htmlenttites() function
     //Browser parse or interpret server text when it is placed in .html()

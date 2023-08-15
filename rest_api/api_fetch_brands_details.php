@@ -4,8 +4,11 @@
    //Authenticate the host
    session_start();
 
+    //Exception handling Settings
+    require_once "../include/error_handling.php";    
+
    //check if host not authorize to access page
-   if(!isset($_SESSION['admin_role'])){
+   if(!isset($_SESSION['admin_role'])){        
 
         //rediect host to login page
        header("location:../admin/admin_login.html");
@@ -20,7 +23,7 @@
 
     //sql query to fetch brands details
     $sql = "SELECT * FROM brands";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
 
     if(mysqli_num_rows($result)>0){
         $output['records'] = mysqli_fetch_all($result,MYSQLI_ASSOC);

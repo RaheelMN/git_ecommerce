@@ -2,7 +2,6 @@
 
 header('Content-Type: application/json');
 
-
 function check_delete_brand($brand_id){
     global $conn;
 
@@ -10,7 +9,7 @@ function check_delete_brand($brand_id){
     $sql = "SELECT count(p_id) AS ans FROM brands 
     INNER JOIN products ON b_id = brand_id 
     WHERE b_id = $brand_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row['ans'] > 0 ){
@@ -22,7 +21,7 @@ function check_delete_brand($brand_id){
     INNER JOIN  brands ON brand_id = b_id
     INNER JOIN cart_detail ON p_id = product_id 
     WHERE b_id = $brand_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row['ans'] > 0 ){
@@ -34,7 +33,7 @@ function check_delete_brand($brand_id){
     INNER JOIN  brands ON brand_id = b_id
     INNER JOIN orders_details ON p_id = product_id
      WHERE b_id = $brand_id  AND order_status = 'Pending'";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
         return $row['ans'];
 }
@@ -42,7 +41,10 @@ function check_delete_brand($brand_id){
 
 session_start();
     
-if(isset($_SESSION['admin_role'])){    
+if(isset($_SESSION['admin_role'])){   
+    
+    //Exception handling Settings
+    require_once "../include/error_handling.php";      
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -74,7 +76,7 @@ if(isset($_SESSION['admin_role'])){
     }else{
     
         $sql = "DELETE FROM brands WHERE b_id = $brand_id";
-        $result2=mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result2=mysqli_query($conn,$sql);
     
         $output['message']='Brand successfully deleted.';
 
@@ -89,6 +91,5 @@ if(isset($_SESSION['admin_role'])){
     //    rediect host to login page
     header("location:../admin/admin_login.html");
 }
-
 
 ?>

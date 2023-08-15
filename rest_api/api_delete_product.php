@@ -9,7 +9,7 @@ function check_delete_product($product_id){
     $sql = "SELECT count(p_id) AS ans FROM products 
     INNER JOIN cart_detail ON p_id = product_id 
     WHERE p_id = $product_id";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
 
     if ($row['ans'] > 0 ){
@@ -20,7 +20,7 @@ function check_delete_product($product_id){
     $sql = "SELECT count(p_id) AS ans FROM products 
      INNER JOIN orders_details ON p_id = product_id
      WHERE p_id = $product_id  AND order_status = 'Pending'";
-    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+    $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_assoc($result);
         return $row['ans'];
 }
@@ -28,6 +28,9 @@ function check_delete_product($product_id){
 session_start();
     
 if(isset($_SESSION['admin_role'])){ 
+
+    //Exception handling Settings
+    require_once "../include/error_handling.php";       
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -56,11 +59,11 @@ if(isset($_SESSION['admin_role'])){
 
         //delete product from product table
         $sql = "DELETE FROM products WHERE  p_id = $product_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to preform query'); 
+        $result = mysqli_query($conn,$sql); 
 
         //delete product from inventory table
         $sql = "DELETE FROM inventory WHERE  product_id = $product_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to preform query');        
+        $result = mysqli_query($conn,$sql);        
 
         //close db connection
         mysqli_close($conn);

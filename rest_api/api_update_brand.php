@@ -4,7 +4,10 @@ header('Content-Type: application/json');
 
 session_start();
     
-if(isset($_SESSION['admin_role'])){    
+if(isset($_SESSION['admin_role'])){  
+    
+    //Exception handling Settings
+    require_once "../include/error_handling.php";     
 
     //connecting with DB server
     require_once "../include/config.php";
@@ -33,7 +36,7 @@ if(isset($_SESSION['admin_role'])){
         //check if brand already exist of same name
         $sql = "SELECT * FROM brands WHERE b_name='$brand_name' AND b_id != $brand_id";
         
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
         
         //if record already exits of same name
         if(mysqli_num_rows($result)>0){
@@ -62,7 +65,7 @@ if(isset($_SESSION['admin_role'])){
         $brand_name =mysqli_real_escape_string($conn, $brand_name);
     
         $sql = "UPDATE brands SET b_name='$brand_name' WHERE b_id = $brand_id";  
-        $result=mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result=mysqli_query($conn,$sql);
     
         $output['form_msg']='Record successfully inserted.';
 

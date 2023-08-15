@@ -26,7 +26,6 @@
 
     //sql query to fetch all records
     $sql = "SELECT * FROM categories";
-    include "jojo.php";
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0){
         $output['categories']['data'] = mysqli_fetch_all($result,MYSQLI_ASSOC);

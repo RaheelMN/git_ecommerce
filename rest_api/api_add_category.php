@@ -7,6 +7,9 @@
     //check if admin is sending request 
     if(isset($_SESSION['admin_role'])){ 
 
+        //Exception handling Settings
+        require_once "../include/error_handling.php";          
+
         //connecting with DB server
         require_once "../include/config.php";
 
@@ -28,7 +31,7 @@
         }else{
             //sql query to check if record already exits
             $sql = "SELECT * FROM categories WHERE c_name='$category_name'";
-            $result = mysqli_query($conn,$sql) or die('Failed to pefrom query');
+            $result = mysqli_query($conn,$sql);
         
             //if record already exits
             if(mysqli_num_rows($result)>0){
@@ -45,7 +48,7 @@
 
                 //query to insert record in database
                 $sql = "INSERT INTO categories (c_name) VALUES ('$category_name')";
-                $result = mysqli_query($conn,$sql) or die('Failed to pefrom query');
+                $result = mysqli_query($conn,$sql);
 
                 $output['form_msg']="Record successfully inserted. Add another category.";
 

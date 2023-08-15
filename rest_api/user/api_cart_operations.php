@@ -2,6 +2,10 @@
 
     header('Content-Type: application/json');
 
+    //Exception handling Settings
+    require_once "../../include/error_handling.php"; 
+    ini_set('error_log', "../../log/error_log.txt");           
+
     //connecting with DB server
    require_once "../../include/config.php";
 
@@ -15,7 +19,7 @@
 
         //calculate number of items user has in cart and their total cost
         $sql = "SELECT sum(quantity) as total_quantity, sum(total_cost) as total_cost FROM cart_detail where ip_address = '$client_ip'";
-        $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+        $result = mysqli_query($conn,$sql);
         $record = mysqli_fetch_assoc($result);
         
         //If user has items in cart then
@@ -63,7 +67,7 @@
         case 'add':
             //check if user has already put product in cart
             $sql = "SELECT * FROM cart_detail where ip_address = '$client_ip' and product_id = $product_id";
-            $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+            $result = mysqli_query($conn,$sql);
 
             if(mysqli_num_rows($result)>0){
 
@@ -79,11 +83,11 @@
 
                 //Retrive product price against product id
                 $sql = "SELECT p_price FROM products where p_id = $product_id";
-                $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                $result = mysqli_query($conn,$sql);
                 $record = mysqli_fetch_assoc($result);
 
                 $sql = "INSERT INTO cart_detail (product_id,ip_address,quantity,total_cost) VALUES ($product_id,'$client_ip',$quantity,{$record['p_price']})";
-                $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                $result = mysqli_query($conn,$sql);
 
                 calculate_navbar_cart_info();
                 $output['message']="Product added to cart.";
@@ -102,11 +106,11 @@
 
                     //Retrive product price against product id
                     $sql = "SELECT p_price FROM products inner join cart_detail on p_id = product_id where cart_id ={$value[0]}";
-                    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                    $result = mysqli_query($conn,$sql);
                     $record = mysqli_fetch_assoc($result);
 
                     $sql = "UPDATE cart_detail SET quantity={$value[1]}, total_cost=($value[1]*{$record['p_price']}) where cart_id={$value[0]}";
-                    $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                    $result = mysqli_query($conn,$sql);
                 }
 
                 calculate_navbar_cart_info();
@@ -124,7 +128,7 @@
                            
                 $str = implode(",",$records);
                 $sql = "DELETE FROM cart_detail WHERE cart_id IN ({$str})";
-                $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                $result = mysqli_query($conn,$sql);
 
                 calculate_navbar_cart_info();
                 $output['message']="Record deleted.";
@@ -146,7 +150,7 @@
                 INNER JOIN cart_detail c ON p.p_id = c.product_id
                 INNER JOIN inventory i ON p.p_id = i.product_id
                  where ip_address = '$client_ip'";
-                $result = mysqli_query($conn,$sql) or die('Failed to perform query');
+                $result = mysqli_query($conn,$sql);
 
                 if(mysqli_num_rows($result)>0){
 

@@ -1,10 +1,14 @@
 <?php 
 
-    header('Content-Type: application/json');
+    header('Content-Type: application/json');    
 
     session_start();
 
     if(isset($_SESSION['user_id'])){
+
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";
+        ini_set('error_log', "../../log/error_log.txt");                   
 
         //connecting with DB server
        require_once "../../include/config.php";
@@ -30,7 +34,7 @@
 
         //Verify old password
         $sql = "SELECT user_password FROM users where user_id='$user_id'";
-        $result = mysqli_query($conn,$sql) or die('Failed to perform db query');
+        $result = mysqli_query($conn,$sql);
         //check user password
         $row  = mysqli_fetch_assoc($result);
         
@@ -60,7 +64,7 @@
     
             $sql = "UPDATE users SET user_password='$hash_password' where user_id = $user_id";       
     
-            $result=mysqli_query($conn,$sql)or die('Failed to perform db query');
+            $result=mysqli_query($conn,$sql);
 
             $output['form_msg']='Record successfully inserted.';
 

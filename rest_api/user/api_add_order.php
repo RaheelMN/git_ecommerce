@@ -3,8 +3,12 @@
 
     //start session
     session_start();
+
     
     if(isset($_SESSION['user_id'])){
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";   
+        ini_set('error_log', "../../log/error_log.txt");             
 
         //connecting with DB server
         require_once "../../include/config.php";
@@ -23,14 +27,14 @@
         $order_status = "Pending";
 
         $sql = "SELECT sum(total_cost) as amount_due, sum(quantity) as total_products from users as u inner join cart_detail c on u.ip_address = c.ip_address where user_id = $user_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to perform db query');
+        $result = mysqli_query($conn,$sql);
 
         $row = mysqli_fetch_assoc($result);
             
         $sql = "INSERT INTO user_orders (user_id,amount_due,invoice_number,total_products,order_date,order_status)
                 VALUES ($user_id,{$row['amount_due']},$invoice_number,{$row['total_products']},NOW(),'$order_status')";
 
-        $result = mysqli_query($conn,$sql) or die('Failed to perform db query');;    
+        $result = mysqli_query($conn,$sql);    
 
         //save invoice number
         $_SESSION['invoice_number']=$invoice_number;
@@ -39,7 +43,7 @@
         inner join cart_detail as c 
         on u.ip_address = c.ip_address
         where user_id = $user_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to perfom DB query');
+        $result = mysqli_query($conn,$sql);
         
         if(mysqli_num_rows($result)>0){
             $record = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -47,12 +51,12 @@
                 $sql = "INSERT INTO orders_details (user_id,invoice_number,product_id,quantity,order_status) 
                         values ($user_id,$invoice_number,{$row['product_id']},{$row['quantity']},'$order_status')";
 
-                $result = mysqli_query($conn,$sql) or die('Failed to perfom DB query');   
+                $result = mysqli_query($conn,$sql);   
             }
         
             //delete data from cart_details table
             $sql = "DELETE FROM cart_detail where ip_address = '$ip_address' ";
-            $result = mysqli_query($conn,$sql)or die('Failed to perform db query');
+            $result = mysqli_query($conn,$sql);
  
             mysqli_close($conn);     
         }                  

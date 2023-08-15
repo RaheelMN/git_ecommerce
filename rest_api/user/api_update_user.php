@@ -5,6 +5,10 @@
     session_start();
     
     if(isset($_SESSION['user_id'])){
+
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";  
+        ini_set('error_log', "../../log/error_log.txt");                  
         
         //connecting with DB server
         require_once "../../include/config.php";
@@ -42,7 +46,7 @@
             //check if email already exist
             $sql = "SELECT * FROM users WHERE user_email='$user_email' AND user_id != $user_id";
             
-            $result = mysqli_query($conn,$sql) or die('Failed to pefrom db query');
+            $result = mysqli_query($conn,$sql);
             
             //if record already exits
             if(mysqli_num_rows($result)>0){
@@ -79,7 +83,7 @@
     
             $sql = "UPDATE users SET user_name='$user_name',user_email='$user_email',user_address='$user_address',user_contact='$user_contact' where user_id = $user_id";       
     
-            $result=mysqli_query($conn,$sql)or die('Failed to pefrom db query');
+            $result=mysqli_query($conn,$sql);
     
             $output['form_msg']='Record successfully inserted.';
 

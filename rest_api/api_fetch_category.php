@@ -3,7 +3,11 @@
     header('Content-Type: application/json');
     
     session_start();
+
     if(isset($_SESSION['admin_role'])){
+
+        //Exception handling Settings
+        require_once "../include/error_handling.php";         
 
         //connecting with DB server
         require_once "../include/config.php";
@@ -16,7 +20,7 @@
 
         //sql query to fetch category name
         $sql = "SELECT c_id,c_name FROM categories WHERE c_id = $category_id"; 
-        $result = mysqli_query($conn,$sql) or die('Failed to fetch all records from DB');
+        $result = mysqli_query($conn,$sql);
 
         //To prevent XSS attack browser ouput is displayed using htmlenttites() function
         //Browser parse or interpret server text when it is placed in .html()

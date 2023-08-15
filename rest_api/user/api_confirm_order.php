@@ -7,6 +7,10 @@
     
     if(isset($_SESSION['user_id'])){
 
+        //Exception handling Settings
+        require_once "../../include/error_handling.php";          
+        ini_set('error_log', "../../log/error_log.txt");  
+
         //connecting with DB server
        require_once "../../include/config.php";
 
@@ -23,7 +27,7 @@
 
         //sql query to fetch data from user order
         $sql = "SELECT invoice_number,amount_due FROM user_orders WHERE order_id = $order_id";
-        $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
+        $result = mysqli_query($conn,$sql);
 
         $row = mysqli_fetch_assoc($result);
         $invoice = $row['invoice_number'];
@@ -35,7 +39,7 @@
         INNER JOIN inventory AS i ON o.product_id = i.product_id
         WHERE user_id = $user_id AND invoice_number = $invoice";     
          
-        $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
+        $result = mysqli_query($conn,$sql);
         $records = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
         //check if stock is low with respect to user order
@@ -59,12 +63,12 @@
 
             //sql query to cencel user order in user_orders table
             $sql = "UPDATE user_orders SET order_status = 'Canceled' WHERE order_id = $order_id ";
-            $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
+            $result = mysqli_query($conn,$sql);
 
             //sql query to cencel user order in orders_details table
             $sql = "UPDATE  orders_details SET order_status = 'Canceled' WHERE invoice_number = $invoice 
             AND user_id = $user_id";
-            $result = mysqli_query($conn,$sql) or die('Failed to perform DB query'); 
+            $result = mysqli_query($conn,$sql); 
             
             //close db connection
             mysqli_close($conn);
@@ -82,17 +86,17 @@
         //Insert order record in user payments table
         $sql = "INSERT INTO user_payments (order_id,invoice_no,amount,payment_mode,`date`)
         VALUES ($order_id,$invoice,$amount,$payment_type,NOW())";  
-        $result = mysqli_query($conn,$sql) or die('Failed to perform DB query'); 
+        $result = mysqli_query($conn,$sql); 
             
         //Update user orders table
         $sql = "UPDATE user_orders  SET order_status='Complete' where order_id = $order_id";        
-        $result = mysqli_query($conn,$sql) or die('Failed to perform DB query'); 
+        $result = mysqli_query($conn,$sql); 
  
         
         //Update user orders details table and inventory table
         //Retriving rows of same invoice number in pending order table
         $sql = "SELECT order_id,product_id,quantity FROM orders_details WHERE invoice_number = $invoice ";        
-        $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
+        $result = mysqli_query($conn,$sql);
 
         if(mysqli_num_rows($result)>0){
 
@@ -101,14 +105,14 @@
             foreach($records as $value){
                 //Update order_status for each order id
                 $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
-                $result =mysqli_query($conn,$sql) or die("Failed to perform query");
+                $result =mysqli_query($conn,$sql);
 
                 //Update inventory
                 $sql = "UPDATE inventory SET `status` = CASE WHEN (stock -  {$value['quantity']}) <= 0 THEN
                             'Unavailable' ELSE  'Available' END, 
                             stock = (stock -  {$value['quantity']}), purchased = (purchased +  {$value['quantity']})
                  WHERE product_Id = {$value['product_id']}";
-                $result =mysqli_query($conn,$sql) or die("Failed to perform query");
+                $result =mysqli_query($conn,$sql);
             }
         }  
         
@@ -123,37 +127,5 @@
         //redirect user if he access page without login
         header("location:../../home.html");        
     }
-
-
-
-
-
-
-
-
-
-            //Update user orders details table
-            //Retriving rows of same invoice number in pending order table
-            // $sql = "SELECT order_id,product_id,quantity FROM orders_details WHERE invoice_number = $invoice ";        
-            // $result = mysqli_query($conn,$sql) or die('Failed to perform DB query');
-
-            // if(mysqli_num_rows($result)>0){
-
-            //     $records = mysqli_fetch_all($result,MYSQLI_ASSOC);
-
-            //     foreach($records as $value){
-            //         //Update order_status for each order id
-            //         $sql = "UPDATE orders_details SET order_status='complete' where order_id={$value['order_id']}";
-            //         $result =mysqli_query($conn,$sql) or die("Failed to perform query");
-
-            //         //Update inventory
-            //         $sql = "UPDATE  inventory SET stock = (stock - {$value['quantity']}), purchased = (purchased + {$value['quantity']}) where product_id={$value['product_id']}";
-            //         $result =mysqli_query($conn,$sql) or die("Failed to perform query");
-            //     }
-            // }
-
-
-
-
 
 ?>
