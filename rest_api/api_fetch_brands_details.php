@@ -8,7 +8,7 @@
    if(!isset($_SESSION['admin_role'])){
 
         //rediect host to login page
-       header("location:../admin/admin_login.php");
+       header("location:../admin/admin_login.html");
    }
 
     //connect to db

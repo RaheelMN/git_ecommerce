@@ -1,6 +1,4 @@
 <?php
-
-    // To prevent cache use following code 
     header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
     header('Cache-Control: no-cache, must-revalidate');
     header('Pragma: no-cache');
@@ -12,7 +10,7 @@
    if(!isset($_SESSION['admin_role'])){
 
     // rediect host to login page
-       header("location:./admin_login.php");
+       header("location:./admin_login.html");
    }
 
 ?>
@@ -1129,9 +1127,8 @@
             //End Session
             $.ajax({
                 url:"../admin/api_admin_logout.php",
-                success: function(data){
-
-                    window.location.href = '../admin/admin_login.php';
+                success: function(){
+                    window.location.href = './admin_login.html';
                 }
             });   
 

@@ -33,7 +33,7 @@
         } 
     }else{
         //redirect user if he access page without login
-        header("location:../admin/admin_login.php");
+        header("location:../admin/admin_login.html");
     }
 
 ?>

@@ -1,7 +1,5 @@
 <?php 
 
-    header('Content-Type: ./application/json');
-
     //Exception handling Settings
     require_once "../include/error_handling.php";
     
@@ -12,7 +10,7 @@
    if(!isset($_SESSION['admin_role'])){
 
     //rediect host to login page
-       header("location:admin_login.php");
+       header("location:./admin_login.html");
    }
     
     //destroy browser cookie
@@ -25,6 +23,6 @@
     session_destroy();
     
     //rediect admin to login page
-    header("location:./admin_login.php");            
+    // header("location:./admin_login.html");            
 
 ?>

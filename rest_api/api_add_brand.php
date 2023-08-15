@@ -66,7 +66,7 @@
         }
     }else{
         //rediect host to login page
-        header("location:../admin/admin_login.php");
+        header("location:../admin/admin_login.html");
     }
 
 ?>

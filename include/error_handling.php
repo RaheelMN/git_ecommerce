@@ -1,10 +1,5 @@
 <?php
 
-    header('Pragma : no-cache');
-    header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
-    header('Cache-Control: no-cache, no-store, must-revalidate');
-
-
     // Error Reporting 
     // ;   Development Value: E_ALL
     // ;   Production Value: E_ALL & ~E_DEPRECATED & ~E_STRICT
@@ -46,16 +41,15 @@
          $error_msg = "-- myException -- Error[$code] in line: ".$e->getLine()."-- File Name: " .$e->getFile()." -- Message:  ".$e->getMessage();
 
         //Debugging Mode 
-        // echo "$error_msg";
-        // error_log($error_msg);
+        echo "$error_msg";
+        error_log($error_msg);
         // exit();
 
         // Production Mode
-        error_log($error_msg);
-        http_response_code(500); 
+        // error_log($error_msg);
+        // http_response_code(500); 
         //  $output = ' <p style="text-align: center;font-size: 24px;color: red;margin: 100px 0px;">Error Code 500: Database Server Error</p>';      
-        // echo json_encode($output,JSON_PRETTY_PRINT);
-         exit();        
+        // echo json_encode($output,JSON_PRETTY_PRINT);      
       }
       
       //Create function used in set_error_handler
