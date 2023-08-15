@@ -20,9 +20,6 @@
     session_unset();
 
     //delete session
-    session_destroy();
-    
-    //rediect admin to login page
-    // header("location:./admin_login.html");            
+    session_destroy();            
 
 ?>
